@@ -8,17 +8,17 @@
 	use App\Core\Router;
 
 	/**
-	 * Sessions will be used for storing the User
-	 * data while they are logged in.
-	 */
-	session_start();
-
-	/**
 	 * Load in the files to get the app up and running.
 	 * Will need to be manually updated with each new
 	 * Class, Controller, Model, et al.
 	 */
 	require 'core/bootstrap.php';
+
+	/**
+	 * Sessions will be used for storing the User
+	 * data while they are logged in.
+	 */
+	session_start();
 
 	/**
 	 * $router will hold all of the available routes

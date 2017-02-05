@@ -1,13 +1,12 @@
 <?php
 
-	class User {
+	class Package {
 		public $id;
-		public $username;
-		public $password;
-		public $role;
+		public $user_id;
+		public $destination;
+		public $status;
 		public $created_at;
 		public $updated_at;
-		public $last_login;
 
 		public function __construct() {
 			// silence is golden

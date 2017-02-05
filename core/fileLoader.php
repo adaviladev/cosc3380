@@ -1,6 +1,15 @@
 <?php
 
 	/**
+	 * These two might need to be refactored elsewhere.
+	 * Still haven't decided on how to incorporate
+	 * the Auth class for logging users in.
+	 */
+	foreach( glob( "core/classes/*.php" ) as $file ) {
+		require_once $file;
+	}
+
+	/**
 	 * Keep growing this list as the application grows.
 	 */
 	require 'core/App.php';
@@ -10,15 +19,8 @@
 	require 'core/database/QueryBuilder.php';
 
 	/**
-	 * These two might need to be refactored elsewhere.
-	 * Still haven't decided on how to incorporate
-	 * the Auth class for logging users in.
+	 * Auto-require all controllers in controllers directory
 	 */
-	require 'core/classes/Auth.php';
-	require 'core/classes/User.php';
-
-	/**
-	 * Add all controllers below this line
-	 */
-	require 'controllers/PagesController.php';
-	require 'controllers/UsersController.php';
+	foreach( glob( "controllers/*.php" ) as $file ) {
+		require_once $file;
+	}

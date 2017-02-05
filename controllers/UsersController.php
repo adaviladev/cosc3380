@@ -13,9 +13,13 @@
 
 		public function store(){
 		    App::get('database')->insert( 'users', [
-		    	'name' => $_POST[ 'name' ]
+		    	'username' => $_POST[ 'username' ],
+			    'password' => md5( $_POST[ 'password' ] ),
+			    'role' => 2
 		    ]);
 
-		    header( "Location: /users" );
+		    $users = App::get('database')->selectAll( 'users' );
+		    var_dump($users);
+		    // header( "Location: /home" );
 		}
 	}

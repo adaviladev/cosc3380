@@ -1,54 +1,108 @@
 body {
-	margin: 0;
+	margin      : 0;
+	font-family : "Lato Light", sans-serif;
 }
 
 .clearfix:after {
-	content: "";
-	display: table;
-	clear: both;
-}
-
-#Logo {
-	display: inline-block;
-	text-decoration : none;
-}
-
-/* Navigation Styling */
-nav {
-	float: right;
-	padding: 12px 0;
-}
-
-nav > ul > li {
-	display: inline-block;
-	float: left;
-	list-style-type: none;
-}
-
-nav > ul > li a {
-	text-decoration : none;
-	padding: 32px 32px;
-	transition: all .5s;
-}
-
-nav a:hover {
-	background-color: lightgrey;
-	border-bottom: solid 2px cyan;
+	content : "";
+	display : table;
+	clear   : both;
 }
 
 /* Grid Styling */
 .row {
-	width: 100%;
+	width : 100%;
 }
 
 .container {
-	width: 100%;
-	max-width: 1120px;
-	margin: 0 auto;
+	width     : 90%;
+	max-width : 1120px;
+	margin    : 0 auto;
+}
+
+#Content {
+	padding : 30px 0;
 }
 
 #Colophon {
-	padding: 30px 0;
+	padding : 30px 0;
 }
 
-/* Login Styling */
+/* Navigation Styling */
+#Logo {
+	display         : inline-block;
+	padding         : 15px 0px;
+	text-decoration : none;
+	font-size       : 22px;
+}
+
+.nav-menu {
+	background-color : #1dae70;
+	color            : #ffffff;
+}
+
+.nav-menu a {
+	color : #ffffff;
+}
+
+nav {
+	float   : right;
+	/*padding : 12px 0;*/
+}
+
+nav > ul > li {
+	display         : inline-block;
+	float           : left;
+	list-style-type : none;
+}
+
+nav > ul > li a {
+	text-decoration : none;
+	padding         : 22px 32px;
+	transition      : all .5s;
+}
+
+nav a:hover {
+	background-color : lightgrey;
+	border-bottom    : solid 2px cyan;
+	border-bottom-style: inset;
+}
+
+/* Start Form styling */
+.form-wrapper {
+	max-width : 600px;
+	width     : 95%;
+	margin    : 0 auto;
+}
+
+.form-wrapper input {
+	width         : 95%;
+	border        : 1px solid;
+	border-radius : 4px;
+	margin-bottom : 24px;
+	padding       : 8px;
+
+}
+
+.form-wrapper button {
+	padding            : 8px 16px;
+	border-radius      : 4px;
+	border             : none;
+	background-color   : #007744;
+	color              : #ffffff;
+
+	-webkit-transition : all .3s;
+	-moz-transition    : all .3s;
+	-ms-transition     : all .3s;
+	-o-transition      : all .3s;
+	transition         : all .3s;
+}
+
+.form-wrapper button:hover {
+	background-color : #1dae70;
+	/*color            : #333333;*/
+}
+
+@media (max-width: 767px){
+
+}

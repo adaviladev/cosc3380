@@ -20,18 +20,55 @@
 		}
 
 		/**
-		 * Need to change this to accept a column parameter
-		 * along with a value so we can search on any field.
-		 *
 		 * @param $user
 		 * @param $table
 		 * @param $class
 		 */
-		public function find( $user , $table , $class ) {
-			$statement = $this->pdo->prepare( "select * from {$table} WHERE username = {$user->username} AND password = bcrypt({$user->password})" );
+		public function find( $table , $params , $class = stdClass::class ) {
+			$sql = "SELECT * FROM {$table} WHERE";
+			$ctr = 0;
+			foreach( $params as $key => $val ) {
+				if( $ctr > 0 ) {
+					$sql .= " AND";
+				}
+				if( $key == 'password' ) {
+					$val = md5( $val );
+				}
+				$sql .= " {$key}='{$val}'";
+				$ctr++;
+			}
+
+			$statement = $this->pdo->prepare( $sql );
+			$statement->setFetchMode(PDO::FETCH_CLASS, $class );
 			$statement->execute();
 
-			var_dump( $statement->fetch( PDO::FETCH_CLASS , $class ) );
+			return $statement->fetch();
+		}
+
+		/**
+		 * @param $user
+		 * @param $table
+		 * @param $class
+		 */
+		public function findAll( $table , $params , $class = stdClass::class ) {
+			$sql = "SELECT * FROM {$table} WHERE";
+			$ctr = 0;
+			foreach( $params as $key => $val ) {
+				if( $ctr > 0 ) {
+					$sql .= " AND";
+				}
+				if( $key == 'password' ) {
+					$val = md5( $val );
+				}
+				$sql .= " {$key}='{$val}'";
+				$ctr++;
+			}
+
+			$statement = $this->pdo->prepare( $sql );
+			$statement->setFetchMode(PDO::FETCH_CLASS, $class );
+			$statement->execute();
+
+			return $statement->fetchAll();
 		}
 
 		/**

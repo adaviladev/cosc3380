@@ -5,19 +5,19 @@
 	</head>
 
 	<body>
-		<div class="row">
+		<div class="row nav-menu">
 			<div class="container clearfix">
 				<a href="/" id="Logo">
-					<h1>Home</h1>
+					Home
 				</a>
 				<nav>
 					<ul class="clearfix">
-						<li><a href="/about">About</a></li>
 						<li><a href="/users">Users</a></li>
-						<li><a href="/contact">Contact</a></li>
+						<li><a href="/login">Login</a></li>
+						<li><a href="/register">Register</a></li>
 					</ul>
 				</nav>
 			</div>
 		</div>
 		<div class="row">
-			<div class="container">
+			<div id="Content" class="container">

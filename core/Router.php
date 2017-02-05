@@ -33,6 +33,23 @@
 		 * Called from ./routes.php
 		 */
 		public function get( $uri , $controller ) {
+			/**
+			 * TODO
+			 * Need to add functionality for handling paramaters in the path
+			 */
+			// var_dump( $uri );
+			// $breadcrumbs = explode( '/:' , $uri );
+			// // echo $breadcrumbs;
+			// if( isset( $breadcrumbs[ 1 ] ) ) {
+			// 	echo '<pre>';
+			// 	print_r( $breadcrumbs );
+			// 	echo '</pre>';
+			// }
+
+			// $this->routes[ 'GET' ][ $uri ] = array(
+			// 	'controller' => $controller,
+			// 	'parameters' => ($breadcrumbs[1] ? $breadcrumbs[1]: null),
+			// );
 			$this->routes[ 'GET' ][ $uri ] = $controller;
 		}
 
@@ -53,14 +70,14 @@
 			throw new Exception( 'No route defined for URI.' );
 		}
 
-		protected function callAction( $controller , $method ) {
+		protected function callAction( $controller , $method , $params = [] ) {
 			$controller = "App\\Controllers\\{$controller}";
 			$controller = new $controller;
 
 			if( ! method_exists( $controller , $method ) ) {
-				// throw new Exception( "Controller {$controller} does not have method {$method}()." );
+				throw new Exception( "Controller {$controller} does not have method {$method}()." );
 			}
 
-			return $controller->$method();
+			return $controller->$method( $params );
 		}
 	}
