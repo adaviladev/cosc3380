@@ -24,7 +24,7 @@
 		 * @param $table
 		 * @param $class
 		 */
-		public function find( $table , $params , $class = stdClass::class ) {
+		public function find( $table , $params , $class = 'stdClass' ) {
 			$sql = "SELECT * FROM {$table} WHERE";
 			$ctr = 0;
 			foreach( $params as $key => $val ) {
@@ -50,7 +50,7 @@
 		 * @param $table
 		 * @param $class
 		 */
-		public function findAll( $table , $params , $class = stdClass::class ) {
+		public function findAll( $table , $params , $class = 'stdClass' ) {
 			$sql = "SELECT * FROM {$table} WHERE";
 			$ctr = 0;
 			foreach( $params as $key => $val ) {

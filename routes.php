@@ -9,7 +9,8 @@
 	$router->get( 'users' , 'UsersController@show' );
 
 	$router->get( 'home' , 'HomeController@home' );
-	// $router->get( 'home/1' , 'HomeController@showPackages' );
+	$router->get( 'packages' , 'PackageController@show' );
+	$router->get( 'packages/:packageId' , 'PackageController@packageDetail' );
 
 	/**
 	 * Authentication routes

@@ -1,3 +1,7 @@
+/**
+Color Pallet can be found here.
+http://paletton.com/#uid=1330u0kqJvTg-I7lNA4vnrNxZlJ
+ */
 body {
 	margin      : 0;
 	font-family : "Lato Light", sans-serif;
@@ -20,8 +24,47 @@ body {
 	margin    : 0 auto;
 }
 
+.float-left {
+	float : left;
+}
+
+.float-right {
+	float : right;
+}
+
+.one_fifth {
+	width: 20%;
+}
+
+/* Layout styling */
+.text-left {
+	text-align : left;
+}
+.text-center {
+	text-align : center;
+}
+.text-right {
+	text-align : right;
+}
 #Content {
 	padding : 30px 0;
+}
+
+.package-wrapper {
+	background-color: #f3f8f8;
+	-webkit-border-radius : 4px;
+	-moz-border-radius    : 4px;
+	border-radius         : 4px;
+}
+
+.package-list-item {
+	width: 100%;
+	margin: 0 auto;
+	padding: 8px 0;
+}
+
+.package-list-item:nth-child(odd) {
+	background-color: #c7e4f8;
 }
 
 #Colophon {
@@ -46,7 +89,7 @@ body {
 }
 
 nav {
-	float   : right;
+	float : right;
 	/*padding : 12px 0;*/
 }
 
@@ -63,12 +106,12 @@ nav > ul > li a {
 }
 
 nav a:hover {
-	background-color : lightgrey;
-	border-bottom    : solid 2px cyan;
-	border-bottom-style: inset;
+	background-color    : lightgrey;
+	border-bottom       : solid 2px cyan;
+	border-bottom-style : inset;
 }
 
-/* Start Form styling */
+/* Form styling */
 .form-wrapper {
 	max-width : 600px;
 	width     : 95%;
@@ -103,6 +146,11 @@ nav a:hover {
 	/*color            : #333333;*/
 }
 
-@media (max-width: 767px){
+/*
+	Media queries go below here.
+	Use "max-width" for setting breakpoints
+	and make sure it goes from high to low.
+*/
+@media (max-width : 767px) {
 
 }
