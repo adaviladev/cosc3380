@@ -22,6 +22,6 @@
 		}
 
 		public function packageDetail( $packageId ){
-
+			var_dump( $packageId );
 		}
 	}

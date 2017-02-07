@@ -61,11 +61,37 @@
 		}
 
 		public function direct( $uri , $requestType ) {
-
 			if( array_key_exists( $uri , $this->routes[ $requestType ] ) ) {
 
 				return $this->callAction( ...explode( '@' , $this->routes[ $requestType ][ $uri ] ) );
 			}
+
+			/*var_dump( 'start foreach' );
+			foreach( $this->routes[ $requestType ] as $route => $controller) {
+				echo $route . '<br/>';
+				$patternStr = explode( '/' , $route );
+				var_dump( $patternStr );
+				$regex = '/';
+				$ctr = 0;
+				foreach( $patternStr as $pattern ) {
+					if( $pattern === '' ) {
+						continue;
+					}
+					if( $ctr > 0 ) {
+						$regex .= "\/";
+					}
+					$regex .= "(?P<" . $pattern . ">)";
+					$ctr++;
+				}
+				$regex .= "/";
+				if(
+				preg_match($regex, $route, $matches) ) {
+					var_dump( 'match at ' . $route  . ' || ' . $uri);
+					// return $this->callAction( ...explode( '@' , $this->routes[ $requestType ][ $uri ] , $matches ) );
+				}
+			}
+			var_dump( $matches );
+			var_dump( $this->routes );*/
 
 			throw new Exception( 'No route defined for URI.' );
 		}
@@ -74,6 +100,7 @@
 			$controller = "App\\Controllers\\{$controller}";
 			$controller = new $controller;
 
+			var_dump( $controller , $method , $params );
 			if( ! method_exists( $controller , $method ) ) {
 				throw new Exception( "Controller {$controller} does not have method {$method}()." );
 			}
