@@ -32,7 +32,8 @@
 		/**
 		 * Called from ./routes.php
 		 */
-		public function get( $uri , $controller ) {
+		public function get( $uri ,
+		                     $controller ) {
 			/**
 			 * TODO
 			 * Need to add functionality for handling paramaters in the path
@@ -56,52 +57,77 @@
 		/**
 		 * Called from ./routes.php
 		 */
-		public function post( $uri , $controller ) {
+		public function post( $uri ,
+		                      $controller ) {
 			$this->routes[ 'POST' ][ $uri ] = $controller;
 		}
 
-		public function direct( $uri , $requestType ) {
-			if( array_key_exists( $uri , $this->routes[ $requestType ] ) ) {
+		public function direct( $uri ,
+		                        $requestType ) {
+			if( array_key_exists( $uri ,
+			                      $this->routes[ $requestType ] ) ) {
 
-				return $this->callAction( ...explode( '@' , $this->routes[ $requestType ][ $uri ] ) );
+				return $this->callAction( ...
+					explode( '@' ,
+					         $this->routes[ $requestType ][ $uri ] ) );
 			}
 
-			/*var_dump( 'start foreach' );
-			foreach( $this->routes[ $requestType ] as $route => $controller) {
+			var_dump( 'start foreach' );
+			foreach( $this->routes[ $requestType ] as $route => $controller ) {
 				echo $route . '<br/>';
-				$patternStr = explode( '/' , $route );
-				var_dump( $patternStr );
-				$regex = '/';
-				$ctr = 0;
+				$route = str_replace( '{' , '' , $route);
+				$route = str_replace( '}' , '' , $route);
+				$patternStr = explode( '/' ,
+				                       $route );
+				// var_dump( $patternStr );
+				$regex = '';
+				$ctr   = 0;
 				foreach( $patternStr as $pattern ) {
 					if( $pattern === '' ) {
 						continue;
 					}
-					if( $ctr > 0 ) {
-						$regex .= "\/";
+					if( $ctr == 0 ) {
+						$regex .= "@^" . $pattern;
+						$ctr++;
+						continue;
+					} else {
+						$regex .= "/";
 					}
-					$regex .= "(?P<" . $pattern . ">)";
+					$regex .= "(?<" . $pattern . ">[a-z0-9]+)";
 					$ctr++;
 				}
-				$regex .= "/";
-				if(
-				preg_match($regex, $route, $matches) ) {
+				if( $regex != '' ) {
+					$regex .= "@";
+				}
+				// var_dump( $regex );
+				if( preg_match( $regex ,
+				                $uri ,
+				                $matches ) ) {
 					var_dump( 'match at ' . $route  . ' || ' . $uri);
+					var_dump( $matches );
 					// return $this->callAction( ...explode( '@' , $this->routes[ $requestType ][ $uri ] , $matches ) );
+					$params = explode( '@' , $controller );
+					return $this->callAction( $params[0] , $params[1] , ...($matches) );
 				}
 			}
-			var_dump( $matches );
-			var_dump( $this->routes );*/
+			// var_dump( $matches );
+			// var_dump( $this->routes );
 
-			throw new Exception( 'No route defined for URI.' );
+			// throw new Exception( 'No route defined for URI.' );
 		}
 
-		protected function callAction( $controller , $method , $params = [] ) {
+		protected function callAction( $controller ,
+		                               $method ,
+		                               $params = [] ) {
+
+			var_dump( $controller ,
+			          $method ,
+			          $params );
 			$controller = "App\\Controllers\\{$controller}";
 			$controller = new $controller;
-
-			var_dump( $controller , $method , $params );
-			if( ! method_exists( $controller , $method ) ) {
+			if( ! method_exists( $controller ,
+			                     $method )
+			) {
 				throw new Exception( "Controller {$controller} does not have method {$method}()." );
 			}
 
