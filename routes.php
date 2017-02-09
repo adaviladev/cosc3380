@@ -7,10 +7,11 @@
 	$router->get( 'about' , 'PagesController@about' );
 	$router->get( 'contact' , 'PagesController@contact' );
 	$router->get( 'users' , 'UsersController@show' );
+	$router->get( 'users/:userId' , 'UsersController@userDetail' );
 
 	$router->get( 'home' , 'HomeController@home' );
 	$router->get( 'packages' , 'PackageController@show' );
-	$router->get( 'packages/{packageId}' , 'PackageController@packageDetail' );
+	$router->get( 'packages/:packageId' , 'PackageController@packageDetail' );
 
 	/**
 	 * Authentication routes

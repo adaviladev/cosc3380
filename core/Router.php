@@ -32,105 +32,77 @@
 		/**
 		 * Called from ./routes.php
 		 */
-		public function get( $uri ,
-		                     $controller ) {
-			/**
-			 * TODO
-			 * Need to add functionality for handling paramaters in the path
-			 */
-			// var_dump( $uri );
-			// $breadcrumbs = explode( '/:' , $uri );
-			// // echo $breadcrumbs;
-			// if( isset( $breadcrumbs[ 1 ] ) ) {
-			// 	echo '<pre>';
-			// 	print_r( $breadcrumbs );
-			// 	echo '</pre>';
-			// }
-
-			// $this->routes[ 'GET' ][ $uri ] = array(
-			// 	'controller' => $controller,
-			// 	'parameters' => ($breadcrumbs[1] ? $breadcrumbs[1]: null),
-			// );
+		public function get( $uri , $controller ) {
 			$this->routes[ 'GET' ][ $uri ] = $controller;
 		}
 
 		/**
 		 * Called from ./routes.php
 		 */
-		public function post( $uri ,
-		                      $controller ) {
+		public function post( $uri , $controller ) {
 			$this->routes[ 'POST' ][ $uri ] = $controller;
 		}
 
-		public function direct( $uri ,
-		                        $requestType ) {
-			if( array_key_exists( $uri ,
-			                      $this->routes[ $requestType ] ) ) {
-
+		public function direct( $uri , $requestType ) {
+			if( array_key_exists( $uri , $this->routes[ $requestType ] ) ) {
 				return $this->callAction( ...
-					explode( '@' ,
-					         $this->routes[ $requestType ][ $uri ] ) );
+					explode( '@' , $this->routes[ $requestType ][ $uri ] ) );
 			}
 
-			var_dump( 'start foreach' );
 			foreach( $this->routes[ $requestType ] as $route => $controller ) {
-				echo $route . '<br/>';
-				$route = str_replace( '{' , '' , $route);
-				$route = str_replace( '}' , '' , $route);
-				$patternStr = explode( '/' ,
-				                       $route );
-				// var_dump( $patternStr );
-				$regex = '';
-				$ctr   = 0;
-				foreach( $patternStr as $pattern ) {
-					if( $pattern === '' ) {
-						continue;
-					}
-					if( $ctr == 0 ) {
-						$regex .= "@^" . $pattern;
-						$ctr++;
-						continue;
-					} else {
-						$regex .= "/";
-					}
-					$regex .= "(?<" . $pattern . ">[a-z0-9]+)";
-					$ctr++;
+				if( $route == '' ) {
+					continue;
 				}
-				if( $regex != '' ) {
-					$regex .= "@";
+
+				$patternStr = explode( '/' , $route );
+				if( count( explode( '/' , $uri ) ) != count( $patternStr ) ) {
+					continue;
 				}
-				// var_dump( $regex );
-				if( preg_match( $regex ,
-				                $uri ,
-				                $matches ) ) {
-					var_dump( 'match at ' . $route  . ' || ' . $uri);
-					var_dump( $matches );
-					// return $this->callAction( ...explode( '@' , $this->routes[ $requestType ][ $uri ] , $matches ) );
+
+				$regex = $this->getRegex( $patternStr );
+				if( preg_match( $regex , $uri , $matches ) ) {
 					$params = explode( '@' , $controller );
-					return $this->callAction( $params[0] , $params[1] , ...($matches) );
+					array_shift( $matches );
+
+					return $this->callAction( $params[ 0 ] , $params[ 1 ] , ...$matches );
 				}
 			}
-			// var_dump( $matches );
-			// var_dump( $this->routes );
 
-			// throw new Exception( 'No route defined for URI.' );
+			throw new Exception( 'No route defined for URI.' );
 		}
 
-		protected function callAction( $controller ,
-		                               $method ,
-		                               $params = [] ) {
+		protected function callAction( $controller , $method , $params = [] ) {
 
-			var_dump( $controller ,
-			          $method ,
-			          $params );
 			$controller = "App\\Controllers\\{$controller}";
 			$controller = new $controller;
-			if( ! method_exists( $controller ,
-			                     $method )
-			) {
+			if( ! method_exists( $controller , $method ) ) {
 				throw new Exception( "Controller {$controller} does not have method {$method}()." );
 			}
 
 			return $controller->$method( $params );
+		}
+
+		private function getRegex( $route ) {
+			$regex = '#';
+			$ctr   = 0;
+			$wildcard = false;
+			foreach( $route as $pattern ) {
+				if( $pattern[0] == ':' ) {
+					$wildcard = true;
+					$pattern = str_replace( ':' , '' , $pattern );
+				}
+				if( $ctr > 0 ) {
+					$regex .= '/';
+				}
+				if( $wildcard ) {
+					$regex .= '([a-z0-9]+)';
+				} else {
+					$regex .= $pattern;
+				}
+				$ctr++;
+				$wildcard = false;
+			}
+			$regex .= '#';
+			return $regex;
 		}
 	}

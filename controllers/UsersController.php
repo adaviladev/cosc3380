@@ -11,6 +11,18 @@
 			return view( 'index' , compact( 'users' ) );
 		}
 
+		public function userDetail( $userId ){
+			$user = App::get( 'database' )
+				->find(
+					'users',
+					[
+						'id' => $userId
+					],
+					'User'
+				);
+			var_dump( $user );
+		}
+
 		public function store(){
 		    App::get('database')->insert( 'users', [
 		    	'username' => $_POST[ 'username' ],

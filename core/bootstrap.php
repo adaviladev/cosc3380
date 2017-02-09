@@ -25,3 +25,11 @@
 
 		return require "views/{$name}.view.php";
 	}
+
+	function getHeader() {
+		return require_once( 'views/partials/header.php' );
+	}
+
+	function getFooter() {
+		return require_once( 'views/partials/footer.php' );
+	}
