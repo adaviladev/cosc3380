@@ -64,7 +64,7 @@
 					$params = explode( '@' , $controller );
 					array_shift( $matches );
 
-					return $this->callAction( $params[ 0 ] , $params[ 1 ] , ...$matches );
+					return $this->callAction( $params[ 0 ] , $params[ 1 ] , $matches );
 				}
 			}
 
@@ -79,7 +79,7 @@
 				throw new Exception( "Controller {$controller} does not have method {$method}()." );
 			}
 
-			return $controller->$method( $params );
+			return $controller->$method( ...$params );
 		}
 
 		private function getRegex( $route ) {

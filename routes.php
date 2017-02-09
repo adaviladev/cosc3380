@@ -11,7 +11,7 @@
 
 	$router->get( 'home' , 'HomeController@home' );
 	$router->get( 'packages' , 'PackageController@show' );
-	$router->get( 'packages/:packageId' , 'PackageController@packageDetail' );
+	$router->get( 'packages/:packageId/:foo/:bar' , 'PackageController@packageDetail' );
 
 	/**
 	 * Authentication routes
