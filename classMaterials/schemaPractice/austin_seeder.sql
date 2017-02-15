@@ -8,6 +8,7 @@ CREATE TABLE users (
 	password       VARCHAR(255) NOT NULL ,
 	street_adress  VARCHAR(255),
 	city           VARCHAR(50),
+	-- INT might need to be INT(10) to match the state(id) data type setting
 	state_id       INT REFERENCES state (id),
 	zip            INT(7),
 	email          VARCHAR(50),
@@ -22,6 +23,7 @@ CREATE TABLE users (
 DROP TABLE IF EXISTS state;
 CREATE TABLE state (
 	id         INT(10) UNSIGNED PRIMARY KEY AUTO_INCREMENT ,
+	-- We'll just use the abbreviations
 	state       VARCHAR(12) NOT NULL
 	-- 12 because RI has the longest name of any state with 12 characters
 	-- we could just as easily make this 2 characters using abbreviation
@@ -44,6 +46,7 @@ CREATE TABLE packages (
 	-- I really think we should make address it's own table as adrian suggested
 	-- it would be especially useful here so we don't have 6 individual attributes
 	-- having to do with addresses
+	-- AD: If we do this, return_address and destination will be references to addresses(id)
 	status         INT REFERENCES status (id) ,
 	contents       VARCHAR(255) ,
 	weight         DOUBLE ,
@@ -57,6 +60,8 @@ DROP TABLE IF EXISTS status;
 CREATE TABLE status (
 	id    INT(10) UNSIGNED PRIMARY KEY AUTO_INCREMENT ,
 	type  VARCHAR(50)
+	-- Krishan suggested adding a count value to have immediate access to how many there are
+	-- I'm thinking we might also need time stamps
 );
 
 DROP TABLE IF EXISTS transactions;
@@ -65,6 +70,8 @@ CREATE TABLE transactions (
 	user_id        INT(10) REFERENCES users (id) ,
 	employee_id    INT(10) REFERENCES users (id) ,
 	post_office_id INT(10) REFERENCES post_offices (id) ,
+	-- I'm sure this wasn't mentioned, but we will also be
+	-- able to specify the number of decimal places
 	cost           DOUBLE ,
 	package_id     INT(10) REFERENCES packages (id) ,
 	created_at     TIMESTAMP DEFAULT CURRENT_TIMESTAMP
@@ -77,4 +84,5 @@ CREATE TABLE post_offices (
 	city     VARCHAR(50),
 	state_id INT REFERENCES state (id),
 	zip      INT(7)
+	-- need timestamps and user records for modification
 );
