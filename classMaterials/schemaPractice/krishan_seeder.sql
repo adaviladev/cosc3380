@@ -10,9 +10,12 @@ CREATE TABLE users (
 	firstName       VARCHAR(50) ,
 	lastName        VARCHAR(50) ,
 	address         INT(10) REFERENCES addresses (id) ,
-	roleId          INT(10) REFERENCES roles (id),
 	email           VARCHAR(50) ,
+	roleId          INT(10) REFERENCES roles (id),
 	postOfficeId    INT(10) REFERENCES postOffices (id) ,
+
+	constraint fkPostOfficeId FOREIGN KEY (postOfficeId) REFERENCES postOffices (id) ,
+	constraint fkRoleId FOREIGN KEY (roleId) REFERENCES roles (id) ,
 
 	modifiedBy      INT(10) REFERENCES users (id),
 	createdAt       TIMESTAMP DEFAULT CURRENT_TIMESTAMP ,
@@ -34,18 +37,27 @@ DROP TABLE IF EXISTS packages;
 CREATE TABLE packages (
 	id              INT(10) UNSIGNED PRIMARY KEY AUTO_INCREMENT ,
 
-	userId         INT(10) REFERENCES users (id) NOT NULL ,
-	postOfficeId    INT(10) REFERENCES postOffices (id) NOT NULL ,
-	typeId          INT(10) REFERENCES packageTypes (id) ,
-	transactionId   INT(10) REFERENCES transactions (id) ,
-	destination     INT(10) REFERENCES addresses (id) ,
-	returnAddress   INT(10) REFERENCES addresses (id) ,
+	userId          INT(10) ,
+	postOfficeId    INT(10) ,
+	typeId          INT(10) ,
+	transactionId   INT(10) ,
+	destination     INT(10) ,
+	returnAddress   INT(10) ,
 	contents        VARCHAR(255) ,
 	weight          DOUBLE ,
 	priority        BOOL ,
-	packageStatus   INT(10) REFERENCES packageStatus (id) ,
+	packageStatus   INT(10) ,
 
-	modifiedBy      INT(10) REFERENCES users(id) ,
+  constraint fkUserId FOREIGN KEY (userId) REFERENCES users (id) ,
+  constraint fkPostOfficeId FOREIGN KEY (postOfficeId) REFERENCES postOffices (id) ,
+  constraint fkTypeId FOREIGN KEY (typeId) REFERENCES packageTypes (id) ,
+  constraint fkTransactionId FOREIGN KEY (transactionId) REFERENCES transactions (id) ,
+  constraint fkDestination FOREIGN KEY (destination) REFERENCES addresses (id) ,
+  constraint fkReturnAddress FOREIGN KEY (returnAddress) REFERENCES addresses (id) ,
+
+	modifiedBy      INT(10) ,
+	constraint fkModifiedBy foreign key (modifiedBy) references users (id) ,
+
 	createdAt       TIMESTAMP DEFAULT CURRENT_TIMESTAMP ,
 	modifiedAt      TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
@@ -76,12 +88,17 @@ DROP TABLE IF EXISTS transactions;
 CREATE TABLE transactions (
 	id            INT(10) UNSIGNED PRIMARY KEY AUTO_INCREMENT ,
 
-	customerId        INT(10) REFERENCES users (id) ,
-	postOfficeId  INT(10) REFERENCES postOffices (id) ,
-	employeeId    INT(10) REFERENCES users (id) ,
-	packageId     INT(10) REFERENCES packages (id),
+	customerId    INT(10) ,
+	postOfficeId  INT(10) ,
+	employeeId    INT(10) ,
+	packageId     INT(10) ,
 	cost          DOUBLE ,
 	
+	constraint fkCustomerId FOREIGN KEY (customerId) REFERENCES users (id) ,
+  constraint fkPostOfficeId FOREIGN KEY (postOfficeId) REFERENCES postOffices (id) ,
+  constraint fkEmployeeId FOREIGN KEY (employeeId) REFERENCES users (id) ,
+  constraint fkPackageId FOREIGN KEY (packageId) REFERENCES packages (id) ,
+
 	createdAt     TIMESTAMP DEFAULT CURRENT_TIMESTAMP ,
 	modifiedAt    TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
@@ -100,8 +117,10 @@ CREATE TABLE packageStatus (
 
 	type          VARCHAR(50) ,
 	count         INT ,
-	
-	modifiedBy    INT(10) REFERENCES postOffice (id), --This could possibly be a user id depending on implementation
+
+	modifiedBy    INT(10) --This could possibly be a user id depending on implementation
+	constraint fkModifiedBy FOREIGN KEY (modifiedBy) REFERENCES postOffices (id) ,
+
 	createdAt     TIMESTAMP DEFAULT CURRENT_TIMESTAMP ,
 	modifiedAt    TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
@@ -112,8 +131,10 @@ Create TABLE addresses (
 
   street      INT(10) ,
   city        VARCHAR(50) ,
-  state       INT(10) REFERENCES state (id) ,
+  state       INT(10) ,
   zipCode     INT(9) ,
+
+  constraint fkState foreign key (state) references states (id) ,
 
   createdAt     TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
