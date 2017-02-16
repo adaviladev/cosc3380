@@ -27,7 +27,6 @@ CREATE TABLE roles (
 	id            INT(10) UNSIGNED PRIMARY KEY AUTO_INCREMENT ,
 
 	type          VARCHAR(50) NOT NULL ,
-	count         INT ,
 
 	createdAt     TIMESTAMP DEFAULT CURRENT_TIMESTAMP ,
 	modifiedAt    TIMESTAMP DEFAULT CURRENT_TIMESTAMP
@@ -81,7 +80,6 @@ CREATE TABLE states (
 	id         INT(10) UNSIGNED PRIMARY KEY AUTO_INCREMENT ,
 
 	state      VARCHAR(2) ,
-	count      INT ,
 );
 
 DROP TABLE IF EXISTS transactions;
@@ -108,7 +106,6 @@ CREATE TABLE packageTypes (
 	id         INT(10) UNSIGNED PRIMARY KEY AUTO_INCREMENT ,
 
 	type       VARCHAR(50) ,
-	count      INT ,
 );
 
 DROP TABLE IF EXISTS packagStatus;
@@ -116,7 +113,6 @@ CREATE TABLE packageStatus (
 	id            INT(10) UNSIGNED PRIMARY KEY AUTO_INCREMENT ,
 
 	type          VARCHAR(50) ,
-	count         INT ,
 
 	modifiedBy    INT(10) --This could possibly be a user id depending on implementation
 	constraint fkModifiedBy FOREIGN KEY (modifiedBy) REFERENCES postOffices (id) ,
