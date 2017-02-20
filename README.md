@@ -31,7 +31,7 @@ Set up instructions can be found [here](https://laravel.com/docs/5.4/homestead):
    "192.168.10.10 database.app"
    - This will instruct your system to direct all HTTP requests to "database.app" to "192.168.10.10" which is the IP address of your local virtual machine while it's up.
    
-8. Using Git Bash, navigate to your home directory ("cd ~") and run the following command:
+8. Using Git Bash, navigate to your Homestead directory ("cd ~/Homestead") and run the following command:
     - ssh-keygen -t rsa -C "you@homestead"
     - This will create a .ssh directory with your ssh key inside for SSh-ing into your virtual machine.
     
