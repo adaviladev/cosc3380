@@ -1,6 +1,4 @@
-<?php
-	include( 'views/partials/header.php' );
-?>
+<?php getHeader(); ?>
 
 	<div class="row">
 		<div class="container">
@@ -22,6 +20,4 @@
 	</div>
 	<!-- /.row -->
 
-<?php
-	require_once( 'views/partials/footer.php' );
-?>
+<?php getFooter(); ?>

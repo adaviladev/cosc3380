@@ -1,6 +1,4 @@
-<?php
-	require 'partials/header.php';
-?>
+<?php getHeader(); ?>
 
 	<div class="row">
 		<div class="container">
@@ -14,6 +12,4 @@
 		</div>
 	</div>
 
-<?php
-	require 'partials/footer.php';
-?>
+<?php getFooter(); ?>

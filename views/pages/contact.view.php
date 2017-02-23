@@ -1,7 +1,3 @@
-<?php
-	require 'views/partials/header.php';
-?>
+<?php getHeader(); ?>
 	<h1>Contact Page</h1>
-<?php
-	require 'views/partials/footer.php';
-?>
+<?php getFooter(); ?>
