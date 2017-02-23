@@ -1,0 +1,85 @@
+Site Map:
+Path preceded by "--"
+Comments for page above preceded by "//"
+
+- Front Page -- /
+- Account -- /account
+    // Assigned to Andres
+    // Shows preview of signed in user's info
+    - Packages -- /account/packages
+        // Assigned to Austin
+        // List all of the user's packages. Be able to filter by status of packages
+        - Package -- /account/packages/:packageId
+            // Assigned to Austin
+            // Shows info of a specific package. Can also update status or destination if still processing
+    - Transactions -- /account/transactions
+        // Assigned to Andres
+        // List all of the user's transactions. Be able to filter by status of transactions
+        - Transaction -- /account/transaction/:transactionId
+            // Assigned to Andres
+            // Shows info of a specific package. Can maybe also cancel from here
+    - Account Info -- /account/info
+        // Assigned to Austin
+        // Show user's account info. Can maybe update their name, password, address, etc
+- Dashboard -- /dashboard
+    // Assigned to Adrian
+    // Show preview of signed in employee's data. Latest transactions by that employee, current packages, etc.
+    - Users -- /dashboard/users
+        // Assigned to Victor
+        // Show all customers that have packages at current employee's post office
+        - User -- /dashboard/users/:userId
+            // Assigned to Victor
+            // Show specific customer info
+    - Packages -- /dashboard/packages
+        // Assigned to Adrian
+        // Show all packages at the current employees post office
+        - Package -- /dashboard/packages/:packageId
+            // Assigned to Adrian
+            // Show info for selected package
+    - Transactions -- /dashboard/transactions
+        // Assigned to Victor
+        // Show all transactions handled by current employee's post office
+        - Transaction -- /dashboard/transactions/:transactionId
+            // Assigned to Victor
+            // Show info for current transaction
+
+- Admin -- /admin
+    - Packages -- /admin/packages
+        // Assigned to Krishan
+        // Show all packages in database. Filter by status. Add pagination
+        - Package -- /admin/packages/:packageId
+            // Assigned to Krishan
+            // Show package info
+    - Transactions -- /admin/transactions
+        // Assigned to Krishan
+        // Show all transactions in database. Filter by status. Add pagination
+    - Post Offices -- /admin/post-offices
+        // Assigned to Krishan
+        // Show all post offices
+        - Post Office -- /admin/post-offices/:postOfficeId
+            // Assigned to Krishan
+            // Show info for specific post office
+- Locations -- /locations
+        // Assigned to Adrian
+    // List all post office locations
+    // Once user is logged we can also maybe sort by proximity.
+- About -- /about-us
+    // Assigned to Austin
+    // Copy talking about the company
+- Contact Us -- /contact-us
+    // Assigned to Krishan
+    // Contact information for Prost Office HQ and a contact form
+    // Name, email, subject, message
+
+- Login -- /login
+    // Assigned to Adrian
+    // Login form if you already have an account.
+    // If used and account doesn't exist, redirect to /register
+- Register -- /register
+    // Assigned to Adrian
+    // Sign up form
+    // All users table fields required.
+
+
+
+/* Comments */
