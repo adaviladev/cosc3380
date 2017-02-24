@@ -17,8 +17,7 @@
 			return view( 'packages' , compact( 'packages' ) );
 		}
 
-		public function packageDetail( $packageId , $foo, $bar ) {
-			die(var_dump( $packageId, $foo , $bar ) );
+		public function packageDetail( $packageId ) {
 			$package = App::get( 'database' )->find( 'packages' , [
 					'id' => $packageId
 				] , 'Package' );
