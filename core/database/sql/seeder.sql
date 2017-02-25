@@ -18,14 +18,15 @@ DROP TABLE IF EXISTS `addresses`;
 CREATE TABLE `addresses` (
 	id        INT(10) UNSIGNED PRIMARY KEY AUTO_INCREMENT ,
 
-	street    INT(10) ,
-	city      VARCHAR(50) ,
+	street    VARCHAR(100) ,
+	city      VARCHAR(100) ,
 	state     INT(10) UNSIGNED ,
 	zipCode   INT(9) ,
 
 	CONSTRAINT fkAddressToState FOREIGN KEY (state) REFERENCES `states` (`id`) ,
 
-	createdAt TIMESTAMP                    DEFAULT CURRENT_TIMESTAMP
+	createdAt TIMESTAMP                    DEFAULT CURRENT_TIMESTAMP,
+	modifiedAt TIMESTAMP                    DEFAULT CURRENT_TIMESTAMP
 );
 
 DROP TABLE IF EXISTS `roles`;

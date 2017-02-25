@@ -1,2 +1,3 @@
-insert into roles (id, type, created_at, updated_at) values (1, 'admin', '2016-06-16 16:50:18', '2016-08-30 20:25:34');
-insert into roles (id, type, created_at, updated_at) values (2, 'customer', '2017-01-14 03:39:02', '2016-10-11 06:21:07');
+insert into roles (id, type, createdAt, modifiedAt) values (1, 'admin', '2016-01-01 00:00:00', '2016-01-01 00:00:00');
+insert into roles (id, type, createdAt, modifiedAt) values (2, 'employee', '2016-01-01 00:00:00', '2016-01-01 00:00:00');
+insert into roles (id, type, createdAt, modifiedAt) values (3, 'customer', '2016-01-01 00:00:00', '2016-01-01 00:00:00');
