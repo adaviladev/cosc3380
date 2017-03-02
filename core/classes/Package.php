@@ -1,12 +1,21 @@
 <?php
 
 	class Package {
+
 		public $id;
-		public $user_id;
-		public $destination;
-		public $status;
-		public $created_at;
-		public $updated_at;
+		public $userId;
+		public $postOfficeId;
+		public $typeId;
+		public $transactionId;
+		public $destinationId;
+		public $returnAddressId;
+		public $contents;
+		public $weight;
+		public $priority;
+		public $packageStatus;
+		public $modifiedBy;
+		public $createdAt;
+		public $modifiedAt;
 
 		public function __construct() {
 			// silence is golden

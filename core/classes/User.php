@@ -1,13 +1,19 @@
 <?php
 
+	namespace App\Core;
+
 	class User {
 		public $id;
-		public $username;
-		public $password;
-		public $role;
-		public $created_at;
-		public $updated_at;
-		public $last_login;
+		public $firstName;
+		public $lastName;
+		public $addressId;
+		public $email;
+		public $roleId;
+		public $postOfficeId;
+		public $modifiedBy;
+		public $createdAt;
+		public $createdBy;
+		public $modifiedAt;
 
 		public function __construct() {
 			// silence is golden

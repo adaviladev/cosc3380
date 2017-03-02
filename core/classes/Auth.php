@@ -1,5 +1,9 @@
 <?php
 
+	namespace App\Core;
+
+	use QueryBuilder;
+
 	class Auth {
 		protected $user;
 

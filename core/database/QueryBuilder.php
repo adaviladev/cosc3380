@@ -87,4 +87,13 @@
 				die( $e->getMessage() );
 			}
 		}
+
+		public function run( $sql ){
+			try {
+				$statement = $this->pdo->prepare( $sql );
+				$statement->execute();
+			} catch( PDOException $e ) {
+				die( $e->getMessage() );
+			}
+		}
 	}
