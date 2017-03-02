@@ -6,6 +6,7 @@ testing the github bot
 This program is run using Vagrant with the Laravel/Homestead 5.4 Virtual Box environment.
 Set up instructions can be found [here](https://laravel.com/docs/5.4/homestead): 
 
+##Setting up Vagrant/Homestead with our Project
 1. Once you have downloaded the necessary software, use a text editor to open up the .homestead file in your home directory (~/).
 2. Create the folder "Code" in your user's home directory.
 3. Inside of the Code directory, create another directory named "cosc3380"
@@ -39,3 +40,34 @@ Set up instructions can be found [here](https://laravel.com/docs/5.4/homestead):
     - If vagrant times out at the ssh step, you may need to edit your BIOS settings and enable virtualization
 10. You should now be able to go to "database.app" in your web browser to view the site.
     - If you get a message saying "No input file selected" or something like that, make sure the repository is in the correct location based on the "folders:" and "sites:" sections in the Homestead.yaml file.
+
+## Configuring Aliases
+1. Using Git Bash, go to your home directory
+    - cd ~
+2. do 
+    <pre>touch .bashrc</pre>
+3. In a text editor, open this file (C:\Users\<username>\.bashrc)
+4. Add the following lines
+    <pre>
+    alias ll="ls -alh"
+    alias vgserve="cd ~/Homestead; vagrant up;"</pre>
+5. Close and relaunch Git Bash. You should now be able to use 
+    - "ll" to list all files in the current directory in a formatted manner.
+    - "vgserve" to automatically navigate to your Homestead foler and spin up the virtual machine from any directory
+## Connecting PHPStorm with Our Database
+1. Select View > Tool Windows > Database
+2. A window should pop up on the right side. Click the Plus sign.
+3. Select Data Source
+4. Select MySQL
+5. A new window should pop up.
+6. Name: name it whatever you'd like that's specific to this project. cosc3380, for example.
+7. Host: 192.168.10.10
+8. Database: cosc3380
+9. User: homestead
+10. Password: secret
+11. URL: leave alone
+12. Driver: download if it's asking you to near the bottom
+13. Click Test Connection.
+14. Click Apply then Ok.
+
+You should now be able to go to any SQL file within PHPStorm and press CTRL+Enter. You'll be prompted to select which statement you want to run.

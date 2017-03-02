@@ -81,5 +81,63 @@ Comments for page above preceded by "//"
     // All users table fields required.
 
 
+By person:
+Adrian:
+    - Dashboard -- /dashboard
+        // Show preview of signed in employee's data. Latest transactions by that employee, current packages, etc.
+        - Packages -- /dashboard/packages
+            // Show all packages at the current employees post office
+            - Package -- /dashboard/packages/:packageId
+                // Show info for selected package
+    - Locations -- /locations
+        // List all post office locations
+        // Once user is logged we can also maybe sort by proximity.
+    - Login -- /login
+        // Login form if you already have an account.
+        // If used and account doesn't exist, redirect to /register
+    - Register -- /register
+        // Sign up form
+        // All users table fields required.
+Andres:
+    - Account -- /account
+        // Shows preview of signed in user's info
+        - Transactions -- /account/transactions
+            // List all of the user's transactions. Be able to filter by status of transactions
+            - Transaction -- /account/transaction/:transactionId
+                // Shows info of a specific package. Can maybe also cancel from here
+    - Contact Us -- /contact-us
+        // Contact information for Prost Office HQ and a contact form
+        // Name, email, subject, message
+Austin:
+        - Packages -- /account/packages
+            // List all of the user's packages. Be able to filter by status of packages
+            - Package -- /account/packages/:packageId
+                // Shows info of a specific package. Can also update status or destination if still processing
+        - Account Info -- /account/info
+            // Show user's account info. Can maybe update their name, password, address, etc
+    - About -- /about-us
+        // Copy talking about the company
+Krishan:
+    - Admin -- /admin
+        - Packages -- /admin/packages
+            // Show all packages in database. Filter by status. Add pagination
+            - Package -- /admin/packages/:packageId
+                // Show package info
+        - Transactions -- /admin/transactions
+            // Show all transactions in database. Filter by status. Add pagination
+        - Post Offices -- /admin/post-offices
+            // Show all post offices
+            - Post Office -- /admin/post-offices/:postOfficeId
+                // Show info for specific post office
+Victor:
+    - Users -- /dashboard/users
+        // Show all customers that have packages at current employee's post office
+        - User -- /dashboard/users/:userId
+            // Show specific customer info
+    - Transactions -- /dashboard/transactions
+        // Show all transactions handled by current employee's post office
+        - Transaction -- /dashboard/transactions/:transactionId
+            // Assigned to Victor
+            // Show info for current transaction
 
 /* Comments */
