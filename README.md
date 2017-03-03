@@ -11,18 +11,18 @@ Set up instructions can be found [here](https://laravel.com/docs/5.4/homestead):
 2. Create the folder "Code" in your user's home directory.
 3. Inside of the Code directory, create another directory named "cosc3380"
 2. Replace the lines in the "folders:" with the following
-    > map: ~/Code/cosc3380 \
+    > map: ~/Code/cosc3380 <br/>
      to: /home/vagrant/Code/cosc3380
      
      - This will map the ~/Code/cosc3380 in your local directory to the /home/vagrant/Code/cosc3380 in the virtual machine
 3. Replace the lines in the "sites:" section with the following
-    > map: database.app\
+    > map: database.app<br/>
       to: /home/vagrant/Code/cosc3380
       
     - This will map the domain database.app to pull the files in the /home/vagrant/Code/cosc3380 directory
     
 4. Replace the lines in the "databases:" section with the following
-    > \- cosc3380
+    > - cosc3380
 
 5. Open up notepad.exe and run it as an administrator.
 6. File \> Open
