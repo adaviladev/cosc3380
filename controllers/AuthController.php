@@ -3,7 +3,7 @@
 	namespace App\Controllers;
 
 	use App\Core\App;
-	use User;
+	use App\Core\User;
 
 	class AuthController {
 
@@ -11,7 +11,9 @@
 		    return view( 'auth/login' );
 		}
 		public function register(){
-		    return view( 'auth/register' );
+			$states = App::get( 'database' )->selectAll( 'states' );
+
+		    return view( 'auth/register' , compact( 'states' ) );
 		}
 
 		public function addUser(){

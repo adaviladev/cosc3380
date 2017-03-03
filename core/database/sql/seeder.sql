@@ -20,10 +20,10 @@ CREATE TABLE `addresses` (
 
 	street     VARCHAR(100) ,
 	city       VARCHAR(100) ,
-	state      INT(10) UNSIGNED ,
+	stateId    INT(10) UNSIGNED ,
 	zipCode    INT(9) ,
 
-	CONSTRAINT fkAddressToState FOREIGN KEY (state) REFERENCES `states` (`id`) ,
+	CONSTRAINT fkAddressToState FOREIGN KEY (stateId) REFERENCES `states` (`id`) ,
 
 	createdAt  TIMESTAMP                    DEFAULT CURRENT_TIMESTAMP ,
 	modifiedAt TIMESTAMP                    DEFAULT CURRENT_TIMESTAMP
@@ -88,6 +88,7 @@ CREATE TABLE `users` (
 	lastName     VARCHAR(50) ,
 	addressId    INT(10) REFERENCES addresses (id) ,
 	email        VARCHAR(50) ,
+	password     VARCHAR(255) ,
 	roleId       INT(10) UNSIGNED REFERENCES roles (id) ,
 	postOfficeId INT(10) UNSIGNED NULL REFERENCES postOffices (id) ,
 

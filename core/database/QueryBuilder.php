@@ -96,4 +96,8 @@
 				die( $e->getMessage() );
 			}
 		}
+
+		public function lastInsertId() {
+			return $this->pdo->lastInsertId();
+		}
 	}

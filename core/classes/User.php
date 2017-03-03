@@ -8,6 +8,7 @@
 		public $lastName;
 		public $addressId;
 		public $email;
+		public $password;
 		public $roleId;
 		public $postOfficeId;
 		public $modifiedBy;
