@@ -17,7 +17,7 @@
 
 		public static function user() {
 			if( isset( $_SESSION[ 'user' ] ) ) {
-				// var_dump( $_SESSION[ 'user' ] );
+
 				return unserialize( $_SESSION[ 'user' ] );
 			}
 

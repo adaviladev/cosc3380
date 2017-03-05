@@ -20,5 +20,6 @@
 	$router->post( 'register' , 'UsersController@store' );
 	$router->get( 'login' , 'AuthController@login' );
 	$router->post( 'login' , 'AuthController@signIn' );
+	$router->get( 'logout' , 'AuthController@logout' );
 
 	$router->post( 'users' , 'UsersController@store' );

@@ -41,9 +41,7 @@
 			$statement = $this->pdo->prepare( $sql );
 			$statement->execute();
 
-			var_dump( $statement->fetch(PDO::FETCH_CLASS, $class) );
-
-			return $statement->fetch(			$statement->setFetchMode( PDO::FETCH_CLASS ) );
+			return $statement->fetchObject( $class );
 		}
 
 		/**
@@ -66,10 +64,10 @@
 			}
 
 			$statement = $this->pdo->prepare( $sql );
-			$statement->setFetchMode(PDO::FETCH_CLASS, $class );
+			// $statement->setFetchMode(PDO::FETCH_CLASS, $class );
 			$statement->execute();
 
-			return $statement->fetchAll();
+			return $statement->fetchAll( PDO::FETCH_CLASS , $class );
 		}
 
 		/**
@@ -78,19 +76,20 @@
 		 */
 		public function insert( $table , $parameters ) {
 			array_keys( $parameters );
-			$sql = sprintf( 'insert into %s (%s) values (%s)' , $table , implode( ', ' , array_keys( $parameters ) ) ,
+			$sql = sprintf( 'INSERT INTO %s (%s) VALUES (%s)' , $table , implode( ', ' , array_keys( $parameters ) ) ,
 			                ':' . implode( ', :' , array_keys( $parameters ) ) );
 
 			try {
 				$statement = $this->pdo->prepare( $sql );
 				$statement->execute( $parameters );
+
 				return true;
 			} catch( PDOException $e ) {
 				return $e->getCode();
 			}
 		}
 
-		public function run( $sql ){
+		public function run( $sql ) {
 			try {
 				$statement = $this->pdo->prepare( $sql );
 				$statement->execute();

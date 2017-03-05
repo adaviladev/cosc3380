@@ -10,8 +10,8 @@
 	</head>
 
 	<body>
-		<div class="row nav-menu card">
-			<header>
+		<div class="row nav-menu card clearfix">
+			<header class="card">
 				<div class="container clearfix">
 					<a href="/" id="Logo">
 						Home
@@ -25,6 +25,7 @@
 								<li><a href="/register">Register</a></li>
 							<?php } else { ?>
 								<li><a href="/dashboard">Dashboard</a></li>
+								<li><a href="/logout">Log Out</a></li>
 							<?php } ?>
 						</ul>
 					</nav>

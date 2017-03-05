@@ -1,7 +1,5 @@
 <?php
 
-	namespace App\Core;
-
 	class User {
 		public $id;
 		public $firstName;
@@ -22,9 +20,37 @@
 
 		public function  __sleep(){
 			// silence is golden
+			return [
+				'id',
+				'firstName',
+				'lastName',
+				'addressId',
+				'email',
+				'password',
+				'roleId',
+				'postOfficeId',
+				'modifiedBy',
+				'createdAt',
+				'createdBy',
+				'modifiedAt'
+			];
 		}
 
 		public function  __wakeup(){
 			// silence is golden
+			return [
+				'id',
+				'firstName',
+				'lastName',
+				'addressId',
+				'email',
+				'password',
+				'roleId',
+				'postOfficeId',
+				'modifiedBy',
+				'createdAt',
+				'createdBy',
+				'modifiedAt'
+			];
 		}
 	}

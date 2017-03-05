@@ -3,6 +3,7 @@
 	namespace App\Controllers;
 
 	use App\Core\App;
+	use App\Core\Auth;
 	use App\Core\User;
 
 	class AuthController {
@@ -31,12 +32,21 @@
 			    'User'
 		    );
 
-		    var_dump( $user );
-		    $_SESSION['user'] = serialize( $user );
-		    $userObj =  unserialize( $_SESSION['user'] );
-			var_dump( $_SESSION['user'] );
-			var_dump( $userObj );
+		    if( $user ) {
+			    $_SESSION['user'] = serialize( $user );
+			    redirect( 'dashboard' );
+		    }
 
-		    // redirect( 'dashboard' );
+			return view( 'auth/login', compact( 'user' ) );
+		}
+
+		public function logout(){
+		    if( isset( $_SESSION[ 'user' ] ) ) {
+		    	unset( $_SESSION[ 'user' ] );
+		    }
+
+		    $_SESSION[ 'user' ] = false;
+
+		    redirect( '' );
 		}
 	}

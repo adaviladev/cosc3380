@@ -7,6 +7,7 @@
 	class PagesController {
 		public function home() {
 			$users = App::get( 'database' )->selectAll( 'users' );
+			var_dump( $_SESSION );
 
 			return view( 'index' );
 		}

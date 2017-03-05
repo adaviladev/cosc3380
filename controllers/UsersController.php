@@ -23,17 +23,13 @@
 
 			$password = md5( $_POST[ 'password' ] );
 
-			$duplicateAddress = App::get( 'database' )->find(
-				'addresses',
-				[
-					'street'     => $_POST[ 'address' ] ,
-					'city'       => $_POST[ 'city' ] ,
-					'stateId'    => $_POST[ 'stateId' ] ,
-					'zipCode'    => $_POST[ 'zipCode' ]
-				],
-				'Address'
-			);
-			if( !$duplicateAddress ) {
+			$duplicateAddress = App::get( 'database' )->find( 'addresses' , [
+				'street'  => $_POST[ 'address' ] ,
+				'city'    => $_POST[ 'city' ] ,
+				'stateId' => $_POST[ 'stateId' ] ,
+				'zipCode' => $_POST[ 'zipCode' ]
+			] , 'Address' );
+			if( ! $duplicateAddress ) {
 				App::get( 'database' )->insert( 'addresses' , [
 					'street'     => $_POST[ 'address' ] ,
 					'city'       => $_POST[ 'city' ] ,
@@ -46,9 +42,9 @@
 			} else {
 				$addressId = $duplicateAddress->id;
 			}
-			$role      = App::get( 'database' )->find( 'roles' , [
+			$role = App::get( 'database' )->find( 'roles' , [
 				'type' => 'employee'
-			] );
+			] , 'Role' );
 
 			$userInsert = App::get( 'database' )->insert( 'users' , [
 				'firstName'  => $_POST[ 'firstName' ] ,
@@ -62,13 +58,9 @@
 			] );
 
 			if( $userInsert === true ) {
-				$user = App::get( 'database' )->find(
-					'users',
-					[
-						'id' => App::get( 'database' )->lastInsertId()
-					],
-					'User'
-				);
+				$user = App::get( 'database' )->find( 'users' , [
+					'id' => App::get( 'database' )->lastInsertId()
+				] , 'User' );
 
 				$_SESSION[ 'user' ] = serialize( $user );
 				var_dump( $_SESSION );
@@ -81,6 +73,7 @@
 						$errors = array(
 							'email' => 'Email already exists.'
 						);
+
 						return view( 'auth/register' , compact( 'errors' ) );
 				}
 			}
