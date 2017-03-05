@@ -7,10 +7,18 @@
 	class Auth {
 		protected $user;
 
+		public function  __sleep(){
+			// silence is golden
+		}
+
+		public function  __wakeup(){
+			// silence is golden
+		}
+
 		public static function user() {
 			if( isset( $_SESSION[ 'user' ] ) ) {
-				// var_dump($_SESSION[ 'user' ]);
-				return $_SESSION[ 'user' ];
+				// var_dump( $_SESSION[ 'user' ] );
+				return unserialize( $_SESSION[ 'user' ] );
 			}
 
 			// $_SESSION[ 'user' ] = new User;

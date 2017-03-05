@@ -18,22 +18,25 @@
 
 		public function addUser(){
 
-			$_POST['password'] = md5($_POST['password']);
+			// $_POST['password'] = md5($_POST['password']);
 		}
 
 		public function signIn(){
 		    $user = App::get('database')->find(
 		    	"users",
 			    [
-			    	'username' => $_POST[ 'username' ],
+			    	'email' => $_POST[ 'email' ],
 				    'password' => $_POST[ 'password' ]
 			    ],
 			    'User'
 		    );
-		    $_SESSION['user'] = $user;
-			var_dump($user);
-			var_dump($_SESSION);
 
-		    header( 'Location: /home' );
+		    var_dump( $user );
+		    $_SESSION['user'] = serialize( $user );
+		    $userObj =  unserialize( $_SESSION['user'] );
+			var_dump( $_SESSION['user'] );
+			var_dump( $userObj );
+
+		    // redirect( 'dashboard' );
 		}
 	}

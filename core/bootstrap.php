@@ -17,19 +17,4 @@
 	App::bind( 'config' , require 'config.php' );
 	App::bind( 'database' , new QueryBuilder( Connection::make( App::get( 'config' )[ 'database' ] ) ) );
 
-	/**
-	 * List any additionaly helper functions here.
-	 */
-	function view( $name , $data = [] ) {
-		extract( $data );
-
-		return require "views/{$name}.view.php";
-	}
-
-	function getHeader() {
-		return require_once( 'views/partials/header.php' );
-	}
-
-	function getFooter() {
-		return require_once( 'views/partials/footer.php' );
-	}
+	require( 'functions.php' );

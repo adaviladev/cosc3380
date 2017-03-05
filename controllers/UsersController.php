@@ -20,23 +20,37 @@
 		}
 
 		public function store() {
-			var_dump( $_POST );
 
 			$password = md5( $_POST[ 'password' ] );
-			App::get( 'database' )->insert( 'addresses' , [
-				'street'     => $_POST[ 'address' ] ,
-				'city'       => $_POST[ 'city' ] ,
-				'stateId'    => $_POST[ 'state' ] ,
-				'zipCode'    => $_POST[ 'zipCode' ] ,
-				'createdAt'  => date( "Y-m-d H:i:s" ) ,
-				'modifiedAt' => date( "Y-m-d H:i:s" )
-			] );
-			$addressId = App::get( 'database' )->lastInsertId();
+
+			$duplicateAddress = App::get( 'database' )->find(
+				'addresses',
+				[
+					'street'     => $_POST[ 'address' ] ,
+					'city'       => $_POST[ 'city' ] ,
+					'stateId'    => $_POST[ 'stateId' ] ,
+					'zipCode'    => $_POST[ 'zipCode' ]
+				],
+				'Address'
+			);
+			if( !$duplicateAddress ) {
+				App::get( 'database' )->insert( 'addresses' , [
+					'street'     => $_POST[ 'address' ] ,
+					'city'       => $_POST[ 'city' ] ,
+					'stateId'    => $_POST[ 'stateId' ] ,
+					'zipCode'    => $_POST[ 'zipCode' ] ,
+					'createdAt'  => date( "Y-m-d H:i:s" ) ,
+					'modifiedAt' => date( "Y-m-d H:i:s" )
+				] );
+				$addressId = App::get( 'database' )->lastInsertId();
+			} else {
+				$addressId = $duplicateAddress->id;
+			}
 			$role      = App::get( 'database' )->find( 'roles' , [
-				'type' => 'customer'
+				'type' => 'employee'
 			] );
 
-			App::get( 'database' )->insert( 'users' , [
+			$userInsert = App::get( 'database' )->insert( 'users' , [
 				'firstName'  => $_POST[ 'firstName' ] ,
 				'lastName'   => $_POST[ 'lastName' ] ,
 				'addressId'  => $addressId ,
@@ -46,5 +60,29 @@
 				'createdAt'  => date( "Y-m-d H:i:s" ) ,
 				'modifiedAt' => date( "Y-m-d H:i:s" )
 			] );
+
+			if( $userInsert === true ) {
+				$user = App::get( 'database' )->find(
+					'users',
+					[
+						'id' => App::get( 'database' )->lastInsertId()
+					],
+					'User'
+				);
+
+				$_SESSION[ 'user' ] = serialize( $user );
+				var_dump( $_SESSION );
+
+				// redirect( 'dashboard' );
+				// return view( 'auth/register' );
+			} else {
+				switch( $userInsert ) {
+					case '23000':
+						$errors = array(
+							'email' => 'Email already exists.'
+						);
+						return view( 'auth/register' , compact( 'errors' ) );
+				}
+			}
 		}
 	}

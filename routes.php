@@ -9,7 +9,7 @@
 	$router->get( 'users' , 'UsersController@show' );
 	$router->get( 'users/:userId' , 'UsersController@userDetail' );
 
-	$router->get( 'home' , 'HomeController@home' );
+	$router->get( 'dashboard' , 'HomeController@home' );
 	$router->get( 'packages' , 'PackageController@show' );
 	$router->get( 'packages/:packageId' , 'PackageController@packageDetail' );
 

@@ -39,10 +39,11 @@
 			}
 
 			$statement = $this->pdo->prepare( $sql );
-			$statement->setFetchMode(PDO::FETCH_CLASS, $class );
 			$statement->execute();
 
-			return $statement->fetch();
+			var_dump( $statement->fetch(PDO::FETCH_CLASS, $class) );
+
+			return $statement->fetch(			$statement->setFetchMode( PDO::FETCH_CLASS ) );
 		}
 
 		/**
@@ -83,8 +84,9 @@
 			try {
 				$statement = $this->pdo->prepare( $sql );
 				$statement->execute( $parameters );
+				return true;
 			} catch( PDOException $e ) {
-				die( $e->getMessage() );
+				return $e->getCode();
 			}
 		}
 

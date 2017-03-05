@@ -3,10 +3,10 @@
 	<div class="row">
 		<div class="container">
 			<div class="form-wrapper">
-				<h2>Sign up!</h2>
+				<h2>Sign In!</h2>
 				<form action="/login" method="post">
 					<label>
-						<input type="text" name="username" placeholder="Username">
+						<input type="text" name="email" placeholder="Email">
 					</label>
 					<label for="password">
 						<input type="password" name="password" placeholder="Password">
