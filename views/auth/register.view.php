@@ -6,60 +6,52 @@
 				<h2>Sign up!</h2>
 				<form action="/register" method="post">
 					<div class="field-container clearfix">
-						<label for="firstName">
-							First Name
-							<input type="text" name="firstName" placeholder="First Name">
-						</label>
+						<label for="firstName">First Name</label>
+						<input type="text" name="firstName">
 					</div>
 					<?php if( true ) { ?>
 						<!-- /.field-container -->
 						<div class="field-container clearfix">
-							<label for="lastName">
-								<input type="text" name="lastName" placeholder="Last name">
-							</label>
+							<label for="lastName">Last name</label>
+							<input type="text" name="lastName">
 						</div>
 						<!-- /.field-container -->
 						<div class="field-container clearfix">
-							<label for="password">
-								<input type="password" name="password" placeholder="Password">
-							</label>
+							<label for="password">Password</label>
+							<input type="password" name="password">
 						</div>
 						<!-- /.field-container -->
 						<div class="field-container clearfix">
-							<label for="email" class="email">
-								<input type="text" name="email" placeholder="Email">
-							</label>
+							<label for="email" class="email">Email</label>
+							<input type="text" name="email">
 						</div>
 						<!-- /.field-container -->
 						<div class="field-container clearfix">
-							<label for="address">
-								<input type="text" name="address" placeholder="Address">
-							</label>
+							<label for="address">Address</label>
+							<input type="text" name="address">
 						</div>
 						<!-- /.field-container -->
 						<div class="field-container clearfix">
-							<label for="city">
-								<input type="text" name="city" placeholder="City">
-							</label>
+							<label for="city">City</label>
+							<input type="text" name="city">
 						</div>
 						<!-- /.field-container -->
 						<div class="field-container clearfix">
-							<label for="StateSelector">
+							<label for="StateSelector">State</label>
 								<?php if( ! empty( $states ) ) { ?>
 									<select name="stateId" id="StateSelector">
+										<option value=" " ></option>
 										<?php foreach( $states as $state ) { ?>
 											<option value="<?= $state->id ?>"><?= $state->state ?></option>
 										<?php } ?>
 									</select>
 								<?php } ?>
-							</label>
 						</div>
 						<!-- /.field-container -->
 						<!-- /#StateSelector -->
 						<div class="field-container clearfix">
-							<label for="zipCode">
-								<input type="text" name="zipCode" placeholder="Zip Code">
-							</label>
+							<label for="zipCode">Zip Code</label>
+							<input type="text" name="zipCode">
 						</div>
 						<!-- /.field-container -->
 						<button type="submit">Submit</button>

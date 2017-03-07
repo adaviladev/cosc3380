@@ -5,7 +5,7 @@
 			<?php if( ! empty( $users ) ) { ?>
 				<ul>
 					<?php foreach( $users as $user ) { ?>
-						<li><?= $user->username ?></li>
+						<li><?= $user->firstName ?></li>
 					<?php } ?>
 				</ul>
 			<?php } ?>

@@ -22,6 +22,7 @@ header {
 	position         : fixed;
 	top              : 0;
 	width            : 100%;
+	z-index          : 99999;
 }
 
 #Logo {
@@ -33,6 +34,7 @@ header {
 
 .nav-menu {
 	color : #ffffff;
+	margin-bottom: 60px;
 }
 
 .nav-menu a {
@@ -112,7 +114,7 @@ nav a:hover {
 
 #Content {
 	padding : 30px 0;
-	height  : 2000px;
+	/*height  : 2000px;*/
 }
 
 .package-wrapper {
