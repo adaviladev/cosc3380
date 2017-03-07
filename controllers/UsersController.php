@@ -8,8 +8,25 @@
 		public function show() {
 			$users = App::get( 'database' )->selectAll( 'users' );
 
-			// var_dump( $users );
-			return view( 'index' , compact( 'users' ) );
+			App::get( 'database' )
+				->find(
+					'users' ,
+					'*' ,
+					'User'
+				)->where(
+					[
+						'email'
+					],
+					[
+						'='
+					],
+					[
+						'.com'
+					]
+				)->get();
+
+			var_dump( $users );
+			// return view( 'index' , compact( 'users' ) );
 		}
 
 		public function userDetail( $userId ) {
@@ -77,5 +94,7 @@
 						return view( 'auth/register' , compact( 'errors' ) );
 				}
 			}
+
+			return redirect( '' );
 		}
 	}

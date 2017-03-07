@@ -32,7 +32,7 @@
 	// $seeders[ 'packages' ]       = file_get_contents( 'packagesSeeder.sql' );
 	// $seeders[ 'transactions' ] = file_get_contents( 'transactionsSeeder.sql' );
 
-	foreach( $seeders as $seeder ) {
-		App::get( 'database' )->run( $seeder );
+	foreach( $seeders as $file => $contents ) {
+		App::get( 'database' )->run( $contents );
+		echo $file . "SQL executed\n";
 	}
-	echo "SQL executed\n";
