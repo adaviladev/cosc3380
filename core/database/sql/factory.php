@@ -27,9 +27,9 @@
 	$seeders[ 'states' ]         = file_get_contents( 'statesSeeder.sql' );
 	$seeders[ 'packageStatus ' ] = file_get_contents( 'packageStatusSeeder.sql' );
 	$seeders[ 'packageType' ]    = file_get_contents( 'packageTypeSeeder.sql' );
-	// $seeders[ 'addresses' ]      = file_get_contents( 'addressesSeeder.sql' );
-	// $seeders[ 'users' ]          = file_get_contents( 'usersSeeder.sql' );
-	// $seeders[ 'packages' ]       = file_get_contents( 'packagesSeeder.sql' );
+	$seeders[ 'addresses' ]      = file_get_contents( 'addressesSeeder.sql' );
+	$seeders[ 'users' ]          = file_get_contents( 'usersSeeder.sql' );
+	$seeders[ 'packages' ]       = file_get_contents( 'packagesSeeder.sql' );
 	// $seeders[ 'transactions' ] = file_get_contents( 'transactionsSeeder.sql' );
 
 	foreach( $seeders as $file => $contents ) {

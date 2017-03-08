@@ -6,33 +6,28 @@
 
 	class UsersController {
 		public function show() {
-			$users = App::get( 'database' )->selectAll( 'users' );
+			$users = App::get( 'database' )->selectAll( 'users' , [ '*' ] , 'User' );
 
-			App::get( 'database' )
-				->find(
-					'users' ,
-					'*' ,
-					'User'
-				)->where(
+			// var_dump( $users );
+			return view( 'index' , compact( 'users' ) );
+		}
+
+		public function userDetail( $userId ) {
+			$user = App::get( 'database' )->find( 'users' , [
+				'*'
+			] , 'User' )
+				->where(
 					[
-						'email'
+						'id'
 					],
 					[
 						'='
 					],
 					[
-						'.com'
+						$userId
 					]
-				)->get();
-
-			var_dump( $users );
-			// return view( 'index' , compact( 'users' ) );
-		}
-
-		public function userDetail( $userId ) {
-			$user = App::get( 'database' )->find( 'users' , [
-				'id' => $userId
-			] , 'User' );
+				)
+				->get();
 			var_dump( $user );
 		}
 
