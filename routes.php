@@ -10,6 +10,7 @@
 	$router->get( 'users/:userId' , 'UsersController@userDetail' );
 
 	$router->get( 'dashboard' , 'HomeController@home' );
+	$router->get( 'dashboard/packages' , 'PackageController@postOfficeInventory' );
 	$router->get( 'packages' , 'PackageController@show' );
 	$router->get( 'packages/:packageId' , 'PackageController@packageDetail' );
 
@@ -23,3 +24,8 @@
 	$router->get( 'logout' , 'AuthController@logout' );
 
 	$router->post( 'users' , 'UsersController@store' );
+
+	/**
+	 * Error out
+	 */
+	$router->get( '404' , 'PagesController@error' );

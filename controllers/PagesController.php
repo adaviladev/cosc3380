@@ -6,8 +6,6 @@
 
 	class PagesController {
 		public function home() {
-			$users = App::get( 'database' )->selectAll( 'users' );
-			var_dump( $_SESSION );
 
 			return view( 'index' );
 		}
@@ -20,5 +18,10 @@
 		public function contact() {
 
 			return view( 'pages/contact' );
+		}
+
+		public function error() {
+
+			return view( 'error/404' );
 		}
 	}
