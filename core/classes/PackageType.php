@@ -1,6 +1,8 @@
 <?php
 
-	class PackageType {
+	use App\Models\Model;
+
+	class PackageType extends Model {
 
 		public $id;
 		public $type;

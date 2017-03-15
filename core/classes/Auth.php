@@ -9,10 +9,12 @@
 
 		public function  __sleep(){
 			// silence is golden
+			return [ 'user' ];
 		}
 
 		public function  __wakeup(){
 			// silence is golden
+			return [ 'user' ];
 		}
 
 		public static function user() {

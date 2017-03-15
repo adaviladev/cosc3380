@@ -33,6 +33,6 @@
 	// $seeders[ 'transactions' ] = file_get_contents( 'transactionsSeeder.sql' );
 
 	foreach( $seeders as $file => $contents ) {
-		App::get( 'database' )->run( $contents );
+		App::get( 'database' )->run( $contents , true );
 		echo $file . "SQL executed\n";
 	}

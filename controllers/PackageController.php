@@ -2,68 +2,61 @@
 
 	namespace App\Controllers;
 
+	use Address;
 	use App\Core\App;
 	use App\Core\Auth;
+	use Package;
+	use User;
 
 	class PackageController {
 
 		public function postOfficeInventory() {
 			$user = Auth::user();
 			if( $user ) {
-				$packages = App::get( 'database' )
-				               ->findAll( 'packages' , [ '*' ] , 'Package' )
-				               ->where( [ 'postOfficeId' ] , [ '=' ] , [ $user->postOfficeId ] )
-				               ->get();
+				$packages = Package::findAll()
+				                   ->where( [ 'postOfficeId' ] ,
+				                            [ '=' ] ,
+				                            [ $user->postOfficeId ] )
+				                   ->get();
 				foreach( $packages as $package ) {
-					$package->user = App::get( 'database' )
-					                    ->find( 'users' , [ '*' ] , 'User' )
-					                    ->where( [ 'id' ] , [ '=' ] , $package->userId )
-					                    ->get();
+					$package->user = User::find()
+					                     ->where( [ 'id' ] ,
+					                              [ '=' ] ,
+					                              [ $package->userId ] )
+					                     ->get();
 				}
 
-				return view( 'packages/packages' , compact( 'packages' ) );
+				return view( 'packages/packages' ,
+				             compact( 'packages' ) );
 			}
 
 			return redirect( 'login' );
 		}
 
 		public function show() {
-			$packages = App::get( 'database' )
-			               ->selectAll( 'packages' , [ '*' ] , 'Package' );
+			$packages = Package::selectAll();
 
 			foreach( $packages as $package ) {
-				$package->user          = App::get( 'database' )
-				                             ->find( 'users' , [ '*' ] , 'User' )
-				                             ->where( [ 'id' ] , [ '=' ] , [ $package->userId ] )
-				                             ->get();
-				$package->destination   = App::get( 'database' )
-				                             ->find( 'addresses' , [ '*' ] , 'Address' )
-				                             ->where( [ 'id' ] , [ '=' ] , [ $package->destinationId ] )
-				                             ->get();
-				$package->returnAddress = App::get( 'database' )
-				                             ->find( 'addresses' , [ '*' ] , 'Address' )
-				                             ->where( [ 'id' ] , [ '=' ] , [ $package->returnAddressId ] )
-				                             ->get();
+				$package->user          = User::find( $package->userId )
+				                              ->get();
+				$package->destination   = Address::find( $package->destinationId )
+				                                 ->get();
+				$package->returnAddress = Address::find( $package->returnAddressId )
+				                                 ->get();
 			}
 
-			return view( 'packages/packages' , compact( 'packages' ) );
+			return view( 'packages/packages' ,
+			             compact( 'packages' ) );
 		}
 
 		public function packageDetail( $packageId ) {
-			$package = App::get( 'database' )
-			              ->find( 'packages' , [
-				              '*'
-			              ] , 'Package' )
-			              ->where( [ 'id' ] , [ '=' ] , [ $packageId ] )
-			              ->get();
+			$package = Package::find( $packageId )
+			                  ->get();
 
-			$package->user = App::get( 'database' )
-			                    ->find( 'users' , [
-				                    '*'
-			                    ] , 'User' )
-			                    ->where( [ 'id' ] , [ '=' ] , [ $package->userId ] )
-			                    ->get();
+			$package->user = User::find( $package->userId )
+			                     ->get();
 
-			return view( 'packages/packageDetail' , compact( 'package' ) );
+			return view( 'packages/packageDetail' ,
+			             compact( 'package' ) );
 		}
 	}

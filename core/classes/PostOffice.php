@@ -1,6 +1,8 @@
 <?php
 
-	class PostOffice {
+	use App\Models\Model;
+
+	class PostOffice extends Model {
 
 		public $id;
 		public $name;

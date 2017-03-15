@@ -1,5 +1,7 @@
 <?php
 
+	require 'core/Model.php';
+
 	/**
 	 * These two might need to be refactored elsewhere.
 	 * Still haven't decided on how to incorporate
