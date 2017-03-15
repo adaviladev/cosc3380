@@ -4,7 +4,8 @@
 
 	use App\Core\App;
 	use App\Core\Auth;
-	use App\Core\User;
+	use State;
+	use User;
 
 	class AuthController {
 
@@ -13,9 +14,10 @@
 		}
 
 		public function register() {
-			$states = App::get( 'database' )->selectAll( 'states' );
+			$states = State::selectAll( 'states' );
 
-			return view( 'auth/register' , compact( 'states' ) );
+			return view( 'auth/register' ,
+			             compact( 'states' ) );
 		}
 
 		public function addUser() {
@@ -23,24 +25,28 @@
 		}
 
 		public function signIn() {
-			$user = App::get( 'database' )->find( "users" ,
-				[ '*' ] , 'User' )->where( [
+			$user = User::find()
+			            ->where( [
 				                     'email' ,
 				                     'password'
-			                     ] , [
+			                     ] ,
+			                     [
 				                     '=' ,
 				                     '='
-			                     ] , [
+			                     ] ,
+			                     [
 				                     $_POST[ 'email' ] ,
-				                     md5($_POST[ 'password' ])
-			                     ] )->get();
+				                     md5( $_POST[ 'password' ] )
+			                     ] )
+			            ->get();
 
 			if( $user ) {
 				$_SESSION[ 'user' ] = serialize( $user );
 				redirect( 'dashboard' );
 			}
 
-			return view( 'auth/login' , compact( 'user' ) );
+			return view( 'auth/login' ,
+			             compact( 'user' ) );
 		}
 
 		public function logout() {

@@ -1,6 +1,8 @@
 <?php
 
-	class Role {
+	use App\Models\Model;
+
+	class Role extends Model {
 
 		public $id;
 		public $type;

@@ -1,6 +1,8 @@
 <?php
 
-	class Package {
+	use App\Models\Model;
+
+	class Package extends Model {
 
 		public $id;
 		public $userId;
@@ -21,11 +23,43 @@
 			// silence is golden
 		}
 
-		public function  __sleep(){
+		public function __sleep() {
 			// silence is golden
+			return [
+				'id' ,
+				'userId' ,
+				'postOfficeId' ,
+				'typeId' ,
+				'transactionId' ,
+				'destinationId' ,
+				'returnAddressId' ,
+				'contents' ,
+				'weight' ,
+				'priority' ,
+				'packageStatus' ,
+				'modifiedBy' ,
+				'createdAt' ,
+				'modifiedAt'
+			];
 		}
 
-		public function  __wakeup(){
+		public function __wakeup() {
 			// silence is golden
+			return [
+				'id' ,
+				'userId' ,
+				'postOfficeId' ,
+				'typeId' ,
+				'transactionId' ,
+				'destinationId' ,
+				'returnAddressId' ,
+				'contents' ,
+				'weight' ,
+				'priority' ,
+				'packageStatus' ,
+				'modifiedBy' ,
+				'createdAt' ,
+				'modifiedAt'
+			];
 		}
 	}

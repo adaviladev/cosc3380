@@ -123,15 +123,18 @@
 			return $this->run( $this->query );
 		}
 
-		public function run( $sql ) {
+		public function run( $sql , $ssh = false ) {
 			try {
 				$statement = $this->pdo->prepare( $sql );
 				$statement->execute();
-				if( $this->isSingle ) {
-					return $statement->fetchObject( $this->class );
-				}
+				if( !$ssh ) {
+					if( $this->isSingle ) {
+						return $statement->fetchObject( $this->class );
+					}
 
-				return $statement->fetchAll( PDO::FETCH_CLASS , $this->class );
+					return $statement->fetchAll( PDO::FETCH_CLASS , $this->class );
+				}
+				return false;
 			} catch( PDOException $e ) {
 				die( $e->getMessage() );
 			}

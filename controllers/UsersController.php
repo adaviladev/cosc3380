@@ -2,32 +2,23 @@
 
 	namespace App\Controllers;
 
+	use Address;
 	use App\Core\App;
+	use Role;
+	use User;
 
 	class UsersController {
 		public function show() {
-			$users = App::get( 'database' )->selectAll( 'users' , [ '*' ] , 'User' );
+			$users = User::selectAll();
 
-			// var_dump( $users );
-			return view( 'index' , compact( 'users' ) );
+			return view( 'index' ,
+			             compact( 'users' ) );
 		}
 
 		public function userDetail( $userId ) {
-			$user = App::get( 'database' )->find( 'users' , [
-				'*'
-			] , 'User' )
-				->where(
-					[
-						'id'
-					],
-					[
-						'='
-					],
-					[
-						$userId
-					]
-				)
-				->get();
+			$user = User::find( $userId )
+			            ->get();
+
 			var_dump( $user );
 		}
 
@@ -35,44 +26,60 @@
 
 			$password = md5( $_POST[ 'password' ] );
 
-			$duplicateAddress = App::get( 'database' )->find( 'addresses' , [
-				'street'  => $_POST[ 'address' ] ,
-				'city'    => $_POST[ 'city' ] ,
-				'stateId' => $_POST[ 'stateId' ] ,
-				'zipCode' => $_POST[ 'zipCode' ]
-			] , 'Address' );
+			$duplicateAddress = Address::find()
+			                           ->where( [
+				                                    'street' ,
+				                                    'city' ,
+				                                    'stateId' ,
+				                                    'zipCode' ,
+			                                    ] ,
+			                                    [
+				                                    '=' ,
+				                                    '=' ,
+				                                    '=' ,
+				                                    '='
+			                                    ] ,
+			                                    [
+				                                    $_POST[ 'address' ] ,
+				                                    $_POST[ 'city' ] ,
+				                                    $_POST[ 'stateId' ] ,
+				                                    $_POST[ 'zipCode' ]
+			                                    ] )
+			                           ->get();
 			if( ! $duplicateAddress ) {
-				App::get( 'database' )->insert( 'addresses' , [
-					'street'     => $_POST[ 'address' ] ,
-					'city'       => $_POST[ 'city' ] ,
-					'stateId'    => $_POST[ 'stateId' ] ,
-					'zipCode'    => $_POST[ 'zipCode' ] ,
-					'createdAt'  => date( "Y-m-d H:i:s" ) ,
-					'modifiedAt' => date( "Y-m-d H:i:s" )
-				] );
-				$addressId = App::get( 'database' )->lastInsertId();
+				Address::insert( [
+					                 'street'     => $_POST[ 'address' ] ,
+					                 'city'       => $_POST[ 'city' ] ,
+					                 'stateId'    => $_POST[ 'stateId' ] ,
+					                 'zipCode'    => $_POST[ 'zipCode' ] ,
+					                 'createdAt'  => date( "Y-m-d H:i:s" ) ,
+					                 'modifiedAt' => date( "Y-m-d H:i:s" )
+				                 ] );
+				$addressId = Address::lastInsertId();
 			} else {
 				$addressId = $duplicateAddress->id;
 			}
-			$role = App::get( 'database' )->find( 'roles' , [
-				'type' => 'employee'
-			] , 'Role' );
+			$role = Role::find()
+			            ->where( [
+				                     'type'
+			                     ] ,
+			                     [ '=' ] ,
+			                     [ 'employee' ] )
+			            ->get();
 
-			$userInsert = App::get( 'database' )->insert( 'users' , [
-				'firstName'  => $_POST[ 'firstName' ] ,
-				'lastName'   => $_POST[ 'lastName' ] ,
-				'addressId'  => $addressId ,
-				'email'      => $_POST[ 'email' ] ,
-				'password'   => $password ,
-				'roleId'     => $role->id ,
-				'createdAt'  => date( "Y-m-d H:i:s" ) ,
-				'modifiedAt' => date( "Y-m-d H:i:s" )
-			] );
+			$userInsert = User::insert( [
+				                            'firstName'  => $_POST[ 'firstName' ] ,
+				                            'lastName'   => $_POST[ 'lastName' ] ,
+				                            'addressId'  => $addressId ,
+				                            'email'      => $_POST[ 'email' ] ,
+				                            'password'   => $password ,
+				                            'roleId'     => $role->id ,
+				                            'createdAt'  => date( "Y-m-d H:i:s" ) ,
+				                            'modifiedAt' => date( "Y-m-d H:i:s" )
+			                            ] );
 
 			if( $userInsert === true ) {
-				$user = App::get( 'database' )->find( 'users' , [
-					'id' => App::get( 'database' )->lastInsertId()
-				] , 'User' );
+				$user = User::find( User::lastInsertId() );
 
 				$_SESSION[ 'user' ] = serialize( $user );
 				var_dump( $_SESSION );
@@ -86,7 +93,8 @@
 							'email' => 'Email already exists.'
 						);
 
-						return view( 'auth/register' , compact( 'errors' ) );
+						return view( 'auth/register' ,
+						             compact( 'errors' ) );
 				}
 			}
 

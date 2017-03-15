@@ -1,6 +1,8 @@
 <?php
 
-	class Transaction {
+	use App\Models\Model;
+
+	class Transaction extends Model {
 
 		public $id;
 		public $customerId;
@@ -15,11 +17,31 @@
 			// silence is golden
 		}
 
-		public function  __sleep(){
+		public function __sleep() {
 			// silence is golden
+			return [
+				'id' ,
+				'customerId' ,
+				'postOfficeId' ,
+				'employeeId' ,
+				'packageId' ,
+				'cost' ,
+				'createdAt' ,
+				'modifiedAt'
+			];
 		}
 
-		public function  __wakeup(){
+		public function __wakeup() {
 			// silence is golden
+			return [
+				'id' ,
+				'customerId' ,
+				'postOfficeId' ,
+				'employeeId' ,
+				'packageId' ,
+				'cost' ,
+				'createdAt' ,
+				'modifiedAt'
+			];
 		}
 	}
