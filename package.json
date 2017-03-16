@@ -1,0 +1,27 @@
+{
+  "name": "prost-office",
+  "version": "1.0.0",
+  "description": "Please add project constraints and design principles we should follow as needed.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/COSC3380-Team-5/databaseProject.git"
+  },
+  "author": "Team 5",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/COSC3380-Team-5/databaseProject/issues"
+  },
+  "homepage": "http://github.com/COSC3380-Team-5/databaseProject#readme",
+  "devDependencies": {
+    "gulp-concat": "^2.6.1",
+    "gulp-jshint": "^2.0.4",
+    "gulp-rename": "^1.2.2",
+    "gulp-sass": "^3.1.0",
+    "gulp-uglify": "^2.1.0",
+    "jshint": "^2.9.4"
+  }
+}
