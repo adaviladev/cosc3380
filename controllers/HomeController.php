@@ -17,7 +17,7 @@
 				                         ->get();
 			}
 
-			return view( 'dashboard' ,
+			return view( 'dashboard/dashboard' ,
 			             compact( 'user' ) );
 		}
 

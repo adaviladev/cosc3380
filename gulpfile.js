@@ -7,6 +7,8 @@ var sass = require( 'gulp-sass' );
 var concat = require( 'gulp-concat' );
 var uglify = require( 'gulp-uglify' );
 var rename = require( 'gulp-rename' );
+var concatCss = require( 'gulp-concat-css' );
+var cleanCss = require( 'gulp-clean-css' );
 
 gulp.task( 'lint', function() {
 	return gulp.src( 'views/assets/js/*.js' )
@@ -16,22 +18,23 @@ gulp.task( 'lint', function() {
 
 gulp.task( 'css', function() {
 	return gulp.src( 'views/assets/css/*.css' )
-		.pipe( sass() )
-		.pipe( gulp.dest( 'dist/css' ) );
+		.pipe( concatCss( 'all.css' ) )
+		.pipe( cleanCss() )
+		.pipe( gulp.dest( 'views/assets/bundle' ) );
 } );
 
 gulp.task( 'scripts', function() {
 	return gulp.src( 'views/assets/js/*.js' )
 		.pipe( concat( 'all.js' ) )
-		.pipe( gulp.dest( 'dist' ) )
+		.pipe( gulp.dest( 'views/assets/bundle' ) )
 		.pipe( rename( 'all.min.js' ) )
 		.pipe( uglify() )
-		.pipe( gulp.dest( 'dist/js' ) );
+		.pipe( gulp.dest( 'views/assets/bundle/js' ) );
 } );
 
-gulp.task('watch', function() {
-	gulp.watch('js/*.js', ['lint', 'scripts']);
-	gulp.watch('css/*.css', ['sass']);
-});
+gulp.task( 'watch', function() {
+	gulp.watch( 'views/assets/js/*.js', [ 'lint', 'scripts' ] );
+	gulp.watch( 'views/assets/css/*.css', [ 'css' ] );
+} );
 
-gulp.task('default', ['lint', 'sass', 'scripts', 'watch']);
+gulp.task( 'default', [ 'lint', 'css', 'scripts', 'watch' ] );

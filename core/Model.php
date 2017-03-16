@@ -111,11 +111,11 @@
 		 *
 		 * @return $this
 		 */
-		public function where( $columns = [] , $operators = [] , $values = [] , $bool = [ " AND " ] ) {
+		public function where( $columns = [] , $operators = [] , $values = [] , $bool = " AND " ) {
 			$this->whereClause = "WHERE ";
 			for( $i = 0; $i < count( $columns ); $i++ ) {
 				if( $i > 0 ) {
-					$this->whereClause .= $bool[ $i - 1 ];
+					$this->whereClause .= $bool;
 				}
 				$this->whereClause .= $columns[ $i ]
 				                      . $operators[ $i ]

@@ -14,20 +14,15 @@
 			$user = Auth::user();
 			if( $user ) {
 				$packages = Package::findAll()
-				                   ->where( [ 'postOfficeId' ] ,
-				                            [ '=' ] ,
-				                            [ $user->postOfficeId ] )
+				                   ->where( [ 'postOfficeId' ] , [ '=' ] , [ $user->postOfficeId ] )
 				                   ->get();
 				foreach( $packages as $package ) {
 					$package->user = User::find()
-					                     ->where( [ 'id' ] ,
-					                              [ '=' ] ,
-					                              [ $package->userId ] )
+					                     ->where( [ 'id' ] , [ '=' ] , [ $package->userId ] )
 					                     ->get();
 				}
 
-				return view( 'packages/packages' ,
-				             compact( 'packages' ) );
+				return view( 'packages/packages' , compact( 'packages' ) );
 			}
 
 			return redirect( 'login' );
@@ -45,18 +40,18 @@
 				                                 ->get();
 			}
 
-			return view( 'packages/packages' ,
-			             compact( 'packages' ) );
+			return view( 'packages/packages' , compact( 'packages' ) );
 		}
 
 		public function packageDetail( $packageId ) {
-			$package = Package::find( $packageId )
+			$package = Package::find()
+			                  ->where( [ 'id' ] , [ '=' ] , [ $packageId ] )
 			                  ->get();
 
-			$package->user = User::find( $package->userId )
+			$package->user = User::find()
+			                     ->where( [ 'id' ],[ '=' ],[ $package->userId ])
 			                     ->get();
 
-			return view( 'packages/packageDetail' ,
-			             compact( 'package' ) );
+			return view( 'packages/packageDetail' , compact( 'package' ) );
 		}
 	}

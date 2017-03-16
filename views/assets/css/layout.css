@@ -1,0 +1,81 @@
+body {
+	margin      : 0;
+	font-family : "Lato Light", sans-serif;
+}
+
+body a {
+	outline : none;
+}
+
+h1 {
+	font-family : "Lato Light", sans-serif;
+	font-weight : 100;
+}
+
+/* Navigation Styling */
+header {
+	background-color : #ffa000;
+	position         : fixed;
+	top              : 0;
+	width            : 100%;
+	z-index          : 99999;
+}
+
+#Logo {
+	display         : inline-block;
+	padding         : 15px 0;
+	text-decoration : none;
+	font-size       : 22px;
+}
+
+.clearfix:after {
+	content : "";
+	display : table;
+	clear   : both;
+}
+
+/* Card Styling */
+.card {
+	border-radius : 2px;
+	box-shadow    : 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 8px rgba(0, 0, 0, 0.72);
+}
+
+/* Grid Styling */
+.row {
+	width : 100%;
+}
+
+.container {
+	width     : 90%;
+	max-width : 1120px;
+	margin    : 0 auto;
+}
+
+.float-left {
+	float : left;
+}
+
+.float-right {
+	float : right;
+}
+
+.one_fifth {
+	width : 20%;
+}
+
+/* Layout styling */
+.text-left {
+	text-align : left;
+}
+
+.text-center {
+	text-align : center;
+}
+
+.text-right {
+	text-align : right;
+}
+
+#Content {
+	padding : 30px 0;
+}

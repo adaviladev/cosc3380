@@ -17,7 +17,9 @@
   },
   "homepage": "http://github.com/COSC3380-Team-5/databaseProject#readme",
   "devDependencies": {
+    "gulp-clean-css": "^3.0.3",
     "gulp-concat": "^2.6.1",
+    "gulp-concat-css": "^2.3.0",
     "gulp-jshint": "^2.0.4",
     "gulp-rename": "^1.2.2",
     "gulp-sass": "^3.1.0",
