@@ -24,7 +24,7 @@
 			                                              'User' )->where( [ 'postOfficeId' ] ,
 			                                                               [ '=' ] ,
 			                                                               [ $user->postOfficeId ] )->get();
-			echo 'hello';
+			echo 'viktor was here';
 
 			dd( $customers );
 			return view( 'dashboard/customers' ,

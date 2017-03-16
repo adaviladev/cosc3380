@@ -2,7 +2,7 @@
 	getHeader();
 ?>
 
-	viktor was here, customers view
+	viktor was here, transactions view
 
 
 <?php
