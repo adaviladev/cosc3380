@@ -31,6 +31,9 @@
 										<li class="">
 											<a href="/dashboard/packages">Packages</a>
 										</li>
+										<li class="">
+											<a href="/dashboard/customers">Customers</a>
+										</li>
 									</ul>
 								</li>
 								<li class="parent-menu"><a href="/logout">Log Out</a></li>
