@@ -30,7 +30,7 @@
 	$seeders[ 'addresses' ]      = file_get_contents( 'addressesSeeder.sql' );
 	$seeders[ 'users' ]          = file_get_contents( 'usersSeeder.sql' );
 	$seeders[ 'packages' ]       = file_get_contents( 'packagesSeeder.sql' );
-	// $seeders[ 'transactions' ] = file_get_contents( 'transactionsSeeder.sql' );
+	$seeders[ 'transactions' ] = file_get_contents( 'transactionsSeeder.sql' );
 
 	foreach( $seeders as $file => $contents ) {
 		App::get( 'database' )->run( $contents , true );
