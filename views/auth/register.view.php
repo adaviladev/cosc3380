@@ -1,16 +1,19 @@
-<?php getHeader(); ?>
+<?php
+	getHeader();
+	$emailClass = (isset($errors['email']))?'invalid':'';
+?>
 
 	<div class="row">
 		<div class="container">
 			<div class="form-wrapper">
 				<h2>Sign up!</h2>
 				<form action="/register" method="post">
-					<div class="field-container clearfix valid">
+					<div class="field-container clearfix">
 						<label for="firstName">First Name</label>
 						<input type="text" name="firstName" class="">
 					</div>
 					<!-- /.field-container -->
-					<div class="field-container clearfix error">
+					<div class="field-container clearfix">
 						<label for="lastName">Last name</label>
 						<input type="text" name="lastName" class="">
 					</div>
@@ -20,7 +23,7 @@
 						<input type="password" name="password">
 					</div>
 					<!-- /.field-container -->
-					<div class="field-container clearfix">
+					<div class="field-container validate clearfix <?= $emailClass; ?>">
 						<label for="email" class="email">Email</label>
 						<input type="text" name="email">
 					</div>

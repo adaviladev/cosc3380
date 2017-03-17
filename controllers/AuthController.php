@@ -14,7 +14,7 @@
 		}
 
 		public function register() {
-			$states = State::selectAll( 'states' );
+			$states = State::selectAll();
 
 			return view( 'auth/register' ,
 			             compact( 'states' ) );
