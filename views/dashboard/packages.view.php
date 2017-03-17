@@ -16,7 +16,7 @@
 								</div>
 								<!-- /.col-dt-2 col-tb-4 col-mb-6 -->
 								<div class="col-dt-2 col-tb-4 col-mb-6" >
-									<?= $package->user->firstName ?>
+									<?= $package->user->firstName ?> <?= $package->user->lastName ?>
 								</div>
 								<!-- /.col-dt-2 col-tb-4 col-mb-6 -->
 								<div class="col-dt-2 col-tb-4 col-mb-6" >

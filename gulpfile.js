@@ -18,15 +18,15 @@ gulp.task( 'lint', function() {
 
 gulp.task( 'css', function() {
 	return gulp.src( 'views/assets/css/*.css' )
-		.pipe( concatCss( 'all.css' ) )
+		.pipe( concatCss( 'all.min.css' ) )
 		.pipe( cleanCss() )
-		.pipe( gulp.dest( 'views/assets/bundle' ) );
+		.pipe( gulp.dest( 'views/assets/bundle/css' ) );
 } );
 
 gulp.task( 'scripts', function() {
 	return gulp.src( [ 'views/assets/js/vendor/*.js', 'views/assets/js/*.js'] )
 		.pipe( concat( 'all.min.js' ) )
-		.pipe( gulp.dest( 'views/assets/bundle' ) )
+		.pipe( gulp.dest( 'views/assets/bundle/js' ) )
 		.pipe( rename( 'all.min.js' ) )
 		.pipe( uglify() )
 		.pipe( gulp.dest( 'views/assets/bundle/js' ) );

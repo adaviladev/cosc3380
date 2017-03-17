@@ -22,7 +22,7 @@
 					                     ->get();
 				}
 
-				return view( 'packages/packages' , compact( 'packages' ) );
+				return view( 'dashboard/packages' , compact( 'packages' ) );
 			}
 
 			return redirect( 'login' );
@@ -55,6 +55,6 @@
 			                     ->where( [ 'id' ] , [ '=' ] , [ $package->userId ] )
 			                     ->get();
 
-			return view( 'packages/packageDetail' , compact( 'package' ) );
+			return view( 'dashboard/packageDetail' , compact( 'package' ) );
 		}
 	}
