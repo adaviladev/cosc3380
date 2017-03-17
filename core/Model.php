@@ -35,8 +35,9 @@
 		protected $class = "stdClass";
 
 		private static function init() {
-			$instance = (new static);
+			$instance          = ( new static );
 			$instance->builder = Connection::make( App::get( 'config' )[ 'database' ] );
+
 			return $instance;
 		}
 
@@ -52,16 +53,14 @@
 			 * call init() from mandatory first calls and assign params to return of init()'s $instance
 			 */
 			$instance = self::init();
-			$class = get_called_class();
-			$table = $instance->TABLE_ARRAY[ get_called_class() ];
+			$class    = get_called_class();
+			$table    = $instance->TABLE_ARRAY[ get_called_class() ];
 
-			$columns   = implode( ',' ,
-			                      $columns );
+			$columns   = implode( ',' , $columns );
 			$statement = $instance->builder->prepare( "select {$columns} from {$table}" );
 			$statement->execute();
 
-			return $statement->fetchAll( PDO::FETCH_CLASS ,
-			                             $class );
+			return $statement->fetchAll( PDO::FETCH_CLASS , $class );
 		}
 
 		/**
@@ -71,16 +70,15 @@
 		 */
 		public static function find( $columns = [ '*' ] ) {
 			$instance = self::init();
-			$class = get_called_class();
-			$table = $instance->TABLE_ARRAY[ get_called_class() ];
+			$class    = get_called_class();
+			$table    = $instance->TABLE_ARRAY[ get_called_class() ];
 
-			$columns        = implode( ',' , $columns );
+			$columns            = implode( ',' , $columns );
 			$instance->type     = "SELECT {$columns} FROM {$table}";
 			$instance->class    = $class;
 			$instance->isSingle = true;
 
 			return $instance;
-
 			// return $this;
 		}
 
@@ -92,10 +90,10 @@
 		 * @return $this same object for further chaining
 		 */
 		public static function findAll( $columns = [ '*' ] ) {
-			$instance = self::init();
-			$class = get_called_class();
-			$table = $instance->TABLE_ARRAY[ get_called_class() ];
-			$columns        = implode( ',' , $columns );
+			$instance           = self::init();
+			$class              = get_called_class();
+			$table              = $instance->TABLE_ARRAY[ get_called_class() ];
+			$columns            = implode( ',' , $columns );
 			$instance->type     = "SELECT {$columns} FROM {$table}";
 			$instance->class    = $class;
 			$instance->isSingle = false;
@@ -117,12 +115,20 @@
 				if( $i > 0 ) {
 					$this->whereClause .= $bool;
 				}
-				$this->whereClause .= $columns[ $i ]
-				                      . $operators[ $i ]
-				                      . "'"
-				                      . $values[ $i ]
-				                      . "'";
+				$this->whereClause .= $columns[ $i ] . $operators[ $i ] . "'" . $values[ $i ] . "'";
 			}
+
+			return $this;
+		}
+
+		public function limit( $quantity ) {
+			$this->limitTo = "LIMIT {$quantity}";
+
+			return $this;
+		}
+
+		public function orderBy( $attribute , $direction ) {
+			$this->orderBy .= "ORDER BY {$attribute} {$direction}";
 
 			return $this;
 		}
@@ -133,8 +139,8 @@
 		 */
 		public static function insert( $parameters = [] ) {
 			$instance = self::init();
-			$class = get_called_class();
-			$table = $instance->TABLE_ARRAY[ get_called_class() ];
+			$class    = get_called_class();
+			$table    = $instance->TABLE_ARRAY[ get_called_class() ];
 			array_keys( $parameters );
 			$sql = sprintf( "INSERT INTO %s (%s) VALUES (%s)" , $table , implode( ", " , array_keys( $parameters ) ) ,
 			                ":" . implode( ", :" , array_keys( $parameters ) ) );
@@ -162,6 +168,9 @@
 			if( $this->orderBy != "" ) {
 				$this->query .= " " . $this->orderBy;
 			}
+			if( $this->limitTo != "" ) {
+				$this->query .= " " . $this->limitTo;
+			}
 
 			// var_dump( $this->query );
 
@@ -184,8 +193,9 @@
 
 		public static function lastInsertId() {
 			$instance = self::init();
-			$class = get_called_class();
-			$table = $instance->TABLE_ARRAY[ get_called_class() ];
+			$class    = get_called_class();
+			$table    = $instance->TABLE_ARRAY[ get_called_class() ];
+
 			return $instance->builder->lastInsertId();
 		}
 	}

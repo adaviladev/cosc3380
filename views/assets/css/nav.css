@@ -29,12 +29,13 @@ nav .menu .parent-menu > a {
 }
 
 nav a:hover {
-	background-color : lightgrey;
+	background-color : #ffc107;
 	/*border-bottom       : solid 2px cyan;*/
 	/*border-bottom-style : inset;*/
 }
 
 .menu .parent-menu .sub-menu {
+	background-color : #ffc107;
 	max-height : 0;
 	overflow   : hidden;
 	position   : absolute;
@@ -46,14 +47,13 @@ nav a:hover {
 .parent-menu:hover .sub-menu {
 	max-height      : none;
 	list-style-type : none;
-	color           : #333333;
+	color           : #ffffff;
 
 	border-radius   : 2px;
 	box-shadow      : 0 1px 2px rgba(0, 0, 0, 0.12), 0 1px 4px rgba(0, 0, 0, 0.24);
 }
 
 .nav-menu .sub-menu a {
-	color           : #333333;
 	padding         : 8px 12px;
 	text-decoration : none;
 	display         : block;

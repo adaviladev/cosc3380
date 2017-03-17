@@ -24,8 +24,8 @@ gulp.task( 'css', function() {
 } );
 
 gulp.task( 'scripts', function() {
-	return gulp.src( 'views/assets/js/*.js' )
-		.pipe( concat( 'all.js' ) )
+	return gulp.src( [ 'views/assets/js/vendor/*.js', 'views/assets/js/*.js'] )
+		.pipe( concat( 'all.min.js' ) )
 		.pipe( gulp.dest( 'views/assets/bundle' ) )
 		.pipe( rename( 'all.min.js' ) )
 		.pipe( uglify() )

@@ -32,11 +32,14 @@
 			$packages = Package::selectAll();
 
 			foreach( $packages as $package ) {
-				$package->user          = User::find( $package->userId )
+				$package->user          = User::find()
+				                              ->where( [ 'id' ] , [ '=' ] , [ $package->userId ] )
 				                              ->get();
-				$package->destination   = Address::find( $package->destinationId )
+				$package->destination   = Address::find()
+				                                 ->where( [ 'id' ] , [ '=' ] , [ $package->destinationId ] )
 				                                 ->get();
-				$package->returnAddress = Address::find( $package->returnAddressId )
+				$package->returnAddress = Address::find()
+				                                 ->where( [ 'id' ] , [ '=' ] , [ $package->returnAddressId ] )
 				                                 ->get();
 			}
 
@@ -49,7 +52,7 @@
 			                  ->get();
 
 			$package->user = User::find()
-			                     ->where( [ 'id' ],[ '=' ],[ $package->userId ])
+			                     ->where( [ 'id' ] , [ '=' ] , [ $package->userId ] )
 			                     ->get();
 
 			return view( 'packages/packageDetail' , compact( 'package' ) );
