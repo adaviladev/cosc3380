@@ -12,6 +12,8 @@
 
 	$router->get( 'dashboard' , 'HomeController@home' );
 	$router->get( 'dashboard/packages' , 'PackageController@postOfficeInventory' );
+	$router->get( 'dashboard/customers', 'UsersController@postOfficeUsers');                //viktor
+	$router->get('dashboard/transactions', 'TransactionController@postOfficeTransactions');    //viktor
 	$router->get( 'packages' , 'PackageController@show' );
 	$router->get( 'packages/:packageId' , 'PackageController@packageDetail' );
 

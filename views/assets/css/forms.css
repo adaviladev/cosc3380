@@ -3,7 +3,6 @@
 	max-width : 600px;
 	width     : 95%;
 	margin    : 0 auto;
-	color     : #333333;
 }
 
 .form-wrapper .field-container {
@@ -12,8 +11,10 @@
 
 .form-wrapper label {
 	position           : absolute;
-	padding            : 8px;
+	padding            : 8px 0;
 	top                : 0;
+	z-index            : 1;
+	font-size          : 22px;
 
 	-webkit-transition : all .15s;
 	-moz-transition    : all .15s;
@@ -27,6 +28,11 @@
 	top : -20px;
 }
 
+.form-wrapper input {
+	position : relative;
+	z-index  : 2;
+}
+
 .form-wrapper input,
 .form-wrapper select {
 	width              : 100%;
@@ -34,7 +40,9 @@
 	border-bottom      : 2px solid #888888;
 	margin-top         : 8px;
 	margin-bottom      : 24px;
-	padding            : 8px;
+	padding            : 8px 0;
+	border-radius      : 0;
+	background-color   : rgba(255, 255, 255, 0);
 
 	-webkit-appearance : none;
 	-moz-appearance    : none;
@@ -80,6 +88,10 @@
 .valid {
 	color         : #4caf50;
 	border-bottom : 2px solid #4caf50 !important;
+}
+.dirty {
+	color         : #ff0000;
+	border-bottom : 2px solid #ff0000 !important;
 }
 
 .error {

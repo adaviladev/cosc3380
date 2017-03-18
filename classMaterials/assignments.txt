@@ -130,7 +130,7 @@ Krishan:
             - Post Office -- /admin/post-offices/:postOfficeId
                 // Show info for specific post office
 Victor:
-    - Users -- /dashboard/users
+    - Users -- /dashboard/customers
         // Show all customers that have packages at current employee's post office
         - User -- /dashboard/users/:userId
             // Show specific customer info

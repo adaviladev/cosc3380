@@ -4,6 +4,7 @@
 
 	use Address;
 	use App\Core\App;
+	use App\Core\Auth;
 	use Role;
 	use User;
 
@@ -14,6 +15,20 @@
 			return view( 'index' , compact( 'users' ) );
 		}
 
+		public function postOfficeUsers() {
+			$user = Auth::user();
+			$user->postOfficeId;
+			$customers = App::get( 'database' )->findAll( 'users' ,
+			                                              [ '*' ] ,
+			                                              'User' )->where( [ 'postOfficeId' ] ,
+			                                                               [ '=' ] ,
+			                                                               [ $user->postOfficeId ] )->get();
+			echo 'viktor was here';
+
+			dd( $customers );
+			return view( 'dashboard/customers' ,
+			             compact( 'customers' ) );
+		}
 		public function userDetail( $userId ) {
 			$user = User::find()
 			            ->where( [ 'id' ] , [ '=' ] , [ $userId ] )
