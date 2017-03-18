@@ -6,7 +6,7 @@
 <!doctype html>
 <html>
 	<head>
-		<link rel="stylesheet" href="/views/assets/css/main.css">
+		<link rel="stylesheet" href="/views/assets/bundle/css/all.min.css">
 	</head>
 
 	<body>
@@ -47,4 +47,4 @@
 			</header>
 		</div>
 		<div class="row">
-			<div id="Content" class="container">
+			<div id="Content" class="">

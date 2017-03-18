@@ -14,20 +14,15 @@
 			$user = Auth::user();
 			if( $user ) {
 				$packages = Package::findAll()
-				                   ->where( [ 'postOfficeId' ] ,
-				                            [ '=' ] ,
-				                            [ $user->postOfficeId ] )
+				                   ->where( [ 'postOfficeId' ] , [ '=' ] , [ $user->postOfficeId ] )
 				                   ->get();
 				foreach( $packages as $package ) {
 					$package->user = User::find()
-					                     ->where( [ 'id' ] ,
-					                              [ '=' ] ,
-					                              [ $package->userId ] )
+					                     ->where( [ 'id' ] , [ '=' ] , [ $package->userId ] )
 					                     ->get();
 				}
 
-				return view( 'packages/packages' ,
-				             compact( 'packages' ) );
+				return view( 'dashboard/packages' , compact( 'packages' ) );
 			}
 
 			return redirect( 'login' );
@@ -37,26 +32,29 @@
 			$packages = Package::selectAll();
 
 			foreach( $packages as $package ) {
-				$package->user          = User::find( $package->userId )
+				$package->user          = User::find()
+				                              ->where( [ 'id' ] , [ '=' ] , [ $package->userId ] )
 				                              ->get();
-				$package->destination   = Address::find( $package->destinationId )
+				$package->destination   = Address::find()
+				                                 ->where( [ 'id' ] , [ '=' ] , [ $package->destinationId ] )
 				                                 ->get();
-				$package->returnAddress = Address::find( $package->returnAddressId )
+				$package->returnAddress = Address::find()
+				                                 ->where( [ 'id' ] , [ '=' ] , [ $package->returnAddressId ] )
 				                                 ->get();
 			}
 
-			return view( 'packages/packages' ,
-			             compact( 'packages' ) );
+			return view( 'packages/packages' , compact( 'packages' ) );
 		}
 
 		public function packageDetail( $packageId ) {
-			$package = Package::find( $packageId )
+			$package = Package::find()
+			                  ->where( [ 'id' ] , [ '=' ] , [ $packageId ] )
 			                  ->get();
 
-			$package->user = User::find( $package->userId )
+			$package->user = User::find()
+			                     ->where( [ 'id' ] , [ '=' ] , [ $package->userId ] )
 			                     ->get();
 
-			return view( 'packages/packageDetail' ,
-			             compact( 'package' ) );
+			return view( 'dashboard/packageDetail' , compact( 'package' ) );
 		}
 	}

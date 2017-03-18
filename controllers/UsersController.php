@@ -12,8 +12,7 @@
 		public function show() {
 			$users = User::selectAll();
 
-			return view( 'index' ,
-			             compact( 'users' ) );
+			return view( 'index' , compact( 'users' ) );
 		}
 
 		public function postOfficeUsers() {
@@ -31,7 +30,8 @@
 			             compact( 'customers' ) );
 		}
 		public function userDetail( $userId ) {
-			$user = User::find( $userId )
+			$user = User::find()
+			            ->where( [ 'id' ] , [ '=' ] , [ $userId ] )
 			            ->get();
 
 			var_dump( $user );
@@ -47,14 +47,12 @@
 				                                    'city' ,
 				                                    'stateId' ,
 				                                    'zipCode' ,
-			                                    ] ,
-			                                    [
+			                                    ] , [
 				                                    '=' ,
 				                                    '=' ,
 				                                    '=' ,
 				                                    '='
-			                                    ] ,
-			                                    [
+			                                    ] , [
 				                                    $_POST[ 'address' ] ,
 				                                    $_POST[ 'city' ] ,
 				                                    $_POST[ 'stateId' ] ,
@@ -77,9 +75,7 @@
 			$role = Role::find()
 			            ->where( [
 				                     'type'
-			                     ] ,
-			                     [ '=' ] ,
-			                     [ 'employee' ] )
+			                     ] , [ '=' ] , [ 'employee' ] )
 			            ->get();
 
 			$userInsert = User::insert( [
@@ -94,7 +90,9 @@
 			                            ] );
 
 			if( $userInsert === true ) {
-				$user = User::find( User::lastInsertId() );
+				$user = User::find()
+				            ->where( [ 'id' ] , [ '=' ] , [ User::lastInsertId() ] )
+				            ->get();
 
 				$_SESSION[ 'user' ] = serialize( $user );
 				var_dump( $_SESSION );
@@ -108,8 +106,7 @@
 							'email' => 'Email already exists.'
 						);
 
-						return view( 'auth/register' ,
-						             compact( 'errors' ) );
+						return view( 'auth/register' , compact( 'errors' ) );
 				}
 			}
 

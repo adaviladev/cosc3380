@@ -7,26 +7,26 @@
 					<?php foreach( $packages as $package ) { ?>
 						<a href="/packages/<?= $package->id ?>" class="package-list-item clearfix">
 							<div class="clearfix">
-								<div class="one_fifth float-left text-center">
+								<div class="col-dt-2 col-tb-4 col-mb-6 text-center">
 									<?= $package->id ?>
 								</div>
-								<!-- /.one_fifth float-left -->
-								<div class="one_fifth float-left text-center">
+								<!-- /.col-dt-2 col-tb-4 col-mb-6 -->
+								<div class="col-dt-2 col-tb-4 col-mb-6 text-center">
 									<?= $package->userId ?>
 								</div>
-								<!-- /.one_fifth float-left -->
-								<div class="one_fifth float-left">
-									<?= $package->user->firstName ?>
+								<!-- /.col-dt-2 col-tb-4 col-mb-6 -->
+								<div class="col-dt-2 col-tb-4 col-mb-6" >
+									<?= $package->user->firstName ?> <?= $package->user->lastName ?>
 								</div>
-								<!-- /.one_fifth float-left -->
-								<div class="one_fifth float-left">
+								<!-- /.col-dt-2 col-tb-4 col-mb-6 -->
+								<div class="col-dt-2 col-tb-4 col-mb-6" >
 									<?= $package->destinationId ?>
 								</div>
-								<!-- /.one_fifth float-left -->
-								<div class="one_fifth float-left text-center">
+								<!-- /.col-dt-2 col-tb-4 col-mb-6 -->
+								<div class="col-dt-2 col-tb-4 col-mb-6 text-center">
 									<?= $package->packageStatus ?>
 								</div>
-								<!-- /.one_fifth float-left -->
+								<!-- /.col-dt-2 col-tb-4 col-mb-6 -->
 							</div>
 						</a>
 					<?php } ?>
