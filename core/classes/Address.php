@@ -1,6 +1,8 @@
 <?php
 
-	class Address {
+	use App\Models\Model;
+
+	class Address extends Model {
 
 		public $id;
 		public $street;
@@ -14,11 +16,29 @@
 			// silence is golden
 		}
 
-		public function  __sleep(){
+		public function __sleep() {
 			// silence is golden
+			return [
+				'id' ,
+				'street' ,
+				'city' ,
+				'stateId' ,
+				'zipCode' ,
+				'createdAt' ,
+				'modifiedAt'
+			];
 		}
 
-		public function  __wakeup(){
+		public function __wakeup() {
 			// silence is golden
+			return [
+				'id' ,
+				'street' ,
+				'city' ,
+				'stateId' ,
+				'zipCode' ,
+				'createdAt' ,
+				'modifiedAt'
+			];
 		}
 	}

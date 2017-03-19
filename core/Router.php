@@ -68,6 +68,7 @@
 				}
 			}
 
+			// redirect( '404' );
 			throw new Exception( 'No route defined for URI.' );
 		}
 

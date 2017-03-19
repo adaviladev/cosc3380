@@ -1,6 +1,8 @@
 <?php
 
-	class PackageStatus {
+	use App\Models\Model;
+
+	class PackageStatus extends Model {
 
 		public $id;
 		public $type;
@@ -12,11 +14,25 @@
 			// silence is golden
 		}
 
-		public function  __sleep(){
+		public function __sleep() {
 			// silence is golden
+			return [
+				'id' ,
+				'type' ,
+				'modifiedBy' ,
+				'createdAt' ,
+				'modifiedAt'
+			];
 		}
 
-		public function  __wakeup(){
+		public function __wakeup() {
 			// silence is golden
+			return [
+				'id' ,
+				'type' ,
+				'modifiedBy' ,
+				'createdAt' ,
+				'modifiedAt'
+			];
 		}
 	}

@@ -2,126 +2,25 @@
 Color Pallet can be found here.
 http://paletton.com/#uid=1330u0kqJvTg-I7lNA4vnrNxZlJ
  */
-body {
-	margin      : 0;
-	font-family : "Lato Light", sans-serif;
-}
-
-body a {
-	outline : none;
-}
-
-h1 {
-	font-family : "Lato Light", sans-serif;
-	font-weight : 100;
-}
-
-/* Navigation Styling */
-header {
-	background-color : #ffa000;
-	position         : fixed;
-	top              : 0;
-	width            : 100%;
-	z-index          : 99999;
-}
-
-#Logo {
-	display         : inline-block;
-	padding         : 15px 0;
-	text-decoration : none;
-	font-size       : 22px;
-}
-
-.nav-menu {
-	color : #ffffff;
-	margin-bottom: 60px;
-}
-
-.nav-menu a {
-	color : #ffffff;
-}
-
-nav {
-	float : right;
-	/*padding : 12px 0;*/
-}
-
-nav > ul > li {
-	display         : inline-block;
-	float           : left;
-	list-style-type : none;
-}
-
-nav > ul > li a {
-	text-decoration : none;
-	padding         : 22px 8px;
-	transition      : all .5s;
-}
-
-nav a:hover {
-	background-color : lightgrey;
-	/*border-bottom       : solid 2px cyan;*/
-	/*border-bottom-style : inset;*/
-}
-
-.clearfix:after {
-	content : "";
-	display : table;
-	clear   : both;
-}
-
-/* Card Styling */
-.card {
-	border-radius : 2px;
-	box-shadow    : 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 8px rgba(0, 0, 0, 0.72);
-}
-
-/* Grid Styling */
-.row {
-	width : 100%;
-}
-
-.container {
-	width     : 90%;
-	max-width : 1120px;
-	margin    : 0 auto;
-}
-
-.float-left {
-	float : left;
-}
-
-.float-right {
-	float : right;
-}
-
-.one_fifth {
-	width : 20%;
-}
-
-/* Layout styling */
-.text-left {
-	text-align : left;
-}
-
-.text-center {
-	text-align : center;
-}
-
-.text-right {
-	text-align : right;
-}
-
-#Content {
-	padding : 30px 0;
-	/*height  : 2000px;*/
-}
-
 .package-wrapper {
 	background-color      : #f3f8f8;
 	-webkit-border-radius : 4px;
 	-moz-border-radius    : 4px;
 	border-radius         : 4px;
+}
+
+.package-wrapper a {
+	display            : block;
+
+	-webkit-transition : font-size .1s;
+	-moz-transition    : font-size .1s;
+	-ms-transition     : font-size .1s;
+	-o-transition      : font-size .1s;
+	transition         : font-size .1s;
+}
+
+.package-wrapper a:hover {
+	font-size : 130%;
 }
 
 .package-list-item {
@@ -138,89 +37,12 @@ nav a:hover {
 	padding : 30px 0;
 }
 
-/* Form styling */
-.form-wrapper {
-	max-width : 600px;
-	width     : 95%;
-	margin    : 0 auto;
-	color     : #333333;
-}
-
-.form-wrapper .field-container {
-	position : relative;
-}
-
-.form-wrapper label {
-	position : absolute;
-	padding  : 8px;
-}
-
-.form-wrapper input,
-.form-wrapper select {
-	width              : 100%;
-	border             : none;
-	border-bottom      : 2px solid #888888;
-	margin-bottom      : 24px;
-	padding            : 8px;
-
-	-webkit-box-sizing : content-box;
-	-moz-box-sizing    : content-box;
-	-ms-box-sizing     : content-box;
-	box-sizing         : content-box;
-
-	-webkit-transition : color, border-bottom-color .3s;
-	-moz-transition    : color, border-bottom-color .3s;
-	-ms-transition     : color, border-bottom-color .3s;
-	-o-transition      : color, border-bottom-color .3s;
-	transition         : color, border-bottom-color .3s;
-}
-
-.form-wrapper input:focus,
-.form-wrapper select:focus {
-	outline             : none;
-	border-bottom-color : #ffc107;
-}
-
-.form-wrapper button {
-	padding            : 8px 16px;
-	border             : none;
-	border-radius      : 2px;
-	box-shadow         : 0 1px 4px rgba(0, 0, 0, .6);
-	background-color   : #ffa000;
-	color              : #ffffff;
-
-	-webkit-transition : background-color .3s;
-	-moz-transition    : background-color .3s;
-	-ms-transition     : background-color .3s;
-	-o-transition      : background-color .3s;
-	transition         : background-color .3s;
-}
-
-.form-wrapper button:hover {
-	background-color : #ff6f00;
-}
-
-.valid {
-	color : #4caf50;
-	/*border-bottom: 2px solid;*/
-}
-
-.error * {
-	width         : 100%;
-	padding       : 8px;
-	border-bottom : 2px solid #ff0000 !important;
-}
-
-.email-error input:after {
-	color   : #ff0000;
-	content : "Email already exists";
-}
-
 /*
 	Media queries go below here.
 	Use "max-width" for setting breakpoints
 	and make sure it goes from high to low.
 */
 @media (max-width : 767px) {
+
 
 }

@@ -3,11 +3,11 @@
 	namespace App\Controllers;
 
 	use App\Core\App;
+	use PostOffice;
+	use State;
 
 	class PagesController {
 		public function home() {
-			$users = App::get( 'database' )->selectAll( 'users' );
-			var_dump( $_SESSION );
 
 			return view( 'index' );
 		}
@@ -20,5 +20,21 @@
 		public function contact() {
 
 			return view( 'pages/contact' );
+		}
+
+		public function locations() {
+			$postOffices = PostOffice::selectAll();
+			foreach( $postOffices as $postOffice ) {
+				$postOffice->state = State::find()
+				                          ->where( [ 'id' ] , [ '=' ] , [ $postOffice->stateId ] )
+				                          ->get()->state;
+			}
+
+			return view( 'pages/locations' , compact( 'postOffices' ) );
+		}
+
+		public function error() {
+
+			return view( 'error/404' );
 		}
 	}

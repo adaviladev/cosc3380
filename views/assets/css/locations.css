@@ -1,0 +1,18 @@
+/* Locations Styling */
+
+.location-content {
+	width: 90%;
+	margin: 0 auto 15px;
+}
+
+.location-title {
+	width: 100%;
+	margin: 0 auto;
+	background-color: #ffc107;
+}
+
+.location-content h2,
+.location-content p {
+	padding: 8px;
+	margin: 0;
+}

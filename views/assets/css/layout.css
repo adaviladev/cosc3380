@@ -1,0 +1,74 @@
+body {
+	margin      : 0;
+}
+
+body a {
+	outline : none;
+}
+
+/* Navigation Styling */
+header {
+	background-color : #ffa000;
+	position         : fixed;
+	top              : 0;
+	width            : 100%;
+	z-index          : 99999;
+}
+
+#Logo {
+	display         : inline-block;
+	padding         : 15px 0;
+	text-decoration : none;
+	font-size       : 22px;
+}
+
+.clearfix:after {
+	content : "";
+	display : table;
+	clear   : both;
+}
+
+/* Card Styling */
+.card {
+	border-radius : 2px;
+	box-shadow    : 0 2px 8px rgba(0, 0, 0, 0.12), 0 1px 8px rgba(0, 0, 0, 0.72);
+}
+
+.card-1 {
+	border-radius : 2px;
+	box-shadow    : 0 4px 8px rgba(0, 0, 0, 0.12), 0 1px 8px rgba(0, 0, 0, 0.24);
+}
+
+.card-2 {
+	border-radius : 2px;
+	box-shadow    : 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 8px rgba(0, 0, 0, 0.36);
+}
+
+.float-left {
+	float : left;
+}
+
+.float-right {
+	float : right;
+}
+
+/* Layout styling */
+.text-left {
+	text-align : left;
+}
+
+.text-center {
+	text-align : center;
+}
+
+.text-right {
+	text-align : right;
+}
+
+#Content {
+	padding : 30px 0;
+}
+
+#Content p {
+	color: #333333;
+}

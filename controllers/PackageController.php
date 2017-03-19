@@ -2,30 +2,59 @@
 
 	namespace App\Controllers;
 
+	use Address;
 	use App\Core\App;
+	use App\Core\Auth;
+	use Package;
+	use User;
 
 	class PackageController {
-		public function show() {
-			$packages = App::get( 'database' )->selectAll( 'packages' , 'Package' );
 
-			foreach( $packages as $package ) {
-				$package->user = App::get( 'database' )->find( 'users' , [
-					'id' => $package->user_id
-				] , 'User' );
+		public function postOfficeInventory() {
+			$user = Auth::user();
+			if( $user ) {
+				$packages = Package::findAll()
+				                   ->where( [ 'postOfficeId' ] , [ '=' ] , [ $user->postOfficeId ] )
+				                   ->get();
+				foreach( $packages as $package ) {
+					$package->user = User::find()
+					                     ->where( [ 'id' ] , [ '=' ] , [ $package->userId ] )
+					                     ->get();
+				}
+
+				return view( 'dashboard/packages' , compact( 'packages' ) );
 			}
 
-			return view( 'packages' , compact( 'packages' ) );
+			return redirect( 'login' );
+		}
+
+		public function show() {
+			$packages = Package::selectAll();
+
+			foreach( $packages as $package ) {
+				$package->user          = User::find()
+				                              ->where( [ 'id' ] , [ '=' ] , [ $package->userId ] )
+				                              ->get();
+				$package->destination   = Address::find()
+				                                 ->where( [ 'id' ] , [ '=' ] , [ $package->destinationId ] )
+				                                 ->get();
+				$package->returnAddress = Address::find()
+				                                 ->where( [ 'id' ] , [ '=' ] , [ $package->returnAddressId ] )
+				                                 ->get();
+			}
+
+			return view( 'packages/packages' , compact( 'packages' ) );
 		}
 
 		public function packageDetail( $packageId ) {
-			$package = App::get( 'database' )->find( 'packages' , [
-					'id' => $packageId
-				] , 'Package' );
+			$package = Package::find()
+			                  ->where( [ 'id' ] , [ '=' ] , [ $packageId ] )
+			                  ->get();
 
-			$package->user = App::get( 'database' )->find( 'users' , [
-					'id' => $package->user_id
-				] , 'User' );
+			$package->user = User::find()
+			                     ->where( [ 'id' ] , [ '=' ] , [ $package->userId ] )
+			                     ->get();
 
-			return view( 'packageDetail' , compact( 'package' ) );
+			return view( 'dashboard/packageDetail' , compact( 'package' ) );
 		}
 	}

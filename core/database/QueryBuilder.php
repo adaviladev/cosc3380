@@ -61,7 +61,7 @@
 			$columns        = implode( ',' , $columns );
 			$this->type     = "SELECT {$columns} FROM {$table}";
 			$this->class    = $class;
-			$this->isSingle = true;
+			$this->isSingle = false;
 
 			return $this;
 		}
@@ -74,13 +74,13 @@
 		 *
 		 * @return $this
 		 */
-		public function where( $columns = [] , $operators = [] , $values = [] , $bool = "AND" ) {
+		public function where( $columns = [] , $operators = [] , $values = [] , $bool = [ " AND " ] ) {
 			$this->whereClause = "WHERE ";
 			for( $i = 0; $i < count( $columns ); $i++ ) {
-				$this->whereClause .= $columns[ $i ] . $operators[ $i ] . $values[ $i ];
 				if( $i > 0 ) {
 					$this->whereClause .= $bool[ $i - 1 ];
 				}
+				$this->whereClause .= $columns[ $i ] . $operators[ $i ] . "'" . $values[ $i ] . "'";
 			}
 
 			return $this;
@@ -118,20 +118,23 @@
 				$this->query .= " " . $this->orderBy;
 			}
 
-			var_dump( $this->query );
+			// var_dump( $this->query );
 
 			return $this->run( $this->query );
 		}
 
-		public function run( $sql ) {
+		public function run( $sql , $ssh = false ) {
 			try {
 				$statement = $this->pdo->prepare( $sql );
 				$statement->execute();
-				if( $this->isSingle ) {
-					return $statement->fetchObject( $this->class );
-				}
+				if( !$ssh ) {
+					if( $this->isSingle ) {
+						return $statement->fetchObject( $this->class );
+					}
 
-				return $statement->fetchAll( PDO::FETCH_CLASS , $this->class );
+					return $statement->fetchAll( PDO::FETCH_CLASS , $this->class );
+				}
+				return false;
 			} catch( PDOException $e ) {
 				die( $e->getMessage() );
 			}
