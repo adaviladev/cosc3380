@@ -20,10 +20,10 @@ CREATE TABLE `addresses` (
 
 	street    VARCHAR(100) ,
 	city      VARCHAR(100) ,
-	state     INT(10) UNSIGNED ,
+	stateId    INT(10) UNSIGNED ,
 	zipCode   INT(9) ,
 
-	CONSTRAINT fkAddressToState FOREIGN KEY (state) REFERENCES `states` (`id`) ,
+	CONSTRAINT fkAddressToState FOREIGN KEY (stateId) REFERENCES `states` (`id`) ,
 
 	createdAt TIMESTAMP                    DEFAULT CURRENT_TIMESTAMP,
 	modifiedAt TIMESTAMP                    DEFAULT CURRENT_TIMESTAMP
@@ -88,6 +88,7 @@ CREATE TABLE `users` (
 	lastName     VARCHAR(50) ,
 	addressId      INT(10) REFERENCES addresses (id) ,
 	email        VARCHAR(50) ,
+	password		 VARCHAR(32) ,
 	roleId       INT(10) UNSIGNED REFERENCES roles (id) ,
 	postOfficeId INT(10) UNSIGNED NULL REFERENCES postOffices (id) ,
 
@@ -129,8 +130,8 @@ CREATE TABLE `packages` (
 	postOfficeId  INT(10) UNSIGNED ,
 	typeId        INT(10) UNSIGNED ,
 	transactionId INT(10) UNSIGNED ,
-	destination   INT(10) UNSIGNED ,
-	returnAddress INT(10) UNSIGNED ,
+	destinationId   INT(10) UNSIGNED ,
+	returnAddressId INT(10) UNSIGNED ,
 	contents      VARCHAR(255) ,
 	weight        DOUBLE ,
 	priority      BOOL ,
@@ -140,8 +141,8 @@ CREATE TABLE `packages` (
 	CONSTRAINT fkPackagesToPostOfficeId FOREIGN KEY (postOfficeId) REFERENCES postOffices (id) ,
 	CONSTRAINT fkPackagesToTypeId FOREIGN KEY (typeId) REFERENCES packageTypes (id) ,
 	CONSTRAINT fkPackagesToTransactionId FOREIGN KEY (transactionId) REFERENCES transactions (id) ,
-	CONSTRAINT fkPackagesToDestination FOREIGN KEY (destination) REFERENCES addresses (id) ,
-	CONSTRAINT fkPackagesToReturnAddress FOREIGN KEY (returnAddress) REFERENCES addresses (id) ,
+	CONSTRAINT fkPackagesToDestination FOREIGN KEY (destinationId) REFERENCES addresses (id) ,
+	CONSTRAINT fkPackagesToReturnAddress FOREIGN KEY (returnAddressId) REFERENCES addresses (id) ,
 
 	modifiedBy    INT(10) UNSIGNED,
 	CONSTRAINT fkModifiedBy FOREIGN KEY (modifiedBy) REFERENCES users (id) ,
