@@ -28,10 +28,10 @@
 
 	$router->post( 'users' , 'UsersController@store' );
 
-	$router->get( 'dashboard/admin' , 'AdminController@admin' );
-	$router->get( 'dashboard/admin/packages' , 'AdminController@packages' );
-	$router->get( 'dashboard/admin/transactions' , 'AdminController@transactions' );
-	$router->get( 'dashboard/admin/postOffices' , 'AdminController@postOffices' );
+	$router->get( 'admin' , 'AdminController@admin' );
+	$router->get( 'admin/packages' , 'AdminController@packages' );
+	$router->get( 'admin/transactions' , 'AdminController@transactions' );
+	$router->get( 'admin/postOffices' , 'AdminController@postOffices' );
 
 	/**
 	 * Error out
