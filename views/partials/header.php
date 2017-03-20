@@ -11,7 +11,7 @@
 
 	<body>
 		<div class="row nav-menu card clearfix">
-			<header class="card">
+			<header class="card primary-bg">
 				<div class="container clearfix">
 					<a href="/" id="Logo">
 						Home
@@ -21,7 +21,6 @@
 							<li class="parent-menu"><a href="/users">Users</a></li>
 							<li class="parent-menu"><a href="/locations">Locations</a></li>
 							<?php if( empty( Auth::user() ) ) { ?>
-								<li class="parent-menu"><a href="/packages">Packages</a></li>
 								<li class="parent-menu"><a href="/login">Login</a></li>
 								<li class="parent-menu"><a href="/register">Register</a></li>
 							<?php } else { ?>
