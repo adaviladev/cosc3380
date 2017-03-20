@@ -6,13 +6,33 @@ body a {
 	outline : none;
 }
 
+img {
+	max-width: 100%;
+}
+
+img.center {
+	display: block;
+	margin: 0 auto;
+}
+
 /* Navigation Styling */
 header {
-	background-color : #ffa000;
 	position         : fixed;
 	top              : 0;
 	width            : 100%;
 	z-index          : 99999;
+}
+
+.primary-bg {
+	background-color : #ffa000;
+}
+
+.secondary-bg {
+	background-color: #ffc107;
+}
+
+.accent-bg {
+	background-color: #ff6f00;
 }
 
 #Logo {

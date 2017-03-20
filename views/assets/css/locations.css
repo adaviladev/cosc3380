@@ -1,14 +1,13 @@
 /* Locations Styling */
 
-.location-content {
+.list-content {
 	width: 90%;
-	margin: 0 auto 15px;
+	margin: 0 auto;
 }
 
-.location-title {
+.list-header {
 	width: 100%;
 	margin: 0 auto;
-	background-color: #ffc107;
 }
 
 .location-content h2,

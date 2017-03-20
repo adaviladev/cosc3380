@@ -6,6 +6,8 @@
 	use App\Core\App;
 	use App\Core\Auth;
 	use Package;
+	use PackageStatus;
+	use State;
 	use User;
 
 	class PackageController {
@@ -47,13 +49,28 @@
 		}
 
 		public function packageDetail( $packageId ) {
-			$package = Package::find()
-			                  ->where( [ 'id' ] , [ '=' ] , [ $packageId ] )
-			                  ->get();
+			$package         = Package::find()
+			                          ->where( [ 'id' ] , [ '=' ] , [ $packageId ] )
+			                          ->get();
+			$package->status = PackageStatus::find()
+			                                ->where( [ 'id' ] , [ '=' ] , [ $package->packageStatus ] )
+			                                ->get();
 
-			$package->user = User::find()
-			                     ->where( [ 'id' ] , [ '=' ] , [ $package->userId ] )
-			                     ->get();
+			$package->user                 = User::find()
+			                                     ->where( [ 'id' ] , [ '=' ] , [ $package->userId ] )
+			                                     ->get();
+			$package->destination          = Address::find()
+			                                        ->where( [ 'id' ] , [ '=' ] , [ $package->destinationId ] )
+			                                        ->get();
+			$package->destination->state   = State::find()
+			                                      ->where( [ 'id' ] , [ '=' ] , [ $package->destination->stateId ] )
+			                                      ->get()->state;
+			$package->returnAddress        = Address::find()
+			                                        ->where( [ 'id' ] , [ '=' ] , [ $package->returnAddressId ] )
+			                                        ->get();
+			$package->returnAddress->state = State::find()
+			                                      ->where( [ 'id' ] , [ '=' ] , [ $package->returnAddress->stateId ] )
+			                                      ->get()->state;
 
 			return view( 'dashboard/packageDetail' , compact( 'package' ) );
 		}

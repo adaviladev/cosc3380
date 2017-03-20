@@ -1,14 +1,10 @@
 /* Grid Styling */
-.row {
-	width : 100%;
-}
+.row { width : 100%; }
 
-[class^="col-"] {
-	float : left;
-}
+[class^="col-"] { float : left; }
 
 .container {
-	width     : 100%;
+	width     : 90%;
 	max-width : 1120px;
 	margin    : 0 auto;
 }
@@ -25,10 +21,6 @@
 .col-dt-10 {width : 83.333333%;}
 .col-dt-11 {width : 91.666667%;}
 .col-dt-12 {width : 100%;}
-
-@media ( max-width: 1150px ) {
-	.container {width: 95%;}
-}
 
 @media ( max-width : 767px ) {
 	.col-tb-1 {width : 8.333333%;}

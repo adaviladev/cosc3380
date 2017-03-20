@@ -24,13 +24,26 @@ http://paletton.com/#uid=1330u0kqJvTg-I7lNA4vnrNxZlJ
 }
 
 .package-list-item {
-	width   : 100%;
+	/*width   : 100%;*/
 	margin  : 0 auto;
 	padding : 8px 0;
 }
 
 .package-list-item:nth-child(odd) {
 	background-color : #c7e4f8;
+}
+
+.list-item {
+	margin: 0 auto 30px;
+}
+
+.package-detail-content > div > div {
+	width: 90%;
+	margin: 0 auto;
+}
+
+.package-detail-content > div {
+	margin-bottom: 30px;
 }
 
 #Colophon {
