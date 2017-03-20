@@ -28,6 +28,11 @@
 
 	$router->post( 'users' , 'UsersController@store' );
 
+	$router->get( 'admin' , 'AdminController@admin' );
+	$router->get( 'admin/packages' , 'AdminController@packages' );
+	$router->get( 'admin/transactions' , 'AdminController@transactions' );
+	$router->get( 'admin/postOffices' , 'AdminController@postOffices' );
+
 	/**
 	 * Error out
 	 */
