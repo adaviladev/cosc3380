@@ -12,26 +12,34 @@
 		public function show() {
 			$users = User::selectAll();
 
-			return view( 'index' , compact( 'users' ) );
+			return view( 'index' ,
+			             compact( 'users' ) );
 		}
 
 		public function postOfficeUsers() {
 			$user = Auth::user();
 			$user->postOfficeId;
-			$customers = App::get( 'database' )->findAll( 'users' ,
-			                                              [ '*' ] ,
-			                                              'User' )->where( [ 'postOfficeId' ] ,
-			                                                               [ '=' ] ,
-			                                                               [ $user->postOfficeId ] )->get();
+			$customers = App::get( 'database' )
+			                ->findAll( 'users' ,
+			                           [ '*' ] ,
+			                           'User' )
+			                ->where( [ 'postOfficeId' ] ,
+			                         [ '=' ] ,
+			                         [ $user->postOfficeId ] )
+			                ->get();
 			echo 'viktor was here';
 
 			dd( $customers );
+
 			return view( 'dashboard/customers' ,
 			             compact( 'customers' ) );
 		}
+
 		public function userDetail( $userId ) {
 			$user = User::find()
-			            ->where( [ 'id' ] , [ '=' ] , [ $userId ] )
+			            ->where( [ 'id' ] ,
+			                     [ '=' ] ,
+			                     [ $userId ] )
 			            ->get();
 
 			var_dump( $user );
@@ -47,12 +55,14 @@
 				                                    'city' ,
 				                                    'stateId' ,
 				                                    'zipCode' ,
-			                                    ] , [
+			                                    ] ,
+			                                    [
 				                                    '=' ,
 				                                    '=' ,
 				                                    '=' ,
 				                                    '='
-			                                    ] , [
+			                                    ] ,
+			                                    [
 				                                    $_POST[ 'address' ] ,
 				                                    $_POST[ 'city' ] ,
 				                                    $_POST[ 'stateId' ] ,
@@ -75,7 +85,9 @@
 			$role = Role::find()
 			            ->where( [
 				                     'type'
-			                     ] , [ '=' ] , [ 'employee' ] )
+			                     ] ,
+			                     [ '=' ] ,
+			                     [ 'employee' ] )
 			            ->get();
 
 			$userInsert = User::insert( [
@@ -91,7 +103,9 @@
 
 			if( $userInsert === true ) {
 				$user = User::find()
-				            ->where( [ 'id' ] , [ '=' ] , [ User::lastInsertId() ] )
+				            ->where( [ 'id' ] ,
+				                     [ '=' ] ,
+				                     [ User::lastInsertId() ] )
 				            ->get();
 
 				$_SESSION[ 'user' ] = serialize( $user );
@@ -106,7 +120,8 @@
 							'email' => 'Email already exists.'
 						);
 
-						return view( 'auth/register' , compact( 'errors' ) );
+						return view( 'auth/register' ,
+						             compact( 'errors' ) );
 				}
 			}
 

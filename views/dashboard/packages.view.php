@@ -1,8 +1,8 @@
 <?php getHeader(); ?>
 
+<?php if( ! empty( $packages ) ) { ?>
 	<div class="row">
 		<div class="container">
-			<?php if( ! empty( $packages ) ) { ?>
 				<div class="list-wrapper clearfix">
 					<?php foreach( $packages as $package ) { ?>
 						<a href="/packages/<?= $package->id ?>" class="col-dt-4 col-tb-6 col-mb-12 list-item clearfix">
@@ -31,8 +31,8 @@
 						</a>
 					<?php } ?>
 				</div>
-			<?php } ?>
 		</div>
 	</div>
+<?php } ?>
 
 <?php getFooter(); ?>
