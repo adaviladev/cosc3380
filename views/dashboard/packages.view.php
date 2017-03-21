@@ -3,11 +3,11 @@
 <?php if( ! empty( $packages ) ) { ?>
 	<div class="row">
 		<div class="container">
-				<div class="list-wrapper clearfix">
+				<div class="grid-wrapper clearfix">
 					<?php foreach( $packages as $package ) { ?>
-						<a href="/packages/<?= $package->id ?>" class="col-dt-4 col-tb-6 col-mb-12 list-item clearfix">
-							<div class="list-content card-2 clearfix">
-								<div class="col-dt-12 col-tb-12 col-mb-12 list-header secondary-bg text-left">
+						<a href="/packages/<?= $package->id ?>" class="col-dt-4 col-tb-6 col-mb-12 grid-item clearfix">
+							<div class="grid-content card-2 clearfix">
+								<div class="col-dt-12 col-tb-12 col-mb-12 grid-header secondary-bg text-left">
 									<h3>Order: #<?= $package->id ?></h3>
 								</div>
 								<!-- /.col-dt-12 col-tb-12 col-mb-12 -->

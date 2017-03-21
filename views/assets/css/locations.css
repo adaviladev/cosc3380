@@ -4,12 +4,16 @@
 	padding: 12px;
 	margin-bottom: 30px;
 }
-.list-content {
+.grid-content {
 	width: 90%;
 	margin: 0 auto 30px;
 }
 
-.list-header {
+.grid-item {
+	margin: 0 auto;
+}
+
+.grid-header {
 	width: 100%;
 	margin: 0 auto;
 }
@@ -18,4 +22,9 @@
 .location-content p {
 	padding: 8px;
 	margin: 0;
+}
+
+.list-wrapper {
+	border-radius: 2px;
+	overflow : hidden;
 }
