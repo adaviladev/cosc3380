@@ -7,10 +7,10 @@ body * {
 	color: #333333;
 }
 
-h1 {font-size : 44px;}
-h2 {font-size : 38px;}
-h3 {font-size : 32px;}
-h4 {font-size : 26px;}
-h5 {font-size : 20px;}
-h6 {font-size : 14px;}
+h1 {font-size : 44px;margin-top:0;}
+h2 {font-size : 38px;margin-top:0;}
+h3 {font-size : 32px;margin-top:0;}
+h4 {font-size : 26px;margin-top:0;}
+h5 {font-size : 20px;margin-top:0;}
+h6 {font-size : 14px;margin-top:0;}
 p, input, select, textarea {font-size : 14px;}

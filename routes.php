@@ -12,6 +12,12 @@
 
 	$router->get( 'dashboard' , 'HomeController@home' );
 	$router->get( 'dashboard/packages' , 'PackageController@postOfficeInventory' );
+
+	$router->get( 'dashboard/employees' , 'HomeController@showEmployees' );
+	$router->get( 'dashboard/employees/:employeeId' , 'HomeController@employeeDetail' );
+	$router->get( 'dashboard/employees/edit/:employeeId' , 'HomeController@editEmployeeDetail' );
+	$router->post( 'dashboard/employees/edit/:employeeId' , 'HomeController@updateEmployeeDetail' );
+
 	$router->get( 'dashboard/customers', 'UsersController@postOfficeUsers');                //viktor
 	$router->get('dashboard/transactions', 'TransactionController@postOfficeTransactions');    //viktor
 	$router->get( 'packages' , 'PackageController@show' );

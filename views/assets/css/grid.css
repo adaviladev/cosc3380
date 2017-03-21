@@ -1,7 +1,8 @@
 /* Grid Styling */
 .row { width : 100%; }
 
-[class^="col-"] { float : left; }
+[class^="col-"],
+[class*=" col-"] { float : left; }
 
 .container {
 	width     : 90%;

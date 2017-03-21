@@ -30,8 +30,6 @@ nav .menu .parent-menu > a {
 
 nav a:hover {
 	background-color : #ffc107;
-	/*border-bottom       : solid 2px cyan;*/
-	/*border-bottom-style : inset;*/
 }
 
 .menu .parent-menu .sub-menu {
@@ -41,7 +39,7 @@ nav a:hover {
 	position   : absolute;
 	padding    : 0;
 	left       : 0;
-	top        : 41px;
+	top        : 40px;
 }
 
 .parent-menu:hover .sub-menu {
