@@ -30,11 +30,14 @@
 			<?php if( ! empty( $employees ) ) { ?>
 				<div class="group-wrapper card-2 accent-bg">
 					<h3>Employees</h3>
-					<ul>
+					<div>
 						<?php foreach( $employees as $employee ) { ?>
-							<li><?= $employee->firstName ?> <?= $employee->lastName ?></li>
+							<div class="list-item card-2 col-dt-4 col-tb-6 col-mb-12 secondary-bg">
+								<p><strong><?= $employee->firstName ?> <?= $employee->lastName ?></strong></p>
+								<p>Added: <?= $employee->createdAt; ?></p>
+							</div>
 						<?php } ?>
-					</ul>
+					</div>
 				</div>
 				<!-- /.group-wrapper -->
 			<?php } ?>

@@ -34,24 +34,17 @@
 				}
 
 				$employees = User::findAll()
-				                 ->where( [ 'postOfficeId' , 'roleId' ] ,
-				                          [ '=' , '=' ] ,
-				                          [ $user->postOfficeId , $user->roleId ] )
+				                 ->where(['postOfficeId','roleId'],['=','='],[ $user->postOfficeId, $user->roleId ])
 				                 ->get();
 
 				$customers = User::findAll()
-				                 ->where( [ 'roleId' ] ,
-				                          [ '>' ] ,
-				                          [ $user->roleId ] )
-				                 ->limit( 6 )
+				                 ->where(['roleId'],['>'],[ $user->roleId ])
 				                 ->get();
+				dd( $customers );
 			}
 
 			return view( 'dashboard/dashboard' ,
-			             compact( 'user' ,
-			                      'packages' ,
-			                      'employees' ,
-			                      'customers' ) );
+			             compact( 'user' , 'packages', 'employees', 'customers' ) );
 		}
 
 		public function showPackages() {
