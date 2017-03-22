@@ -4,7 +4,7 @@
 			<!-- /.container -->
 		</div>
 		<!-- /.row -->
-		<div id="Footer" class="row">
+		<div id="Footer" class="row primary-bg">
 			<div class="container">
 				COSC 3380 Database
 			</div>

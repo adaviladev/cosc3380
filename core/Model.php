@@ -26,13 +26,16 @@
 		// protected $table;
 
 		protected $isSingle = false;
+		protected $isUpdate = false;
 		protected $query = "";
 		protected $type = "";
+		protected $set = "";
 		protected $whereClause = "";
 		protected $orderBy = "";
 		protected $limitTo = "";
 		protected $onDelete = "";
 		protected $class = "stdClass";
+
 
 		private static function init() {
 			$instance          = ( new static );
@@ -155,6 +158,25 @@
 			}
 		}
 
+		public static function update( $bindings = [] ) {
+			$instance = self::init();
+			$class    = get_called_class();
+			$table    = $instance->TABLE_ARRAY[ get_called_class() ];
+			$instance->type = "UPDATE {$table}";
+			$instance->set = "SET ";
+			$instance->isUpdate = true;
+			$ctr = 0;
+			foreach( $bindings as $attr => $value) {
+				if( $ctr > 0 ) {
+					$instance->set .= ", ";
+				}
+				$instance->set .= "{$attr}='{$value}'";
+				$ctr++;
+			}
+
+			return $instance;
+		}
+
 		/**
 		 * Construct the SQL query based off of previous calls
 		 * @return array|mixed
@@ -162,6 +184,9 @@
 		public function get() {
 
 			$this->query = $this->type;
+			if( $this->set != "" ) {
+				$this->query .= " " . $this->set;
+			}
 			if( $this->whereClause != "" ) {
 				$this->query .= " " . $this->whereClause;
 			}
@@ -173,7 +198,6 @@
 			}
 
 			// var_dump( $this->query );
-
 			return $this->run( $this->query );
 		}
 
@@ -181,13 +205,15 @@
 			try {
 				$statement = $this->builder->prepare( $sql );
 				$statement->execute();
-				if( $this->isSingle ) {
-					return $statement->fetchObject( $this->class );
-				}
+				if( !$this->isUpdate ) {
+					if( $this->isSingle ) {
+						return $statement->fetchObject( $this->class );
+					}
 
-				return $statement->fetchAll( PDO::FETCH_CLASS , $this->class );
+					return $statement->fetchAll( PDO::FETCH_CLASS , $this->class );
+				}
 			} catch( PDOException $e ) {
-				die( $e->getMessage() );
+				die( $e );
 			}
 		}
 

@@ -1,18 +1,48 @@
 body {
-	margin      : 0;
+	margin : 0;
 }
 
 body a {
 	outline : none;
 }
 
+img {
+	max-width : 100%;
+}
+
+img.center {
+	display : block;
+	margin  : 0 auto;
+}
+
 /* Navigation Styling */
 header {
+	position : fixed;
+	top      : 0;
+	width    : 100%;
+	z-index  : 99999;
+}
+
+.primary-bg {
 	background-color : #ffa000;
-	position         : fixed;
-	top              : 0;
-	width            : 100%;
-	z-index          : 99999;
+}
+
+.secondary-bg {
+	background-color : #ffecb3;
+}
+
+.accent-bg {
+	background-color : #fff8e1;
+}
+
+.white-bg {
+	background-color : #ffffff;
+}
+
+.button {
+	display: inline-block;
+	margin-top: 15px;
+	margin-bottom: 15px;
 }
 
 #Logo {
@@ -70,5 +100,5 @@ header {
 }
 
 #Content p {
-	color: #333333;
+	color : #333333;
 }

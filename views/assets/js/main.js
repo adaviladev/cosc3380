@@ -1,5 +1,8 @@
 (function( $ ) {
 	$( document ).ready( function() {
+		if( $( '.form-wrapper input.valid' ).attr( 'value' ) != '' ) {
+			$( '.form-wrapper input.valid' ).siblings( 'label' ).addClass( 'filled' );
+		}
 		$( '.form-wrapper input,.form-wrapper select' ).focus( function() {
 			$( '.form-wrapper label' ).removeClass( 'active' );
 			$( this ).siblings( 'label' ).addClass( 'active' );
