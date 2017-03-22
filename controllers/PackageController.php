@@ -106,26 +106,30 @@
 			$package = Package::find()
 			                  ->where( [ 'id' ] ,
 			                           [ '=' ] ,
-			                           $packageId )
+			                           [$packageId] )
 			                  ->get();
 
+			$address = Address::find()
+			                  ->where( [ 'id' ] ,
+			                           [ '=' ] ,
+			                           [$package->destinationId] )
+			                  ->get();
 			Address::update( [
-				'street' => $_POST[ 'destinationAddressStreet' ],
-				'city' => $_POST[ 'destinationAddressCity' ],
-				'zipCode' => $_POST[ 'destinationAddressZipCode' ]
+				                 'street'  => $_POST[ 'destinationAddressStreet' ] ,
+				                 'city'    => $_POST[ 'destinationAddressCity' ] ,
+				                 'zipCode' => $_POST[ 'destinationAddressZipCode' ]
 			                 ] )
 			       ->where( [ 'id' ] ,
 			                [ '=' ] ,
-			                $package->destinationId )
+			                [ $package->destinationId ] )
 			       ->get();
 
 			$address = Address::find()
 			                  ->where( [ 'id' ] ,
 			                           [ '=' ] ,
-			                           $package->destinationId )
+			                           [$package->destinationId] )
 			                  ->get();
 
-			// dd($address);
 			redirect( "packages/{$packageId}" );
 		}
 
