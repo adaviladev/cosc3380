@@ -54,8 +54,8 @@
 										<!-- /.col-dt-3 col-tb-3 col-mb-3 -->
 										<div class="col-dt-3 col-tb-3 col-mb-3"><?= $employee->addedBy->firstName; ?> <?= $employee->addedBy->lastName; ?></div>
 										<!-- /.col-dt-3 col-tb-3 col-mb-3 -->
-										<div class="col-dt-3 col-tb-3 col-mb-3">
-											<a href="/dashboard/employees/edit/<?= $employee->id; ?>">Edit</a>
+										<div class="col-dt-3 col-tb-3 col-mb-3 text-right">
+											<a href="/dashboard/employees/edit/<?= $employee->id; ?>" class="button">Edit</a>
 										</div>
 										<!-- /.col-dt-3 col-tb-3 col-mb-3 -->
 									</div>

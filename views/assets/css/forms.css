@@ -66,6 +66,7 @@
 	border-bottom-color : #ffc107;
 }
 
+.button,
 .form-wrapper button {
 	padding            : 8px 16px;
 	border             : none;
@@ -73,6 +74,7 @@
 	box-shadow         : 0 1px 4px rgba(0, 0, 0, .6);
 	background-color   : #ffa000;
 	color              : #ffffff;
+	text-decoration    : none;
 
 	-webkit-transition : background-color .3s;
 	-moz-transition    : background-color .3s;
@@ -89,6 +91,7 @@
 	color         : #4caf50;
 	border-bottom : 2px solid #4caf50 !important;
 }
+
 .dirty {
 	color         : #ff0000;
 	border-bottom : 2px solid #ff0000 !important;
@@ -103,4 +106,9 @@
 
 .email-error input:after {
 	color : #ff0000;
+}
+
+input[disabled] {
+	color: #888888;
+	border-bottom: 2px solid #888888 !important;
 }

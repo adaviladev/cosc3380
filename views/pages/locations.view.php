@@ -7,7 +7,7 @@
 			<div class="list-wrapper clearfix">
 				<?php foreach( $postOffices as $postOffice ) { ?>
 					<div class="col-dt-4 col-tb-6 col-mb-12">
-						<div class="list-content card-1">
+						<div class="grid-item-content card-1">
 							<div class=" col-dt-12 list-header secondary-bg">
 								<h2><?= $postOffice->name; ?></h2>
 							</div>
