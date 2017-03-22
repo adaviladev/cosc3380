@@ -29,19 +29,8 @@
 			             compact( 'customers' ) );
 		}
 
-
-
-
-		/*public function userDetail( $userId ) {
-			$user = User::find()
-			            ->where( [ 'id' ] , [ '=' ] , [ $userId ] )
-			            ->get();
-
-			var_dump( $user );
-		}*/
 		public function userDetail( $userId ) {
 			$user = User::find()->where(['id'], ['='], [$userId])->get();
-			//$user->user = User::find()->where(['id'], ['='], [$user->userId])->get();
 
 			return view('dashboard/userDetail', compact ('user'));
 
