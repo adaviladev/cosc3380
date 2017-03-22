@@ -12,6 +12,8 @@
 
 	$router->get( 'dashboard' , 'HomeController@home' );
 	$router->get( 'dashboard/packages' , 'PackageController@postOfficeInventory' );
+	$router->get( 'dashboard/packages/edit/:packageId' , 'PackageController@editPackage' );
+	$router->post( 'dashboard/packages/edit/:packageId' , 'PackageController@updatePackage' );
 
 	$router->get( 'dashboard/employees' , 'HomeController@showEmployees' );
 	$router->get( 'dashboard/employees/:employeeId' , 'HomeController@employeeDetail' );
