@@ -17,16 +17,19 @@
 		public function postOfficeTransactions() {
 			$user = Auth::user();
 			$user->postOfficeId;
-			$transactions = App::get('database')->findAll('transactions',
-			                                              ['*'],
-			                                              'User')->where(['postOfficeId'],
+			$transactions = Transaction::findAll()->where(['postOfficeId'],
 			                                                             ['='],
 			                                                             [$user->postOfficeId])->get();
 			echo 'viktor was here';
-			dd($transactions);
+			//dd($transactions);
 			return view('dashboard/transactions',
 			            compact('transactions'));
 		}
+
+		public function transactionDetail( $userId) {
+			$transaction = Transaction::find()->where(['id'], ['='], [$userId])->get();
+			return view('dashboard/transactionDetail', compact ('transaction'));
+	}
 
 
 

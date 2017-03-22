@@ -8,12 +8,13 @@
 	$router->get( 'contact' , 'PagesController@contact' );
 	$router->get( 'locations' , 'PagesController@locations' );
 	$router->get( 'users' , 'UsersController@show' );
-	$router->get( 'users/:userId' , 'UsersController@userDetail' );
+	$router->get( 'users/:userId' , 'UsersController@userDetail' );                         //viktor
 
 	$router->get( 'dashboard' , 'HomeController@home' );
 	$router->get( 'dashboard/packages' , 'PackageController@postOfficeInventory' );
 	$router->get( 'dashboard/customers', 'UsersController@postOfficeUsers');                //viktor
 	$router->get('dashboard/transactions', 'TransactionController@postOfficeTransactions');    //viktor
+	$router->get( 'transactions/:transactionId', 'TransactionController@transactionDetail');    //viktor
 	$router->get( 'packages' , 'PackageController@show' );
 	$router->get( 'packages/:packageId' , 'PackageController@packageDetail' );
 

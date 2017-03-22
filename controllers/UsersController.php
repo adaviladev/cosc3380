@@ -18,23 +18,33 @@
 		public function postOfficeUsers() {
 			$user = Auth::user();
 			$user->postOfficeId;
-			$customers = App::get( 'database' )->findAll( 'users' ,
-			                                              [ '*' ] ,
-			                                              'User' )->where( [ 'postOfficeId' ] ,
-			                                                               [ '=' ] ,
-			                                                               [ $user->postOfficeId ] )->get();
+
+			$customers = User::findall()->where(['postOfficeId'],
+			                                    ['='],
+			                                    [$user->postOfficeId])->get();
 			echo 'viktor was here';
 
-			dd( $customers );
+			//dd( $customers );
 			return view( 'dashboard/customers' ,
 			             compact( 'customers' ) );
 		}
-		public function userDetail( $userId ) {
+
+
+
+
+		/*public function userDetail( $userId ) {
 			$user = User::find()
 			            ->where( [ 'id' ] , [ '=' ] , [ $userId ] )
 			            ->get();
 
 			var_dump( $user );
+		}*/
+		public function userDetail( $userId ) {
+			$user = User::find()->where(['id'], ['='], [$userId])->get();
+			//$user->user = User::find()->where(['id'], ['='], [$user->userId])->get();
+
+			return view('dashboard/userDetail', compact ('user'));
+
 		}
 
 		public function store() {
