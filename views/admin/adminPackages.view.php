@@ -19,7 +19,7 @@
                                 </div>
                                 <!-- /.col-dt-12 col-tb-12 col-mb-12 -->
                                 <div class="col-dt-12 col-tb-12 col-mb-12">
-                                    <?= $package->user->firstName; ?> <?= $package->user->lastName; ?>
+                                    Customer: <?= $package->user->firstName; ?> <?= $package->user->lastName; ?>
                                 </div>
                                 <!-- /.col-dt-12 col-tb-12 col-mb-12 -->
                                 <div class="col-dt-12 col-tb-12 col-mb-12">
@@ -33,7 +33,7 @@
                                 </div>
                                 <!-- /.col-dt-12 col-tb-12 col-mb-12 -->
                                 <div class="col-dt-12 col-tb-12 col-mb-12 text-left">
-                                    <?= $package->status->type; ?>
+                                    Status: <?= $package->status->type; ?>
                                 </div>
                                 <!-- /.col-dt-12 col-tb-12 col-mb-12 -->
                             </a>

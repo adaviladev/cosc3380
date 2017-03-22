@@ -53,11 +53,40 @@
         public function transactions() {
             $transactions = Transaction::selectAll();
 
+            foreach( $transactions as $transaction ) {
+                $transaction->postOffice   = PostOffice::find()
+                    ->where( [ 'id' ] ,
+                        [ '=' ] ,
+                        [ $transaction->postOfficeId ] )
+                    ->get();
+                $transaction->customer = User::find()
+                    ->where( ['id']  ,
+                        [ '=' ] ,
+                        [ $transaction->customerId] )
+                    ->get();
+                $transaction->employee = User::find()
+                    ->where( [ 'id' ] ,
+                        [ '=' ] ,
+                        [ $transaction->employeeId ] )
+                    ->get();
+                $transaction->package = Package::find()
+                    ->where( [ 'id' ] ,
+                        [ '=' ] ,
+                        [ $transaction->packageId ] )
+                    ->get();
+            }
+
             return view( 'admin/adminTransactions' , compact( 'transactions' ) );
         }
 
         public function postOffices() {
             $postOffices = PostOffice::selectAll();
+
+            foreach( $postOffices as $postOffice ) {
+                $postOffice->state = State::find()
+                    ->where( [ 'id' ] , [ '=' ] , [ $postOffice->stateId ] )
+                    ->get()->state;
+            }
 
             return view( 'admin/adminPostOffices' , compact( 'postOffices' ) );
         }
