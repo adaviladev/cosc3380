@@ -98,25 +98,29 @@
 			                                                       [ $package->packageStatus ] )
 			                                              ->get();
 
+			$states = State::selectAll();
+
 			return view( 'dashboard/editPackage' ,
-			             compact( 'package' ) );
+			             compact( 'package' ,
+			                      'states' ) );
 		}
 
 		public function updatePackage( $packageId ) {
 			$package = Package::find()
 			                  ->where( [ 'id' ] ,
 			                           [ '=' ] ,
-			                           [$packageId] )
+			                           [ $packageId ] )
 			                  ->get();
 
 			$address = Address::find()
 			                  ->where( [ 'id' ] ,
 			                           [ '=' ] ,
-			                           [$package->destinationId] )
+			                           [ $package->destinationId ] )
 			                  ->get();
 			Address::update( [
 				                 'street'  => $_POST[ 'destinationAddressStreet' ] ,
 				                 'city'    => $_POST[ 'destinationAddressCity' ] ,
+				                 'stateId' => $_POST[ 'destinationAddressStateId' ] ,
 				                 'zipCode' => $_POST[ 'destinationAddressZipCode' ]
 			                 ] )
 			       ->where( [ 'id' ] ,
@@ -127,7 +131,7 @@
 			$address = Address::find()
 			                  ->where( [ 'id' ] ,
 			                           [ '=' ] ,
-			                           [$package->destinationId] )
+			                           [ $package->destinationId ] )
 			                  ->get();
 
 			redirect( "packages/{$packageId}" );

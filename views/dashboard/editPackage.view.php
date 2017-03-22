@@ -10,29 +10,29 @@
 						<label for="sender">Sender</label>
 						<input type="text" name="sender" value="<?= $package->user->firstName; ?> <?= $package->user->lastName; ?>" class="valid fade-in" disabled>
 					</div>
-					<!-- /.field-wrapper -->
+					<!-- /.field-container -->
 					<div class="field-group">
 						<h5><strong>Return Address</strong></h5>
 						<div class="field-container">
 							<label for="returnAddressStreet">Street</label>
 							<input type="text" name="returnAddressStreet" value="<?= $package->returnAddress->street; ?>" class="valid fade-in" disabled>
 						</div>
-						<!-- /.field-wrapper -->
+						<!-- /.field-container -->
 						<div class="field-container">
 							<label for="returnAddressCity">City</label>
 							<input type="text" name="returnAddressCity" value="<?= $package->returnAddress->city; ?>" class="valid fade-in" disabled>
 						</div>
-						<!-- /.field-wrapper -->
+						<!-- /.field-container -->
 						<div class="field-container">
 							<label for="returnAddressCity">State</label>
 							<input type="text" name="returnAddressCity" value="<?= $package->returnAddress->state; ?>" class="valid fade-in" disabled>
 						</div>
-						<!-- /.field-wrapper -->
+						<!-- /.field-container -->
 						<div class="field-container">
 							<label for="returnAddressZipCode">Zip Code</label>
 							<input type="text" name="returnAddressZipCode" value="<?= $package->returnAddress->zipCode; ?>" class="valid fade-in" disabled>
 						</div>
-						<!-- /.field-wrapper -->
+						<!-- /.field-container -->
 					</div>
 					<!-- /.field-group -->
 					<div class="field-group">
@@ -41,22 +41,37 @@
 							<label for="destinationAddressStreet">Street</label>
 							<input type="text" name="destinationAddressStreet" value="<?= $package->destination->street; ?>" class="valid fade-in">
 						</div>
-						<!-- /.field-wrapper -->
+						<!-- /.field-container -->
 						<div class="field-container">
 							<label for="destinationAddressCity">City</label>
 							<input type="text" name="destinationAddressCity" value="<?= $package->destination->city; ?>" class="valid fade-in">
 						</div>
-						<!-- /.field-wrapper -->
-						<div class="field-container">
-							<label for="destinationAddressState">State</label>
-							<input type="text" name="destinationAddressState" value="<?= $package->destination->state; ?>" class="valid fade-in">
+						<!-- /.field-container -->
+						<div class="field-container clearfix">
+							<label for="StateSelector">State</label>
+							<?php if( ! empty( $states ) ) { ?>
+								<select name="destinationAddressStateId" id="StateSelector">
+									<option disabled selected value=""></option>
+									<?php
+										foreach( $states as $state ) {
+											if( $state->id == $package->destination->stateId ) {
+												?>
+												<option value="<?= $state->id ?>" selected><?= $state->state ?></option>
+											<?php } else { ?>
+												<option value="<?= $state->id ?>"><?= $state->state ?></option>
+											<?php
+											}
+										}
+									?>
+								</select>
+							<?php } ?>
 						</div>
-						<!-- /.field-wrapper -->
+						<!-- /.field-container -->
 						<div class="field-container">
 							<label for="destinationAddressZipCode">Zip Code</label>
 							<input type="text" name="destinationAddressZipCode" value="<?= $package->destination->zipCode; ?>" class="valid fade-in">
 						</div>
-						<!-- /.field-wrapper -->
+						<!-- /.field-container -->
 					</div>
 					<!-- /.field-group -->
 					<button type="submit">Update</button>
