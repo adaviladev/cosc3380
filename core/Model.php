@@ -124,6 +124,13 @@
 			return $this;
 		}
 
+		public function whereIn( $values = [] , $column = 'id' ){
+			$values = implode( ',' , $values );
+			$this->whereClause = "WHERE {$column} IN ({$values})";
+
+		    return $this;
+		}
+
 		public function limit( $quantity ) {
 			$this->limitTo = "LIMIT {$quantity}";
 
