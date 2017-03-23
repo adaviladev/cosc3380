@@ -1,18 +1,31 @@
 /* Locations Styling */
 
-.location-content {
+.group-wrapper {
+	padding: 12px;
+	margin-bottom: 30px;
+}
+.grid-item-content {
+
 	width: 90%;
-	margin: 0 auto 15px;
+	margin: 0 auto 30px;
 }
 
-.location-title {
+.grid-item {
+	margin: 0 auto;
+}
+
+.grid-header {
 	width: 100%;
 	margin: 0 auto;
-	background-color: #ffc107;
 }
 
 .location-content h2,
 .location-content p {
 	padding: 8px;
 	margin: 0;
+}
+
+.list-wrapper {
+	border-radius: 2px;
+	overflow : hidden;
 }

@@ -12,7 +12,8 @@
 		public function show() {
 			$users = User::selectAll();
 
-			return view( 'index' , compact( 'users' ) );
+			return view( 'index' ,
+			             compact( 'users' ) );
 		}
 
 		public function postOfficeUsers() {
@@ -25,6 +26,7 @@
 			echo 'viktor was here';
 
 			//dd( $customers );
+
 			return view( 'dashboard/customers' ,
 			             compact( 'customers' ) );
 		}
@@ -33,6 +35,7 @@
 			$user = User::find()->where(['id'], ['='], [$userId])->get();
 
 			return view('dashboard/userDetail', compact ('user'));
+
 
 		}
 
@@ -46,12 +49,14 @@
 				                                    'city' ,
 				                                    'stateId' ,
 				                                    'zipCode' ,
-			                                    ] , [
+			                                    ] ,
+			                                    [
 				                                    '=' ,
 				                                    '=' ,
 				                                    '=' ,
 				                                    '='
-			                                    ] , [
+			                                    ] ,
+			                                    [
 				                                    $_POST[ 'address' ] ,
 				                                    $_POST[ 'city' ] ,
 				                                    $_POST[ 'stateId' ] ,
@@ -74,7 +79,9 @@
 			$role = Role::find()
 			            ->where( [
 				                     'type'
-			                     ] , [ '=' ] , [ 'employee' ] )
+			                     ] ,
+			                     [ '=' ] ,
+			                     [ 'employee' ] )
 			            ->get();
 
 			$userInsert = User::insert( [
@@ -90,7 +97,9 @@
 
 			if( $userInsert === true ) {
 				$user = User::find()
-				            ->where( [ 'id' ] , [ '=' ] , [ User::lastInsertId() ] )
+				            ->where( [ 'id' ] ,
+				                     [ '=' ] ,
+				                     [ User::lastInsertId() ] )
 				            ->get();
 
 				$_SESSION[ 'user' ] = serialize( $user );
@@ -105,7 +114,8 @@
 							'email' => 'Email already exists.'
 						);
 
-						return view( 'auth/register' , compact( 'errors' ) );
+						return view( 'auth/register' ,
+						             compact( 'errors' ) );
 				}
 			}
 

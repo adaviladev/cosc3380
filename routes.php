@@ -12,6 +12,14 @@
 
 	$router->get( 'dashboard' , 'HomeController@home' );
 	$router->get( 'dashboard/packages' , 'PackageController@postOfficeInventory' );
+	$router->get( 'dashboard/packages/edit/:packageId' , 'PackageController@editPackage' );
+	$router->post( 'dashboard/packages/edit/:packageId' , 'PackageController@updatePackage' );
+
+	$router->get( 'dashboard/employees' , 'HomeController@showEmployees' );
+	$router->get( 'dashboard/employees/:employeeId' , 'HomeController@employeeDetail' );
+	$router->get( 'dashboard/employees/edit/:employeeId' , 'HomeController@editEmployeeDetail' );
+	$router->post( 'dashboard/employees/edit/:employeeId' , 'HomeController@updateEmployeeDetail' );
+
 	$router->get( 'dashboard/customers', 'UsersController@postOfficeUsers');                //viktor
 	$router->get('dashboard/transactions', 'TransactionController@postOfficeTransactions');    //viktor
 	$router->get( 'transactions/:transactionId', 'TransactionController@transactionDetail');    //viktor
@@ -28,6 +36,11 @@
 	$router->get( 'logout' , 'AuthController@logout' );
 
 	$router->post( 'users' , 'UsersController@store' );
+
+	$router->get( 'admin' , 'AdminController@admin' );
+	$router->get( 'admin/packages' , 'AdminController@packages' );
+	$router->get( 'admin/transactions' , 'AdminController@transactions' );
+	$router->get( 'admin/postOffices' , 'AdminController@postOffices' );
 
 	/**
 	 * Error out
