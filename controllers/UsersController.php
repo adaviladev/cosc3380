@@ -42,7 +42,7 @@
 		public function userInfo()
 		{
 			$user = Auth::user();
-			return view('dashboard/userInfo', compact ('user'));
+			return view('accounts/userInfo', compact ('user'));
 		}
 
 		public function store() {
