@@ -36,6 +36,9 @@
 										<li class="">
 											<a href="/dashboard/transactions">Transactions</a>
 										</li>
+										<li class="">
+											<a href="/dashboard/employees">Employees</a>
+										</li>
 									</ul>
 								</li>
 								<li class="parent-menu"><a href="/logout">Log Out</a></li>
