@@ -32,10 +32,10 @@
 	$router->get( 'register' , 'AuthController@register' );
 	$router->post( 'register' , 'UsersController@store' );
 	$router->get( 'login' , 'AuthController@login' );
-	$router->post( 'login' , 'AuthController@signIn' );
 	$router->get( 'logout' , 'AuthController@logout' );
 
 	$router->post( 'users' , 'UsersController@store' );
+	$router->get( 'user/info', 'UsersController@userInfo'); //austin
 
 	$router->get( 'admin' , 'AdminController@admin' );
 	$router->get( 'admin/packages' , 'AdminController@packages' );

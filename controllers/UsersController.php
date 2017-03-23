@@ -39,6 +39,12 @@
 
 		}
 
+		public function userInfo()
+		{
+			$user = Auth::user();
+			return view('dashboard/userInfo', compact ('user'));
+		}
+
 		public function store() {
 
 			$password = md5( $_POST[ 'password' ] );
