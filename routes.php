@@ -16,6 +16,8 @@
 	$router->post( 'dashboard/packages/edit/:packageId' , 'PackageController@updatePackage' );
 
 	$router->get( 'dashboard/employees' , 'HomeController@showEmployees' );
+	$router->get( 'dashboard/employees/add' , 'UsersController@addEmployee' );
+	$router->post( 'dashboard/employees/add' , 'UsersController@storeEmployee' );
 	$router->get( 'dashboard/employees/:employeeId' , 'HomeController@employeeDetail' );
 	$router->get( 'dashboard/employees/edit/:employeeId' , 'HomeController@editEmployeeDetail' );
 	$router->post( 'dashboard/employees/edit/:employeeId' , 'HomeController@updateEmployeeDetail' );

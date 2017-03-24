@@ -65,7 +65,11 @@
 				                          [ $user->postOfficeId , $user->roleId ] )
 				                 ->get();
 
-				dd( $employees );
+				foreach( $employees as $employee ) {
+					$employee->addedBy = User::find()->where( ['id'],['='],[$employee->createdBy])->get();
+				}
+
+				return view( 'dashboard/employees' , compact( 'employees' ) );
 			} else {
 				redirect( 'login' );
 			}
