@@ -36,8 +36,17 @@
 	$router->get( 'logout' , 'AuthController@logout' );
 
 	$router->post( 'users' , 'UsersController@store' );
-	$router->get( 'user/info', 'UsersController@userInfo'); //austin
 
+	/**
+	 * Account routes
+	 */
+	$router->get( 'account/info', 'UsersController@accountInfo'); //austin
+	$router->get( 'account/packages', 'PackageController@accountPackages'); //austin
+	$router->get( 'account/packages/:packageId', 'PackageController@accountPackagesId'); //austin
+
+	/**
+	 * Admin routes
+	 */
 	$router->get( 'admin' , 'AdminController@admin' );
 	$router->get( 'admin/packages' , 'AdminController@packages' );
 	$router->get( 'admin/transactions' , 'AdminController@transactions' );

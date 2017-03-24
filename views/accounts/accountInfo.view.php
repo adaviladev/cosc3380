@@ -16,16 +16,6 @@
 	</div>
 <?php } ?>
 
-<?php if( ! empty( $user ) ) { ?>
-	<div class="row">
-		<div class="container">
-			<h2>Welcome, <?= $user->firstName ?> <?= $user->lastName ?></h2>
-		</div>
-		<!-- /.container -->
-	</div>
-	<!-- /.row -->
-<?php } ?>
-
 <?php
 	getFooter();
 ?>

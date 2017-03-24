@@ -39,10 +39,10 @@
 
 		}
 
-		public function userInfo()
+		public function accountInfo()
 		{
 			$user = Auth::user();
-			return view('accounts/userInfo', compact ('user'));
+			return view('accounts/accountInfo', compact ('user'));
 		}
 
 		public function store() {
