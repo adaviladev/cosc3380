@@ -45,6 +45,11 @@
 			return view('accounts/accountInfo', compact ('user'));
 		}
 
+		public function account()
+		{
+			return view('accounts/account', compact ('user'));
+		}
+
 		public function store() {
 
 			$password = md5( $_POST[ 'password' ] );
@@ -87,7 +92,7 @@
 				                     'type'
 			                     ] ,
 			                     [ '=' ] ,
-			                     [ 'employee' ] )
+			                     [ 'customer' ] )
 			            ->get();
 
 			$userInsert = User::insert( [

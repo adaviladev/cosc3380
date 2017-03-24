@@ -23,7 +23,7 @@
 							<?php if( empty( Auth::user() ) ) { ?>
 								<li class="parent-menu"><a href="/login">Login</a></li>
 								<li class="parent-menu"><a href="/register">Register</a></li>
-							<?php } else { ?>
+							<?php } else if (Auth::user() && Auth::user()->roleId == 2) { ?>
 								<li class="parent-menu">
 									<a href="/dashboard">Dashboard</a>
 									<ul class="sub-menu">
@@ -38,6 +38,11 @@
 										</li>
 									</ul>
 								</li>
+							<?php } else if (Auth::user() && Auth::user()->roleId == 3) { ?>
+								<li class="parent-menu"><a href="/account">Account</a></li>
+							<!-- we need to change this to redirect to the page that Andres made/makes -->
+							<?php } ?>
+							<?php if(Auth::user()) {?>
 								<li class="parent-menu"><a href="/logout">Log Out</a></li>
 							<?php } ?>
 						</ul>
