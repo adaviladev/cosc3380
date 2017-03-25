@@ -35,9 +35,8 @@
 									<?= $package->destination->city; ?>, <?= $package->destination->state; ?> <?= $package->destination->zipCode; ?>
 								</div>
 								<!-- /.col-dt-12 -->
-								<?php if( $package->packageStatus == 1 ) { ?>
-									<a href="/dashboard/packages/edit/<?= $package->id; ?>" class="button">Edit</a>
-									<!-- /.button -->
+								<?php if ($package->packageStatus == 1) { ?>
+									<a href="/account/packages/cancel/<?= $package->id; ?>" class="button">Cancel Delivery</a>
 								<?php } ?>
 							</div>
 							<!-- /.package-detail-info -->
@@ -47,7 +46,7 @@
 					<!-- /.package-content -->
 				</div>
 			</div>
-		<?php } else { header('Location: /account/packages');} ?>
+		<?php } else { redirect('/account/packages');} ?>
 	</div>
 </div>
 

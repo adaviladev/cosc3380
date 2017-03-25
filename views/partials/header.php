@@ -23,7 +23,8 @@
 							<?php if( empty( Auth::user() ) ) { ?>
 								<li class="parent-menu"><a href="/login">Login</a></li>
 								<li class="parent-menu"><a href="/register">Register</a></li>
-							<?php } else if (Auth::user() && Auth::user()->roleId == 2) { ?>
+							<?php } else if (Auth::user() && (Auth::user()->roleId == 2 ||
+							                                  Auth::user()->roleId == 1)) { ?>
 								<li class="parent-menu">
 									<a href="/dashboard">Dashboard</a>
 									<ul class="sub-menu">
