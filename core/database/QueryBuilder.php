@@ -125,6 +125,9 @@
 
 		public function run( $sql , $ssh = false ) {
 			try {
+				if( $ssh ){
+					$this->pdo->setAttribute( PDO::ATTR_EMULATE_PREPARES , true );
+				}
 				$statement = $this->pdo->prepare( $sql );
 				$statement->execute();
 				if( !$ssh ) {
@@ -134,7 +137,8 @@
 
 					return $statement->fetchAll( PDO::FETCH_CLASS , $this->class );
 				}
-				return false;
+				$this->pdo->setAttribute( PDO::ATTR_EMULATE_PREPARES , false );
+				// return false;
 			} catch( PDOException $e ) {
 				die( $e->getMessage() );
 			}
