@@ -19,7 +19,6 @@
 			'State'         => 'states' ,
 			'Transaction'   => 'transactions' ,
 			'User'          => 'users' ,
-
 		];
 
 		public $builder;
@@ -28,6 +27,7 @@
 		protected $isSingle = false;
 		protected $isUpdate = false;
 		protected $query = "";
+		protected $table = "";
 		protected $type = "";
 		protected $set = "";
 		protected $whereClause = "";
@@ -35,7 +35,6 @@
 		protected $limitTo = "";
 		protected $onDelete = "";
 		protected $class = "stdClass";
-
 
 		private static function init() {
 			$instance          = ( new static );
@@ -55,9 +54,10 @@
 			/**
 			 * call init() from mandatory first calls and assign params to return of init()'s $instance
 			 */
-			$instance = self::init();
-			$class    = get_called_class();
-			$table    = $instance->TABLE_ARRAY[ get_called_class() ];
+			$instance        = self::init();
+			$class           = get_called_class();
+			$table           = $instance->TABLE_ARRAY[ $class ];
+			$instance->table = $table;
 
 			$columns   = implode( ',' , $columns );
 			$statement = $instance->builder->prepare( "select {$columns} from {$table}" );
@@ -66,15 +66,28 @@
 			return $statement->fetchAll( PDO::FETCH_CLASS , $class );
 		}
 
+		public static function leftJoinOn( $joinedTable , $foreignKey , $primaryKey , $columns = [ '*' ] ) {
+			$instance        = self::init();
+			$class           = get_called_class();
+			$table           = $instance->TABLE_ARRAY[ $class ];
+			$instance->table = $table;
+
+			$columns        = implode( ', ' , $columns );
+			$instance->type = "SELECT {$columns} FROM {$table} JOIN {$joinedTable} ON (`{$table}`.`{$foreignKey}`=`{$joinedTable}`.`{$primaryKey}`)";
+
+			return $instance;
+		}
+
 		/**
 		 * @param string $table contains the table to search through
 		 * @param array  $columns contains the columns to return
 		 * @param string $class contains the class to be assigned to
 		 */
 		public static function find( $columns = [ '*' ] ) {
-			$instance = self::init();
-			$class    = get_called_class();
-			$table    = $instance->TABLE_ARRAY[ get_called_class() ];
+			$instance        = self::init();
+			$class           = get_called_class();
+			$table           = $instance->TABLE_ARRAY[ $class ];
+			$instance->table = $table;
 
 			$columns            = implode( ',' , $columns );
 			$instance->type     = "SELECT {$columns} FROM {$table}";
@@ -96,6 +109,7 @@
 			$instance           = self::init();
 			$class              = get_called_class();
 			$table              = $instance->TABLE_ARRAY[ get_called_class() ];
+			$instance->table    = $table;
 			$columns            = implode( ',' , $columns );
 			$instance->type     = "SELECT {$columns} FROM {$table}";
 			$instance->class    = $class;
@@ -118,17 +132,17 @@
 				if( $i > 0 ) {
 					$this->whereClause .= $bool;
 				}
-				$this->whereClause .= $columns[ $i ] . $operators[ $i ] . "'" . $values[ $i ] . "'";
+				$this->whereClause .= "`{$this->table}`.`" . $columns[ $i ] . "`" . $operators[ $i ] . "'" . $values[ $i ] . "'";
 			}
 
 			return $this;
 		}
 
-		public function whereIn( $values = [] , $column = 'id' ){
-			$values = implode( ',' , $values );
+		public function whereIn( $values = [] , $column = 'id' ) {
+			$values            = implode( ',' , $values );
 			$this->whereClause = "WHERE {$column} IN ({$values})";
 
-		    return $this;
+			return $this;
 		}
 
 		public function limit( $quantity ) {
@@ -150,7 +164,7 @@
 		public static function insert( $parameters = [] ) {
 			$instance = self::init();
 			$class    = get_called_class();
-			$table    = $instance->TABLE_ARRAY[ get_called_class() ];
+			$table    = $instance->TABLE_ARRAY[ $class ];
 			array_keys( $parameters );
 			$sql = sprintf( "INSERT INTO %s (%s) VALUES (%s)" , $table , implode( ", " , array_keys( $parameters ) ) ,
 			                ":" . implode( ", :" , array_keys( $parameters ) ) );
@@ -166,14 +180,14 @@
 		}
 
 		public static function update( $bindings = [] ) {
-			$instance = self::init();
-			$class    = get_called_class();
-			$table    = $instance->TABLE_ARRAY[ get_called_class() ];
-			$instance->type = "UPDATE {$table}";
-			$instance->set = "SET ";
+			$instance           = self::init();
+			$class              = get_called_class();
+			$table              = $instance->TABLE_ARRAY[ $class ];
+			$instance->type     = "UPDATE {$table}";
+			$instance->set      = "SET ";
 			$instance->isUpdate = true;
-			$ctr = 0;
-			foreach( $bindings as $attr => $value) {
+			$ctr                = 0;
+			foreach( $bindings as $attr => $value ) {
 				if( $ctr > 0 ) {
 					$instance->set .= ", ";
 				}
@@ -204,7 +218,7 @@
 				$this->query .= " " . $this->limitTo;
 			}
 
-			// var_dump( $this->query );
+			// dd( $this->query );
 			return $this->run( $this->query );
 		}
 
@@ -212,7 +226,7 @@
 			try {
 				$statement = $this->builder->prepare( $sql );
 				$statement->execute();
-				if( !$this->isUpdate ) {
+				if( ! $this->isUpdate ) {
 					if( $this->isSingle ) {
 						return $statement->fetchObject( $this->class );
 					}
