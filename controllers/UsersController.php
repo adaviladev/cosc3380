@@ -45,7 +45,7 @@
 		}
 
 		public function storeEmployee() {
-			$user = Auth::user();
+			$user     = Auth::user();
 			$password = md5( $_POST[ 'password' ] );
 
 			$duplicateAddress = null;
@@ -92,16 +92,16 @@
 			            ->get();
 
 			$userInsert = User::insert( [
-				                            'firstName'  => $_POST[ 'firstName' ] ,
-				                            'lastName'   => $_POST[ 'lastName' ] ,
-				                            'addressId'  => $addressId ,
-				                            'email'      => $_POST[ 'email' ] ,
-				                            'password'   => $password ,
-				                            'roleId'     => $role->id ,
-				                            'postOfficeId'  => $user->postOfficeId ,
-				                            'createdBy'  => $user->id ,
-				                            'createdAt'  => date( "Y-m-d H:i:s" ) ,
-				                            'modifiedAt' => date( "Y-m-d H:i:s" )
+				                            'firstName'    => $_POST[ 'firstName' ] ,
+				                            'lastName'     => $_POST[ 'lastName' ] ,
+				                            'addressId'    => $addressId ,
+				                            'email'        => $_POST[ 'email' ] ,
+				                            'password'     => $password ,
+				                            'roleId'       => $role->id ,
+				                            'postOfficeId' => $user->postOfficeId ,
+				                            'createdBy'    => $user->id ,
+				                            'createdAt'    => date( "Y-m-d H:i:s" ) ,
+				                            'modifiedAt'   => date( "Y-m-d H:i:s" )
 			                            ] );
 
 			if( $userInsert === true ) {
@@ -121,6 +121,16 @@
 						return view( 'dashboard/employees/add' , compact( 'errors' ) );
 				}
 			}
+		}
+
+		public function accountInfo() {
+			$user = Auth::user();
+
+			return view( 'accounts/accountInfo' , compact( 'user' ) );
+		}
+
+		public function account() {
+			return view( 'accounts/account' , compact( 'user' ) );
 		}
 
 		public function store() {

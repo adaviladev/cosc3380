@@ -23,7 +23,7 @@
 	$router->post( 'dashboard/employees/edit/:employeeId' , 'HomeController@updateEmployeeDetail' );
 
 	$router->get( 'dashboard/customers', 'UsersController@postOfficeUsers');                //viktor
-	$router->get('dashboard/transactions', 'TransactionController@postOfficeTransactions');    //viktor
+	$router->get( 'dashboard/transactions', 'TransactionController@postOfficeTransactions');    //viktor
 	$router->get( 'transactions/:transactionId', 'TransactionController@transactionDetail');    //viktor
 	$router->get( 'packages' , 'PackageController@show' );
 	$router->get( 'packages/:packageId' , 'PackageController@packageDetail' );
@@ -39,6 +39,18 @@
 
 	$router->post( 'users' , 'UsersController@store' );
 
+	/**
+	 * Account routes
+	 */
+	$router->get( 'account', 'UsersController@account'); //austin
+	$router->get( 'account/info', 'UsersController@accountInfo'); //austin
+	$router->get( 'account/packages', 'PackageController@accountPackages'); //austin
+	$router->get( 'account/packages/:packageId', 'PackageController@accountPackagesId'); //austin
+	$router->get( 'account/packages/cancel/:packageId', 'PackageController@accountPackagesCancel'); //austin
+
+	/**
+	 * Admin routes
+	 */
 	$router->get( 'admin' , 'AdminController@admin' );
 	$router->get( 'admin/packages' , 'AdminController@packages' );
 	$router->get( 'admin/transactions' , 'AdminController@transactions' );

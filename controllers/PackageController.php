@@ -203,4 +203,156 @@
 			return view( 'dashboard/packageDetail' ,
 			             compact( 'package' ) );
 		}
+
+		public function accountPackages() {
+			$user = Auth::user();
+			if( $user ) {
+				$packages = Package::findAll()
+				                   ->where( [ 'userId' ] ,
+				                            [ '=' ] ,
+				                            [ $user->id ] )
+				                   ->get();
+
+				foreach( $packages as $package ) {
+					$package->user                 = User::find()
+					                                     ->where( [ 'id' ] ,
+					                                              [ '=' ] ,
+					                                              [ $package->userId ] )
+					                                     ->get();
+					$package->destination          = Address::find()
+					                                        ->where( [ 'id' ] ,
+					                                                 [ '=' ] ,
+					                                                 [ $package->destinationId ] )
+					                                        ->get();
+					$package->destination->state   = State::find()
+					                                      ->where( [ 'id' ] ,
+					                                               [ '=' ] ,
+					                                               [ $package->destination->stateId ] )
+					                                      ->get();
+					$package->returnAddress        = Address::find()
+					                                        ->where( [ 'id' ] ,
+					                                                 [ '=' ] ,
+					                                                 [ $package->returnAddressId ] )
+					                                        ->get();
+					$package->returnAddress->state = State::find()
+					                                      ->where( [ 'id' ] ,
+					                                               [ '=' ] ,
+					                                               [ $package->returnAddress->stateId ] )
+					                                      ->get();
+					$package->status               = PackageStatus::find()
+					                                              ->where( [ 'id' ] ,
+					                                                       [ '=' ] ,
+					                                                       [ $package->packageStatus ] )
+					                                              ->get();
+				}
+
+				return view( 'accounts/accountPackages' ,
+				             compact( 'packages' ) );
+			}
+
+			return redirect( 'login' );
+		}
+
+		public function accountPackagesId( $packageId ) {
+			$user = Auth::user();
+
+			$package= Package::find()
+				->where( [ 'id' ] ,
+				         [ '=' ] ,
+				         [ $packageId ] )
+				->get();
+
+			if($user->id == $package->userId)
+			{
+				$package->status = PackageStatus::find()
+				                                ->where( [ 'id' ] ,
+				                                         [ '=' ] ,
+				                                         [ $package->packageStatus ] )
+				                                ->get();
+
+				$package->user                 = User::find()
+				                                     ->where( [ 'id' ] ,
+				                                              [ '=' ] ,
+				                                              [ $package->userId ] )
+				                                     ->get();
+				$package->destination          = Address::find()
+				                                        ->where( [ 'id' ] ,
+				                                                 [ '=' ] ,
+				                                                 [ $package->destinationId ] )
+				                                        ->get();
+				$package->destination->state   = State::find()
+				                                      ->where( [ 'id' ] ,
+				                                               [ '=' ] ,
+				                                               [ $package->destination->stateId ] )
+				                                      ->get()->state;
+				$package->returnAddress        = Address::find()
+				                                        ->where( [ 'id' ] ,
+				                                                 [ '=' ] ,
+				                                                 [ $package->returnAddressId ] )
+				                                        ->get();
+				$package->returnAddress->state = State::find()
+				                                      ->where( [ 'id' ] ,
+				                                               [ '=' ] ,
+				                                               [ $package->returnAddress->stateId ] )
+				                                      ->get()->state;
+				return view( 'accounts/accountPackagesId' ,
+				             compact( 'package',
+				                      'user' ) );
+			}
+			else
+			{
+				return redirect('account/packages');
+			}
+		}
+
+		public function accountPackagesCancel( $packageId ) {
+			$user = Auth::user();
+
+			$package= Package::find()
+			                 ->where( [ 'id' ] ,
+			                          [ '=' ] ,
+			                          [ $packageId ] )
+			                 ->get();
+
+			if($user->id == $package->userId)
+			{
+				$package->status = PackageStatus::find()
+				                                ->where( [ 'id' ] ,
+				                                         [ '=' ] ,
+				                                         [ $package->packageStatus ] )
+				                                ->get();
+				$package->user                 = User::find()
+				                                     ->where( [ 'id' ] ,
+				                                              [ '=' ] ,
+				                                              [ $package->userId ] )
+				                                     ->get();
+				$package->destination          = Address::find()
+				                                        ->where( [ 'id' ] ,
+				                                                 [ '=' ] ,
+				                                                 [ $package->destinationId ] )
+				                                        ->get();
+				$package->destination->state   = State::find()
+				                                      ->where( [ 'id' ] ,
+				                                               [ '=' ] ,
+				                                               [ $package->destination->stateId ] )
+				                                      ->get()->state;
+				$package->returnAddress        = Address::find()
+				                                        ->where( [ 'id' ] ,
+				                                                 [ '=' ] ,
+				                                                 [ $package->returnAddressId ] )
+				                                        ->get();
+				$package->returnAddress->state = State::find()
+				                                      ->where( [ 'id' ] ,
+				                                               [ '=' ] ,
+				                                               [ $package->returnAddress->stateId ] )
+				                                      ->get()->state;
+				return view( 'accounts/accountPackagesCancel' ,
+				             compact( 'package',
+				                      'user' ) );
+			}
+			else
+			{
+				return redirect('account/packages/');
+			}
+		}
 	}
