@@ -321,7 +321,6 @@
 				                                         [ '=' ] ,
 				                                         [ $package->packageStatus ] )
 				                                ->get();
-
 				$package->user                 = User::find()
 				                                     ->where( [ 'id' ] ,
 				                                              [ '=' ] ,

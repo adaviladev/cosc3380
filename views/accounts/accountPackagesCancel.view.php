@@ -1,6 +1,6 @@
 <?php getHeader() ?>
 
-	<?php if ($package->packageStatus !== 2) { ?>
+	<?php if ( $package->packageStatus !== '2') { ?>
 		<h5>We're sorry. This package has left processing and therefore can not be cancelled.</h5>
 		<br />
 		<a href="/account/packages">Return to Packages.</a>
