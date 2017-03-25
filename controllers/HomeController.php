@@ -6,12 +6,14 @@
 	use App\Core\App;
 	use App\Core\Auth;
 	use Package;
+	use PackageStatus;
+	use State;
 	use User;
 
 	class HomeController {
 		public function home() {
 			$user = Auth::user();
-			if( $user ) {
+			if( $user && $user->roleId == 2 ) {
 				$packages = Package::findAll()
 				                   ->where( [ 'postOfficeId' ] , [ '=' ] , [ $user->postOfficeId ] )
 				                   ->limit( 6 )
@@ -21,9 +23,21 @@
 					$package->destination   = Address::find()
 					                                 ->where( [ 'id' ] , [ '=' ] , [ $package->destinationId ] )
 					                                 ->get();
+					$package->destination->state   = State::find()
+					                                 ->where( [ 'id' ] , [ '=' ] , [ $package->destination->stateId ] )
+					                                 ->get();
 					$package->returnAddress = Address::find()
 					                                 ->where( [ 'id' ] , [ '=' ] , [ $package->returnAddressId ] )
 					                                 ->get();
+					$package->returnAddress->state   = State::find()
+					                                        ->where( [ 'id' ] , [ '=' ] , [ $package->returnAddress->stateId ] )
+					                                        ->get();
+					$package->status   = PackageStatus::find()
+					                                        ->where( [ 'id' ] , [ '=' ] , [ $package->packageStatus ] )
+					                                        ->get();
+
+					$package->user          = User::find()
+					                              ->where( [ 'id' ] , [ '=' ] , [ $package->userId ] );
 				}
 
 				$employees = User::findAll()
@@ -42,7 +56,7 @@
 				$customerPackages = Package::findAll()
 				                           ->where( [ 'postOfficeId' ] , [ '=' ] , [ $user->postOfficeId ] )
 				                           ->get();
-				$customerIds = [];
+				$customerIds      = [];
 				foreach( $customerPackages as $customerPackage ) {
 					$customerIds[] = $customerPackage->userId;
 				}
@@ -66,7 +80,9 @@
 				                 ->get();
 
 				foreach( $employees as $employee ) {
-					$employee->addedBy = User::find()->where( ['id'],['='],[$employee->createdBy])->get();
+					$employee->addedBy = User::find()
+					                         ->where( [ 'id' ] , [ '=' ] , [ $employee->createdBy ] )
+					                         ->get();
 				}
 
 				return view( 'dashboard/employees' , compact( 'employees' ) );

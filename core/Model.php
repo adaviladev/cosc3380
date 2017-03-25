@@ -159,7 +159,7 @@
 				$statement = $instance->builder->prepare( $sql );
 				$statement->execute( $parameters );
 
-				return true;
+				return $instance->builder->lastInsertId();
 			} catch( PDOException $e ) {
 				return $e->getCode();
 			}
@@ -226,8 +226,6 @@
 
 		public static function lastInsertId() {
 			$instance = self::init();
-			$class    = get_called_class();
-			$table    = $instance->TABLE_ARRAY[ get_called_class() ];
 
 			return $instance->builder->lastInsertId();
 		}

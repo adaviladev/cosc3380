@@ -18,13 +18,12 @@
 					</a>
 					<nav>
 						<ul class="clearfix menu">
-							<li class="parent-menu"><a href="/users">Users</a></li>
+							<li class="parent-menu"><a href="/about">About</a></li>
 							<li class="parent-menu"><a href="/locations">Locations</a></li>
 							<?php if( empty( Auth::user() ) ) { ?>
 								<li class="parent-menu"><a href="/login">Login</a></li>
 								<li class="parent-menu"><a href="/register">Register</a></li>
-							<?php } else if (Auth::user() && (Auth::user()->roleId == 2 ||
-							                                  Auth::user()->roleId == 1)) { ?>
+							<?php } else if( Auth::user()->roleId == 2 ) { ?>
 								<li class="parent-menu">
 									<a href="/dashboard">Dashboard</a>
 									<ul class="sub-menu">
@@ -42,11 +41,11 @@
 										</li>
 									</ul>
 								</li>
-							<?php } else if (Auth::user() && Auth::user()->roleId == 3) { ?>
+							<?php } else if( Auth::user()->roleId == 3 ) { ?>
 								<li class="parent-menu"><a href="/account">Account</a></li>
-							<!-- we need to change this to redirect to the page that Andres made/makes -->
+								<!-- we need to change this to redirect to the page that Andres made/makes -->
 							<?php } ?>
-							<?php if(Auth::user()) {?>
+							<?php if( Auth::user() ) { ?>
 								<li class="parent-menu"><a href="/logout">Log Out</a></li>
 							<?php } ?>
 						</ul>

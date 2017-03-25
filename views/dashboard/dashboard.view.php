@@ -14,11 +14,7 @@
 			<?php if( ! empty( $packages ) ) { ?>
 				<div class="group-wrapper card-2">
 					<h3>Local Packages</h3>
-					<ul>
-						<?php foreach( $packages as $package ) { ?>
-							<li><?= $package->destination->street ?></li>
-						<?php } ?>
-					</ul>
+					<?php getPartial("packagesGrid" , compact( 'packages' ) ); ?>
 					<div class="text-right">
 						<a href="/dashboard/packages">View all packages</a>
 					</div>

@@ -134,39 +134,44 @@
 		}
 
 		public function store() {
-
 			$password = md5( $_POST[ 'password' ] );
 
-			$duplicateAddress = Address::find()
-			                           ->where( [
-				                                    'street' ,
-				                                    'city' ,
-				                                    'stateId' ,
-				                                    'zipCode' ,
-			                                    ] , [
-				                                    '=' ,
-				                                    '=' ,
-				                                    '=' ,
-				                                    '='
-			                                    ] , [
-				                                    $_POST[ 'address' ] ,
-				                                    $_POST[ 'city' ] ,
-				                                    $_POST[ 'stateId' ] ,
-				                                    $_POST[ 'zipCode' ]
-			                                    ] )
-			                           ->get();
-			if( ! $duplicateAddress ) {
-				Address::insert( [
-					                 'street'     => $_POST[ 'address' ] ,
-					                 'city'       => $_POST[ 'city' ] ,
-					                 'stateId'    => $_POST[ 'stateId' ] ,
-					                 'zipCode'    => $_POST[ 'zipCode' ] ,
-					                 'createdAt'  => date( "Y-m-d H:i:s" ) ,
-					                 'modifiedAt' => date( "Y-m-d H:i:s" )
-				                 ] );
-				$addressId = Address::lastInsertId();
+			$duplicateAddress = null;
+
+			if( isset( $_POST[ 'address' ] ) && $_POST[ 'address' ] !== '' ) {
+				$duplicateAddress = Address::find()
+				                           ->where( [
+					                                    'street' ,
+					                                    'city' ,
+					                                    'stateId' ,
+					                                    'zipCode' ,
+				                                    ] , [
+					                                    '=' ,
+					                                    '=' ,
+					                                    '=' ,
+					                                    '='
+				                                    ] , [
+					                                    $_POST[ 'address' ] ,
+					                                    $_POST[ 'city' ] ,
+					                                    $_POST[ 'stateId' ] ,
+					                                    $_POST[ 'zipCode' ]
+				                                    ] )
+				                           ->get();
+				$addressId        = $duplicateAddress->id;
+				if( ! $duplicateAddress ) {
+					Address::insert( [
+						                 'street'     => $_POST[ 'address' ] ,
+						                 'city'       => $_POST[ 'city' ] ,
+						                 'stateId'    => $_POST[ 'stateId' ] ,
+						                 'zipCode'    => $_POST[ 'zipCode' ] ,
+						                 'createdAt'  => date( "Y-m-d H:i:s" ) ,
+						                 'modifiedAt' => date( "Y-m-d H:i:s" )
+					                 ] );
+					$addressId = Address::lastInsertId();
+				}
+				$addressId = $duplicateAddress;
 			} else {
-				$addressId = $duplicateAddress->id;
+				$addressId = $duplicateAddress;
 			}
 			$role = Role::find()
 			            ->where( [
@@ -185,15 +190,14 @@
 				                            'modifiedAt' => date( "Y-m-d H:i:s" )
 			                            ] );
 
-			if( $userInsert === true ) {
+			if( $userInsert == true ) {
 				$user = User::find()
-				            ->where( [ 'id' ] , [ '=' ] , [ User::lastInsertId() ] )
+				            ->where( [ 'id' ] , [ '=' ] , [ $userInsert ] )
 				            ->get();
 
 				$_SESSION[ 'user' ] = serialize( $user );
-				var_dump( $_SESSION );
 
-				// redirect( 'dashboard' );
+				return redirect( 'account' );
 				// return view( 'auth/register' );
 			} else {
 				switch( $userInsert ) {
@@ -205,7 +209,5 @@
 						return view( 'auth/register' , compact( 'errors' ) );
 				}
 			}
-
-			return redirect( '' );
 		}
 	}
