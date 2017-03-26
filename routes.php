@@ -12,6 +12,7 @@
 
 	$router->get( 'dashboard' , 'HomeController@home' );
 	$router->get( 'dashboard/packages' , 'PackageController@postOfficeInventory' );
+	$router->get( 'dashboard/packages/:packageId' , 'PackageController@packageDetail' );
 	$router->get( 'dashboard/packages/edit/:packageId' , 'PackageController@editPackage' );
 	$router->post( 'dashboard/packages/edit/:packageId' , 'PackageController@updatePackage' );
 
@@ -25,8 +26,6 @@
 	$router->get( 'dashboard/customers' , 'UsersController@postOfficeUsers' );                //viktor
 	$router->get( 'dashboard/transactions' , 'TransactionController@postOfficeTransactions' );    //viktor
 	$router->get( 'transactions/:transactionId' , 'TransactionController@transactionDetail' );    //viktor
-	$router->get( 'packages' , 'PackageController@show' );
-	$router->get( 'packages/:packageId' , 'PackageController@packageDetail' );
 
 	/**
 	 * Authentication routes

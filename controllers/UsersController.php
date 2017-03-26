@@ -104,7 +104,7 @@
 				                            'modifiedAt'   => date( "Y-m-d H:i:s" )
 			                            ] );
 
-			if( $userInsert === true ) {
+			if( $userInsert ) {
 				$user = User::find()
 				            ->where( [ 'id' ] , [ '=' ] , [ User::lastInsertId() ] )
 				            ->get();

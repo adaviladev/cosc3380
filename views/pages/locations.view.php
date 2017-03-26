@@ -6,23 +6,29 @@
 			<h1>Locations</h1>
 			<div class="list-wrapper clearfix">
 				<?php foreach( $postOffices as $postOffice ) { ?>
-					<div class="col-dt-4 col-tb-6 col-mb-12">
-						<div class="grid-item-content card-1">
+					<div class="grid-item col-dt-4 col-tb-6 col-mb-12">
+						<div class="grid-item-container card-1">
 							<div class=" col-dt-12 list-header secondary-bg">
-								<h2><?= $postOffice->name; ?></h2>
+								<div class="grid-item-content">
+									<h3><?= $postOffice->name; ?></h3>
+								</div>
+								<!-- /.grid-item-content -->
 							</div>
 							<!-- /.location-title -->
-							<div class="list-address clearfix">
-								<div class="col-dt-12">
-									<p>
-										<?= $postOffice->address; ?><br/>
-										<?= $postOffice->city; ?>, <?= $postOffice->state; ?> <?= $postOffice->zipCode; ?>
-										<br/>
-									</p>
+							<div class="grid-item-content">
+								<div class="list-address clearfix">
+									<div class="col-dt-12">
+										<p>
+											<?= $postOffice->address; ?><br/>
+											<?= $postOffice->city; ?>, <?= $postOffice->state; ?> <?= $postOffice->zipCode; ?>
+											<br/>
+										</p>
+									</div>
+									<!-- /.col-dt-12 -->
 								</div>
-								<!-- /.col-dt-12 -->
+								<!-- /.list-address -->
 							</div>
-							<!-- /.list-detail -->
+							<!-- /.grid-item-content -->
 						</div>
 						<!-- /.list-content -->
 					</div>

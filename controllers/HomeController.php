@@ -15,34 +15,39 @@
 			$user = Auth::user();
 			if( $user && $user->roleId == 2 ) {
 				$packages = Package::findAll()
-				                   ->where( [ 'postOfficeId' ] , [ '=' ] , [ $user->postOfficeId ] )
+				                   ->where( [ 'postOfficeId' , 'packageStatus' ] , [ '=' , '<>' ] ,
+				                            [ $user->postOfficeId , '4' ] )
 				                   ->limit( 6 )
 				                   ->orderBy( 'createdAt' , 'DESC' )
 				                   ->get();
 				foreach( $packages as $package ) {
-					$package->destination   = Address::find()
-					                                 ->where( [ 'id' ] , [ '=' ] , [ $package->destinationId ] )
-					                                 ->get();
+					$package->destination          = Address::find()
+					                                        ->where( [ 'id' ] , [ '=' ] , [ $package->destinationId ] )
+					                                        ->get();
 					$package->destination->state   = State::find()
-					                                 ->where( [ 'id' ] , [ '=' ] , [ $package->destination->stateId ] )
-					                                 ->get();
-					$package->returnAddress = Address::find()
-					                                 ->where( [ 'id' ] , [ '=' ] , [ $package->returnAddressId ] )
-					                                 ->get();
-					$package->returnAddress->state   = State::find()
-					                                        ->where( [ 'id' ] , [ '=' ] , [ $package->returnAddress->stateId ] )
+					                                      ->where( [ 'id' ] , [ '=' ] ,
+					                                               [ $package->destination->stateId ] )
+					                                      ->get();
+					$package->returnAddress        = Address::find()
+					                                        ->where( [ 'id' ] , [ '=' ] ,
+					                                                 [ $package->returnAddressId ] )
 					                                        ->get();
-					$package->status   = PackageStatus::find()
-					                                        ->where( [ 'id' ] , [ '=' ] , [ $package->packageStatus ] )
-					                                        ->get();
+					$package->returnAddress->state = State::find()
+					                                      ->where( [ 'id' ] , [ '=' ] ,
+					                                               [ $package->returnAddress->stateId ] )
+					                                      ->get();
+					$package->status               = PackageStatus::find()
+					                                              ->where( [ 'id' ] , [ '=' ] ,
+					                                                       [ $package->packageStatus ] )
+					                                              ->get();
 
-					$package->user          = User::find()
-					                              ->where( [ 'id' ] , [ '=' ] , [ $package->userId ] );
+					$package->user = User::find()
+					                     ->where( [ 'id' ] , [ '=' ] , [ $package->userId ] );
 				}
 
 				$employees = User::findAll()
-				                 ->where( [ 'postOfficeId' , 'roleId' ] , [ '=' , '=' ] ,
-				                          [ $user->postOfficeId , $user->roleId ] )
+				                 ->where( [ 'postOfficeId' , 'roleId' , 'active' ] , [ '=' , '=' , '=' ] ,
+				                          [ $user->postOfficeId , $user->roleId , 1 ] )
 				                 ->get();
 				foreach( $employees as $employee ) {
 					$employee->addedBy = User::find( [ 'firstName' , 'lastName' ] )
@@ -64,6 +69,11 @@
 				                 ->whereIn( $customerIds )
 				                 ->limit( 6 )
 				                 ->get();
+				foreach( $customers as $customer ) {
+					$customer->packageCount = count( Package::findAll()
+					                                 ->where( [ 'userId' ] , [ '=' ] , [ $customer->id ] )
+					                                 ->get() );
+				}
 
 				return view( 'dashboard/dashboard' , compact( 'user' , 'packages' , 'employees' , 'customers' ) );
 			} else {

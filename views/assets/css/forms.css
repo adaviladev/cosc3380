@@ -68,6 +68,7 @@
 
 .button,
 .form-wrapper button {
+	display            : inline-block;
 	padding            : 8px 16px;
 	border             : none;
 	border-radius      : 2px;
@@ -81,6 +82,12 @@
 	-ms-transition     : background-color .3s;
 	-o-transition      : background-color .3s;
 	transition         : background-color .3s;
+}
+
+.form-wrapper button {
+	display       : inline-block;
+	margin-top    : 15px;
+	margin-bottom : 15px;
 }
 
 .form-wrapper button:hover {
@@ -109,6 +116,6 @@
 }
 
 input[disabled] {
-	color: #888888;
-	border-bottom: 2px solid #888888 !important;
+	color         : #888888;
+	border-bottom : 2px solid #888888 !important;
 }

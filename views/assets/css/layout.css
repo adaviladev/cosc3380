@@ -39,12 +39,6 @@ header {
 	background-color : #ffffff;
 }
 
-.button {
-	display: inline-block;
-	margin-top: 15px;
-	margin-bottom: 15px;
-}
-
 #Logo {
 	display         : inline-block;
 	padding         : 15px 0;
