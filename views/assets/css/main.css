@@ -49,10 +49,12 @@ http://paletton.com/#uid=1330u0kqJvTg-I7lNA4vnrNxZlJ
 	-o-animation: fade-in .75s; /* Opera < 12.1 */
 	animation: fade-in .75s;
 }
+
 .paragraph-breaking{
 	width: 500px;
 	word-wrap: break-word; /* used to wrap words in paragraph/easy formatting */
 }
+
 @-webkit-keyframes fade-in {
 	from { opacity: 0; }
 	to { opacity: 1; }

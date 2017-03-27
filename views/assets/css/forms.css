@@ -33,7 +33,8 @@
 	z-index  : 2;
 }
 
-.form-wrapper input,
+.form-wrapper input[type="password"],
+.form-wrapper input[type="text"],
 .form-wrapper select {
 	width              : 100%;
 	border             : none;
@@ -43,10 +44,7 @@
 	padding            : 8px 0;
 	border-radius      : 0;
 	background-color   : rgba(255, 255, 255, 0);
-
-	-webkit-appearance : none;
-	-moz-appearance    : none;
-	appearance         : none;
+	outline            : none;
 
 	-webkit-box-sizing : content-box;
 	-moz-box-sizing    : content-box;
@@ -60,7 +58,28 @@
 	transition         : color, border-bottom-color, position .3s;
 }
 
-.form-wrapper input:focus,
+.form-wrapper input[type="password"],
+.form-wrapper input[type="text"] {
+	-webkit-appearance : none;
+	-moz-appearance    : none;
+	appearance         : none;
+}
+
+.form-wrapper .checkbox-label {
+	position : relative;
+}
+
+.form-wrapper input[type="checkbox"] {
+	position       : relative;
+	display        : inline-block;
+	width          : 32px;
+	height         : 32px;
+	outline        : none;
+	cursor         : pointer;
+	vertical-align : middle;
+}
+
+.form-wrapper input[type="text"]:focus,
 .form-wrapper select:focus {
 	outline             : none;
 	border-bottom-color : #ffc107;

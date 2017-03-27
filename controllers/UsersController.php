@@ -5,6 +5,7 @@
 	use Address;
 	use App\Core\App;
 	use App\Core\Auth;
+	use PostOffice;
 	use Role;
 	use State;
 	use User;
@@ -209,5 +210,94 @@
 						return view( 'auth/register' , compact( 'errors' ) );
 				}
 			}
+		}
+
+		public function editEmployeeDetail( $employeeId ) {
+			$user = Auth::user();
+			if( $user->roleId == 2 ) {
+				$employee           = User::find()
+				                          ->where( [ 'id' ] , [ '=' ] , [ $employeeId ] )
+				                          ->get();
+				$employee->role     = Role::find()
+				                          ->where( [ 'id' ] , [ '=' ] , [ $employee->roleId ] )
+				                          ->get();
+				$employee->address  = Address::find()
+				                             ->where( [ 'id' ] , [ '=' ] , [ $employee->addressId ] )
+				                             ->get();
+				$employee->location = PostOffice::find()
+				                                ->where( [ 'id' ] , [ '=' ] , [ $employee->postOfficeId ] )
+				                                ->get();
+				$states             = State::selectAll();
+
+				return view( 'dashboard/editEmployee' , compact( 'employee' , 'states' ) );
+			} else if( $user->roleId == 3 ) {
+				return redirect( 'account' );
+			} else if( $user->roleId == 3 ) {
+				return redirect( 'admin' );
+			}
+
+			return redirect( 'login' );
+		}
+
+		public function updateEmployeeDetail( $employeeId ) {
+			$user = Auth::user();
+			if( $user->roleId == 2 ) {
+				$employee           = User::find()
+				                          ->where( [ 'id' ] , [ '=' ] , [ $employeeId ] )
+				                          ->get();
+				$employee->role     = Role::find()
+				                          ->where( [ 'id' ] , [ '=' ] , [ $employee->roleId ] )
+				                          ->get();
+				$employee->address  = Address::find()
+				                             ->where( [ 'id' ] , [ '=' ] , [ $employee->addressId ] )
+				                             ->get();
+				$employee->location = PostOffice::find()
+				                                ->where( [ 'id' ] , [ '=' ] , [ $employee->postOfficeId ] )
+				                                ->get();
+				$states             = State::selectAll();
+				$bindings           = [];
+
+				if( isset( $_POST[ 'addressStreet' ] ) ) {
+					$bindings[ 'street' ] = $_POST[ 'addressStreet' ];
+				}
+				if( isset( $_POST[ 'addressCity' ] ) ) {
+					$bindings[ 'city' ] = $_POST[ 'addressCity' ];
+				}
+				if( isset( $_POST[ 'addressStateId' ] ) ) {
+					$bindings[ 'stateId' ] = $_POST[ 'addressStateId' ];
+				}
+				if( isset( $_POST[ 'zipCode' ] ) ) {
+					$bindings[ 'street' ] = $_POST[ 'addressZipCode' ];
+				}
+				if( isset( $_POST[ 'deleteEmployee' ] ) ) {
+					User::update( [
+						              'active' => 0
+					              ] )
+					    ->where( [ 'id' ] , [ '=' ] , [ $employeeId ] )
+					    ->get();
+				} else if( isset( $_POST[ 'addEmployee' ] ) ) {
+					User::update( [
+						              'active' => 1
+					              ] )
+					    ->where( [ 'id' ] , [ '=' ] , [ $employeeId ] )
+					    ->get();
+				}
+
+				if( !empty( $bindings ) ) {
+					Address::update( $bindings )
+					       ->where( [ 'id' ] , [ '=' ] , [ $employee->addressId ] )
+					       ->get();
+				}
+
+				// dd( $bindings );
+
+				return redirect( "dashboard/employees/{$employeeId}" );
+			} else if( $user->roleId == 3 ) {
+				return redirect( 'account' );
+			} else if( $user->roleId == 3 ) {
+				return redirect( 'admin' );
+			}
+
+			return redirect( 'login' );
 		}
 	}

@@ -218,7 +218,7 @@
 				$this->query .= " " . $this->limitTo;
 			}
 
-			// dd( $this->query );
+			// var_dump( $this->query );
 			return $this->run( $this->query );
 		}
 

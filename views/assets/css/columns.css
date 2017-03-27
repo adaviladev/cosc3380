@@ -2,7 +2,10 @@
 .row { width : 100%; }
 
 [class^="col-"],
-[class*=" col-"] { float : left; }
+[class*=" col-"] {
+	float : left;
+	margin-bottom: 30px;
+}
 
 .container {
 	width     : 90%;

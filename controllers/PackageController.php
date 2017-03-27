@@ -114,7 +114,7 @@
 				                  ->where( [ 'id' ] , [ '=' ] , [ $package->destinationId ] )
 				                  ->get();
 
-				redirect( "packages/{$packageId}" );
+				return redirect( "dashboard/packages/{$packageId}" );
 			} else if( $user->roleId == 1 ) {
 				return redirect( 'admin' );
 			} else if( $user->roleId == 3 ) {
