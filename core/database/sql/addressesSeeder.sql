@@ -21,7 +21,7 @@ INSERT INTO addresses (id,street,city,stateId,zipCode,createdAt,modifiedAt) VALU
 INSERT INTO addresses (id,street,city,stateId,zipCode,createdAt,modifiedAt) VALUES (21,'P.O. Box 599, 7566 Odio St.','Seloignes',38,'99367','2016-02-03 03:15:49','2016-09-21 09:30:52');
 INSERT INTO addresses (id,street,city,stateId,zipCode,createdAt,modifiedAt) VALUES (22,'Ap #426-7762 Tellus Ave','Rathenow',20,'79435','2016-04-01 00:05:28','2016-09-07 09:59:32');
 INSERT INTO addresses (id,street,city,stateId,zipCode,createdAt,modifiedAt) VALUES (23,'P.O. Box 562, 5546 Tincidunt Rd.','Campos dos Goytacazes',41,'90360','2016-02-29 17:54:59','2016-10-10 10:00:47');
-INSERT INTO addresses (id,street,city,stateId,zipCode,createdAt,modifiedAt) VALUES (24,'Ap #117-6579 Vehicula Road','Escaillre',4,'75141','2016-04-10 09:19:00','2017-02-10 20:19:26');
+INSERT INTO addresses (id,street,city,stateId,zipCode,createdAt,modifiedAt) VALUES (24,'Ap #117-6579 Vehicula Road','Escaillare',4,'75141','2016-04-10 09:19:00','2017-02-10 20:19:26');
 INSERT INTO addresses (id,street,city,stateId,zipCode,createdAt,modifiedAt) VALUES (25,'P.O. Box 952, 3869 Pretium Rd.','Malbaie',19,'16787','2016-03-12 07:23:06','2016-08-24 10:45:28');
 INSERT INTO addresses (id,street,city,stateId,zipCode,createdAt,modifiedAt) VALUES (26,'7963 Magnis Ave','Eluru',9,'15768','2016-05-08 02:36:51','2016-09-23 00:25:57');
 INSERT INTO addresses (id,street,city,stateId,zipCode,createdAt,modifiedAt) VALUES (27,'5322 Turpis. Road','Bouffioulx',36,'50966','2016-02-12 18:11:33','2016-11-18 15:00:41');

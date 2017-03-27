@@ -7,6 +7,12 @@
 		return require_once( 'views/partials/footer.php' );
 	}
 
+	function getPartial( $file , $data = [] ) {
+		extract( $data );
+
+		include( "views/partials/{$file}.php" );
+	}
+
 	function getHeader() {
 		return require_once( 'views/partials/header.php' );
 	}
@@ -21,6 +27,6 @@
 		return require "views/{$name}.view.php";
 	}
 
-	function dd( $data = [] ) {
-		die( var_dump( $data ) );
+	function dd( ...$data ) {
+		die( var_dump( ...$data ) );
 	}

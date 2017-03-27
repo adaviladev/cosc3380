@@ -16,8 +16,7 @@
 		public function register() {
 			$states = State::selectAll();
 
-			return view( 'auth/register' ,
-			             compact( 'states' ) );
+			return view( 'auth/register' , compact( 'states' ) );
 		}
 
 		public function addUser() {
@@ -29,12 +28,10 @@
 			            ->where( [
 				                     'email' ,
 				                     'password'
-			                     ] ,
-			                     [
+			                     ] , [
 				                     '=' ,
 				                     '='
-			                     ] ,
-			                     [
+			                     ] , [
 				                     $_POST[ 'email' ] ,
 				                     md5( $_POST[ 'password' ] )
 			                     ] )
@@ -42,11 +39,16 @@
 
 			if( $user ) {
 				$_SESSION[ 'user' ] = serialize( $user );
-				redirect( 'dashboard' );
+				if( $user->roleId === 1 ) {
+					redirect( 'admin' );
+				} else if( $user->roleId === 2 ) {
+					redirect( 'dashboard' );
+				} else if( $user->roleId === 3 ) {
+					redirect( 'account' );
+				}
 			}
 
-			return view( 'auth/login' ,
-			             compact( 'user' ) );
+			return view( 'auth/login' , compact( 'user' ) );
 		}
 
 		public function logout() {
