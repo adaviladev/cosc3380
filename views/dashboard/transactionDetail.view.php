@@ -10,6 +10,26 @@
 
 <div class="row">
 	<div class="container">
+		<div class="package-wrapper">
+			<div class="clearfix">
+				<div class="col-dt-2 col-tb-4 col-mb-6 text-center">
+					<h4>Transaction Id</h4>
+				</div>
+				<div class="col-dt-2 col-tb-4 col-mb-6 text-center">
+					<h4>Package Id</h4>
+				</div>
+				<div class="col-dt-2 col-tb-4 col-mb-6 text-center">
+					<h4>Customer Id</h4>
+				</div>
+				<div class="col-dt-2 col-tb-4 col-mb-6 text-center">
+					<h4>Cost</h4>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="row">
+	<div class="container">
 		<?php if( !empty( $transaction ) ) { ?>
 			<div class="package-wrapper">
 				<div class="package-list-item clearfix">
