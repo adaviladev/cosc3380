@@ -48,9 +48,9 @@
 						</div>
 						<!-- /.field-container -->
 						<div class="field-container clearfix">
-							<label for="StateSelector">State</label>
+							<label for="StateSelector" class="filled">State</label>
 							<?php if( ! empty( $states ) ) { ?>
-								<select name="destinationAddressStateId" id="StateSelector">
+								<select name="destinationAddressStateId" id="StateSelector" class="valid">
 									<option disabled selected value=""></option>
 									<?php
 										foreach( $states as $state ) {

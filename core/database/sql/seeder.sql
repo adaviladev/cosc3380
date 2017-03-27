@@ -16,16 +16,16 @@ CREATE TABLE `states` (
 
 DROP TABLE IF EXISTS `addresses`;
 CREATE TABLE `addresses` (
-	id        INT(10) UNSIGNED PRIMARY KEY AUTO_INCREMENT ,
+	id         INT(10) UNSIGNED PRIMARY KEY AUTO_INCREMENT ,
 
-	street    VARCHAR(100) ,
-	city      VARCHAR(100) ,
+	street     VARCHAR(100) ,
+	city       VARCHAR(100) ,
 	stateId    INT(10) UNSIGNED ,
-	zipCode   INT(9) ,
+	zipCode    INT(9) ,
 
 	CONSTRAINT fkAddressToState FOREIGN KEY (stateId) REFERENCES `states` (`id`) ,
 
-	createdAt TIMESTAMP                    DEFAULT CURRENT_TIMESTAMP,
+	createdAt  TIMESTAMP                    DEFAULT CURRENT_TIMESTAMP ,
 	modifiedAt TIMESTAMP                    DEFAULT CURRENT_TIMESTAMP
 );
 
@@ -49,7 +49,7 @@ CREATE TABLE `postOffices` (
 	stateId    INT(10) UNSIGNED ,
 	zipCode    INT(9) ,
 
-	CONSTRAINT fkPostOfficeStateIdToStatesId FOREIGN KEY (stateId) REFERENCES states(id),
+	CONSTRAINT fkPostOfficeStateIdToStatesId FOREIGN KEY (stateId) REFERENCES states (id) ,
 	createdAt  TIMESTAMP                    DEFAULT CURRENT_TIMESTAMP ,
 	modifiedAt TIMESTAMP                    DEFAULT CURRENT_TIMESTAMP
 );
@@ -60,7 +60,7 @@ CREATE TABLE `packageStatus` (
 
 	type       VARCHAR(50) ,
 
-	modifiedBy INT(10) UNSIGNED,
+	modifiedBy INT(10) UNSIGNED ,
 	/*
 		This could possibly be a USER id depending ON implementation
 	*/
@@ -72,9 +72,9 @@ CREATE TABLE `packageStatus` (
 
 DROP TABLE IF EXISTS `packageTypes`;
 CREATE TABLE `packageTypes` (
-	id   INT(10) UNSIGNED PRIMARY KEY AUTO_INCREMENT ,
+	id         INT(10) UNSIGNED PRIMARY KEY AUTO_INCREMENT ,
 
-	type VARCHAR(50) ,
+	type       VARCHAR(50) ,
 
 	createdAt  TIMESTAMP                    DEFAULT CURRENT_TIMESTAMP ,
 	modifiedAt TIMESTAMP                    DEFAULT CURRENT_TIMESTAMP
@@ -86,18 +86,19 @@ CREATE TABLE `users` (
 
 	firstName    VARCHAR(50) ,
 	lastName     VARCHAR(50) ,
-	addressId      INT(10) REFERENCES addresses (id) ,
+	addressId    INT(10) REFERENCES addresses (id) ,
 	email        VARCHAR(50) ,
-	password		 VARCHAR(32) ,
+	password     VARCHAR(32) ,
 	roleId       INT(10) UNSIGNED REFERENCES roles (id) ,
 	postOfficeId INT(10) UNSIGNED NULL REFERENCES postOffices (id) ,
+	active       INT(1) UNSIGNED              DEFAULT 1 ,
 
 	CONSTRAINT fkUserToPostOfficeId FOREIGN KEY (postOfficeId) REFERENCES postOffices (id) ,
 	CONSTRAINT fkUserToRoleId FOREIGN KEY (roleId) REFERENCES roles (id) ,
 
 	modifiedBy   INT(10) UNSIGNED REFERENCES users (id) ,
 	createdAt    TIMESTAMP                    DEFAULT CURRENT_TIMESTAMP ,
-	createdBy   INT(10) UNSIGNED REFERENCES users (id) ,
+	createdBy    INT(10) UNSIGNED REFERENCES users (id) ,
 	modifiedAt   TIMESTAMP                    DEFAULT CURRENT_TIMESTAMP ,
 	CONSTRAINT fkUserToCreatedUserId FOREIGN KEY (createdBy) REFERENCES users (id) ,
 	CONSTRAINT fkUserToModifiedUserId FOREIGN KEY (modifiedBy) REFERENCES users (id)
@@ -124,18 +125,19 @@ CREATE TABLE `transactions` (
 
 DROP TABLE IF EXISTS `packages`;
 CREATE TABLE `packages` (
-	id            INT(10) UNSIGNED PRIMARY KEY AUTO_INCREMENT ,
+	id              INT(10) UNSIGNED PRIMARY KEY AUTO_INCREMENT ,
 
-	userId        INT(10) UNSIGNED ,
-	postOfficeId  INT(10) UNSIGNED ,
-	typeId        INT(10) UNSIGNED ,
-	transactionId INT(10) UNSIGNED ,
+	userId          INT(10) UNSIGNED ,
+	postOfficeId    INT(10) UNSIGNED ,
+	typeId          INT(10) UNSIGNED ,
+	transactionId   INT(10) UNSIGNED ,
 	destinationId   INT(10) UNSIGNED ,
 	returnAddressId INT(10) UNSIGNED ,
-	contents      VARCHAR(255) ,
-	weight        DOUBLE ,
-	priority      BOOL ,
-	packageStatus INT(10) UNSIGNED ,
+	contents        VARCHAR(255) ,
+	weight          DOUBLE ,
+	priority        BOOL ,
+	packageStatus   INT(10) UNSIGNED ,
+	active          INT(1) UNSIGNED              DEFAULT 1 ,
 
 	CONSTRAINT fkPackagesToUserId FOREIGN KEY (userId) REFERENCES users (id) ,
 	CONSTRAINT fkPackagesToPostOfficeId FOREIGN KEY (postOfficeId) REFERENCES postOffices (id) ,
@@ -144,10 +146,31 @@ CREATE TABLE `packages` (
 	CONSTRAINT fkPackagesToDestination FOREIGN KEY (destinationId) REFERENCES addresses (id) ,
 	CONSTRAINT fkPackagesToReturnAddress FOREIGN KEY (returnAddressId) REFERENCES addresses (id) ,
 
-	modifiedBy    INT(10) UNSIGNED,
+	modifiedBy      INT(10) UNSIGNED ,
 	CONSTRAINT fkModifiedBy FOREIGN KEY (modifiedBy) REFERENCES users (id) ,
 
-	createdAt     TIMESTAMP                    DEFAULT CURRENT_TIMESTAMP ,
-	modifiedAt    TIMESTAMP                    DEFAULT CURRENT_TIMESTAMP
+	createdAt       TIMESTAMP                    DEFAULT CURRENT_TIMESTAMP ,
+	modifiedAt      TIMESTAMP                    DEFAULT CURRENT_TIMESTAMP
 );
 
+DROP TABLE IF EXISTS `emails`;
+CREATE TABLE `emails` (
+	id INT(10) UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+	userId     INT(10) UNSIGNED ,
+	packageId  INT(10) UNSIGNED ,
+	sent       INT(1) UNSIGNED ,
+
+	CONSTRAINT fkEmailToUserId FOREIGN KEY (userId) REFERENCES users (id) ,
+	CONSTRAINT fkEmailToPackageId FOREIGN KEY (packageId) REFERENCES packages (id) ,
+
+	createdAt  TIMESTAMP                    DEFAULT CURRENT_TIMESTAMP ,
+	modifiedAt TIMESTAMP                    DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TRIGGER insertEmailOnStatusUpdate
+	AFTER UPDATE
+	ON packages FOR EACH ROW
+	-- Trigger body
+	BEGIN
+		INSERT INTO emails (userId , packageId , sent , createdAt , modifiedAt ) VALUES ( OLD.userId , OLD.id , 0 , CURRENT_TIMESTAMP,CURRENT_TIMESTAMP );
+	END;
