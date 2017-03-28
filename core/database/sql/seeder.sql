@@ -87,7 +87,7 @@ CREATE TABLE `users` (
 	firstName    VARCHAR(50) ,
 	lastName     VARCHAR(50) ,
 	addressId    INT(10) REFERENCES addresses (id) ,
-	email        VARCHAR(50) ,
+	email        VARCHAR(50) UNIQUE ,
 	password     VARCHAR(32) ,
 	roleId       INT(10) UNSIGNED REFERENCES roles (id) ,
 	postOfficeId INT(10) UNSIGNED NULL REFERENCES postOffices (id) ,

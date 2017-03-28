@@ -27,6 +27,6 @@
 		return require "views/{$name}.view.php";
 	}
 
-	function dd( $data = [] ) {
-		die( var_dump( $data ) );
+	function dd( ...$data ) {
+		die( var_dump( ...$data ) );
 	}
