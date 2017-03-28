@@ -7,6 +7,7 @@
 	$router->get( 'about' , 'PagesController@about' );
 	$router->get( 'contact' , 'PagesController@contact' );
 	$router->get( 'locations' , 'PagesController@locations' );
+	$router->get( 'locations2' , 'PagesController@locations' );
 	$router->get( 'users' , 'UsersController@show' );
 	$router->get( 'users/:userId' , 'UsersController@userDetail' );                         //viktor
 
