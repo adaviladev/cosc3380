@@ -20,6 +20,7 @@
 						<ul class="clearfix menu">
 							<li class="parent-menu"><a href="/about">About</a></li>
 							<li class="parent-menu"><a href="/locations">Locations</a></li>
+							<li class="parent-menu"><a href="/contact">Contact Us</a></li>
 							<?php if( empty( Auth::user() ) ) { ?>
 								<li class="parent-menu"><a href="/login">Login</a></li>
 								<li class="parent-menu"><a href="/register">Register</a></li>

@@ -10,6 +10,29 @@
 
 <div class="row">
 	<div class="container">
+		<div class="package-wrapper">
+			<div class="clearfix">
+				<div class="col-dt-2 col-tb-4 col-mb-6 text-center">
+					<h4>User Id</h4>
+				</div>
+				<div class="col-dt-2 col-tb-4 col-mb-6 text-center">
+					<h4>First Name</h4>
+				</div>
+				<div class="col-dt-2 col-tb-4 col-mb-6 text-center">
+					<h4>Last Name</h4>
+				</div>
+				<div class="col-dt-2 col-tb-4 col-mb-6 text-center">
+					<h4>Email</h4>
+				</div>
+				<div class="col-dt-2 col-tb-4 col-mb-6 text-center">
+					<h4>Address Id</h4>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="row">
+	<div class="container">
 		<?php if( !empty( $user ) ) { ?>
 			<div class="package-wrapper">
 				<div class="package-list-item clearfix">

@@ -1,26 +1,33 @@
 <div class="list-wrapper card-2">
 	<div class="list-header primary-bg clearfix">
-		<div class="col-dt-3 col-tb-3 col-mb-3">
+		<div class="col-dt-3 col-tb-3 col-mb-3 no-margin">
 			<div class="list-item-content">
 				<strong>Name</strong>
 			</div>
 			<!-- /.list-item-content -->
 		</div>
-		<!-- /.col-dt-3 col-tb-3 col-mb-3 -->
-		<div class="col-dt-3 col-tb-3 col-mb-3">
+		<!-- /.col-dt-3 col-tb-3 col-mb-3  no-margin -->
+		<div class="col-dt-3 col-tb-3 col-mb-3 no-margin">
 			<div class="list-item-content">
 				<strong>Date Added</strong>
 			</div>
 			<!-- /.list-item-content -->
 		</div>
-		<!-- /.col-dt-3 col-tb-3 col-mb-3 -->
-		<div class="col-dt-3 col-tb-3 col-mb-3">
+		<!-- /.col-dt-3 col-tb-3 col-mb-3  no-margin -->
+		<div class="col-dt-3 col-tb-3 col-mb-3 no-margin">
 			<div class="list-item-content">
 				<strong>Added By</strong>
 			</div>
 			<!-- /.list-item-content -->
 		</div>
-		<!-- /.col-dt-3 col-tb-3 col-mb-3 -->
+		<!-- /.col-dt-3 col-tb-3 col-mb-3  no-margin -->
+		<div class="col-dt-3 col-tb-3 col-mb-3 no-margin">
+			<div class="list-item-content">
+				<strong>Status</strong>
+			</div>
+			<!-- /.list-item-content -->
+		</div>
+		<!-- /.col-dt-3 col-tb-3 col-mb-3  no-margin -->
 	</div>
 	<!-- /.container -->
 	<div>
@@ -30,6 +37,9 @@
 					<div class="col-dt-3 col-tb-3 col-mb-3">
 						<div class="list-item-content">
 							<?= $employee->firstName ?> <?= $employee->lastName ?>
+							<div>
+								<a href="/dashboard/employees/<?= $employee->id; ?>">Edit</a>
+							</div>
 						</div>
 						<!-- /.list-item-content -->
 					</div>
@@ -48,9 +58,13 @@
 						<!-- /.list-item-content -->
 					</div>
 					<!-- /.col-dt-3 col-tb-3 col-mb-3 -->
-					<div class="col-dt-3 col-tb-3 col-mb-3 text-right">
+					<div class="col-dt-3 col-tb-3 col-mb-3">
 						<div class="list-item-content">
-							<a href="/dashboard/employees/edit/<?= $employee->id; ?>" class="button">Edit</a>
+							<?php if( $employee->active == 1 ) { ?>
+								Active
+							<?php } else { ?>
+								Deleted
+							<?php } ?>
 						</div>
 						<!-- /.list-item-content -->
 					</div>

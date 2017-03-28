@@ -19,9 +19,8 @@
 	$router->get( 'dashboard/employees' , 'HomeController@showEmployees' );
 	$router->get( 'dashboard/employees/add' , 'UsersController@addEmployee' );
 	$router->post( 'dashboard/employees/add' , 'UsersController@storeEmployee' );
-	$router->get( 'dashboard/employees/:employeeId' , 'HomeController@employeeDetail' );
-	$router->get( 'dashboard/employees/edit/:employeeId' , 'HomeController@editEmployeeDetail' );
-	$router->post( 'dashboard/employees/edit/:employeeId' , 'HomeController@updateEmployeeDetail' );
+	$router->get( 'dashboard/employees/:employeeId' , 'UsersController@editEmployeeDetail' );
+	$router->post( 'dashboard/employees/:employeeId' , 'UsersController@updateEmployeeDetail' );
 
 	$router->get( 'dashboard/customers' , 'UsersController@postOfficeUsers' );                //viktor
 	$router->get( 'dashboard/transactions' , 'TransactionController@postOfficeTransactions' );    //viktor

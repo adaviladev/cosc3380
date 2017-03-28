@@ -7,6 +7,8 @@
 	use App\Core\Auth;
 	use Package;
 	use PackageStatus;
+	use PostOffice;
+	use Role;
 	use State;
 	use User;
 
@@ -71,8 +73,8 @@
 				                 ->get();
 				foreach( $customers as $customer ) {
 					$customer->packageCount = count( Package::findAll()
-					                                 ->where( [ 'userId' ] , [ '=' ] , [ $customer->id ] )
-					                                 ->get() );
+					                                        ->where( [ 'userId' ] , [ '=' ] , [ $customer->id ] )
+					                                        ->get() );
 				}
 
 				return view( 'dashboard/dashboard' , compact( 'user' , 'packages' , 'employees' , 'customers' ) );
@@ -96,25 +98,13 @@
 				}
 
 				return view( 'dashboard/employees' , compact( 'employees' ) );
-			} else {
-				redirect( 'login' );
+			} else if( $user->roleId == 3 ) {
+				return redirect( 'account' );
+			} else if( $user->roleId == 1 ) {
+				return redirect( 'admin' );
 			}
-		}
 
-		public function employeeDetail( $employeeId ) {
-			$employee = User::find()
-			                ->where( [ 'id' ] , [ '=' ] , $employeeId )
-			                ->get();
-
-			dd( $employee );
-		}
-
-		public function editEmployeeDetail( $employeeId ) {
-			$employee = User::find()
-			                ->where( [ 'id' ] , [ '=' ] , $employeeId )
-			                ->get();
-
-			dd( $employee );
+			return redirect( 'login' );
 		}
 
 	}
