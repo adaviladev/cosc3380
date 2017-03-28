@@ -136,6 +136,7 @@
 		public function store() {
 			$password = md5( $_POST[ 'password' ] );
 
+			$addressId = null;
 			$duplicateAddress = null;
 
 			if( isset( $_POST[ 'address' ] ) && $_POST[ 'address' ] !== '' ) {
@@ -157,9 +158,9 @@
 					                                    $_POST[ 'zipCode' ]
 				                                    ] )
 				                           ->get();
-				$addressId        = $duplicateAddress->id;
+				// $addressId        = $duplicateAddress->id;
 				if( ! $duplicateAddress ) {
-					Address::insert( [
+					$addressId = Address::insert( [
 						                 'street'     => $_POST[ 'address' ] ,
 						                 'city'       => $_POST[ 'city' ] ,
 						                 'stateId'    => $_POST[ 'stateId' ] ,
@@ -167,11 +168,9 @@
 						                 'createdAt'  => date( "Y-m-d H:i:s" ) ,
 						                 'modifiedAt' => date( "Y-m-d H:i:s" )
 					                 ] );
-					$addressId = Address::lastInsertId();
+				} else {
+					$addressId = $duplicateAddress->id;
 				}
-				$addressId = $duplicateAddress;
-			} else {
-				$addressId = $duplicateAddress;
 			}
 			$role = Role::find()
 			            ->where( [
@@ -179,7 +178,7 @@
 			                     ] , [ '=' ] , [ 'customer' ] )
 			            ->get();
 
-			$userInsert = User::insert( [
+			$userInsertId = User::insert( [
 				                            'firstName'  => $_POST[ 'firstName' ] ,
 				                            'lastName'   => $_POST[ 'lastName' ] ,
 				                            'addressId'  => $addressId ,
@@ -190,23 +189,25 @@
 				                            'modifiedAt' => date( "Y-m-d H:i:s" )
 			                            ] );
 
-			if( $userInsert == true ) {
+			if( !is_string($userInsertId) ) {
 				$user = User::find()
-				            ->where( [ 'id' ] , [ '=' ] , [ $userInsert ] )
+				            ->where( [ 'id' ] , [ '=' ] , [ $userInsertId ] )
 				            ->get();
+				dd( '.', $user, "hit"  );
 
 				$_SESSION[ 'user' ] = serialize( $user );
 
 				return redirect( 'account' );
 				// return view( 'auth/register' );
 			} else {
-				switch( $userInsert ) {
+				$states = State::selectAll();
+				switch( $userInsertId ) {
 					case '23000':
 						$errors = array(
 							'email' => 'Email already exists.'
 						);
 
-						return view( 'auth/register' , compact( 'errors' ) );
+						return view( 'auth/register' , compact( 'errors', 'states' ) );
 				}
 			}
 		}
