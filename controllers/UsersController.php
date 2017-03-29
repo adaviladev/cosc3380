@@ -6,6 +6,7 @@
 	use App\Core\App;
 	use App\Core\Auth;
 	use Package;
+	use PackageStatus;
 	use PostOffice;
 	use Role;
 	use State;
@@ -149,26 +150,52 @@
 
 		public function account() {
 			$user = Auth::user();
-			if( $user->roleId ) {
-				$packages = Package::findAll()
-				                   ->where( [ 'userId' ] ,
-				                            [ '=' ] ,
-				                            [ $user->id ] )
-				                   ->get();
+			if( $user ) {
+				if( $user->roleId == 3 ) {
+					$packages = Package::findAll()
+					                   ->where( [ 'userId' ] ,
+					                            [ '=' ] ,
+					                            [ $user->id ] )
+					                   ->orderBy( 'createdAt' , 'desc')
+					                   ->limit( 3 )
+					                   ->get();
 
-				// dd( $packages );
+					foreach( $packages as $package ) {
+						$states                        = State::selectAll();
+						$package->destination          = Address::find()
+						                                        ->where( [ 'id' ] ,
+						                                                 [ '=' ] ,
+						                                                 [ $package->destinationId - 1 ] )
+						                                        ->get();
+						$package->destination->state   = $states[ $package->destination->stateId ]->state;
+						$package->returnAddress        = Address::find()
+						                                        ->where( [ 'id' ] ,
+						                                                 [ '=' ] ,
+						                                                 [ $package->returnAddressId - 1 ] )
+						                                        ->get();
+						$package->returnAddress->state = $states[ $package->returnAddress->stateId ]->state;
+						$package->status               = PackageStatus::find()
+						                                              ->where( [ 'id' ] ,
+						                                                       [ '=' ] ,
+						                                                       [ $package->packageStatus ] )
+						                                              ->get();
+					}
 
-				return view( 'accounts/account' ,
-				             compact( 'user', 'packages' ) );
-			} else if( $user->roleId == 1 ) {
-				return view( 'admin/admin' ,
-				             compact( 'user' ) );
-			} else if( $user->roleId == 2 ) {
-				return view( 'dashboard/dashboard' ,
-				             compact( 'user' ) );
+					// dd( $packages );
+
+					return view( 'accounts/account' ,
+					             compact( 'user' ,
+					                      'packages' ) );
+				} else if( $user->roleId == 1 ) {
+					return view( 'admin/admin' ,
+					             compact( 'user' ) );
+				} else if( $user->roleId == 2 ) {
+					return view( 'dashboard/dashboard' ,
+					             compact( 'user' ) );
+				}
 			}
 
-			return view( 'auth/login' );
+			return redirect( 'login' );
 		}
 
 		public function store() {

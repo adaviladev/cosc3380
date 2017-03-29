@@ -5,9 +5,9 @@
 		<div class="container">
 				<div class="group-wrapper card-2">
 					<h3>Local Packages</h3>
-					<?php getPartial( "packagesGrid" , compact( 'packages' ) ); ?>
+					<?php getPartial( "accountPackagesGrid" , compact( 'packages' ) ); ?>
 					<div class="text-right">
-						<a href="/dashboard/packages">View all packages</a>
+						<a href="/account/packages">View all packages</a>
 					</div>
 					<!-- /.text-right -->
 				</div>
