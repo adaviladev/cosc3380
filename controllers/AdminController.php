@@ -107,6 +107,31 @@
             }
         }
 
+        public function selectedPostOffice($postOfficeId) {
+            $user = Auth::user();
+            if ($user && $user->roleId == 1) {
+                $postOffice = PostOffice::find()
+                                        ->where( ['id'], [ '=' ] , [ $postOfficeId ] )
+                                        ->get();
+                $postOffice->packages = Package::findAll()
+                                               ->where( ['postOfficeId'] , [ '=' ] , $postOfficeId )
+                                               ->get();
+                $postOffice->employees = User::findAll()
+                                             ->where(['postOfficeId' , 'roleId'] , [ '=' , '=' ] , [$postOfficeId , 2])
+                                             ->get();
+                $postOffice->customers = User::findAll()
+                                             ->where(['postOfficeId' , 'roleId'] , [ '=' , '=' ] , [$postOfficeId , 3])
+                                             ->get();
+                $postOffice->transactions = Transaction::findAll()
+                                                       ->where(['postOfficeId'] , [ '=' ] , [$postOfficeId])
+                                                       ->get();
+
+                return view( 'admin/adminPostOfficeDetail' , compact( 'postOffice' ) );
+            } else {
+                return redirect( '/' );
+            }
+        }
+
         public function admin() {
             $user = Auth::user();
             if ($user && $user->roleId == 1) {
