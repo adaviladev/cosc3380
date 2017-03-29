@@ -10,6 +10,7 @@
                 <?php foreach( $postOffices as $postOffice ) { ?>
                     <div class="col-dt-4 col-tb-6 col-mb-12">
                         <div class="grid-item-content card-1">
+                            <a href="/admin/postOffices/<?= $postOffice->id; ?>">
                             <div class=" col-dt-12 list-header secondary-bg">
                                 <h2><?= $postOffice->name; ?></h2>
                             </div>
@@ -24,6 +25,7 @@
                                 </div>
                                 <!-- /.col-dt-12 -->
                             </div>
+                            </a>
                             <!-- /.list-detail -->
                         </div>
                         <!-- /.list-content -->
