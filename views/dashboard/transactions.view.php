@@ -12,6 +12,20 @@
 	<div class="container">
 		<?php if( ! empty( $transactions ) ) { ?>
 			<div class="package-wrapper">
+				<div class="clearfix primary-bg">
+					<div class="col-dt-2 col-tb-4 col-mb-6 text-center">
+						<h4>Transaction Id</h4>
+					</div>
+					<div class="col-dt-2 col-tb-4 col-mb-6 text-center">
+						<h4>Package Id</h4>
+					</div>
+					<div class="col-dt-2 col-tb-4 col-mb-6 text-center">
+						<h4>Customer Id</h4>
+					</div>
+					<div class="col-dt-2 col-tb-4 col-mb-6 text-center">
+						<h4>Cost</h4>
+					</div>
+				</div>
 				<?php foreach( $transactions as $transaction ) { ?>
 					<a href="/transactions/<?= $transaction->id ?>" class="package-list-item clearfix">
 						<div class="clearfix">

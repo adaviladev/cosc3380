@@ -13,9 +13,11 @@
 		<div class="row nav-menu card clearfix">
 			<header class="card primary-bg">
 				<div class="container clearfix">
-					<a href="/" id="Logo">
-						Home
-					</a>
+					<div class="text-center">
+						<a href="/" id="Logo">
+							Home
+						</a>
+					</div>
 					<nav>
 						<ul class="clearfix menu">
 							<li class="parent-menu"><a href="/about">About</a></li>

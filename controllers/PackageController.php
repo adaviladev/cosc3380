@@ -174,17 +174,15 @@
 					                                        ->where( [ 'id' ] , [ '=' ] , [ $package->destinationId ] )
 					                                        ->get();
 					$package->destination->state   = State::find()
-					                                      ->where( [ 'id' ] , [ '=' ] ,
-					                                               [ $package->destination->stateId ] )
-					                                      ->get();
+					                                      ->where( [ 'id' ] , [ '=' ] , [ $package->destination->stateId ] )
+					                                      ->get()->state;
 					$package->returnAddress        = Address::find()
 					                                        ->where( [ 'id' ] , [ '=' ] ,
 					                                                 [ $package->returnAddressId ] )
 					                                        ->get();
-					$package->returnAddress->state = State::find()
-					                                      ->where( [ 'id' ] , [ '=' ] ,
-					                                               [ $package->returnAddress->stateId ] )
-					                                      ->get();
+					$package->returnAddress->state   = State::find()
+					                                      ->where( [ 'id' ] , [ '=' ] , [ $package->returnAddress->stateId ] )
+					                                      ->get()->state;
 					$package->status               = PackageStatus::find()
 					                                              ->where( [ 'id' ] , [ '=' ] ,
 					                                                       [ $package->packageStatus ] )
