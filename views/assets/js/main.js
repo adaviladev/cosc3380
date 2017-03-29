@@ -14,7 +14,6 @@
 				$( this ).addClass( 'valid' );
 			}
 
-
 		} );
 		$( '.validate input[name="email"]' ).on( 'keyup change', function() {
 			var isValid = validateEmail( $( this ).val() );
