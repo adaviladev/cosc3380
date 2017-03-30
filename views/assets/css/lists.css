@@ -4,6 +4,11 @@
 	margin-bottom: 30px;
 }
 
+.list-item:hover {
+	background-color: #ffecb3;
+	/*font-size: 105%;*/
+}
+
 .list-item-content {
 	width: 85%;
 	margin: 0 auto;

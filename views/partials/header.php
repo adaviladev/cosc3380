@@ -45,8 +45,17 @@
 									</ul>
 								</li>
 							<?php } else if( Auth::user()->roleId == 3 ) { ?>
-								<li class="parent-menu"><a href="/account">Account</a></li>
-								<!-- we need to change this to redirect to the page that Andres made/makes -->
+								<li class="parent-menu">
+									<a href="/account">Account</a>
+									<ul class="sub-menu">
+										<li class="">
+											<a href="/account/packages">Packages</a>
+										</li>
+										<li class="">
+											<a href="/account/transactions">Order History</a>
+										</li>
+									</ul>
+								</li>
 							<?php } ?>
 							<?php if( Auth::user() ) { ?>
 								<li class="parent-menu"><a href="/logout">Log Out</a></li>

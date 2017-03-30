@@ -10,6 +10,7 @@
 	use PostOffice;
 	use Role;
 	use State;
+	use Transaction;
 	use User;
 
 	class UsersController {
@@ -156,7 +157,8 @@
 					                   ->where( [ 'userId' ] ,
 					                            [ '=' ] ,
 					                            [ $user->id ] )
-					                   ->orderBy( 'createdAt' , 'desc')
+					                   ->orderBy( 'createdAt' ,
+					                              'desc' )
 					                   ->limit( 3 )
 					                   ->get();
 
@@ -181,11 +183,20 @@
 						                                              ->get();
 					}
 
-					// dd( $packages );
+					$transactions = Transaction::findAll()
+					                           ->where( [ 'customerId' ] ,
+					                                    [ '=' ] ,
+					                                    [ $user->id ] )
+					                           ->orderBy( 'createdAt' ,
+					                                      'DESC' )
+					                           ->limit( 6 )
+					                           ->get();
+
+					// dd( $transactions );
 
 					return view( 'accounts/account' ,
 					             compact( 'user' ,
-					                      'packages' ) );
+					                      'packages', 'transactions' ) );
 				} else if( $user->roleId == 1 ) {
 					return view( 'admin/admin' ,
 					             compact( 'user' ) );
