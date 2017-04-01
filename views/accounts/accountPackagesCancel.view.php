@@ -1,6 +1,6 @@
 <?php getHeader() ?>
 
-	<?php if ( $package->packageStatus !== '2') { ?>
+	<?php if ( $package->packageStatus !== 1) { ?>
 		<h5>We're sorry. This package has left processing and therefore can not be cancelled.</h5>
 		<br />
 		<a href="/account/packages">Return to Packages.</a>
@@ -8,7 +8,7 @@
 	else if ($package->userId != $user->id)
 	{
 		redirect('account/packages');
-	} else if($package->userId == $user->id && $package->packageStatus == 2) {?>
+	} else if($package->userId == $user->id && $package->packageStatus == 1) {?>
 		<h1>You are about to cancel the following package. Please assure it is the correct one before you submit.</h1>
 		<div class="row">
 			<div class="container">
@@ -47,7 +47,7 @@
 										</div>
 										<!-- /.col-dt-12 -->
 										<?php if ($package->packageStatus == 1) { ?>
-											<a href="/account/packages/cancel/<?= $package->id; ?>" class="button">Cancel Delivery</a>
+											<a href="/account/packages/cancel/<?= $package->id; ?>" class="button">CONFIRM CANCELLATION</a>
 										<?php } ?>
 									</div>
 									<!-- /.package-detail-info -->

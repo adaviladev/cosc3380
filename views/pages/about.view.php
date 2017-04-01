@@ -24,30 +24,31 @@ or just prostoffice
 </center>
 <!-- title -->
 
-
-<div class = "row">
-	<div class = "container">
-		<div class= "paragraph-breaking">
-			<div style = 'font:17px Arial; color:#888888'>
-				<br />
-				&nbsp &nbsp &nbsp &nbsp &nbsp &nbsp Prostoffice.pro is a
-				postal service founded on the ideals of speed, efficiency,
-				ease, and most importantly, reliability. Every day we strive
-				to be the best postal service available. Why? Because we
-				believe customer satisfaction and happiness are the two most
-				important aspects of running a successful and useful service
-				that our customers will yearn to return to.
-				<br />
-				<br />
-				Customer satisfaction is a priority to us here at Prostoffice.pro,
-				so if you have any issues please <a href="/contact">contact us</a>.
+<center>
+	<div class = "row">
+		<div class = "container">
+			<div class= "paragraph-breaking">
+				<div style = 'font:17px Arial; color:#888888'>
+					<br />
+					&nbsp &nbsp &nbsp &nbsp &nbsp &nbsp Prostoffice.pro is a
+					postal service founded on the ideals of speed, efficiency,
+					ease, and most importantly, reliability. Every day we strive
+					to be the best postal service available. Why? Because we
+					believe customer satisfaction and happiness are the two most
+					important aspects of running a successful and useful service
+					that our customers will yearn to return to.
+					<br />
+					<br />
+					Customer satisfaction is a priority to us here at Prostoffice.pro,
+					so if you have any issues please <a href="/contact">contact us</a>.
+				</div>
+					<!-- end style/color-->
 			</div>
-				<!-- end style/color-->
+				<!-- end paragraph word breaking -->
 		</div>
-			<!-- end paragraph word breaking -->
+			<!-- end container-->
 	</div>
-		<!-- end container-->
-</div>
 <!-- end row -->
+</center>
 
 <?php getFooter(); ?>
