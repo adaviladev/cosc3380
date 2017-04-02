@@ -103,6 +103,10 @@
 	transition         : background-color .3s;
 }
 
+.form-wrapper .required span {
+	color : #ff0000;
+}
+
 .form-wrapper button {
 	display       : inline-block;
 	margin-top    : 15px;
@@ -111,6 +115,10 @@
 
 .form-wrapper button:hover {
 	background-color : #ff6f00;
+}
+
+.form-wrapper button[disabled] {
+	background-color : #888888;
 }
 
 .valid {
