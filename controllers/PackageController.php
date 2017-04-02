@@ -126,7 +126,7 @@
 
 		public function packageDetail( $packageId ) {
 			$user = Auth::user();
-			if( $user && $user->roleId == 2 ) {
+			if( $user && ($user->roleId == 2  || $user->roleId == 1)) {
 				$package         = Package::find()
 				                          ->where( [ 'id' ] , [ '=' ] , [ $packageId ] )
 				                          ->get();
@@ -152,9 +152,7 @@
 				                                      ->get()->state;
 
 				return view( 'dashboard/packageDetail' , compact( 'package' ) );
-			} else if( $user->roleId == 1 ) {
-				return redirect( 'admin' );
-			} else if( $user->roleId == 3 ) {
+			}else if( $user->roleId == 3 ) {
 				return redirect( 'account' );
 			}
 

@@ -18,8 +18,14 @@
 		}
 
 		public function contact() {
+			$postOffices = PostOffice::selectAll();
+			foreach( $postOffices as $postOffice ) {
+				$postOffice->state = State::find()
+				                          ->where( [ 'id' ] , [ '=' ] , [ $postOffice->stateId ] )
+				                          ->get()->state;
+			}
 
-			return view( 'pages/contact' );
+			return view( 'pages/contact', compact('postOffices') );
 		}
 
 		public function locations() {
