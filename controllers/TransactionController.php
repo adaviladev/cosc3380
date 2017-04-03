@@ -20,16 +20,20 @@
 		public function postOfficeTransactions() {
 			$user = Auth::user();
 			$user->postOfficeId;
-			$transactions = Transaction::findAll()
-			                           ->where( [ 'postOfficeId' ] ,
-			                                    [ '=' ] ,
-			                                    [ $user->postOfficeId ] )
-			                           ->get();
-			echo 'viktor was here';
+			if( $user && $user->roleId == 2 ) {
+				$transactions = Transaction::findAll()
+				                           ->where( [ 'postOfficeId' ] ,
+				                                    [ '=' ] ,
+				                                    [ $user->postOfficeId ] )
+				                           ->get();
+				echo 'viktor was here';
 
-			//dd($transactions);
-			return view( 'dashboard/transactions' ,
-			             compact( 'transactions' ) );
+				//dd($transactions);
+				return view( 'dashboard/transactions' ,
+				             compact( 'transactions' ) );
+			} else if( $user->roleId == 3 ) {
+				return redirect( 'account' );
+			}
 		}
 
 		public function transactionDetail( $userId ) {

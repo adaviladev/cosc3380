@@ -24,18 +24,21 @@
 		public function postOfficeUsers() {
 			$user = Auth::user();
 			$user->postOfficeId;
+			if( $user && $user->roleId == 2 ) {
+				$customers = User::findall()
+				                 ->where( [ 'postOfficeId' ] ,
+				                          [ '=' ] ,
+				                          [ $user->postOfficeId ] )
+				                 ->get();
+				echo 'viktor was here';
 
-			$customers = User::findall()
-			                 ->where( [ 'postOfficeId' ] ,
-			                          [ '=' ] ,
-			                          [ $user->postOfficeId ] )
-			                 ->get();
-			echo 'viktor was here';
+				//dd( $customers );
 
-			//dd( $customers );
-
-			return view( 'dashboard/customers' ,
-			             compact( 'customers' ) );
+				return view( 'dashboard/customers' ,
+				             compact( 'customers' ) );
+			} else if( $user->roleId == 3 ) {
+				return redirect( 'account' );
+			}
 		}
 
 		public function userDetail( $userId ) {
