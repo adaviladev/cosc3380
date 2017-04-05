@@ -9,6 +9,7 @@
 		<div id="ContentWrapper">
 			<div class="row nav-menu card clearfix">
 				<header class="card primary-bg">
+					<button class="nav-trigger float-right primary-bg"><span>toggle</span></button>
 					<div class="container clearfix">
 						<div class="float-left">
 							<a href="/" id="Logo">
@@ -16,7 +17,6 @@
 							</a>
 						</div>
 
-						<button class="nav-trigger float-right primary-bg"><span>toggle</span></button>
 					</div>
 				</header>
 			</div>

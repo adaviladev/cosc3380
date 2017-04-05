@@ -1,0 +1,55 @@
+<?php getHeader(); ?>
+
+	<div class="row">
+		<div class="container">
+			<?php if( ! empty( $transaction ) ) { ?>
+				<div class="package-wrapper">
+					<div class="package-item card-2 clearfix">
+						<div class="package-detail-content">
+							<div class="col-dt-12 col-tt-12 col-mb-12 text-left primary-bg">
+								<div class="package-detail-header">
+									<p>
+										Order #<?= $transaction->id; ?><br/>
+										Cashier: <?= $transaction->employee->firstName; ?> <?= $transaction->employee->lastName; ?>
+
+									</p>
+								</div>
+								<!-- /.package-detail-header -->
+							</div>
+							<!-- /.col-dt-12 col-tt-12 col-mb-12 text-left -->
+							<div class="col-dt-12">
+								<img src="/views/assets/images/content-box.png" alt="Package contents" class="center">
+							</div>
+							<!-- /.col-dt-12 -->
+							<div class="col-dt-12 text-left clearfix">
+								<div class="package-detail-info clearfix">
+									<p><strong><?= $transaction->package->status; ?> - $<?= $transaction->cost ?></strong></p>
+									<div class="col-dt-6 col-mb-12">
+										<p>Origin:</p>
+										<?= $transaction->package->returnAddress->street; ?>,<br/>
+										<?= $transaction->package->returnAddress->city; ?>, <?= $transaction->package->returnAddress->state; ?> <?= $transaction->package->returnAddress->zipCode; ?>
+									</div>
+									<!-- /.col-dt-12 -->
+									<div class="col-dt-6 col-mb-12">
+										<p>Destination:</p>
+										<?= $transaction->package->destination->street; ?>,<br/>
+										<?= $transaction->package->destination->city; ?>, <?= $transaction->package->destination->state; ?> <?= $transaction->package->destination->zipCode; ?>
+									</div>
+									<!-- /.col-dt-12 -->
+									<?php if( $transaction->package->packageStatus == 1 ) { ?>
+										<a href="/dashboard/packages/edit/<?= $transaction->package->id; ?>" class="button">Edit</a>
+										<!-- /.button -->
+									<?php } ?>
+								</div>
+								<!-- /.package-detail-info -->
+							</div>
+							<!-- /.col-dt-12 -->
+						</div>
+						<!-- /.package-content -->
+					</div>
+				</div>
+			<?php } ?>
+		</div>
+	</div>
+
+<?php getFooter(); ?>

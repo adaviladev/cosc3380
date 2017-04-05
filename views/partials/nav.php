@@ -11,6 +11,21 @@
 		<?php if( empty( Auth::user() ) ) { ?>
 			<li class="parent-menu nav-item"><a href="/login">Login</a></li>
 			<li class="parent-menu nav-item"><a href="/register">Register</a></li>
+		<?php } else if( Auth::user()->roleId == 1 ) { ?>
+			<li class="parent-menu nav-item">
+				<a href="/admin">Admin</a>
+				<ul class="sub-menu">
+					<li class="nav-item">
+						<a href="/admin/packages">Packages</a>
+					</li>
+					<li class="nav-item">
+						<a href="/admin/transactions">Transactions</a>
+					</li>
+					<li class="nav-item">
+						<a href="/admin/post-offices">Post Offices</a>
+					</li>
+				</ul>
+			</li>
 		<?php } else if( Auth::user()->roleId == 2 ) { ?>
 			<li class="parent-menu nav-item">
 				<a href="/dashboard">Dashboard</a>
@@ -38,6 +53,9 @@
 					</li>
 					<li class="nav-item">
 						<a href="/account/transactions">Order History</a>
+					</li>
+					<li class="nav-item">
+						<a href="/account/info">Account Info</a>
 					</li>
 				</ul>
 			</li>

@@ -45,6 +45,8 @@
 	$router->get( 'account/packages' , 'PackageController@accountPackages' ); //austin
 	$router->get( 'account/packages/:packageId' , 'PackageController@accountPackagesId' ); //austin
 	$router->get( 'account/packages/cancel/:packageId' , 'PackageController@accountPackagesCancel' ); //austin
+	$router->get( 'account/transactions' , 'TransactionController@userTransactions' );
+	$router->get( 'account/transactions/:transactionId' , 'TransactionController@userTransactionDetail' );
 
 	/**
 	 * Admin routes

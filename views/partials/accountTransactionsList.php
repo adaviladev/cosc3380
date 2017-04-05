@@ -16,7 +16,7 @@
 		<!-- /.col-dt-3 col-tb-3 col-mb-3  no-margin -->
 		<div class="col-dt-3 col-tb-3 col-mb-3 no-margin">
 			<div class="list-item-content">
-				<strong>Package #</strong>
+				<strong>Package Status</strong>
 			</div>
 			<!-- /.list-item-content -->
 		</div>
@@ -34,7 +34,7 @@
 		<?php foreach( $transactions as $transaction ) { ?>
 			<div class="list-item secondary-bg clearfix">
 				<div class="list-container clearfix">
-					<div class="col-dt-3 col-tb-3 col-mb-3">
+					<div class="col-dt-3 col-tb-3 col-mb-3 no-margin">
 						<div class="list-item-content">
 							<?= $transaction->id ?>
 							<div>
@@ -43,8 +43,8 @@
 						</div>
 						<!-- /.list-item-content -->
 					</div>
-					<!-- /.col-dt-3 col-tb-3 col-mb-3 -->
-					<div class="col-dt-3 col-tb-3 col-mb-3">
+					<!-- /.col-dt-3 col-tb-3 col-mb-3 no-margin -->
+					<div class="col-dt-3 col-tb-3 col-mb-3 no-margin">
 						<div class="list-item-content">
 							<?php
 								$date = new DateTime($transaction->createdAt);
@@ -53,21 +53,21 @@
 						</div>
 						<!-- /.list-item-content -->
 					</div>
-					<!-- /.col-dt-3 col-tb-3 col-mb-3 -->
-					<div class="col-dt-3 col-tb-3 col-mb-3">
+					<!-- /.col-dt-3 col-tb-3 col-mb-3 no-margin -->
+					<div class="col-dt-3 col-tb-3 col-mb-3 no-margin">
 						<div class="list-item-content">
-							<?= $transaction->id; ?>
+							<?= $transaction->package->status; ?>
 						</div>
 						<!-- /.list-item-content -->
 					</div>
-					<!-- /.col-dt-3 col-tb-3 col-mb-3 -->
-					<div class="col-dt-3 col-tb-3 col-mb-3">
+					<!-- /.col-dt-3 col-tb-3 col-mb-3 no-margin -->
+					<div class="col-dt-3 col-tb-3 col-mb-3 no-margin">
 						<div class="list-item-content">
-							<?= $transaction->cost; ?>
+							$<?= $transaction->cost; ?>
 						</div>
 						<!-- /.list-item-content -->
 					</div>
-					<!-- /.col-dt-3 col-tb-3 col-mb-3 -->
+					<!-- /.col-dt-3 col-tb-3 col-mb-3 no-margin -->
 				</div>
 				<!-- /.list-content -->
 			</div>
