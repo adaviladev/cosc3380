@@ -84,7 +84,7 @@
 				                                    ] )
 				                           ->get();
 				$addressId        = $duplicateAddress->id;
-				if( ! $duplicateAddress ) {
+				if( empty( $duplicateAddress ) ) {
 					Address::insert( [
 						                 'street'     => $_POST[ 'address' ] ,
 						                 'city'       => $_POST[ 'city' ] ,
@@ -94,8 +94,9 @@
 						                 'modifiedAt' => date( "Y-m-d H:i:s" )
 					                 ] );
 					$addressId = Address::lastInsertId();
+				} else {
+					$addressId = $duplicateAddress;
 				}
-				$addressId = $duplicateAddress;
 			} else {
 				$addressId = $duplicateAddress;
 			}
@@ -110,7 +111,7 @@
 			$userInsert = User::insert( [
 				                            'firstName'    => $_POST[ 'firstName' ] ,
 				                            'lastName'     => $_POST[ 'lastName' ] ,
-				                            'addressId'    => $addressId ,
+				                            'addressId'    => $addressId->id ,
 				                            'email'        => $_POST[ 'email' ] ,
 				                            'password'     => $password ,
 				                            'roleId'       => $role->id ,
@@ -120,14 +121,18 @@
 				                            'modifiedAt'   => date( "Y-m-d H:i:s" )
 			                            ] );
 
+			// dd( $userInsert );
+
 			if( $userInsert ) {
 				$user = User::find()
 				            ->where( [ 'id' ] ,
 				                     [ '=' ] ,
-				                     [ User::lastInsertId() ] )
+				                     [ $userInsert ] )
 				            ->get();
 
-				redirect( 'dashboard/employees' );
+				// dd( $user );
+
+				return redirect( 'dashboard/employees' );
 				// return view( 'auth/register' );
 			} else {
 				switch( $userInsert ) {
