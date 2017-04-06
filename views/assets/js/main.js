@@ -7,18 +7,20 @@
 			$( '.form-wrapper label' ).removeClass( 'active' );
 			$( this ).siblings( 'label' ).addClass( 'active' );
 		} );
-		$( '.form-wrapper input,.form-wrapper select' ).blur( function() {
+		$( '.form-wrapper input[type="text"],.form-wrapper input[type="password"],.form-wrapper select' ).blur( function() {
 			$( '.form-wrapper label' ).removeClass( 'active' );
 			if( !$( this ).parent().hasClass( 'validate' ) && $( this ).val() ) {
-				$( this ).siblings( 'label' ).addClass( 'filled' );
-				$( this ).addClass( 'valid' );
+				if( $( this ).attr( 'type' ) !== 'email' ) {
+					$( this ).siblings( 'label' ).addClass( 'filled' );
+					$( this ).addClass( 'valid' );
+				}
 			}
 			if( $( this ).val().length === 0 ) {
 				$( this ).siblings( 'label' ).removeClass( 'filled' );
 				$( this ).removeClass( 'valid' );
 			}
 		} );
-		$( '.form-wrapper .required input,.form-wrapper select' ).on( 'keyup change blur', function() {
+		$( '.form-wrapper .required input[type="text"],.form-wrapper .required input[type="password"],.form-wrapper select' ).on( 'keyup change', function() {
 			if( $( this ).val().length === 0 ) {
 				$( this ).siblings( 'label' ).removeClass( 'filled' );
 				$( this ).removeClass( 'valid' );
@@ -35,8 +37,11 @@
 				$( this ).removeClass( 'dirty' );
 				$( this ).addClass( 'valid' );
 				$( '.form-wrapper button' ).prop( 'disabled', false );
-			} else {
+			} else if( $( this ).val() !== '' ) {
 				$( this ).siblings( 'label' ).removeClass( 'valid' ).addClass( 'filled' );
+				$( this ).addClass( 'dirty' );
+				$( '.form-wrapper button' ).prop( 'disabled', true );
+			} else {
 				$( this ).addClass( 'dirty' );
 				$( '.form-wrapper button' ).prop( 'disabled', true );
 			}
@@ -49,7 +54,7 @@
 		$( ".nav-trigger" ).click( function( event ) {
 			event.preventDefault();
 			if( ( $( this ).hasClass( "is-active" ) ) ) {
-				$( this ).removeClass( "is-active" )
+				$( this ).removeClass( "is-active" );
 				$( 'body' ).removeClass( "open-menu" );
 			} else {
 				$( this ).addClass( "is-active" );

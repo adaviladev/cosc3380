@@ -7,13 +7,21 @@
 				<form action="/login" method="post">
 					<div class="field-container validate required">
 						<label for="email">Email <span>*</span></label>
-						<input type="text" name="email" required>
+						<input type="email" name="email" required>
 					</div>
 					<!-- /.field-wrapper -->
 					<div class="field-container required">
 						<label for="password">Password <span>*</span></label>
 						<input type="password" name="password" required>
 					</div>
+					<?php if( ! empty( $errors ) ) { ?>
+						<div class="errors">
+							<?php foreach( $errors as $error ) { ?>
+								<?= $error; ?>
+								<!-- /.error -->
+							<?php } ?>
+						</div>
+					<?php } ?>
 					<!-- /.field-wrapper -->
 					<button type="submit">Submit</button>
 				</form>
