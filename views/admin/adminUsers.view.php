@@ -42,7 +42,7 @@ $titles = array('Name', 'Number Of Packages', 'Total Spent', 'Average Spent');
                     <a href="/users/<?= $user->id ?>" class="package-list-item clearfix">
                         <div class="clearfix">
                             <div class="col-dt-2 col-tb-4 col-mb-6 text-center">
-                                <?= $user->firstName?><?= $user->lastName?>
+                                <?= $user->firstName?> <?= $user->lastName?>
                             </div>
                             <!-- /.col-dt-2 col-tb-4 col-mb-6 -->
                             <div class="col-dt-2 col-tb-4 col-mb-6 text-center" >
