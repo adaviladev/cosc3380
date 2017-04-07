@@ -300,7 +300,7 @@
 
 		public function editEmployeeDetail( $employeeId ) {
 			$user = Auth::user();
-			if( $user->roleId == 2 ) {
+			if( $user->roleId == 2 || $user->roleId == 1) {
 				$employee           = User::find()
 				                          ->where( [ 'id' ] ,
 				                                   [ '=' ] ,
@@ -337,7 +337,7 @@
 
 		public function updateEmployeeDetail( $employeeId ) {
 			$user = Auth::user();
-			if( $user->roleId == 2 ) {
+			if( $user->roleId == 2 || $user->roleId == 1) {
 				$employee           = User::find()
 				                          ->where( [ 'id' ] ,
 				                                   [ '=' ] ,
