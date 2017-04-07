@@ -13,7 +13,7 @@
 			<li class="parent-menu nav-item"><a href="/register">Register</a></li>
 		<?php } else if( Auth::user()->roleId == 1 ) { ?>
 			<li class="parent-menu nav-item">
-				<a href="/admin">Admin</a>
+				<a href="/admin/postOffices">Home</a>
 				<ul class="sub-menu">
 					<li class="nav-item">
 						<a href="/admin/packages">Packages</a>
@@ -22,7 +22,7 @@
 						<a href="/admin/transactions">Transactions</a>
 					</li>
 					<li class="nav-item">
-						<a href="/admin/postOffices">Post Offices</a>
+						<a href="/admin/users">Users</a>
 					</li>
 				</ul>
 			</li>

@@ -198,7 +198,7 @@
 					             compact( 'user' ,
 					                      'packages', 'transactions' ) );
 				} else if( $user->roleId == 1 ) {
-					return view( 'admin/admin' ,
+					return view( 'admin/adminPostOffices' ,
 					             compact( 'user' ) );
 				} else if( $user->roleId == 2 ) {
 					return view( 'dashboard/dashboard' ,
