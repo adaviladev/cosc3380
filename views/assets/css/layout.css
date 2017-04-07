@@ -62,6 +62,11 @@ header {
 	font-size       : 22px;
 }
 
+#Logo img {
+	height: 100%;
+	max-height: 60px;
+}
+
 .clearfix:after {
 	content : "";
 	display : table;

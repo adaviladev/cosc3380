@@ -13,7 +13,7 @@
 					<div class="container clearfix">
 						<div class="float-left">
 							<a href="/" id="Logo">
-								Home
+								<img src="/views/assets/images/prostoffice-dark.png" alt="">
 							</a>
 						</div>
 
