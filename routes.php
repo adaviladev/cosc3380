@@ -47,6 +47,8 @@
 	$router->get( 'account/packages/cancel/:packageId' , 'PackageController@accountPackagesCancel' ); //austin
 	$router->get( 'account/transactions' , 'TransactionController@userTransactions' );
 	$router->get( 'account/transactions/:transactionId' , 'TransactionController@userTransactionDetail' );
+	$router->get( 'account/transactions/edit/:transactionId' , 'TransactionController@editUserTransaction' );
+	$router->post( 'account/transactions/edit/:transactionId' , 'TransactionController@editUserTransaction' );
 
 	/**
 	 * Admin routes

@@ -9,7 +9,12 @@
 							<div class="col-dt-12 col-tt-12 col-mb-12 text-left primary-bg">
 								<div class="package-detail-header">
 									<p>
-										Order #<?= $transaction->id; ?><br/>
+										Order #<?= $transaction->id; ?><span class="float-right">
+										<?php
+											$date = new DateTime($transaction->createdAt);
+											echo $date->format( 'M j, Y' );
+										?>
+										</span><br/>
 										Cashier: <?= $transaction->employee->firstName; ?> <?= $transaction->employee->lastName; ?>
 
 									</p>
@@ -36,10 +41,6 @@
 										<?= $transaction->package->destination->city; ?>, <?= $transaction->package->destination->state; ?> <?= $transaction->package->destination->zipCode; ?>
 									</div>
 									<!-- /.col-dt-12 -->
-									<?php if( $transaction->package->packageStatus == 1 ) { ?>
-										<a href="/dashboard/packages/edit/<?= $transaction->package->id; ?>" class="button">Edit</a>
-										<!-- /.button -->
-									<?php } ?>
 								</div>
 								<!-- /.package-detail-info -->
 							</div>
