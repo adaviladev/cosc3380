@@ -143,9 +143,24 @@
 
 		public function accountInfo() {
 			$user = Auth::user();
+			$states = State::selectAll();
+			$address = Address::find()
+								->where( ['id'] ,
+								         ['='] ,
+								         [$user->addressId] )
+								->get();
+
+			$userState = State::find()
+						       ->where( ['id'],
+										['='],
+										[$address->stateId] )
+							   ->get();
 
 			return view( 'accounts/accountInfo' ,
-			             compact( 'user' ) );
+			             compact( 'user'   ,
+			                      'states' ,
+			                      'address',
+			                      'userState') );
 		}
 
 		public function account() {
