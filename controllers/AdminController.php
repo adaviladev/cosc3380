@@ -50,9 +50,13 @@
                         ->get();
                 }
                 return view( 'admin/adminPackages' , compact( 'packages' ) );
-            } else {
-                return redirect( '/' );
+            } else if ($user->roleId == 2) {
+                return redirect( 'dashboard' );
+            } else if ($user->roleId == 3) {
+                return redirect( 'account' );
             }
+            return redirect('login');
+
         }
 
         public function transactions() {
@@ -84,9 +88,12 @@
                 }
 
                 return view('admin/adminTransactions', compact('transactions'));
-            } else {
-                return redirect( '/' );
+            }  else if ($user->roleId == 2) {
+                return redirect( 'dashboard' );
+            } else if ($user->roleId == 3) {
+                return redirect( 'account' );
             }
+            return redirect('login');
         }
 
         public function postOffices()
@@ -102,9 +109,12 @@
                 }
 
                 return view('admin/adminPostOffices', compact('postOffices'));
-            } else {
-                return redirect( '/' );
+            }  else if ($user->roleId == 2) {
+                return redirect( 'dashboard' );
+            } else if ($user->roleId == 3) {
+                return redirect( 'account' );
             }
+            return redirect('login');
         }
 
         public function selectedPostOffice($postOfficeId) {
@@ -127,9 +137,12 @@
                                                        ->get();
 
                 return view( 'admin/adminPostOfficeDetail' , compact( 'postOffice' ) );
-            } else {
-                return redirect( '/' );
+            }  else if ($user->roleId == 2) {
+                return redirect( 'dashboard' );
+            } else if ($user->roleId == 3) {
+                return redirect( 'account' );
             }
+            return redirect('login');
         }
 
         public function admin() {
@@ -138,8 +151,11 @@
                 $packages = Package::selectAll();
 
                 return view('admin/admin', compact('packages'));
-            } else {
-                return redirect( '/' );
+            }  else if ($user->roleId == 2) {
+                return redirect( 'dashboard' );
+            } else if ($user->roleId == 3) {
+                return redirect( 'account' );
             }
+            return redirect('login');
         }
 }
