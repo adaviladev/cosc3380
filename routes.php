@@ -36,7 +36,6 @@
 	$router->get( 'logout' , 'AuthController@logout' );
 
 	$router->post( 'users' , 'UsersController@store' );
-
 	/**
 	 * Account routes
 	 */
