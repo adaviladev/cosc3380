@@ -14,7 +14,7 @@
 
 		public function postOfficeInventory() {
 			$user = Auth::user();
-			if( $user->roleId == 2 ) {
+			if( $user->roleId == 2 || $user->roleId == 1) {
 				$packages = Package::findAll()
 				                   ->where( [ 'postOfficeId' ] , [ '=' ] , [ $user->postOfficeId ] )
 				                   ->get();
@@ -56,7 +56,7 @@
 
 		public function editPackage( $packageId ) {
 			$user = Auth::user();
-			if( $user && $user->roleId == 2 ) {
+			if( $user && $user->roleId == 2 || $user->roleId == 1) {
 				$package                       = Package::find()
 				                                        ->where( [ 'id' ] , [ '=' ] , [ $packageId ] )
 				                                        ->get();
@@ -93,7 +93,7 @@
 
 		public function updatePackage( $packageId ) {
 			$user = Auth::user();
-			if( $user && $user->roleId == 2 ) {
+			if( $user && $user->roleId == 2 || $user->roleId == 1) {
 				$package = Package::find()
 				                  ->where( [ 'id' ] , [ '=' ] , [ $packageId ] )
 				                  ->get();
