@@ -163,6 +163,16 @@
 			                      'userState') );
 		}
 
+		public function passwordChange() {
+			$user = Auth::user();
+			if($user){
+				return view( 'accounts/accountPassword' ,
+			                compact( 'user' ) );
+			} else {
+				return view('home', compact ('user'));
+			}
+		}
+
 		public function account() {
 			$user = Auth::user();
 			if( $user ) {

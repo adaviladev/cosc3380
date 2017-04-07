@@ -40,12 +40,12 @@
 	/**
 	 * Account routes
 	 */
-	$router->get( 'account' , 'UsersController@account' ); //austin
-	$router->get( 'account/info' , 'UsersController@accountInfo' ); //austin
-	$router->get( 'account/packages' , 'PackageController@accountPackages' ); //austin
-	$router->get( 'account/packages/:packageId' , 'PackageController@accountPackagesId' ); //austin
-	$router->get( 'account/packages/cancel/:packageId' , 'PackageController@accountPackagesCancel' ); //austin
-
+	$router->get( 'account' , 'UsersController@account' );
+	$router->get( 'account/info' , 'UsersController@accountInfo' );
+	$router->get( 'account/packages' , 'PackageController@accountPackages' );
+	$router->get( 'account/packages/:packageId' , 'PackageController@accountPackagesId' );
+	$router->get( 'account/packages/cancel/:packageId' , 'PackageController@accountPackagesCancel' );
+	$router->get( 'account/info/password' , 'UsersController@passwordChange' );
 	/**
 	 * Admin routes
 	 */

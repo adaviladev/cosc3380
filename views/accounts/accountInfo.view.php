@@ -55,8 +55,8 @@
 					<input type="text" name="zipCode" value=<?=$address->zipCode?>>
 				</div>
 				<!-- /.field-container -->
-				<button type="submit">Change Info</button>
-				<button type="button">Change Password</button>
+				<a class="button" type="submit">Change Info</a>
+				<a href="/account/info/password" class="button">Change Password</a>
 			</form>
 		</div>
 		<!-- /.form-wrapper -->
