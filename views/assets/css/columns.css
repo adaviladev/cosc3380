@@ -1,6 +1,11 @@
 /* Grid Styling */
 .row { width : 100%; }
 
+.content-row {
+	width: 100%;
+	padding-top: 60px;
+}
+
 [class^="col-"],
 [class*=" col-"] {
 	float : left;

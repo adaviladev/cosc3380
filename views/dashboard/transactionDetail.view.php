@@ -40,7 +40,7 @@
 					</div>
 					<!-- /.col-dt-2 -->
 					<div class="col-dt-2 text-center">
-						<?= $transaction->cost ?>
+						$<?= $transaction->cost ?>
 					</div>
 					<!-- /.col-dt-2 -->
 				</div>

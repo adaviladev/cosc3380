@@ -120,6 +120,37 @@ http://paletton.com/#uid=1330u0kqJvTg-I7lNA4vnrNxZlJ
 }
 
 /*
+viktor code
+ */
+
+.banner {
+	position: relative;
+	background-image: url("https://static1.squarespace.com/static/56a1b48e2399a32e6171d4c3/t/56a768301115e0437fc466a3/1453811761142/letters_post_cards_stamps_photography_1920x1200_hd-wallpaper-1600184.jpg");
+	/* https://static1.squarespace.com/static/56a1b48e2399a32e6171d4c3/t/56a768301115e0437fc466a3/1453811761142/letters_post_cards_stamps_photography_1920x1200_hd-wallpaper-1600184.jpg
+	https://www.highreshdwallpapers.com/wp-content/uploads/2014/06/Drinking-Cheers.jpg
+	*/
+
+	background-size: cover;
+	background-position: center;
+	background-attachment : fixed;
+	height: 500px;
+	width: 100%;
+}
+
+.banner-content {
+	border: 1px solid #FFF;
+	border-radius: 10px;
+	background-color: white;
+	position: relative;
+	top: 20%;
+	width: 60%;
+	padding: 30px 10px;
+	margin: auto;
+}
+
+/* end of viktor code */
+
+/*
 	Media queries go below here.
 	Use "max-width" for setting breakpoints
 	and make sure it goes from high to low.
