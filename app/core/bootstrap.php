@@ -9,7 +9,7 @@
 	 *
 	 * New Classes must be required in core/fileLoader.php
 	 */
-	require 'core/fileLoader.php';
+	require __DIR__ . '/fileLoader.php';
 
 	/**
 	 * Bind values to the global static App class.

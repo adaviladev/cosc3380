@@ -12,7 +12,7 @@
 	 * Will need to be manually updated with each new
 	 * Class, Controller, Model, et al.
 	 */
-	require 'core/bootstrap.php';
+	require __DIR__ . '/../app/core/bootstrap.php';
 
 	/**
 	 * Sessions will be used for storing the User
@@ -29,11 +29,11 @@
 	/**
 	 * Store routes here
 	 */
-	require_once 'routes.php';
+	require_once __DIR__ . '/../app/routes.php';
 
 	/**
 	 * This method chain will call the appropriate
 	 * method from the requested Controller based
 	 * on the request URI.
 	 */
-	Router::load( 'routes.php' )->direct( Request::uri() , Request::method() );
+	Router::load( __DIR__ . '/../app/routes.php' )->direct( Request::uri() , Request::method() );
