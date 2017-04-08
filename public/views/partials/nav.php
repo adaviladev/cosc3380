@@ -24,6 +24,9 @@
 					<li class="nav-item">
 						<a href="/admin/post-offices">Post Offices</a>
 					</li>
+					<li class="nav-item">
+						<a href="/admin/users">Users</a>
+					</li>
 				</ul>
 			</li>
 		<?php } else if( Auth::user()->roleId == 2 ) { ?>

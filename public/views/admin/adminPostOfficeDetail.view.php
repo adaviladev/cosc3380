@@ -1,56 +1,64 @@
-<?php
-	getHeader();
-?>
+<?php getHeader(); ?>
 
+<?php if( ! empty( $user ) ) { ?>
+    <div class="row">
+        <div class="container">
+            <h1>Welcome, Prost Master</h1>
+        </div>
+        <!-- /.container -->
+    </div>
+    <!-- /.row -->
+<?php } ?>
 <div class="row">
     <div class="container">
-        <?php if( ! empty( $postOffice ) ) { ?>
-            <div class="package-wrapper">
-                <div class="package-item card-2 clearfix">
-                    <div class="package-detail-content">
-                        <div class="col-dt-12 col-tt-12 col-mb-12 text-left primary-bg">
-                            <div class="package-detail-header">
-                                <p>
-                                    <?= $postOffice->name ?><br/>
-                                    Address: <?= $postOffice->address; ?>
-                                </p>
-                            </div>
-                            <!-- /.package-detail-header -->
-                        </div>
-                        <!-- /.col-dt-12 col-tt-12 col-mb-12 text-left -->
-<!--                        <!-- /.col-dt-12 -->-->
-<!--                        <div class="col-dt-12 text-left clearfix">-->
-<!--                            <div class="package-detail-info clearfix">-->
-<!--                                <p>--><?//= $package->status->type; ?><!--</p>-->
-<!--                                <div class="col-dt-6 col-mb-12">-->
-<!--                                    <p>Origin:</p>-->
-<!--                                    --><?//= $package->returnAddress->street; ?><!--,<br/>-->
-<!--                                    --><?//= $package->returnAddress->city; ?><!--, --><?//= $package->returnAddress->state; ?><!-- --><?//= $package->returnAddress->zipCode; ?>
-<!--                                </div>-->
-<!--                                <!-- /.col-dt-12 -->-->
-<!--                                <div class="col-dt-6 col-mb-12">-->
-<!--                                    <p>Destination:</p>-->
-<!--                                    --><?//= $package->destination->street; ?><!--,<br/>-->
-<!--                                    --><?//= $package->destination->city; ?><!--, --><?//= $package->destination->state; ?><!-- --><?//= $package->destination->zipCode; ?>
-<!--                                </div>-->
-<!--                                <!-- /.col-dt-12 -->-->
-<!--                                --><?php //if( $package->packageStatus == 1 ) { ?>
-<!--                                    <a href="/dashboard/packages/edit/--><?//= $package->id; ?><!--" class="button">Edit</a>-->
-<!--                                    <!-- /.button -->-->
-<!--                                --><?php //} ?>
-<!--                            </div>-->
-<!--                            <!-- /.package-detail-info -->-->
-<!--                        </div>-->
-                        <!-- /.col-dt-12 -->
-                    </div>
-                    <!-- /.package-content -->
+        <?php if( ! empty( $packages ) ) { ?>
+            <div class="group-wrapper card-2">
+                <h3>Local Packages</h3>
+                <?php getPartial( "packagesGrid" , compact( 'packages' ) ); ?>
+                <div class="text-right">
+                    <a href="/dashboard/packages">View all packages</a>
                 </div>
+                <!-- /.text-right -->
             </div>
+            <!-- /.group-wrapper -->
         <?php } ?>
     </div>
 </div>
 
+<div class="row">
+    <div class="container">
+        <?php if( ! empty( $employees ) ) { ?>
+            <div class="group-wrapper card-2 clearfix">
+                <h3>Employees</h3>
+                <?php getPartial( 'employeesList' , compact( 'employees' ) ); ?>
+                <div class="text-right">
+                    <a href="/dashboard/employees">View all employees</a>
+                </div>
+            </div>
+            <!-- /.group-wrapper -->
+        <?php } ?>
+    </div>
+</div>
 
-<?php
-	getFooter();
-?>
+<div class="row">
+    <div class="container">
+        <?php if( ! empty( $customers ) ) { ?>
+            <div class="group-wrapper card-2">
+
+                <h3>Customers</h3>
+                <ul>
+                    <?php foreach( $customers as $customer ) { ?>
+                        <li><?= $customer->firstName; ?> <?= $customer->lastName; ?> - <?= $customer->packageCount; ?></li>
+                    <?php } ?>
+                </ul>
+                <div class="text-right">
+                    <a href="/dashboard/customers">View all customers</a>
+                </div>
+                <!-- /.text-right -->
+            </div>
+            <!-- /.group-wrapper -->
+        <?php } ?>
+    </div>
+</div>
+
+<?php getFooter(); ?>
