@@ -166,6 +166,29 @@
 			}
 		}
 
+		public function updatePassword() {
+			$user = Auth::user();
+			$changeFlag = -1;
+			if($user){
+				if($user->password == md5($_POST['oldPassword']) && $_POST['newPassword'] == $_POST['confirmPassword'] )
+				{
+					$user->password = md5($_POST['newPassword']);
+					$changeFlag = 0;
+				}
+				else if($user->password == md5($_POST['oldPassword']) && $_POST['newPassword'] != $_POST['confirmPassword'])
+				{
+					$changeFlag = 1;
+				}
+				else
+				{
+					$changeFlag = 2;
+				}
+				return view('accounts/accountPassword', compact('user', 'changeFlag'));
+			} else {
+				return view('home', compact ('user'));
+			}
+		}
+
 		public function account() {
 			$user = Auth::user();
 			if( $user ) {

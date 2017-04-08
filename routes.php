@@ -47,6 +47,7 @@
 	$router->get( 'account/packages/:packageId' , 'PackageController@accountPackagesId' );
 	$router->get( 'account/packages/cancel/:packageId' , 'PackageController@accountPackagesCancel' );
 	$router->get( 'account/info/password' , 'UsersController@passwordChange' );
+	$router->post( 'account/info/password' , 'UsersController@updatePassword');
 	$router->get( 'account/transactions' , 'TransactionController@userTransactions' );
 	$router->get( 'account/transactions/:transactionId' , 'TransactionController@userTransactionDetail' );
 	$router->get( 'account/transactions/edit/:transactionId' , 'TransactionController@editUserTransaction' );

@@ -5,18 +5,24 @@
 		<div class="container">
 			<div class="form-wrapper">
 				<h2>Password Change Request</h2>
-				<form action="/register" method="post"> <!-- change /register -->
+
+				<form action="/account/info/password" method="post"> <!-- change /register -->
 					<div class="field-container clearfix">
-						<label for="password">New Password</label>
-						<input type="password" name="password" value="">
+						<label for="oldPassword">Old Password</label>
+						<input type="password" name="oldPassword" value="">
+					</div>
+				                                                <!-- /.field-container -->
+					<div class="field-container clearfix">
+						<label for="newPassword">New Password</label>
+						<input type="password" name="newPassword" value="">
 					</div>
 				                                        <!-- /.field-container -->
 					<div class="field-container clearfix">
-						<label for="password">Confirm Password</label>
-						<input type="password" name="password" value="">
+						<label for="confirmPassword">Confirm Password</label>
+						<input type="password" name="confirmPassword" value="">
 					</div>
 				                                        <!-- /.field-container -->
-					<button type="button">Confirm</button>
+					<button type="submit">Confirm</button>
 				</form>
 			</div>
 			<!-- /.form-wrapper -->
