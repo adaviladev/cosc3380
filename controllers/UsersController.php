@@ -10,14 +10,14 @@
 	use PostOffice;
 	use Role;
 	use State;
+	use Transaction;
 	use User;
 
 	class UsersController {
 		public function show() {
 			$users = User::selectAll();
 
-			return view( 'index' ,
-			             compact( 'users' ) );
+			return view( 'index' , compact( 'users' ) );
 		}
 
 		public function postOfficeUsers() {
@@ -25,34 +25,27 @@
 			$user->postOfficeId;
 
 			$customers = User::findall()
-			                 ->where( [ 'postOfficeId' ] ,
-			                          [ '=' ] ,
-			                          [ $user->postOfficeId ] )
+			                 ->where( [ 'postOfficeId' ] , [ '=' ] , [ $user->postOfficeId ] )
 			                 ->get();
 			echo 'viktor was here';
 
 			//dd( $customers );
 
-			return view( 'dashboard/customers' ,
-			             compact( 'customers' ) );
+			return view( 'dashboard/customers' , compact( 'customers' ) );
 		}
 
 		public function userDetail( $userId ) {
 			$user = User::find()
-			            ->where( [ 'id' ] ,
-			                     [ '=' ] ,
-			                     [ $userId ] )
+			            ->where( [ 'id' ] , [ '=' ] , [ $userId ] )
 			            ->get();
 
-			return view( 'dashboard/userDetail' ,
-			             compact( 'user' ) );
+			return view( 'dashboard/userDetail' , compact( 'user' ) );
 		}
 
 		public function addEmployee() {
 			$states = State::selectAll();
 
-			return view( 'dashboard/addEmployee' ,
-			             compact( 'states' ) );
+			return view( 'dashboard/addEmployee' , compact( 'states' ) );
 		}
 
 		public function storeEmployee() {
@@ -68,22 +61,21 @@
 					                                    'city' ,
 					                                    'stateId' ,
 					                                    'zipCode' ,
-				                                    ] ,
-				                                    [
+				                                    ] , [
 					                                    '=' ,
 					                                    '=' ,
 					                                    '=' ,
 					                                    '='
-				                                    ] ,
-				                                    [
+				                                    ] , [
 					                                    $_POST[ 'address' ] ,
 					                                    $_POST[ 'city' ] ,
 					                                    $_POST[ 'stateId' ] ,
 					                                    $_POST[ 'zipCode' ]
 				                                    ] )
 				                           ->get();
-				$addressId        = $duplicateAddress->id;
-				if( ! $duplicateAddress ) {
+				// dd( $duplicateAddress );
+				$addressId = $duplicateAddress->id;
+				if( empty( $duplicateAddress ) ) {
 					Address::insert( [
 						                 'street'     => $_POST[ 'address' ] ,
 						                 'city'       => $_POST[ 'city' ] ,
@@ -93,23 +85,22 @@
 						                 'modifiedAt' => date( "Y-m-d H:i:s" )
 					                 ] );
 					$addressId = Address::lastInsertId();
+				} else {
+					$addressId = $duplicateAddress;
 				}
-				$addressId = $duplicateAddress;
 			} else {
 				$addressId = $duplicateAddress;
 			}
 			$role = Role::find()
 			            ->where( [
 				                     'type'
-			                     ] ,
-			                     [ '=' ] ,
-			                     [ 'employee' ] )
+			                     ] , [ '=' ] , [ 'employee' ] )
 			            ->get();
 
 			$userInsert = User::insert( [
 				                            'firstName'    => $_POST[ 'firstName' ] ,
 				                            'lastName'     => $_POST[ 'lastName' ] ,
-				                            'addressId'    => $addressId ,
+				                            'addressId'    => $addressId->id ,
 				                            'email'        => $_POST[ 'email' ] ,
 				                            'password'     => $password ,
 				                            'roleId'       => $role->id ,
@@ -119,14 +110,16 @@
 				                            'modifiedAt'   => date( "Y-m-d H:i:s" )
 			                            ] );
 
-			if( $userInsert ) {
+			// dd( $userInsert );
+
+			if( ! is_string( $userInsert ) ) {
 				$user = User::find()
-				            ->where( [ 'id' ] ,
-				                     [ '=' ] ,
-				                     [ User::lastInsertId() ] )
+				            ->where( [ 'id' ] , [ '=' ] , [ $userInsert ] )
 				            ->get();
 
-				redirect( 'dashboard/employees' );
+				// dd( $user );
+
+				return redirect( 'dashboard/employees' );
 				// return view( 'auth/register' );
 			} else {
 				switch( $userInsert ) {
@@ -135,8 +128,7 @@
 							'email' => 'Email already exists.'
 						);
 
-						return view( 'dashboard/employees/add' ,
-						             compact( 'errors' ) );
+						return view( 'dashboard/addEmployee' , compact( 'errors' ) );
 				}
 			}
 		}
@@ -155,6 +147,7 @@
 										['='],
 										[$address->stateId] )
 							   ->get();
+
 
 			return view( 'accounts/accountInfo' ,
 			             compact( 'user'   ,
@@ -178,45 +171,53 @@
 			if( $user ) {
 				if( $user->roleId == 3 ) {
 					$packages = Package::findAll()
-					                   ->where( [ 'userId' ] ,
-					                            [ '=' ] ,
-					                            [ $user->id ] )
-					                   ->orderBy( 'createdAt' , 'desc')
+					                   ->where( [ 'userId' ] , [ '=' ] , [ $user->id ] )
+					                   ->orderBy( 'createdAt' , 'desc' )
 					                   ->limit( 3 )
 					                   ->get();
 
 					foreach( $packages as $package ) {
 						$states                        = State::selectAll();
 						$package->destination          = Address::find()
-						                                        ->where( [ 'id' ] ,
-						                                                 [ '=' ] ,
+						                                        ->where( [ 'id' ] , [ '=' ] ,
 						                                                 [ $package->destinationId - 1 ] )
 						                                        ->get();
 						$package->destination->state   = $states[ $package->destination->stateId ]->state;
 						$package->returnAddress        = Address::find()
-						                                        ->where( [ 'id' ] ,
-						                                                 [ '=' ] ,
+						                                        ->where( [ 'id' ] , [ '=' ] ,
 						                                                 [ $package->returnAddressId - 1 ] )
 						                                        ->get();
 						$package->returnAddress->state = $states[ $package->returnAddress->stateId ]->state;
 						$package->status               = PackageStatus::find()
-						                                              ->where( [ 'id' ] ,
-						                                                       [ '=' ] ,
+						                                              ->where( [ 'id' ] , [ '=' ] ,
 						                                                       [ $package->packageStatus ] )
 						                                              ->get();
 					}
 
-					// dd( $packages );
+					$transactions = Transaction::findAll()
+					                           ->where( [ 'customerId' ] , [ '=' ] , [ $user->id ] )
+					                           ->orderBy( 'createdAt' , 'DESC' )
+					                           ->limit( 6 )
+					                           ->get();
 
-					return view( 'accounts/account' ,
-					             compact( 'user' ,
-					                      'packages' ) );
+					foreach( $transactions as $transaction ) {
+						$transaction->package         = Package::find()
+						                                       ->where( [ 'id' ] , [ '=' ] ,
+						                                                [ $transaction->packageId ] )
+						                                       ->get();
+						$transaction->package->status = PackageStatus::find()
+						                                             ->where( [ 'id' ] , [ '=' ] ,
+						                                                      [ $transaction->package->packageStatus ] )
+						                                             ->get()->type;
+					}
+
+					// dd( $transactions );
+
+					return view( 'accounts/account' , compact( 'user' , 'packages' , 'transactions' ) );
 				} else if( $user->roleId == 1 ) {
-					return view( 'admin/admin' ,
-					             compact( 'user' ) );
+					return view( 'admin/admin' , compact( 'user' ) );
 				} else if( $user->roleId == 2 ) {
-					return view( 'dashboard/dashboard' ,
-					             compact( 'user' ) );
+					return view( 'dashboard/dashboard' , compact( 'user' ) );
 				}
 			}
 
@@ -236,14 +237,12 @@
 					                                    'city' ,
 					                                    'stateId' ,
 					                                    'zipCode' ,
-				                                    ] ,
-				                                    [
+				                                    ] , [
 					                                    '=' ,
 					                                    '=' ,
 					                                    '=' ,
 					                                    '='
-				                                    ] ,
-				                                    [
+				                                    ] , [
 					                                    $_POST[ 'address' ] ,
 					                                    $_POST[ 'city' ] ,
 					                                    $_POST[ 'stateId' ] ,
@@ -267,9 +266,7 @@
 			$role = Role::find()
 			            ->where( [
 				                     'type'
-			                     ] ,
-			                     [ '=' ] ,
-			                     [ 'customer' ] )
+			                     ] , [ '=' ] , [ 'customer' ] )
 			            ->get();
 
 			$userInsertId = User::insert( [
@@ -285,13 +282,9 @@
 
 			if( ! is_string( $userInsertId ) ) {
 				$user = User::find()
-				            ->where( [ 'id' ] ,
-				                     [ '=' ] ,
-				                     [ $userInsertId ] )
+				            ->where( [ 'id' ] , [ '=' ] , [ $userInsertId ] )
 				            ->get();
-				dd( '.' ,
-				    $user ,
-				    "hit" );
+				dd( '.' , $user , "hit" );
 
 				$_SESSION[ 'user' ] = serialize( $user );
 
@@ -305,41 +298,29 @@
 							'email' => 'Email already exists.'
 						);
 
-						return view( 'auth/register' ,
-						             compact( 'errors' ,
-						                      'states' ) );
+						return view( 'auth/register' , compact( 'errors' , 'states' ) );
 				}
 			}
 		}
 
 		public function editEmployeeDetail( $employeeId ) {
 			$user = Auth::user();
-			if( $user->roleId == 2 ) {
+			if( $user->roleId == 2 || $user->roleId == 1) {
 				$employee           = User::find()
-				                          ->where( [ 'id' ] ,
-				                                   [ '=' ] ,
-				                                   [ $employeeId ] )
+				                          ->where( [ 'id' ] , [ '=' ] , [ $employeeId ] )
 				                          ->get();
 				$employee->role     = Role::find()
-				                          ->where( [ 'id' ] ,
-				                                   [ '=' ] ,
-				                                   [ $employee->roleId ] )
+				                          ->where( [ 'id' ] , [ '=' ] , [ $employee->roleId ] )
 				                          ->get();
 				$employee->address  = Address::find()
-				                             ->where( [ 'id' ] ,
-				                                      [ '=' ] ,
-				                                      [ $employee->addressId ] )
+				                             ->where( [ 'id' ] , [ '=' ] , [ $employee->addressId ] )
 				                             ->get();
 				$employee->location = PostOffice::find()
-				                                ->where( [ 'id' ] ,
-				                                         [ '=' ] ,
-				                                         [ $employee->postOfficeId ] )
+				                                ->where( [ 'id' ] , [ '=' ] , [ $employee->postOfficeId ] )
 				                                ->get();
 				$states             = State::selectAll();
 
-				return view( 'dashboard/editEmployee' ,
-				             compact( 'employee' ,
-				                      'states' ) );
+				return view( 'dashboard/editEmployee' , compact( 'employee' , 'states' ) );
 			} else if( $user->roleId == 3 ) {
 				return redirect( 'account' );
 			} else if( $user->roleId == 3 ) {
@@ -351,26 +332,18 @@
 
 		public function updateEmployeeDetail( $employeeId ) {
 			$user = Auth::user();
-			if( $user->roleId == 2 ) {
+			if( $user->roleId == 2 || $user->roleId == 1) {
 				$employee           = User::find()
-				                          ->where( [ 'id' ] ,
-				                                   [ '=' ] ,
-				                                   [ $employeeId ] )
+				                          ->where( [ 'id' ] , [ '=' ] , [ $employeeId ] )
 				                          ->get();
 				$employee->role     = Role::find()
-				                          ->where( [ 'id' ] ,
-				                                   [ '=' ] ,
-				                                   [ $employee->roleId ] )
+				                          ->where( [ 'id' ] , [ '=' ] , [ $employee->roleId ] )
 				                          ->get();
 				$employee->address  = Address::find()
-				                             ->where( [ 'id' ] ,
-				                                      [ '=' ] ,
-				                                      [ $employee->addressId ] )
+				                             ->where( [ 'id' ] , [ '=' ] , [ $employee->addressId ] )
 				                             ->get();
 				$employee->location = PostOffice::find()
-				                                ->where( [ 'id' ] ,
-				                                         [ '=' ] ,
-				                                         [ $employee->postOfficeId ] )
+				                                ->where( [ 'id' ] , [ '=' ] , [ $employee->postOfficeId ] )
 				                                ->get();
 				$states             = State::selectAll();
 				$bindings           = [];
@@ -391,25 +364,19 @@
 					User::update( [
 						              'active' => 0
 					              ] )
-					    ->where( [ 'id' ] ,
-					             [ '=' ] ,
-					             [ $employeeId ] )
+					    ->where( [ 'id' ] , [ '=' ] , [ $employeeId ] )
 					    ->get();
 				} else if( isset( $_POST[ 'addEmployee' ] ) ) {
 					User::update( [
 						              'active' => 1
 					              ] )
-					    ->where( [ 'id' ] ,
-					             [ '=' ] ,
-					             [ $employeeId ] )
+					    ->where( [ 'id' ] , [ '=' ] , [ $employeeId ] )
 					    ->get();
 				}
 
 				if( ! empty( $bindings ) ) {
 					Address::update( $bindings )
-					       ->where( [ 'id' ] ,
-					                [ '=' ] ,
-					                [ $employee->addressId ] )
+					       ->where( [ 'id' ] , [ '=' ] , [ $employee->addressId ] )
 					       ->get();
 				}
 

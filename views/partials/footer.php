@@ -1,15 +1,14 @@
-
-
+				</div>
+				<!-- /.container -->
+				<div id="Footer" class="row primary-bg">
+					<div class="container">
+						COSC 3380 Database
+					</div>
+				</div>
 			</div>
-			<!-- /.container -->
+			<!-- /.row -->
 		</div>
-		<!-- /.row -->
-		<div id="Footer" class="row primary-bg">
-			<div class="container">
-				COSC 3380 Database
-			</div>
-		</div>
-
-			<script src="/views/assets/bundle/js/all.min.js"></script>
+		<!-- /#ContentWrapper -->
+	<script src="/views/assets/bundle/js/all.min.js"></script>
 	</body>
 </html>

@@ -6,6 +6,7 @@
 		<div class="container">
 			<div class="form-wrapper">
 				<form action="/dashboard/packages/edit/<?= $package->id; ?>" method="post">
+					<h2>Edit Package</h2>
 					<div class="field-container">
 						<label for="sender">Sender</label>
 						<input type="text" name="sender" value="<?= $package->user->firstName; ?> <?= $package->user->lastName; ?>" class="valid fade-in" disabled>

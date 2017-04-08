@@ -24,6 +24,7 @@
 		}
 
 		public function signIn() {
+			$errors = array();
 			$user = User::find()
 			            ->where( [
 				                     'email' ,
@@ -40,15 +41,15 @@
 			if( $user ) {
 				$_SESSION[ 'user' ] = serialize( $user );
 				if( $user->roleId === 1 ) {
-					redirect( 'admin' );
+					return redirect( 'admin' );
 				} else if( $user->roleId === 2 ) {
-					redirect( 'dashboard' );
+					return redirect( 'dashboard' );
 				} else if( $user->roleId === 3 ) {
-					redirect( 'account' );
+					return redirect( 'account' );
 				}
 			}
-
-			return view( 'auth/login' , compact( 'user' ) );
+			$errors[] = "Email or password do not match.";
+			return view( 'auth/login' , compact( 'errors' ) );
 		}
 
 		public function logout() {

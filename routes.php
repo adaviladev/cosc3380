@@ -36,16 +36,22 @@
 	$router->get( 'logout' , 'AuthController@logout' );
 
 	$router->post( 'users' , 'UsersController@store' );
-
 	/**
 	 * Account routes
 	 */
+
+
 	$router->get( 'account' , 'UsersController@account' );
 	$router->get( 'account/info' , 'UsersController@accountInfo' );
 	$router->get( 'account/packages' , 'PackageController@accountPackages' );
 	$router->get( 'account/packages/:packageId' , 'PackageController@accountPackagesId' );
 	$router->get( 'account/packages/cancel/:packageId' , 'PackageController@accountPackagesCancel' );
 	$router->get( 'account/info/password' , 'UsersController@passwordChange' );
+	$router->get( 'account/transactions' , 'TransactionController@userTransactions' );
+	$router->get( 'account/transactions/:transactionId' , 'TransactionController@userTransactionDetail' );
+	$router->get( 'account/transactions/edit/:transactionId' , 'TransactionController@editUserTransaction' );
+	$router->post( 'account/transactions/edit/:transactionId' , 'TransactionController@editUserTransaction' );
+
 	/**
 	 * Admin routes
 	 */
@@ -53,6 +59,7 @@
 	$router->get( 'admin/packages' , 'AdminController@packages' );
 	$router->get( 'admin/transactions' , 'AdminController@transactions' );
 	$router->get( 'admin/postOffices' , 'AdminController@postOffices' );
+    $router->get( 'admin/user' , 'AdminController@users' );
 	$router->get( 'admin/postOffices/:postOfficeId' , 'AdminController@selectedPostOffice' );
 
 	/**

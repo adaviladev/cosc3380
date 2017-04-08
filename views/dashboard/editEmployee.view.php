@@ -5,9 +5,10 @@
 	<div class="row">
 		<div class="container">
 			<div class="form-wrapper">
+				<h2>Edit <?= $employee->firstName; ?> <?= $employee->lastName; ?></h2>
 				<form action="/dashboard/employees/<?= $employee->id; ?>" method="post">
 					<div class="field-container">
-						<label for="sender">Name</label>
+						<label for="sender">Name <span>*</span></label>
 						<input type="text" name="sender" value="<?= $employee->firstName; ?> <?= $employee->lastName; ?>" class="valid fade-in" disabled>
 					</div>
 					<!-- /.field-container -->

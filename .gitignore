@@ -44,6 +44,5 @@ crashlytics.properties
 crashlytics-build.properties
 fabric.properties
 
-node_modules/
-views/assets/bundle/
-views/assets/bundle/all.min.js
+node_modules/**
+views/assets/bundle/**

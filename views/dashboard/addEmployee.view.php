@@ -8,24 +8,24 @@
 			<div class="form-wrapper">
 				<h2>Add an employee</h2>
 				<form action="/dashboard/employees/add" method="post">
-					<div class="field-container clearfix">
-						<label for="firstName">First Name</label>
-						<input type="text" name="firstName" class="" value="">
+					<div class="field-container clearfix required">
+						<label for="firstName">First Name <span>*</span></label>
+						<input type="text" name="firstName" class="" value="" required>
 					</div>
 					<!-- /.field-container -->
-					<div class="field-container clearfix">
-						<label for="lastName">Last name</label>
-						<input type="text" name="lastName" class="" value="">
+					<div class="field-container clearfix required">
+						<label for="lastName">Last name <span>*</span></label>
+						<input type="text" name="lastName" class="" value="" required>
 					</div>
 					<!-- /.field-container -->
-					<div class="field-container clearfix">
-						<label for="password">Password</label>
-						<input type="password" name="password" value="">
+					<div class="field-container clearfix required">
+						<label for="password">Password <span>*</span></label>
+						<input type="password" name="password" value="" required>
 					</div>
 					<!-- /.field-container -->
-					<div class="field-container validate clearfix">
-						<label for="email" class="email">Email</label>
-						<input type="text" name="email" value="" class="<?= $emailClass; ?>">
+					<div class="field-container validate clearfix required">
+						<label for="email" class="email">Email <span>*</span></label>
+						<input type="text" name="email" value="" class="<?= $emailClass; ?>" required>
 					</div>
 					<!-- /.field-container -->
 					<div class="field-container clearfix">

@@ -10,7 +10,7 @@
 	function getPartial( $file , $data = [] ) {
 		extract( $data );
 
-		include( "views/partials/{$file}.php" );
+		require( "views/partials/{$file}.php" );
 	}
 
 	function getHeader() {
