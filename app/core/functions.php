@@ -4,17 +4,17 @@
 	 * List any additionaly helper functions here.
 	 */
 	function getFooter() {
-		return require_once( 'views/partials/footer.php' );
+		return require_once( __DIR__ . "/../../public/views/partials/footer.php" );
 	}
 
 	function getPartial( $file , $data = [] ) {
 		extract( $data );
 
-		require( "views/partials/{$file}.php" );
+		require( __DIR__ . "/../../public/views/partials/{$file}.php" );
 	}
 
 	function getHeader() {
-		return require_once( 'views/partials/header.php' );
+		return require_once( __DIR__ . "/../../public/views/partials/header.php" );
 	}
 
 	function redirect( $uri ) {
@@ -24,7 +24,7 @@
 	function view( $name , $data = [] ) {
 		extract( $data );
 
-		return require "views/{$name}.view.php";
+		return require __DIR__ . "/../../public/views/{$name}.view.php";
 	}
 
 	function dd( ...$data ) {

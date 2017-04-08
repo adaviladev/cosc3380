@@ -14,7 +14,7 @@
 	/**
 	 * Bind values to the global static App class.
 	 */
-	App::bind( 'config' , require 'config.php' );
+	App::bind( 'config' , require __DIR__ . '/config.php' );
 	App::bind( 'database' , new QueryBuilder( Connection::make( App::get( 'config' )[ 'database' ] ) ) );
 
 	require( 'functions.php' );

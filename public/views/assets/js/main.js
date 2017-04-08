@@ -7,7 +7,7 @@
 			$( '.form-wrapper label' ).removeClass( 'active' );
 			$( this ).siblings( 'label' ).addClass( 'active' );
 		} );
-		$( '.form-wrapper input[type="text"],.form-wrapper input[type="password"],.form-wrapper select' ).blur( function() {
+		$( '.form-wrapper input[type="text"],.form-wrapper input[type="email"],.form-wrapper input[type="password"],.form-wrapper select' ).blur( function() {
 			$( '.form-wrapper label' ).removeClass( 'active' );
 			if( !$( this ).parent().hasClass( 'validate' ) && $( this ).val() ) {
 				if( $( this ).attr( 'type' ) !== 'email' ) {
