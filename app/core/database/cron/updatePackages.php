@@ -8,15 +8,15 @@
 
 	use App\Core\App;
 
-	require '/var/www/prostoffice/core/App.php';
-	require '/var/www/prostoffice/core/database/Connection.php';
-	require '/var/www/prostoffice/core/database/QueryBuilder.php';
-	require '/var/www/prostoffice/core/Model.php';
-	require '/var/www/prostoffice/core/classes/User.php';
-	require '/var/www/prostoffice/core/classes/Package.php';
-	require '/var/www/prostoffice/core/classes/PackageStatus.php';
+	require __DIR__ . '/../../../core/App.php';
+	require __DIR__ . '/../../../core/database/Connection.php';
+	require __DIR__ . '/../../../core/database/QueryBuilder.php';
+	require __DIR__ . '/../../../core/Model.php';
+	require __DIR__ . '/../../../core/classes/User.php';
+	require __DIR__ . '/../../../core/classes/Package.php';
+	require __DIR__ . '/../../../core/classes/PackageStatus.php';
 
-	App::bind( 'config' , require '/var/www/prostoffice/core/config.php' );
+	App::bind( 'config' , require __DIR__ . '/../../../core/config.php' );
 	App::bind( 'database' , new QueryBuilder( Connection::make( App::get( 'config' )[ 'database' ] ) ) );
 
 	$enRoute = App::get( 'database' )
@@ -55,8 +55,3 @@
 			$ctr++;
 		}
 	}
-
-
-	$fp = fopen('./data.txt', 'w');
-	fwrite($fp, 'hit');
-	fclose($fp);
