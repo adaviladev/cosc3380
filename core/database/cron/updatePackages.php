@@ -8,15 +8,15 @@
 
 	use App\Core\App;
 
-	require '../../App.php';
-	require '../Connection.php';
-	require '../QueryBuilder.php';
-	require '../../Model.php';
-	require '../../classes/User.php';
-	require '../../classes/Package.php';
-	require '../../classes/PackageStatus.php';
+	require '/var/www/prostoffice/core/App.php';
+	require '/var/www/prostoffice/core/database/Connection.php';
+	require '/var/www/prostoffice/core/database/QueryBuilder.php';
+	require '/var/www/prostoffice/core/Model.php';
+	require '/var/www/prostoffice/core/classes/User.php';
+	require '/var/www/prostoffice/core/classes/Package.php';
+	require '/var/www/prostoffice/core/classes/PackageStatus.php';
 
-	App::bind( 'config' , require '../../config.php' );
+	App::bind( 'config' , require '/var/www/prostoffice/core/config.php' );
 	App::bind( 'database' , new QueryBuilder( Connection::make( App::get( 'config' )[ 'database' ] ) ) );
 
 	$enRoute = App::get( 'database' )
@@ -29,12 +29,10 @@
 	                 ->where( [ 'packageStatus' ] , [ '=' ] , [ 1 ] )
 	                 ->get();
 
-	var_dump( count( $enRoute ) );
 	$ctr = 0;
 	foreach( $enRoute as $package ) {
 		$rand = rand( 1 , 10 );
 		if( $rand <= 3 ) {
-			var_dump( $package );
 			App::get( 'database' )
 			   ->update( 'packages' , [
 				   'packageStatus' => $package->packageStatus + 1
@@ -57,4 +55,8 @@
 			$ctr++;
 		}
 	}
-	var_dump( $ctr );
+
+
+	$fp = fopen('./data.txt', 'w');
+	fwrite($fp, 'hit');
+	fclose($fp);
