@@ -31,14 +31,14 @@
 	</div>
 	<!-- /.container -->
 	<div>
-		<?php foreach( $employees as $employee ) { ?>
+		<?php foreach( $admins as $admin ) { ?>
 			<div class="list-item clearfix">
 				<div class="list-container clearfix">
 					<div class="col-dt-3 col-tb-3 col-mb-3">
 						<div class="list-item-content">
-							<?= $employee->firstName ?> <?= $employee->lastName ?>
+							<?= $admin->firstName ?> <?= $admin->lastName ?>
 							<div>
-								<a href="/dashboard/employees/<?= $employee->id; ?>">Edit</a>
+								<a href="/dashboard/employees/<?= $admin->id; ?>">Edit</a>
 							</div>
 						</div>
 						<!-- /.list-item-content -->
@@ -46,7 +46,7 @@
 					<!-- /.col-dt-3 col-tb-3 col-mb-3 -->
 					<div class="col-dt-3 col-tb-3 col-mb-3">
 						<div class="list-item-content">
-							<?= $employee->createdAt; ?>
+							<?= $admin->createdAt; ?>
 						</div>
 						<!-- /.list-item-content -->
 					</div>
@@ -54,8 +54,8 @@
 					<div class="col-dt-3 col-tb-3 col-mb-3">
 						<div class="list-item-content">
 							<?php
-								if( ! empty($employee->addedBy) ) {
-									echo $employee->addedBy->firstName . ' ' .  $employee->addedBy->lastName;
+								if( ! empty($admin->addedBy) ) {
+									echo $admin->addedBy->firstName . ' ' . $admin->addedBy->lastName;
 								}
 							?>
 						</div>
@@ -64,7 +64,7 @@
 					<!-- /.col-dt-3 col-tb-3 col-mb-3 -->
 					<div class="col-dt-3 col-tb-3 col-mb-3">
 						<div class="list-item-content">
-							<?php if( $employee->active == 1 ) { ?>
+							<?php if( $admin->active == 1 ) { ?>
 								Active
 							<?php } else { ?>
 								Deleted

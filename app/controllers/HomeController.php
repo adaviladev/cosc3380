@@ -79,7 +79,7 @@
 
 				return view( 'dashboard/dashboard' , compact( 'user' , 'packages' , 'employees' , 'customers' ) );
 			} else {
-				redirect( 'login' );
+				return redirect( 'login' );
 			}
 		}
 
