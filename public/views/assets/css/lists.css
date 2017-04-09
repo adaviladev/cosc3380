@@ -19,3 +19,8 @@
 	margin: 0 auto;
 	padding: 8px;
 }
+
+.list-container [class^="col-"],
+.list-container [class*=" col-"]{
+	margin-bottom: 0 !important;
+}
