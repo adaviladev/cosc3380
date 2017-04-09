@@ -1,6 +1,8 @@
 <!doctype html>
 <html>
 	<head>
+		<title>ProstOffice - The Number One Fake Postal Service!</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<link rel="stylesheet" href="/views/assets/bundle/css/all.min.css">
 	</head>
 

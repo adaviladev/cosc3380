@@ -14,24 +14,24 @@
 
 	use App\Core\App;
 
-	require '../../App.php';
-	require '../Connection.php';
-	require '../QueryBuilder.php';
+	require __DIR__ . '/../../App.php';
+	require __DIR__ . '/../Connection.php';
+	require __DIR__ . '/../QueryBuilder.php';
 
-	App::bind( 'config' , require '../../config.php' );
+	App::bind( 'config' , require __DIR__ . '/../../config.php' );
 	App::bind( 'database' , new QueryBuilder( Connection::make( App::get( 'config' )[ 'database' ] ) ) );
 
 	$seeders                     = [];
-	$seeders[ 'seeder' ]         = file_get_contents( 'seeder.sql' );
-	$seeders[ 'roles' ]          = file_get_contents( 'rolesSeeder.sql' );
-	$seeders[ 'states' ]         = file_get_contents( 'statesSeeder.sql' );
-	$seeders[ 'postOffices' ]   = file_get_contents( 'postOfficesSeeder.sql' );
-	$seeders[ 'packageStatus ' ] = file_get_contents( 'packageStatusSeeder.sql' );
-	$seeders[ 'packageType' ]    = file_get_contents( 'packageTypeSeeder.sql' );
-	$seeders[ 'addresses' ]      = file_get_contents( 'addressesSeeder.sql' );
-	$seeders[ 'users' ]          = file_get_contents( 'usersSeeder.sql' );
-	$seeders[ 'packages' ]       = file_get_contents( 'packagesSeeder.sql' );
-	$seeders[ 'transactions' ] = file_get_contents( 'transactionsSeeder.sql' ); //
+	$seeders[ 'seeder' ]         = file_get_contents( __DIR__ . '/seeder.sql' );
+	$seeders[ 'roles' ]          = file_get_contents( __DIR__ . '/rolesSeeder.sql' );
+	$seeders[ 'states' ]         = file_get_contents( __DIR__ . '/statesSeeder.sql' );
+	$seeders[ 'postOffices' ]    = file_get_contents( __DIR__ . '/postOfficesSeeder.sql' );
+	$seeders[ 'packageStatus ' ] = file_get_contents( __DIR__ . '/packageStatusSeeder.sql' );
+	$seeders[ 'packageType' ]    = file_get_contents( __DIR__ . '/packageTypeSeeder.sql' );
+	$seeders[ 'addresses' ]      = file_get_contents( __DIR__ . '/addressesSeeder.sql' );
+	$seeders[ 'users' ]          = file_get_contents( __DIR__ . '/usersSeeder.sql' );
+	$seeders[ 'packages' ]       = file_get_contents( __DIR__ . '/packagesSeeder.sql' );
+	$seeders[ 'transactions' ]   = file_get_contents( __DIR__ . '/transactionsSeeder.sql' ); //
 
 	foreach( $seeders as $file => $contents ) {
 		App::get( 'database' )->run( $contents , true );

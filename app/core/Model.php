@@ -11,6 +11,7 @@
 
 		private $TABLE_ARRAY = [
 			'Address'       => 'addresses' ,
+			'Email'         => 'emails' ,
 			'Package'       => 'packages' ,
 			'PackageStatus' => 'packageStatus' ,
 			'PackageType'   => 'packageTypes' ,
@@ -59,20 +60,26 @@
 			$table           = $instance->TABLE_ARRAY[ $class ];
 			$instance->table = $table;
 
-			$columns   = implode( ',' , $columns );
+			$columns   = implode( ',' ,
+			                      $columns );
 			$statement = $instance->builder->prepare( "select {$columns} from {$table}" );
 			$statement->execute();
 
-			return $statement->fetchAll( PDO::FETCH_CLASS , $class );
+			return $statement->fetchAll( PDO::FETCH_CLASS ,
+			                             $class );
 		}
 
-		public static function leftJoinOn( $joinedTable , $foreignKey , $primaryKey , $columns = [ '*' ] ) {
+		public static function leftJoinOn( $joinedTable ,
+		                                   $foreignKey ,
+		                                   $primaryKey ,
+		                                   $columns = [ '*' ] ) {
 			$instance        = self::init();
 			$class           = get_called_class();
 			$table           = $instance->TABLE_ARRAY[ $class ];
 			$instance->table = $table;
 
-			$columns        = implode( ', ' , $columns );
+			$columns        = implode( ', ' ,
+			                           $columns );
 			$instance->type = "SELECT {$columns} FROM {$table} JOIN {$joinedTable} ON (`{$table}`.`{$foreignKey}`=`{$joinedTable}`.`{$primaryKey}`)";
 
 			return $instance;
@@ -89,7 +96,8 @@
 			$table           = $instance->TABLE_ARRAY[ $class ];
 			$instance->table = $table;
 
-			$columns            = implode( ',' , $columns );
+			$columns            = implode( ',' ,
+			                               $columns );
 			$instance->type     = "SELECT {$columns} FROM {$table}";
 			$instance->class    = $class;
 			$instance->isSingle = true;
@@ -110,7 +118,8 @@
 			$class              = get_called_class();
 			$table              = $instance->TABLE_ARRAY[ get_called_class() ];
 			$instance->table    = $table;
-			$columns            = implode( ',' , $columns );
+			$columns            = implode( ',' ,
+			                               $columns );
 			$instance->type     = "SELECT {$columns} FROM {$table}";
 			$instance->class    = $class;
 			$instance->isSingle = false;
@@ -126,7 +135,10 @@
 		 *
 		 * @return $this
 		 */
-		public function where( $columns = [] , $operators = [] , $values = [] , $bool = " AND " ) {
+		public function where( $columns = [] ,
+		                       $operators = [] ,
+		                       $values = [] ,
+		                       $bool = " AND " ) {
 			$this->whereClause = "WHERE ";
 			for( $i = 0; $i < count( $columns ); $i++ ) {
 				if( $i > 0 ) {
@@ -138,8 +150,10 @@
 			return $this;
 		}
 
-		public function whereIn( $values = [] , $column = 'id' ) {
-			$values            = implode( ',' , $values );
+		public function whereIn( $values = [] ,
+		                         $column = 'id' ) {
+			$values            = implode( ',' ,
+			                              $values );
 			$this->whereClause = "WHERE {$column} IN ({$values})";
 
 			return $this;
@@ -151,7 +165,8 @@
 			return $this;
 		}
 
-		public function orderBy( $attribute , $direction ) {
+		public function orderBy( $attribute ,
+		                         $direction ) {
 			$this->orderBy .= "ORDER BY {$attribute} {$direction}";
 
 			return $this;
@@ -166,8 +181,12 @@
 			$class    = get_called_class();
 			$table    = $instance->TABLE_ARRAY[ $class ];
 			array_keys( $parameters );
-			$sql = sprintf( "INSERT INTO %s (%s) VALUES (%s)" , $table , implode( ", " , array_keys( $parameters ) ) ,
-			                ":" . implode( ", :" , array_keys( $parameters ) ) );
+			$sql = sprintf( "INSERT INTO %s (%s) VALUES (%s)" ,
+			                $table ,
+			                implode( ", " ,
+			                         array_keys( $parameters ) ) ,
+			                ":" . implode( ", :" ,
+			                               array_keys( $parameters ) ) );
 
 			try {
 				$statement = $instance->builder->prepare( $sql );
@@ -218,7 +237,7 @@
 				$this->query .= " " . $this->limitTo;
 			}
 
-			// var_dump( $this->query );
+			var_dump( "{$this->query}\n" );
 			return $this->run( $this->query );
 		}
 
@@ -231,7 +250,8 @@
 						return $statement->fetchObject( $this->class );
 					}
 
-					return $statement->fetchAll( PDO::FETCH_CLASS , $this->class );
+					return $statement->fetchAll( PDO::FETCH_CLASS ,
+					                             $this->class );
 				}
 			} catch( PDOException $e ) {
 				die( $e );

@@ -24,6 +24,18 @@
 			$this->pdo = $pdo;
 		}
 
+		private function clearProperties() {
+			$this->query = "";
+			$this->table = "";
+			$this->type = "";
+			$this->set = "";
+			$this->whereClause = "";
+			$this->orderBy = "";
+			$this->limitTo = "";
+			$this->onDelete = "";
+			$this->class = "stdClass";
+		}
+
 		/**
 		 * @param string $table contains the table to search through
 		 * @param array  $columns contains the columns to return
@@ -31,12 +43,17 @@
 		 *
 		 * @return array
 		 */
-		public function selectAll( $table , $columns = [ '*' ] , $class = "stdClass" ) {
-			$columns   = implode( ',' , $columns );
+		public function selectAll( $table ,
+		                           $columns = [ '*' ] ,
+		                           $class = "stdClass" ) {
+			$this->clearProperties();
+			$columns   = implode( ',' ,
+			                      $columns );
 			$statement = $this->pdo->prepare( "select {$columns} from {$table}" );
 			$statement->execute();
 
-			return $statement->fetchAll( PDO::FETCH_CLASS , $class );
+			return $statement->fetchAll( PDO::FETCH_CLASS ,
+			                             $class );
 		}
 
 		/**
@@ -44,8 +61,13 @@
 		 * @param array  $columns contains the columns to return
 		 * @param string $class contains the class to be assigned to
 		 */
-		public function find( $table , $columns = [ '*' ] , $class = "stdClass" ) {
-			$columns        = implode( ',' , $columns );
+		public function find( $table ,
+		                      $columns = [ '*' ] ,
+		                      $class = "stdClass" ) {
+			$this->clearProperties();
+			$columns        = implode( ',' ,
+			                           $columns );
+			$this->table    = $table;
 			$this->type     = "SELECT {$columns} FROM {$table}";
 			$this->class    = $class;
 			$this->isSingle = true;
@@ -60,8 +82,13 @@
 		 *
 		 * @return $this same object for further chaining
 		 */
-		public function findAll( $table , $columns = [ '*' ] , $class = "stdClass" ) {
-			$columns        = implode( ',' , $columns );
+		public function findAll( $table ,
+		                         $columns = [ '*' ] ,
+		                         $class = "stdClass" ) {
+			$this->clearProperties();
+			$columns        = implode( ',' ,
+			                           $columns );
+			$this->table    = $table;
 			$this->type     = "SELECT {$columns} FROM {$table}";
 			$this->class    = $class;
 			$this->isSingle = false;
@@ -69,8 +96,10 @@
 			return $this;
 		}
 
-		public function update( $table , $bindings = [] ) {
-			$this->table = $table;
+		public function update( $table ,
+		                        $bindings = [] ) {
+			$this->clearProperties();
+			$this->table    = $table;
 			$this->type     = "UPDATE {$table}";
 			$this->set      = "SET ";
 			$this->isUpdate = true;
@@ -79,7 +108,7 @@
 				if( $ctr > 0 ) {
 					$this->set .= ", ";
 				}
-				$this->set .= "{$attr}='{$value}'";
+				$this->set .= "`{$attr}`='{$value}'";
 				$ctr++;
 			}
 
@@ -94,7 +123,10 @@
 		 *
 		 * @return $this
 		 */
-		public function where( $columns = [] , $operators = [] , $values = [] , $bool = " AND " ) {
+		public function where( $columns = [] ,
+		                       $operators = [] ,
+		                       $values = [] ,
+		                       $bool = " AND " ) {
 			$this->whereClause = "WHERE ";
 			for( $i = 0; $i < count( $columns ); $i++ ) {
 				if( $i > 0 ) {
@@ -110,10 +142,16 @@
 		 * @param string $table contains the table to search through
 		 * @param array  $parameters $key => value pairs to insert
 		 */
-		public function insert( $table , $parameters = [] ) {
+		public function insert( $table ,
+		                        $parameters = [] ) {
+			$this->clearProperties();
 			array_keys( $parameters );
-			$sql = sprintf( "INSERT INTO %s (%s) VALUES (%s)" , $table , implode( ", " , array_keys( $parameters ) ) ,
-			                ":" . implode( ", :" , array_keys( $parameters ) ) );
+			$sql = sprintf( "INSERT INTO %s (%s) VALUES (%s)" ,
+			                $table ,
+			                implode( ", " ,
+			                         array_keys( $parameters ) ) ,
+			                ":" . implode( ", :" ,
+			                               array_keys( $parameters ) ) );
 
 			try {
 				$statement = $this->pdo->prepare( $sql );
@@ -141,15 +179,18 @@
 				$this->query .= " " . $this->orderBy;
 			}
 
-			// var_dump( $this->query );
+			echo( "{$this->query}\n" );
 
-			return $this->run( $this->query , $ssh );
+			return $this->run( $this->query ,
+			                   $ssh );
 		}
 
-		public function run( $sql , $ssh = false ) {
+		public function run( $sql ,
+		                     $ssh = false ) {
 			try {
 				if( $ssh ) {
-					$this->pdo->setAttribute( PDO::ATTR_EMULATE_PREPARES , true );
+					$this->pdo->setAttribute( PDO::ATTR_EMULATE_PREPARES ,
+					                          true );
 				}
 				$statement = $this->pdo->prepare( $sql );
 				$statement->execute();
@@ -159,9 +200,15 @@
 							return $statement->fetchObject( $this->class );
 						}
 
-						return $statement->fetchAll( PDO::FETCH_CLASS , $this->class );
+						return $statement->fetchAll( PDO::FETCH_CLASS ,
+						                             $this->class );
+					} else {
+						if( $this->isSingle ) {
+							return $statement->fetchObject( $this->class );
+						}
 					}
-					$this->pdo->setAttribute( PDO::ATTR_EMULATE_PREPARES , false );
+					$this->pdo->setAttribute( PDO::ATTR_EMULATE_PREPARES ,
+					                          false );
 				}
 				// return false;
 			} catch( PDOException $e ) {
