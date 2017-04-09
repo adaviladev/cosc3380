@@ -59,9 +59,9 @@
 	$router->get( 'admin' , 'AdminController@admin' );
 	$router->get( 'admin/packages' , 'AdminController@packages' );
 	$router->get( 'admin/transactions' , 'AdminController@transactions' );
-	$router->get( 'admin/postOffices' , 'AdminController@postOffices' );
+	$router->get( 'admin/post-offices' , 'AdminController@postOffices' );
     $router->get( 'admin/user' , 'AdminController@users' );
-	$router->get( 'admin/postOffices/:postOfficeId' , 'AdminController@selectedPostOffice' );
+	$router->get( 'admin/post-offices/:postOfficeId' , 'AdminController@selectedPostOffice' );
 
 	/**
 	 * Error out

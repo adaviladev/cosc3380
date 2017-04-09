@@ -16,7 +16,7 @@
 					<h3>Local Packages</h3>
 					<?php getPartial( "packagesGrid" , compact( 'packages' ) ); ?>
 					<div class="text-right">
-						<a href="/admin/packages">View all packages</a>
+						<a href="/admin/packages">View All Packages</a>
 					</div>
 					<!-- /.text-right -->
 				</div>
@@ -32,7 +32,7 @@
 					<h3>Admins</h3>
 					<?php getPartial( 'adminsList' , compact( 'admins' ) ); ?>
 					<div class="text-right">
-						<a href="/admin/users">View all admins</a>
+						<a href="/admin/users">View All Admins</a>
 					</div>
 				</div>
 				<!-- /.group-wrapper -->
@@ -42,17 +42,17 @@
 
 	<div class="row">
 		<div class="container">
-			<?php if( ! empty( $customers ) ) { ?>
+			<?php if( ! empty( $postOffices ) ) { ?>
 				<div class="group-wrapper card-2">
 
-					<h3>Customers</h3>
+					<h3>Post Offices</h3>
 					<ul>
-						<?php foreach( $customers as $customer ) { ?>
-							<li><?= $customer->firstName; ?> <?= $customer->lastName; ?> - <?= $customer->packageCount; ?></li>
+						<?php foreach( $postOffices as $postOffice ) { ?>
+							<li><?= $postOffice->name; ?> - <?= count($postOffice->packages); ?></li>
 						<?php } ?>
 					</ul>
 					<div class="text-right">
-						<a href="/admin/customers">View all customers</a>
+						<a href="/admin/post-offices">View all Post Offices</a>
 					</div>
 					<!-- /.text-right -->
 				</div>

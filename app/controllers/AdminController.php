@@ -141,11 +141,16 @@
 				$postOffices = PostOffice::selectAll();
 
 				foreach( $postOffices as $postOffice ) {
-					$postOffice->state = State::find()
-					                          ->where( [ 'id' ] ,
-					                                   [ '=' ] ,
-					                                   [ $postOffice->stateId ] )
-					                          ->get()->state;
+					$postOffice->state        = State::find()
+					                                 ->where( [ 'id' ] ,
+					                                          [ '=' ] ,
+					                                          [ $postOffice->stateId ] )
+					                                 ->get()->state;
+					$postOffice->packageCount = count( Package::findAll()
+					                                          ->where( [ 'postOfficeId' ] ,
+					                                                   [ '=' ] ,
+					                                                   [ $postOffice->id ] )
+					                                          ->get() );
 				}
 
 				return view( 'admin/adminPostOffices' ,
@@ -312,32 +317,20 @@
 					                      ->get();
 				}
 
-				$customerPackages = Package::findAll()
-				                           ->where( [ 'postOfficeId' ] ,
-				                                    [ '=' ] ,
-				                                    [ $user->postOfficeId ] )
-				                           ->get();
-				$customerIds      = [];
-				foreach( $customerPackages as $customerPackage ) {
-					$customerIds[] = $customerPackage->userId;
-				}
-				$customers = User::findAll()
-				                 ->whereIn( $customerIds )
-				                 ->limit( 6 )
-				                 ->get();
-				foreach( $customers as $customer ) {
-					$customer->packageCount = count( Package::findAll()
-					                                        ->where( [ 'userId' ] ,
-					                                                 [ '=' ] ,
-					                                                 [ $customer->id ] )
-					                                        ->get() );
+				$postOffices = PostOffice::selectAll();
+				foreach( $postOffices as $postOffice ) {
+					$postOffice->packages = Package::findAll()
+					                               ->where( [ 'postOfficeId' ] ,
+					                                        [ '=' ] ,
+					                                        [ $postOffice->id ] )
+					                               ->get();
 				}
 
 				return view( 'admin/admin' ,
 				             compact( 'user' ,
 				                      'packages' ,
 				                      'admins' ,
-				                      'customers' ) );
+				                      'postOffices' ) );
 			} else {
 				return redirect( 'login' );
 			}
