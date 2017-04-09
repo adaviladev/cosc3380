@@ -56,6 +56,14 @@
 						<input type="text" name="zipCode" value="">
 					</div>
 					<!-- /.field-container -->
+					<?php if( ! empty( $errors ) ) { ?>
+						<div class="errors">
+							<?php foreach( $errors as $error ) { ?>
+								<?= $error; ?>
+								<!-- /.error -->
+							<?php } ?>
+						</div>
+					<?php } ?>
 					<button type="submit">Add User</button>
 				</form>
 			</div>

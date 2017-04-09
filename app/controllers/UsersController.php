@@ -73,10 +73,9 @@
 					                                    $_POST[ 'zipCode' ]
 				                                    ] )
 				                           ->get();
-				// dd( $duplicateAddress );
-				$addressId = $duplicateAddress->id;
+				// $addressId = $duplicateAddress->id;
 				if( empty( $duplicateAddress ) ) {
-					Address::insert( [
+					$addressId = Address::insert( [
 						                 'street'     => $_POST[ 'address' ] ,
 						                 'city'       => $_POST[ 'city' ] ,
 						                 'stateId'    => $_POST[ 'stateId' ] ,
@@ -84,9 +83,10 @@
 						                 'createdAt'  => date( "Y-m-d H:i:s" ) ,
 						                 'modifiedAt' => date( "Y-m-d H:i:s" )
 					                 ] );
-					$addressId = Address::lastInsertId();
+					// dd( $addressId );
+					// $addressId = Address::lastInsertId();
 				} else {
-					$addressId = $duplicateAddress;
+					$addressId = $duplicateAddress->id;
 				}
 			} else {
 				$addressId = $duplicateAddress;
@@ -100,35 +100,37 @@
 			$userInsert = User::insert( [
 				                            'firstName'    => $_POST[ 'firstName' ] ,
 				                            'lastName'     => $_POST[ 'lastName' ] ,
-				                            'addressId'    => $addressId->id ,
+				                            'addressId'    => $addressId ,
 				                            'email'        => $_POST[ 'email' ] ,
 				                            'password'     => $password ,
 				                            'roleId'       => $role->id ,
 				                            'postOfficeId' => $user->postOfficeId ,
 				                            'createdBy'    => $user->id ,
+				                            'modifiedBy'    => $user->id ,
 				                            'createdAt'    => date( "Y-m-d H:i:s" ) ,
 				                            'modifiedAt'   => date( "Y-m-d H:i:s" )
 			                            ] );
 
-			// dd( $userInsert );
 
+			// dd( $userInsert );
 			if( ! is_string( $userInsert ) ) {
 				$user = User::find()
 				            ->where( [ 'id' ] , [ '=' ] , [ $userInsert ] )
 				            ->get();
 
-				// dd( $user );
 
 				return redirect( 'dashboard/employees' );
 				// return view( 'auth/register' );
 			} else {
+				$states = State::selectAll();
 				switch( $userInsert ) {
 					case '23000':
 						$errors = array(
 							'email' => 'Email already exists.'
 						);
 
-						return view( 'dashboard/addEmployee' , compact( 'errors' ) );
+						// dd( $userInsert );
+						return view( 'dashboard/addEmployee' , compact( 'errors', 'states' ) );
 				}
 			}
 		}

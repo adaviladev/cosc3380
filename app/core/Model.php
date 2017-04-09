@@ -192,7 +192,7 @@
 				$statement = $instance->builder->prepare( $sql );
 				$statement->execute( $parameters );
 
-				return $instance->builder->lastInsertId();
+				return intval( $instance->builder->lastInsertId() );
 			} catch( PDOException $e ) {
 				return $e->getCode();
 			}
@@ -237,7 +237,7 @@
 				$this->query .= " " . $this->limitTo;
 			}
 
-			var_dump( "{$this->query}\n" );
+			// var_dump( "{$this->query}\n" );
 			return $this->run( $this->query );
 		}
 

@@ -14,6 +14,7 @@
 						<label for="password">Password <span>*</span></label>
 						<input type="password" name="password" required>
 					</div>
+					<!-- /.field-wrapper -->
 					<?php if( ! empty( $errors ) ) { ?>
 						<div class="errors">
 							<?php foreach( $errors as $error ) { ?>
@@ -22,7 +23,6 @@
 							<?php } ?>
 						</div>
 					<?php } ?>
-					<!-- /.field-wrapper -->
 					<button type="submit">Submit</button>
 				</form>
 			</div>

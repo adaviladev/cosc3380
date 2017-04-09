@@ -8,19 +8,6 @@
 
 	use App\Core\App;
 
-	// require __DIR__ . '/../../../core/App.php';
-	// require __DIR__ . '/../../../core/database/Connection.php';
-	// require __DIR__ . '/../../../core/database/QueryBuilder.php';
-	// require __DIR__ . '/../../../core/Model.php';
-	// require __DIR__ . '/../../../core/classes/User.php';
-	// require __DIR__ . '/../../../core/classes/Package.php';
-	// require __DIR__ . '/../../../core/classes/PackageStatus.php';
-	//
-	// App::bind( 'config' ,
-	// 	require __DIR__ . '/../../../core/config.php' );
-	// App::bind( 'database' ,
-	//            new QueryBuilder( Connection::make( App::get( 'config' )[ 'database' ] ) ) );
-
 	require __DIR__ . '/../../bootstrap.php';
 
 	$enRoute = Package::findAll()
