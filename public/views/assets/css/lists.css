@@ -6,12 +6,10 @@
 
 .list-item:nth-child(odd) {
 	background-color: #ffecb3;
-	/*font-size: 105%;*/
 }
 
 .list-item:nth-child(even) {
 	background-color: #fff8e1;
-	/*font-size: 105%;*/
 }
 
 .list-item-content {
