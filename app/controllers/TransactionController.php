@@ -25,18 +25,65 @@
 			$transactions = Transaction::findAll()
 			                           ->where( [ 'postOfficeId' ] , [ '=' ] , [ $user->postOfficeId ] )
 			                           ->get();
-			echo 'viktor was here';
 
-			//dd($transactions);
+			foreach( $transactions as $transaction ) {
+				$transaction->customer = User::find()->where(['id'],['='],[$transaction->customerId])->get();
+			}
+
+			// dd($transactions);
 			return view( 'dashboard/transactions' , compact( 'transactions' ) );
 		}
 
-		public function transactionDetail( $userId ) {
-			$transaction = Transaction::find()
-			                          ->where( [ 'id' ] , [ '=' ] , [ $userId ] )
-			                          ->get();
+		public function transactionDetail( $transactionId ) {
+			$user = Auth::user();
+			if( $user ) {
+				if( $user->roleId === 2 ) {
+					$transaction                                = Transaction::find()
+					                                                         ->where( [ 'id' ] , [ '=' ] ,
+					                                                                  [ $transactionId ] )
+					                                                         ->get();
+					$transaction->customer                      = User::find()
+					                                                  ->where( [ 'id' ] , [ '=' ] ,
+					                                                           [ $transaction->customerId ] )
+					                                                  ->get();
+					$transaction->employee                      = User::find()
+					                                                  ->where( [ 'id' ] , [ '=' ] ,
+					                                                           [ $transaction->employeeId ] )
+					                                                  ->get();
+					$transaction->package                       = Package::find()
+					                                                     ->where( [ 'id' ] , [ '=' ] ,
+					                                                              [ $transaction->packageId ] )
+					                                                     ->get();
+					$transaction->package->status               = PackageStatus::find()
+					                                                           ->where( [ 'id' ] , [ '=' ] ,
+					                                                                    [ $transaction->package->packageStatus ] )
+					                                                           ->get()->type;
+					$transaction->package->destination          = Address::find()
+					                                                     ->where( [ 'id' ] , [ '=' ] ,
+					                                                              [ $transaction->package->destinationId ] )
+					                                                     ->get();
+					$transaction->package->destination->state   = State::find()
+					                                                   ->where( [ 'id' ] , [ '=' ] ,
+					                                                            [ $transaction->package->destination->stateId ] )
+					                                                   ->get()->state;
+					$transaction->package->returnAddress        = Address::find()
+					                                                     ->where( [ 'id' ] , [ '=' ] ,
+					                                                              [ $transaction->package->returnAddressId ] )
+					                                                     ->get();
+					$transaction->package->returnAddress->state = State::find()
+					                                                   ->where( [ 'id' ] , [ '=' ] ,
+					                                                            [ $transaction->package->returnAddress->stateId ] )
+					                                                   ->get()->state;
 
-			return view( 'dashboard/transactionDetail' , compact( 'transaction' ) );
+					return view( 'dashboard/transactionDetail' , compact( 'transaction' ) );
+				} else if( $user->roleId == 1 ) {
+					return redirect( 'admin' );
+				} else if( $user->roleId == 2 ) {
+					return redirect( 'dashboard' );
+				}
+			}
+
+			return redirect( 'login' );
 		}
 
 		public function userTransactions() {

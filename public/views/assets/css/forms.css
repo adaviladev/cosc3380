@@ -165,7 +165,6 @@
 	background-color : #db4437;
 	color: #ffffff;
 	font-weight : bold;
-	/*border-bottom : 2px solid #ff0000 !important;*/
 }
 
 .email-error input:after {

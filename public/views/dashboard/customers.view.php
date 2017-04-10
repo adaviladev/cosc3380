@@ -39,7 +39,7 @@
 						<div>
 							<?php foreach( $customers as $customer ) { ?>
 								<div class="list-item clearfix">
-									<div class="list-container secondary-bg clearfix">
+									<div class="list-container clearfix">
 										<div class="col-dt-3 col-tb-3 col-mb-3">
 											<div class="list-item-content">
 												<?= $customer->id ?>

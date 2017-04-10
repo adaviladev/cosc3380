@@ -24,7 +24,7 @@
 
 	$router->get( 'dashboard/customers' , 'UsersController@postOfficeUsers' );                //viktor
 	$router->get( 'dashboard/transactions' , 'TransactionController@postOfficeTransactions' );    //viktor
-	$router->get( 'transactions/:transactionId' , 'TransactionController@transactionDetail' );    //viktor
+	$router->get( 'dashboard/transactions/:transactionId' , 'TransactionController@transactionDetail' );    //viktor
 
 	/**
 	 * Authentication routes

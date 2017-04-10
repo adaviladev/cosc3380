@@ -6,16 +6,19 @@
 
 .list-item:nth-child(odd) {
 	background-color: #ffecb3;
-	/*font-size: 105%;*/
 }
 
 .list-item:nth-child(even) {
 	background-color: #fff8e1;
-	/*font-size: 105%;*/
 }
 
 .list-item-content {
 	width: 85%;
 	margin: 0 auto;
 	padding: 8px;
+}
+
+.list-container [class^="col-"],
+.list-container [class*=" col-"]{
+	margin-bottom: 0 !important;
 }

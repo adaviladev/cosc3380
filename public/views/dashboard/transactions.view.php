@@ -20,7 +20,7 @@
 						</div>
 						<div class="col-dt-3 col-tb-3 col-mb-3 no-margin">
 							<div class="list-item-content">
-								<strong>Customer Id</strong>
+								<strong>Customer</strong>
 							</div>
 						</div>
 						<div class="col-dt-3 col-tb-3 col-mb-3 no-margin">
@@ -32,29 +32,29 @@
 					<div>
 						<?php foreach( $transactions as $transaction ) { ?>
 							<div class="list-item clearfix">
-								<div class="list-container secondary-bg clearfix">
+								<div class="list-container clearfix">
 									<div class="col-dt-3 col-tb-3 col-mb-3">
 										<div class="list-item-content">
-											<?= $transaction->id ?>
+											<?= $transaction->id; ?>
 											<div>
-												<a href="/users/<?= $transaction->id ?>">
+												<a href="/dashboard/transactions/<?= $transaction->id; ?>">
 													View</a>
 											</div>
 										</div>
 									</div>
 									<div class="col-dt-3 col-tb-3 col-mb-3">
 										<div class="list-item-content">
-											<?= $transaction->packageId ?>
+											<?= $transaction->packageId; ?>
 										</div>
 									</div>
 									<div class="col-dt-3 col-tb-3 col-mb-3">
 										<div class="list-item-content">
-											<?= $transaction->customerId?>
+											<?= $transaction->customer->firstName; ?> <?= $transaction->customer->lastName; ?>
 										</div>
 									</div>
 									<div class="col-dt-3 col-tb-3 col-mb-3">
 										<div class="list-item-content">
-											$<?= $transaction->cost ?>
+											$<?= $transaction->cost; ?>
 										</div>
 									</div>
 								</div>
