@@ -135,6 +135,9 @@
 
 		public function accountInfo() {
 			$user = Auth::user();
+			if(!$user){
+				return view('auth/login', compact($user));
+			}
 			$states = State::selectAll();
 			$address = Address::find()
 								->where( ['id'] ,
@@ -173,6 +176,11 @@
 				if($user->password == md5($_POST['oldPassword']) && $_POST['newPassword'] == $_POST['confirmPassword'] )
 				{
 					$user->password = md5($_POST['newPassword']);
+					User::update( [
+										'password' => md5($_POST['newPassword'])
+					              ] )
+					       ->where( [ 'id' ] , [ '=' ] , [ $user->id ] )
+					       ->get();
 					$changeFlag = 0;
 				}
 				else if($user->password == md5($_POST['oldPassword']) && $_POST['newPassword'] != $_POST['confirmPassword'])
@@ -185,7 +193,24 @@
 				}
 				return view('accounts/accountPassword', compact('user', 'changeFlag'));
 			} else {
-				return view('home', compact ('user'));
+				return view('auth/login', compact ('user'));
+			}
+		}
+
+		public function updateAccountInfo() {
+			$user = Auth::user();
+			if($user){
+				Address::update( [
+									'street'  => $_POST['street'],
+									'city'    => $_POST['city'],
+									'stateId' => $_POST['stateId'],
+									'zipCode' => $_POST['zipCode']
+				                ] )
+						->where(['id'], ['='], [$user->addressId])
+						->get();
+				return redirect('account/info');
+			} else {
+				return view('auth/login', compact ('user'));
 			}
 		}
 

@@ -43,9 +43,11 @@
 
 	$router->get( 'account' , 'UsersController@account' );
 	$router->get( 'account/info' , 'UsersController@accountInfo' );
+	$router->post('account/info' , 'UsersController@updateAccountInfo');
 	$router->get( 'account/packages' , 'PackageController@accountPackages' );
 	$router->get( 'account/packages/:packageId' , 'PackageController@accountPackagesId' );
 	$router->get( 'account/packages/cancel/:packageId' , 'PackageController@accountPackagesCancel' );
+	$router->post( 'account/packages/cancel/:packageId' , 'PackageController@updatePackageCancel' );
 	$router->get( 'account/info/password' , 'UsersController@passwordChange' );
 	$router->post( 'account/info/password' , 'UsersController@updatePassword');
 	$router->get( 'account/transactions' , 'TransactionController@userTransactions' );

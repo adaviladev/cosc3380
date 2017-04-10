@@ -11,7 +11,7 @@
 	<div class="container">
 		<div class="form-wrapper">
 			<h2>Account Info</h2>
-			<form action="/register" method="post"> <!-- change /register -->
+			<form action="/account/info" method="post">
 				<div class="field-container clearfix">
 					<label for="firstName">First Name</label>
 					<input type="text" name="firstName" class="valid fade-in" value= <?=$user->firstName;?> disabled>
@@ -28,8 +28,8 @@
 				</div>
 				<!-- /.field-container -->
 				<div class="field-container clearfix">
-					<label for="address">Address</label>
-					<input type="text" name="address" class="valid fade-in" value=<?=$address->street?>>
+					<label for="address">Street</label>
+					<input type="text" name="street" class="valid fade-in" value=<?=$address->street?>>
 				</div>
 				<!-- /.field-container -->
 				<div class="field-container clearfix">
@@ -62,7 +62,7 @@
 					<input type="text" name="zipCode" class='valid fade-in' value=<?=$address->zipCode?>>
 				</div>
 				<!-- /.field-container -->
-				<a class="button" type="submit">Change Address</a>
+				<button type="submit">Change Address</button>
 				<a href="/account/info/password" class="button">Change Password</a>
 			</form>
 		</div>

@@ -236,7 +236,6 @@
 			$package = Package::find()
 			                  ->where( [ 'id' ] , [ '=' ] , [ $packageId ] )
 			                  ->get();
-
 			if( $user->id == $package->userId ) {
 				$package->status               = PackageStatus::find()
 				                                              ->where( [ 'id' ] , [ '=' ] ,
@@ -262,6 +261,29 @@
 				return view( 'accounts/accountPackagesCancel' , compact( 'package' , 'user' ) );
 			} else {
 				return redirect( 'account/packages/' );
+			}
+		}
+
+		public function updatePackagesCancel($packageId) {
+			$user = Auth::user();
+
+			$package = Package::find()
+			                  ->where( [ 'id' ] , [ '=' ] , [ $_POST['packageId'] ] )
+			                  ->get();
+
+			if( $user ) {
+				if( $user->id == $package->userId ) {
+					Package::update([
+						                'packageStatus' => 4
+					                ])
+					       ->where(['id'], ['='], [$_POST['packageId']])
+					       ->get();
+				} else {
+					return redirect('account/packages');
+				}
+				return redirect( 'account/packages' );
+			} else {
+				return redirect( 'login' );
 			}
 		}
 	}
