@@ -11,30 +11,30 @@ var concatCss = require( 'gulp-concat-css' );
 var cleanCss = require( 'gulp-clean-css' );
 
 gulp.task( 'lint', function() {
-	return gulp.src( 'views/assets/js/*.js' )
+	return gulp.src( 'public/views/assets/js/*.js' )
 		.pipe( jshint() )
 		.pipe( jshint.reporter( 'default' ) );
 } );
 
 gulp.task( 'css', function() {
-	return gulp.src( 'views/assets/css/*.css' )
+	return gulp.src( 'public/views/assets/css/*.css' )
 		.pipe( concatCss( 'all.min.css' ) )
 		.pipe( cleanCss() )
-		.pipe( gulp.dest( 'views/assets/bundle/css' ) );
+		.pipe( gulp.dest( 'public/views/assets/bundle/css' ) );
 } );
 
 gulp.task( 'scripts', function() {
-	return gulp.src( [ 'views/assets/js/vendor/*.js', 'views/assets/js/*.js'] )
+	return gulp.src( [ 'public/views/assets/js/vendor/*.js', 'public/views/assets/js/*.js'] )
 		.pipe( concat( 'all.min.js' ) )
-		.pipe( gulp.dest( 'views/assets/bundle/js' ) )
+		.pipe( gulp.dest( 'public/views/assets/bundle/js' ) )
 		.pipe( rename( 'all.min.js' ) )
 		.pipe( uglify() )
-		.pipe( gulp.dest( 'views/assets/bundle/js' ) );
+		.pipe( gulp.dest( 'public/views/assets/bundle/js' ) );
 } );
 
 gulp.task( 'watch', function() {
-	gulp.watch( 'views/assets/js/*.js', [ 'lint', 'scripts' ] );
-	gulp.watch( 'views/assets/css/*.css', [ 'css' ] );
+	gulp.watch( 'public/views/assets/js/*.js', [ 'lint', 'scripts' ] );
+	gulp.watch( 'public/views/assets/css/*.css', [ 'css' ] );
 } );
 
 gulp.task( 'default', [ 'lint', 'css', 'scripts', 'watch' ] );
