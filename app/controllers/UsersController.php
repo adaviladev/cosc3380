@@ -152,7 +152,6 @@
 								         ['='] ,
 								         [$user->addressId] )
 								->get();
-
 			$userState = State::find()
 						       ->where( ['id'],
 										['='],

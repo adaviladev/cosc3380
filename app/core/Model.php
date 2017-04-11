@@ -213,7 +213,6 @@
 				$instance->set .= "{$attr}='{$value}'";
 				$ctr++;
 			}
-
 			return $instance;
 		}
 

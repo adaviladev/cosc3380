@@ -47,8 +47,8 @@
 												<?= $package->destination->city; ?>, <?= $package->destination->state; ?> <?= $package->destination->zipCode; ?>
 											</div>
 											<!-- /.col-dt-12 -->
-											<input type="hidden" name="packageId" value="<?=$package->id?>">
-											<button type="submit">CONFIRM CANCELLATION</button>
+											<input type="hidden" name="packageId" value="<?= $package->id ?>">
+											<button type="submit">Confirm Cancellation</button>
 										</div>
 										<!-- /.package-detail-info -->
 									</div>

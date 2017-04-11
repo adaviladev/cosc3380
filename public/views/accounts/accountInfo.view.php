@@ -19,22 +19,22 @@
 				<!-- /.field-container -->
 				<div class="field-container clearfix">
 					<label for="lastName">Last name</label>
-					<input type="text" name="lastName" class="valid fade-in" value=<?=$user->lastName;?> disabled>
+					<input type="text" name="lastName" class="valid fade-in" value="<?=$user->lastName;?>" disabled>
 				</div>
 				<!-- /.field-container -->
 				<div class="field-container validate clearfix">
 					<label for="email" class="email">Email</label>
-					<input type="text" name="email" value=<?=$user->email?> class="<?= $emailClass; ?> valid fade-in" disabled>
+					<input type="text" name="email" value="<?=$user->email?>" class="<?= $emailClass; ?> valid fade-in" disabled>
 				</div>
 				<!-- /.field-container -->
 				<div class="field-container clearfix">
 					<label for="address">Street</label>
-					<input type="text" name="street" class="valid fade-in" value=<?=$address->street?>>
+					<input type="text" name="street" class="valid fade-in" value="<?= $address->street ?>">
 				</div>
 				<!-- /.field-container -->
 				<div class="field-container clearfix">
 					<label for="city">City</label>
-					<input type="text" name="city" class="valid fade-in" value=<?=$address->city?>>
+					<input type="text" name="city" class="valid fade-in" value="<?= $address->city ?>">
 				</div>
 				<!-- /.field-container -->
 				<div class="field-container clearfix" >
@@ -59,7 +59,7 @@
 				<!-- /#StateSelector -->
 				<div class="field-container clearfix">
 					<label for="zipCode">Zip Code</label>
-					<input type="text" name="zipCode" class='valid fade-in' value=<?=$address->zipCode?>>
+					<input type="text" name="zipCode" class='valid fade-in' value="<?=$address->zipCode?>">
 				</div>
 				<!-- /.field-container -->
 				<button type="submit">Change Address</button>

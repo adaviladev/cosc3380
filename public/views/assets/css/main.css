@@ -57,6 +57,14 @@ http://paletton.com/#uid=1330u0kqJvTg-I7lNA4vnrNxZlJ
 .package-wrapper a:hover {
 	font-size : 130%;
 }
+a:hover{
+	font-size : 130%;
+	-webkit-transition : font-size .1s;
+	-moz-transition    : font-size .1s;
+	-ms-transition     : font-size .1s;
+	-o-transition      : font-size .1s;
+	transition         : font-size .1s;
+}
 
 .package-list-item {
 	margin  : 0 auto;
