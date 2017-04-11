@@ -1,5 +1,6 @@
 <?php getHeader(); ?>
 
+	<!-- View for single transaction's details -->
 	<div class="row">
 		<div class="container">
 			<?php if( ! empty( $transaction ) ) { ?>
