@@ -165,8 +165,14 @@
 			return $this;
 		}
 
+		/**
+		 * @param $attribute
+		 * @param $direction
+		 *
+		 * @return $this
+		 */
 		public function orderBy( $attribute ,
-		                         $direction ) {
+		                            $direction ) {
 			$this->orderBy .= "ORDER BY {$attribute} {$direction}";
 
 			return $this;
@@ -206,7 +212,7 @@
 			$instance->set      = "SET ";
 			$instance->isUpdate = true;
 			$ctr                = 0;
-			
+
 			foreach( $bindings as $attr => $value ) {
 				if( $ctr > 0 ) {
 					$instance->set .= ", ";
