@@ -4,7 +4,10 @@
 <div class="row">
 	<div class="container">
 		<div class="group-wrapper card-2 clearfix">
-			<h3>Transactions</h3>
+			<h3>
+				Transactions <span class="float-right"><a href="/dashboard/transactions/add" class="button">Create Transaction</a></span>
+			<!-- /.float-right -->
+			</h3>
 			<div class="list-wrapper card-2">
 				<?php if( ! empty( $transactions ) ) { ?>
 					<div class="list-header primary-bg clearfix">

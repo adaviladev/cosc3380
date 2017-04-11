@@ -16,22 +16,30 @@
 		public function show() {
 			$transactions = Transaction::selectAll();
 
-			return view( 'index' , compact( 'transactions' ) );
+			return view( 'index' ,
+			             compact( 'transactions' ) );
 		}
 
 		public function postOfficeTransactions() {
 			$user = Auth::user();
 			$user->postOfficeId;
 			$transactions = Transaction::findAll()
-			                           ->where( [ 'postOfficeId' ] , [ '=' ] , [ $user->postOfficeId ] )
+			                           ->where( [ 'postOfficeId' ] ,
+			                                    [ '=' ] ,
+			                                    [ $user->postOfficeId ] )
 			                           ->get();
 
 			foreach( $transactions as $transaction ) {
-				$transaction->customer = User::find()->where(['id'],['='],[$transaction->customerId])->get();
+				$transaction->customer = User::find()
+				                             ->where( [ 'id' ] ,
+				                                      [ '=' ] ,
+				                                      [ $transaction->customerId ] )
+				                             ->get();
 			}
 
 			// dd($transactions);
-			return view( 'dashboard/transactions' , compact( 'transactions' ) );
+			return view( 'dashboard/transactions' ,
+			             compact( 'transactions' ) );
 		}
 
 		public function transactionDetail( $transactionId ) {
@@ -39,43 +47,53 @@
 			if( $user ) {
 				if( $user->roleId === 2 ) {
 					$transaction                                = Transaction::find()
-					                                                         ->where( [ 'id' ] , [ '=' ] ,
+					                                                         ->where( [ 'id' ] ,
+					                                                                  [ '=' ] ,
 					                                                                  [ $transactionId ] )
 					                                                         ->get();
 					$transaction->customer                      = User::find()
-					                                                  ->where( [ 'id' ] , [ '=' ] ,
+					                                                  ->where( [ 'id' ] ,
+					                                                           [ '=' ] ,
 					                                                           [ $transaction->customerId ] )
 					                                                  ->get();
 					$transaction->employee                      = User::find()
-					                                                  ->where( [ 'id' ] , [ '=' ] ,
+					                                                  ->where( [ 'id' ] ,
+					                                                           [ '=' ] ,
 					                                                           [ $transaction->employeeId ] )
 					                                                  ->get();
 					$transaction->package                       = Package::find()
-					                                                     ->where( [ 'id' ] , [ '=' ] ,
+					                                                     ->where( [ 'id' ] ,
+					                                                              [ '=' ] ,
 					                                                              [ $transaction->packageId ] )
 					                                                     ->get();
 					$transaction->package->status               = PackageStatus::find()
-					                                                           ->where( [ 'id' ] , [ '=' ] ,
+					                                                           ->where( [ 'id' ] ,
+					                                                                    [ '=' ] ,
 					                                                                    [ $transaction->package->packageStatus ] )
 					                                                           ->get()->type;
 					$transaction->package->destination          = Address::find()
-					                                                     ->where( [ 'id' ] , [ '=' ] ,
+					                                                     ->where( [ 'id' ] ,
+					                                                              [ '=' ] ,
 					                                                              [ $transaction->package->destinationId ] )
 					                                                     ->get();
 					$transaction->package->destination->state   = State::find()
-					                                                   ->where( [ 'id' ] , [ '=' ] ,
+					                                                   ->where( [ 'id' ] ,
+					                                                            [ '=' ] ,
 					                                                            [ $transaction->package->destination->stateId ] )
 					                                                   ->get()->state;
 					$transaction->package->returnAddress        = Address::find()
-					                                                     ->where( [ 'id' ] , [ '=' ] ,
+					                                                     ->where( [ 'id' ] ,
+					                                                              [ '=' ] ,
 					                                                              [ $transaction->package->returnAddressId ] )
 					                                                     ->get();
 					$transaction->package->returnAddress->state = State::find()
-					                                                   ->where( [ 'id' ] , [ '=' ] ,
+					                                                   ->where( [ 'id' ] ,
+					                                                            [ '=' ] ,
 					                                                            [ $transaction->package->returnAddress->stateId ] )
 					                                                   ->get()->state;
 
-					return view( 'dashboard/transactionDetail' , compact( 'transaction' ) );
+					return view( 'dashboard/transactionDetail' ,
+					             compact( 'transaction' ) );
 				} else if( $user->roleId == 1 ) {
 					return redirect( 'admin' );
 				} else if( $user->roleId == 2 ) {
@@ -91,27 +109,36 @@
 			if( $user ) {
 				if( $user->roleId == 3 ) {
 					$transactions = Transaction::findAll()
-					                           ->where( [ 'customerId' ] , [ '=' ] , [ $user->id ] )
+					                           ->where( [ 'customerId' ] ,
+					                                    [ '=' ] ,
+					                                    [ $user->id ] )
 					                           ->get();
 
 					foreach( $transactions as $transaction ) {
 						$transaction->customer        = User::find()
-						                                    ->where( [ 'id' ] , [ '=' ] , [ $transaction->customerId ] )
+						                                    ->where( [ 'id' ] ,
+						                                             [ '=' ] ,
+						                                             [ $transaction->customerId ] )
 						                                    ->get();
 						$transaction->employee        = User::find()
-						                                    ->where( [ 'id' ] , [ '=' ] , [ $transaction->employeeId ] )
+						                                    ->where( [ 'id' ] ,
+						                                             [ '=' ] ,
+						                                             [ $transaction->employeeId ] )
 						                                    ->get();
 						$transaction->package         = Package::find()
-						                                       ->where( [ 'id' ] , [ '=' ] ,
+						                                       ->where( [ 'id' ] ,
+						                                                [ '=' ] ,
 						                                                [ $transaction->packageId ] )
 						                                       ->get();
 						$transaction->package->status = PackageStatus::find()
-						                                             ->where( [ 'id' ] , [ '=' ] ,
+						                                             ->where( [ 'id' ] ,
+						                                                      [ '=' ] ,
 						                                                      [ $transaction->package->packageStatus ] )
 						                                             ->get()->type;
 					}
 
-					return view( 'accounts/transactions' , compact( 'transactions' ) );
+					return view( 'accounts/transactions' ,
+					             compact( 'transactions' ) );
 				} else if( $user->roleId == 1 ) {
 					return redirect( 'admin' );
 				} else if( $user->roleId == 2 ) {
@@ -127,47 +154,101 @@
 			if( $user ) {
 				if( $user->roleId == 3 ) {
 					$transaction                                = Transaction::find()
-					                                                         ->where( [ 'id' ] , [ '=' ] ,
+					                                                         ->where( [ 'id' ] ,
+					                                                                  [ '=' ] ,
 					                                                                  [ $transactionId ] )
 					                                                         ->get();
 					$transaction->customer                      = User::find()
-					                                                  ->where( [ 'id' ] , [ '=' ] ,
+					                                                  ->where( [ 'id' ] ,
+					                                                           [ '=' ] ,
 					                                                           [ $transaction->customerId ] )
 					                                                  ->get();
 					$transaction->employee                      = User::find()
-					                                                  ->where( [ 'id' ] , [ '=' ] ,
+					                                                  ->where( [ 'id' ] ,
+					                                                           [ '=' ] ,
 					                                                           [ $transaction->employeeId ] )
 					                                                  ->get();
 					$transaction->package                       = Package::find()
-					                                                     ->where( [ 'id' ] , [ '=' ] ,
+					                                                     ->where( [ 'id' ] ,
+					                                                              [ '=' ] ,
 					                                                              [ $transaction->packageId ] )
 					                                                     ->get();
 					$transaction->package->status               = PackageStatus::find()
-					                                                           ->where( [ 'id' ] , [ '=' ] ,
+					                                                           ->where( [ 'id' ] ,
+					                                                                    [ '=' ] ,
 					                                                                    [ $transaction->package->packageStatus ] )
 					                                                           ->get()->type;
 					$transaction->package->destination          = Address::find()
-					                                                     ->where( [ 'id' ] , [ '=' ] ,
+					                                                     ->where( [ 'id' ] ,
+					                                                              [ '=' ] ,
 					                                                              [ $transaction->package->destinationId ] )
 					                                                     ->get();
 					$transaction->package->destination->state   = State::find()
-					                                                   ->where( [ 'id' ] , [ '=' ] ,
+					                                                   ->where( [ 'id' ] ,
+					                                                            [ '=' ] ,
 					                                                            [ $transaction->package->destination->stateId ] )
 					                                                   ->get()->state;
 					$transaction->package->returnAddress        = Address::find()
-					                                                     ->where( [ 'id' ] , [ '=' ] ,
+					                                                     ->where( [ 'id' ] ,
+					                                                              [ '=' ] ,
 					                                                              [ $transaction->package->returnAddressId ] )
 					                                                     ->get();
 					$transaction->package->returnAddress->state = State::find()
-					                                                   ->where( [ 'id' ] , [ '=' ] ,
+					                                                   ->where( [ 'id' ] ,
+					                                                            [ '=' ] ,
 					                                                            [ $transaction->package->returnAddress->stateId ] )
 					                                                   ->get()->state;
 
-					return view( 'accounts/transactionDetail' , compact( 'transaction' ) );
+					return view( 'accounts/transactionDetail' ,
+					             compact( 'transaction' ) );
 				} else if( $user->roleId == 1 ) {
 					return redirect( 'admin' );
 				} else if( $user->roleId == 2 ) {
 					return redirect( 'dashboard' );
+				}
+			}
+
+			return redirect( 'login' );
+		}
+
+		public function createTransaction() {
+			$user = Auth::user();
+			if( $user ) {
+				if( $user->roleId === 2 ) {
+					$states    = State::selectAll();
+					$customers = User::findAll()
+					                 ->where( [ 'roleId' ] ,
+					                          [ '=' ] ,
+					                          [ 3 ] )
+					                 ->orderBy( 'firstName', 'ASC' )
+					                 ->get();
+
+					return view( 'dashboard/addTransaction' ,
+					             compact( 'customers' ,
+					                      'states' ) );
+				} else if( $user->roleId === 3 ) {
+					return redirect( 'account' );
+				} else if( $user->roleId === 1 ) {
+					return redirect( 'admin' );
+				}
+			}
+
+			return redirect( 'login' );
+		}
+
+		public function  storeTransaction(){
+			$user = Auth::user();
+			if( $user ) {
+				if( $user->roleId === 2 ) {
+					$states    = State::selectAll();
+					dd( $_POST );
+
+					return view( 'dashboard/transaction' ,
+					             compact( 'states' ) );
+				} else if( $user->roleId === 3 ) {
+					return redirect( 'account' );
+				} else if( $user->roleId === 1 ) {
+					return redirect( 'admin' );
 				}
 			}
 

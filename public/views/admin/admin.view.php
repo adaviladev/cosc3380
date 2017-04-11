@@ -13,7 +13,7 @@
 		<div class="container">
 			<?php if( ! empty( $packages ) ) { ?>
 				<div class="group-wrapper card-2">
-					<h3>Local Packages</h3>
+					<h3>Recent Packages</h3>
 					<?php getPartial( "packagesGrid" , compact( 'packages' ) ); ?>
 					<div class="text-right">
 						<a href="/admin/packages">View All Packages</a>
