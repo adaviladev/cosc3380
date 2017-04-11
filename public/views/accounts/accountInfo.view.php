@@ -62,8 +62,10 @@
 					<input type="text" name="zipCode" class='valid fade-in' value="<?=$address->zipCode?>">
 				</div>
 				<!-- /.field-container -->
-				<button type="submit">Change Address</button>
-				<a href="/account/info/password" class="button">Change Password</a>
+				<div class="button-wrapper">
+					<button type="submit">Change Address</button>
+					<a href="/account/info/password" class="button">Change Password</a>
+				</div>
 			</form>
 		</div>
 		<!-- /.form-wrapper -->

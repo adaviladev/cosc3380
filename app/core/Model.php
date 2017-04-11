@@ -206,6 +206,7 @@
 			$instance->set      = "SET ";
 			$instance->isUpdate = true;
 			$ctr                = 0;
+			
 			foreach( $bindings as $attr => $value ) {
 				if( $ctr > 0 ) {
 					$instance->set .= ", ";
@@ -213,6 +214,7 @@
 				$instance->set .= "{$attr}='{$value}'";
 				$ctr++;
 			}
+
 			return $instance;
 		}
 
