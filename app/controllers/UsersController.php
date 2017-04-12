@@ -188,7 +188,7 @@
 					              ] )
 					       ->where( [ 'id' ] , [ '=' ] , [ $user->id ] )
 					       ->get();
-					$changeFlag = 0;
+					$changeFlag = 3;
 				}
 				else if($user->password == md5($_POST['oldPassword']) && $_POST['newPassword'] != $_POST['confirmPassword'])
 				{

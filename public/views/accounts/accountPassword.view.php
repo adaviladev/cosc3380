@@ -5,14 +5,16 @@
 		<div class="container">
 			<div class="form-wrapper">
 				<?php if(!empty($changeFlag)) {
-					if ($changeFlag == 0 ) {?>
-						Password Changed Correct
+					if ($changeFlag == 3 ) {?>
+						<div class="valid">
+							Password change successful. You may now use your new password to log in.
+						</div>
 					<?php } else if ($changeFlag == 1){ ?>
-						<div class ="error">
+						<div class ="errors">
 							Sorry. The new passwords you entered did not match. Please ensure they match and try again.
 						</div>
 					<?php } else if ($changeFlag == 2){ ?>
-						<div class ="error">
+						<div class ="errors">
 							Sorry. You did not enter your old password correctly. Please try again.
 						</div>
 					<?php }?>
