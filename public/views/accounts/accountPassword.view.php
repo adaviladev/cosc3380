@@ -4,6 +4,19 @@
 	<div class="row">
 		<div class="container">
 			<div class="form-wrapper">
+				<?php if(!empty($changeFlag)) {
+					if ($changeFlag == 0 ) {?>
+						Password Changed Correct
+					<?php } else if ($changeFlag == 1){ ?>
+						<div class ="error">
+							Sorry. The new passwords you entered did not match. Please ensure they match and try again.
+						</div>
+					<?php } else if ($changeFlag == 2){ ?>
+						<div class ="error">
+							Sorry. You did not enter your old password correctly. Please try again.
+						</div>
+					<?php }?>
+				<?php } ?>
 				<h2>Password Change Request</h2>
 
 				<form action="/account/info/password" method="post">
