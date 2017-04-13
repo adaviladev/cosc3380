@@ -63,7 +63,7 @@
 						<div class="field-container">
 							<label for="returnAddressState">State</label>
 							<?php if( ! empty( $states ) ) { ?>
-								<select name="stateId" id="returnAddressState" class="">
+								<select name="returnAddressStateId" id="returnAddressState" class="">
 									<option disabled selected value=""></option>
 									<?php
 										foreach( $states as $state ) { ?>

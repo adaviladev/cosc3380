@@ -41,7 +41,8 @@
 				                             ->get();
 			}
 
-			return view( 'dashboard/transactions' , compact( 'transactions' ) );
+			return view( 'dashboard/transactions' ,
+			             compact( 'transactions' ) );
 		}
 
 		/**
@@ -52,11 +53,14 @@
 			$user = Auth::user();
 			if( $user ) {
 				if( $user->roleId === 2 ) {
-					$transaction                                = Transaction::find()
-					                                                         ->where( [ 'id' ] ,
-					                                                                  [ '=' ] ,
-					                                                                  [ $transactionId ] )
-					                                                         ->get();
+					$transaction = Transaction::find()
+					                          ->where( [ 'id' ] ,
+					                                   [ '=' ] ,
+					                                   [ $transactionId ] )
+					                          ->get();
+					if( $user->postOfficeId !== $transaction->postOfficeId ) {
+						return redirect( 'dashboard/transactions' );
+					}
 					$transaction->customer                      = User::find()
 					                                                  ->where( [ 'id' ] ,
 					                                                           [ '=' ] ,
@@ -226,7 +230,8 @@
 					                 ->where( [ 'roleId' ] ,
 					                          [ '=' ] ,
 					                          [ 3 ] )
-					                 ->orderBy( 'firstName', 'ASC' )
+					                 ->orderBy( 'firstName' ,
+					                            'ASC' )
 					                 ->get();
 
 					return view( 'dashboard/addTransaction' ,
@@ -242,12 +247,40 @@
 			return redirect( 'login' );
 		}
 
-		public function  storeTransaction(){
+		public function storeTransaction() {
 			$user = Auth::user();
 			if( $user ) {
 				if( $user->roleId === 2 ) {
-					$states    = State::selectAll();
-					dd( $_POST );
+					$states               = State::selectAll();
+					$returnAddressId      = Address::insert( [
+						                                         'street'  => $_POST[ 'returnAddressStreet' ] ,
+						                                         'city'    => $_POST[ 'returnAddressCity' ] ,
+						                                         'stateId' => $_POST[ 'returnAddressStateId' ] ,
+						                                         'zipCode' => $_POST[ 'returnAddressZipCode' ] ,
+					                                         ] );
+					$destinationAddressId = Address::insert( [
+						                                         'street'  => $_POST[ 'destinationAddressStreet' ] ,
+						                                         'city'    => $_POST[ 'destinationAddressCity' ] ,
+						                                         'stateId' => $_POST[ 'destinationAddressStateId' ] ,
+						                                         'zipCode' => $_POST[ 'destinationAddressZipCode' ] ,
+					                                         ] );
+					/**
+					 *  public $id;
+					 *	public $userId;
+					 *	public $postOfficeId;
+					 *	public $typeId;
+					 *	public $transactionId;
+					 *	public $destinationId;
+					 *	public $returnAddressId;
+					 *	public $contents;
+					 *	public $weight;
+					 *	public $priority;
+					 *	public $packageStatus;
+					 *	public $modifiedBy;
+					 *	public $createdAt;
+					 *	public $modifiedAt;
+					 */
+					dd( $returnAddressId , $destinationAddressId );
 
 					return view( 'dashboard/transaction' ,
 					             compact( 'states' ) );

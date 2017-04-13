@@ -126,10 +126,13 @@
 
 		public function packageDetail( $packageId ) {
 			$user = Auth::user();
-			if( $user && ($user->roleId == 2  || $user->roleId == 1)) {
+			if( $user && $user->roleId == 2 ) {
 				$package         = Package::find()
 				                          ->where( [ 'id' ] , [ '=' ] , [ $packageId ] )
 				                          ->get();
+				if( $user->postOfficeId !== $package->postOfficeId ) {
+					return redirect( 'dashboard/packages' );
+				}
 				$package->status = PackageStatus::find()
 				                                ->where( [ 'id' ] , [ '=' ] , [ $package->packageStatus ] )
 				                                ->get();
