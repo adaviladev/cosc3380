@@ -1,8 +1,13 @@
 <?php
 	getHeader();
 ?>
+
+<!-- View for the transactions assigned/created to the currently logged in
+user's post office location. It displays the transactions Id, package Id, customer Id
+and its cost -->
 <div class="row">
 	<div class="container">
+		<!-- Header for list table begins -->
 		<div class="group-wrapper card-2 clearfix">
 			<h3>
 				Transactions <span class="float-right"><a href="/dashboard/transactions/add" class="button">Create Transaction</a></span>
@@ -34,6 +39,7 @@
 					</div>
 					<div>
 						<?php foreach( $transactions as $transaction ) { ?>
+							<!-- List of transactions begins -->
 							<div class="list-item clearfix">
 								<div class="list-container clearfix">
 									<div class="col-dt-3 col-tb-3 col-mb-3">

@@ -20,6 +20,10 @@
 			             compact( 'transactions' ) );
 		}
 
+		/**
+		 * postOfficeTransactions() gets all the transactions processed and assigned
+		 * to the logged in user's post office
+		 */
 		public function postOfficeTransactions() {
 			$user = Auth::user();
 			$user->postOfficeId;
@@ -37,11 +41,13 @@
 				                             ->get();
 			}
 
-			// dd($transactions);
-			return view( 'dashboard/transactions' ,
-			             compact( 'transactions' ) );
+			return view( 'dashboard/transactions' , compact( 'transactions' ) );
 		}
 
+		/**
+		 * transactionDetail() displays more info of one transaction processed by the
+		 * logged in user's post office
+		 */
 		public function transactionDetail( $transactionId ) {
 			$user = Auth::user();
 			if( $user ) {
