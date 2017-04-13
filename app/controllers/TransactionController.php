@@ -5,6 +5,7 @@
 	use Address;
 	use Package;
 	use PackageStatus;
+	use PackageType;
 	use State;
 	use User;
 	use App\Core\App;
@@ -233,10 +234,11 @@
 					                 ->orderBy( 'firstName' ,
 					                            'ASC' )
 					                 ->get();
+					$types = PackageType::selectAll();
 
 					return view( 'dashboard/addTransaction' ,
 					             compact( 'customers' ,
-					                      'states' ) );
+					                      'states' , 'types' ) );
 				} else if( $user->roleId === 3 ) {
 					return redirect( 'account' );
 				} else if( $user->roleId === 1 ) {
@@ -264,26 +266,46 @@
 						                                         'stateId' => $_POST[ 'destinationAddressStateId' ] ,
 						                                         'zipCode' => $_POST[ 'destinationAddressZipCode' ] ,
 					                                         ] );
-					/**
-					 *  public $id;
-					 *	public $userId;
-					 *	public $postOfficeId;
-					 *	public $typeId;
-					 *	public $transactionId;
-					 *	public $destinationId;
-					 *	public $returnAddressId;
-					 *	public $contents;
-					 *	public $weight;
-					 *	public $priority;
-					 *	public $packageStatus;
-					 *	public $modifiedBy;
-					 *	public $createdAt;
-					 *	public $modifiedAt;
-					 */
-					dd( $returnAddressId , $destinationAddressId );
 
-					return view( 'dashboard/transaction' ,
-					             compact( 'states' ) );
+					$packageStatus = PackageStatus::find()->where(['type'] , ['='] , ['Processing'])->get();
+
+					$packageId = Package::insert(
+						[
+							'userId' => $_POST[ 'customerId' ],
+							'postOfficeId' => $user->postOfficeId,
+							'typeId' => $_POST['packageType'],
+							// 'transactionId' => '',
+							'destinationId' => $destinationAddressId,
+							'returnAddressId' => $returnAddressId,
+							'contents' => $_POST['packageContent'],
+							'weight' => $_POST['packageWeight'],
+							'priority' => $_POST['packagePriority'],
+							'packageStatus' => $packageStatus->id,
+							'modifiedBy' => $user->id,
+						]
+					);
+					$transactionId = Transaction::insert(
+						[
+							'customerId' => $_POST[ 'customerId' ],
+							'postOfficeId' => $user->postOfficeId,
+							'employeeId' => $user->id,
+							'packageId' => $packageId,
+							'cost' => $_POST['packageWeight'] * 2
+						]
+					);
+
+					Package::update(
+						[
+							'transactionId' => $transactionId
+						]
+					)->where( ['id'],['='],[$packageId])->get();
+					// $package = Package::find()->where(
+					// 	['id'],['='],[$packageId]
+					// )->get();
+					// $transaction = Transaction::find()->where(['id'],['='],[$transactionId])->get();
+					// dd( $returnAddressId , $destinationAddressId , $package , $transaction );
+
+					return redirect( 'dashboard/transactions' );
 				} else if( $user->roleId === 3 ) {
 					return redirect( 'account' );
 				} else if( $user->roleId === 1 ) {

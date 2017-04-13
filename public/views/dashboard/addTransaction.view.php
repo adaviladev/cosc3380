@@ -11,7 +11,7 @@
 						<div class="field-container clearfix">
 							<label for="sender">Customer</label>
 							<?php if( ! empty( $customers ) ) { ?>
-								<select id="sender" name="customerId" id="customerSelector" class="">
+								<select id="sender" name="customerId" id="customerSelector" class="" required>
 									<option disabled selected value=""></option>
 									<?php
 										foreach( $customers as $customer ) { ?>
@@ -29,21 +29,33 @@
 						<h5><strong>Package</strong></h5>
 						<div class="field-container">
 							<label for="packageContent">Content</label>
-							<textarea id="packageContent" type="text"></textarea>
+							<textarea id="packageContent" name="packageContent" type="text" required></textarea>
 						</div>
 						<!-- /.field-container -->
 						<div class="field-container">
 							<label for="packageWeight">Weight</label>
-							<input id="packageWeight" type="number">
+							<input id="packageWeight" name="packageWeight" type="number" required>
 						</div>
 						<!-- /.field-container -->
 						<div class="field-container">
 							<label for="packagePriority">Priority</label>
-							<select id="packagePriority">
+							<select name="packagePriority" id="packagePriority" class="" required>
 								<option disabled selected value=""></option>
 								<option value="0">Normal</option>
 								<option value="1">High</option>
 							</select>
+						</div>
+						<!-- /.field-container -->
+						<div class="field-container">
+							<label for="packageType">Type</label>
+							<?php if( ! empty( $types ) ) { ?>
+								<select name="packageType" id="packageType" class="" required>
+									<option disabled selected value=""></option>
+									<?php foreach( $types as $type ) { ?>
+										<option value="<?= $type->id ?>"><?= $type->type ?></option>
+									<?php } ?>
+								</select>
+							<?php } ?>
 						</div>
 						<!-- /.field-container -->
 					</div>
@@ -52,32 +64,29 @@
 						<h5><strong>Return Address</strong></h5>
 						<div class="field-container">
 							<label for="returnAddressStreet">Street</label>
-							<input id="returnAddressStreet" type="text" name="returnAddressStreet" value="" class="" >
+							<input id="returnAddressStreet" type="text" name="returnAddressStreet" value="" class="" required>
 						</div>
 						<!-- /.field-container -->
 						<div class="field-container">
 							<label for="returnAddressCity">City</label>
-							<input id="returnAddressCity" type="text" name="returnAddressCity" value="" class="">
+							<input id="returnAddressCity" type="text" name="returnAddressCity" value="" class="" required>
 						</div>
 						<!-- /.field-container -->
 						<div class="field-container">
 							<label for="returnAddressState">State</label>
 							<?php if( ! empty( $states ) ) { ?>
-								<select name="returnAddressStateId" id="returnAddressState" class="">
+								<select name="returnAddressStateId" id="returnAddressState" class="" required>
 									<option disabled selected value=""></option>
-									<?php
-										foreach( $states as $state ) { ?>
-											<option value="<?= $state->id ?>"><?= $state->state ?></option>
-											<?php
-										}
-									?>
+									<?php foreach( $states as $state ) { ?>
+										<option value="<?= $state->id ?>"><?= $state->state ?></option>
+									<?php } ?>
 								</select>
 							<?php } ?>
 						</div>
 						<!-- /.field-container -->
 						<div class="field-container">
 							<label for="returnAddressZipCode">Zip Code</label>
-							<input id="returnAddressZipCode" type="text" name="returnAddressZipCode" value="" class="">
+							<input id="returnAddressZipCode" type="text" name="returnAddressZipCode" value="" class="" required>
 						</div>
 						<!-- /.field-container -->
 					</div>
@@ -86,32 +95,29 @@
 						<h5><strong>Destination Address</strong></h5>
 						<div class="field-container">
 							<label for="destinationAddressStreet">Street</label>
-							<input id="destinationAddressStreet" type="text" name="destinationAddressStreet" value="" class="">
+							<input id="destinationAddressStreet" type="text" name="destinationAddressStreet" value="" class="" required>
 						</div>
 						<!-- /.field-container -->
 						<div class="field-container">
 							<label for="destinationAddressCity">City</label>
-							<input id="destinationAddressCity" type="text" name="destinationAddressCity" value="" class="">
+							<input id="destinationAddressCity" type="text" name="destinationAddressCity" value="" class="" required>
 						</div>
 						<!-- /.field-container -->
 						<div class="field-container clearfix">
 							<label for="StateSelector" class="">State</label>
 							<?php if( ! empty( $states ) ) { ?>
-								<select name="destinationAddressStateId" id="StateSelector" class="">
+								<select name="destinationAddressStateId" id="StateSelector" class="" required>
 									<option disabled selected value=""></option>
-									<?php
-										foreach( $states as $state ) { ?>
-											<option value="<?= $state->id ?>"><?= $state->state ?></option>
-											<?php
-										}
-									?>
+									<?php foreach( $states as $state ) { ?>
+										<option value="<?= $state->id ?>"><?= $state->state ?></option>
+									<?php } ?>
 								</select>
 							<?php } ?>
 						</div>
 						<!-- /.field-container -->
 						<div class="field-container">
 							<label for="destinationAddressZipCode">Zip Code</label>
-							<input id="destinationAddressZipCode" type="text" name="destinationAddressZipCode" value="" class="">
+							<input id="destinationAddressZipCode" type="text" name="destinationAddressZipCode" value="" class="" required>
 						</div>
 						<!-- /.field-container -->
 					</div>
