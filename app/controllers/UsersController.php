@@ -20,6 +20,10 @@
 			return view( 'index' , compact( 'users' ) );
 		}
 
+		/**
+		 * postOfficeUsers() gets all the customers assigned to the currently logged in
+		 * user's post office location
+		 */
 		public function postOfficeUsers() {
 			$user = Auth::user();
 			$user->postOfficeId;
@@ -40,6 +44,10 @@
 			}
 		}
 
+		/**
+		 * userDetail() gets the details of a single user assigned to the currently
+		 * logged in user's post office
+		 */
 		public function userDetail( $userId ) {
 			$user = User::find()
 			            ->where( [ 'id' ] , [ '=' ] , [ $userId ] )

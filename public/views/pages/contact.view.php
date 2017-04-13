@@ -1,7 +1,7 @@
 <?php getHeader();
 	$emailClass = ( isset( $errors[ 'email' ] ) ) ? 'invalid' : '';
 	if(isset($_POST['submit'])){
-		$to = "ideadcellz@gmail.com"; // this is your Email address
+		$to = "#@gmail.com"; // this is your Email address
 		$from = $_POST['Email']; // this is the sender's Email address
 		$first_name = $_POST['FirstName'];
 		$last_name = $_POST['LastName'];
@@ -15,13 +15,15 @@
 		mail($to,$subject,$message,$headers);
 		mail($from,$subject2,$message2,$headers2); // sends a copy of the message to the sender
 		echo "Mail Sent. Thank you " . $first_name . ", we will contact you shortly.";
-		// You can also use header('Location: thank_you.php'); to redirect to another page.
 	}
 ?>
+	<!-- View for /contact page, this view allows any user (logged in or not) to
+	send a question/comment to the assigned email address for contact at prostoffice.pro-->
 	<div class="row">
 		<div class="container">
 			<div class="form-wrapper">
 				<h2>Contact Us</h2>
+				<!-- Input begins -->
 				<form action="" method="post">
 					<div class="field-container clearfix">
 						<label>First Name</label>
@@ -47,6 +49,7 @@
 						<?php } ?>
 					</div>
 					<div class="field-container clearfix">
+						<!-- Text area -->
 						<label>What is your question or comment?</label>
 					</div>
 					<div class="field-container clearfix">

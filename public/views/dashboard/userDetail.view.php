@@ -1,58 +1,64 @@
 <?php
 	getHeader();
 ?>
-
+<!-- View for a single user details -->
 <div class="row">
 	<div class="container">
-		<h1>User Info</h1>
-	</div>
-</div>
-
-<div class="row">
-	<div class="container">
-		<?php if( !empty( $user ) ) { ?>
-			<div class="package-wrapper">
-				<div class="clearfix primary-bg">
-					<div class="col-dt-2 col-tb-4 col-mb-6 text-center">
-						<h4>User Id</h4>
+		<div class="group-wrapper card-2 clearfix">
+			<h3>Customer Details for <?= $user->firstName ?> <?= $user->lastName ?></h3>
+			<div class="list-wrapper card-2">
+				<?php if(! empty($user)) { ?>
+					<div class="list-header primary-bg clearfix">
+						<div class="col-dt-3 col-tb-3 col-mb-3 no-margin">
+							<div class="list-item-content">
+								<strong>User Id</strong>
+							</div>
+						</div>
+						<div class="col-dt-3 col-tb-3 col-mb-3 no-margin">
+							<div class="list-item-content">
+								<strong>First Name</strong>
+							</div>
+						</div>
+						<div class="col-dt-3 col-tb-3 col-mb-3 no-margin">
+							<div class="list-item-content">
+								<strong>Last Name</strong>
+							</div>
+						</div>
+						<div class="col-dt-3 col-tb-3 col-mb-3 no-margin">
+							<div class="list-item-content">
+								<strong>Email</strong>
+							</div>
+						</div>
 					</div>
-					<div class="col-dt-2 col-tb-4 col-mb-6 text-center">
-						<h4>First Name</h4>
+					<div>
+						<div class="list-item clearfix">
+							<div class="list-container clearfix">
+								<div class="col-dt-3 col-tb-3 col-mb-3">
+									<div class="list-item-content">
+										<?= $user->id ?>
+									</div>
+								</div>
+								<div class="col-dt-3 col-tb-3 col-mb-3">
+									<div class="list-item-content">
+										<?= $user->firstName ?>
+									</div>
+								</div>
+								<div class="col-dt-3 col-tb-3 col-mb-3">
+									<div class="list-item-content">
+										<?= $user->lastName ?>
+									</div>
+								</div>
+								<div class="col-dt-3 col-tb-3 col-mb-3">
+									<div class="list-item-content">
+										<?= $user->email ?>
+									</div>
+								</div>
+							</div>
+						</div>
 					</div>
-					<div class="col-dt-2 col-tb-4 col-mb-6 text-center">
-						<h4>Last Name</h4>
-					</div>
-					<div class="col-dt-2 col-tb-4 col-mb-6 text-center">
-						<h4>Email</h4>
-					</div>
-					<div class="col-dt-2 col-tb-4 col-mb-6 text-center">
-						<h4>Address Id</h4>
-					</div>
-				</div>
-				<div class="package-list-item clearfix">
-					<div class="col-dt-2 text-center">
-						<?= $user->id ?>
-					</div>
-					<!-- /.col-dt-2 -->
-					<div class="col-dt-2 text-center">
-						<?= $user->firstName ?>
-					</div>
-					<!-- /.col-dt-2 -->
-					<div class="col-dt-2 text-center">
-						<?= $user->lastName ?>
-					</div>
-					<!-- /.col-dt-2 -->
-					<div class="col-dt-2 text-center">
-						<?= $user->email ?>
-					</div>
-					<!-- /.col-dt-2 -->
-					<div class="col-dt-2 text-center">
-						<?= $user->addressId ?>
-					</div>
-					<!-- /.col-dt-2 -->
-				</div>
+				<?php } ?>
 			</div>
-		<?php } ?>
+		</div>
 	</div>
 </div>
 
