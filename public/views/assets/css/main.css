@@ -124,7 +124,21 @@ viktor code
 	/* https://static1.squarespace.com/static/56a1b48e2399a32e6171d4c3/t/56a768301115e0437fc466a3/1453811761142/letters_post_cards_stamps_photography_1920x1200_hd-wallpaper-1600184.jpg
 	https://www.highreshdwallpapers.com/wp-content/uploads/2014/06/Drinking-Cheers.jpg
 	*/
+	background-size: cover;
+	background-position: center;
+	background-attachment : fixed;
+	height: 500px;
+	width: 100%;
+}
 
+.banner2 {
+	position: relative;
+	background-image: url("http://weknownyourdreamz.com/images/town/town-02.jpg");
+	/* https://static1.squarespace.com/static/56a1b48e2399a32e6171d4c3/t/56a768301115e0437fc466a3/1453811761142/letters_post_cards_stamps_photography_1920x1200_hd-wallpaper-1600184.jpg
+	https://www.highreshdwallpapers.com/wp-content/uploads/2014/06/Drinking-Cheers.jpg
+	*/
+	-webkit-transition: background-image 0.2s ease-in-out;
+	transition: background-image 0.2s ease-in-out;
 	background-size: cover;
 	background-position: center;
 	background-attachment : fixed;
@@ -142,6 +156,18 @@ viktor code
 	padding: 30px 10px;
 	margin: auto;
 }
+.banner-content2 {
+	border: 1px solid #FFF;
+	border-radius: 10px;
+	background-color: rgba(255, 255, 255, 0.9);
+	position: relative;
+	top: 20%;
+	width: 40%;
+	padding: 30px 10px;
+	margin: auto;
+}
+
+
 
 /* end of viktor code */
 
