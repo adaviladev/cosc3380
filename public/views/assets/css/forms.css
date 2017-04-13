@@ -172,6 +172,14 @@ button:hover {
 	color: #ffffff;
 	font-weight : bold;
 }
+.success-message {
+	width            : 100%;
+	padding          : 8px;
+	border-radius    : 2px;
+	background-color : #4caf50;
+	color: #ffffff;
+	font-weight : bold;
+}
 
 .email-error input:after {
 	color : #ff0000;

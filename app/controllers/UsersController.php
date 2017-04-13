@@ -178,7 +178,7 @@
 
 		public function updatePassword() {
 			$user = Auth::user();
-			$changeFlag = -1;
+			$changeFlag = 0;
 			if($user){
 				if($user->password == md5($_POST['oldPassword']) && $_POST['newPassword'] == $_POST['confirmPassword'] )
 				{
@@ -190,6 +190,7 @@
 					       ->get();
 					$changeFlag = 3;
 				}
+
 				else if($user->password == md5($_POST['oldPassword']) && $_POST['newPassword'] != $_POST['confirmPassword'])
 				{
 					$changeFlag = 1;
