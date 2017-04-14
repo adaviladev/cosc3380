@@ -1,8 +1,16 @@
+<?php
+	use App\Core\Auth;
+?>
+
 <div class="grid-wrapper clearfix">
 	<?php foreach( $packages as $package ) { ?>
 		<div class="col-dt-4 col-tb-6 col-mb-12 grid-item clearfix">
 			<div class="grid-item-container card-2 clearfix">
-				<a href="/dashboard/packages/<?= $package->id; ?>">
+				<?php if( Auth::user()->roleId === 1 ) { ?>
+					<a href="/admin/packages/<?= $package->id; ?>">
+				<?php } else { ?>
+					<a href="/dashboard/packages/<?= $package->id; ?>">
+				<?php } ?>
 					<div class="col-dt-12 col-tb-12 col-mb-12 grid-header secondary-bg text-left">
 						<div class="grid-item-content">
 							<h3>Order: #<?= $package->id; ?></h3>

@@ -100,6 +100,58 @@
 			return redirect( 'login' );
 		}
 
+		public function transactionDetail( $transactionId ){
+			$user = Auth::user();
+			if( $user ) {
+				if( $user->roleId === 1 ) {
+					$transaction = Transaction::find()
+					                          ->where( [ 'id' ] , [ '=' ] , [ $transactionId ] )
+					                          ->get();
+
+					$transaction->customer                      = User::find()
+					                                                  ->where( [ 'id' ] , [ '=' ] ,
+					                                                           [ $transaction->customerId ] )
+					                                                  ->get();
+					$transaction->employee                      = User::find()
+					                                                  ->where( [ 'id' ] , [ '=' ] ,
+					                                                           [ $transaction->employeeId ] )
+					                                                  ->get();
+					$transaction->package                       = Package::find()
+					                                                     ->where( [ 'id' ] , [ '=' ] ,
+					                                                              [ $transaction->packageId ] )
+					                                                     ->get();
+					$transaction->package->status               = PackageStatus::find()
+					                                                           ->where( [ 'id' ] , [ '=' ] ,
+					                                                                    [ $transaction->package->packageStatus ] )
+					                                                           ->get()->type;
+					$transaction->package->destination          = Address::find()
+					                                                     ->where( [ 'id' ] , [ '=' ] ,
+					                                                              [ $transaction->package->destinationId ] )
+					                                                     ->get();
+					$transaction->package->destination->state   = State::find()
+					                                                   ->where( [ 'id' ] , [ '=' ] ,
+					                                                            [ $transaction->package->destination->stateId ] )
+					                                                   ->get()->state;
+					$transaction->package->returnAddress        = Address::find()
+					                                                     ->where( [ 'id' ] , [ '=' ] ,
+					                                                              [ $transaction->package->returnAddressId ] )
+					                                                     ->get();
+					$transaction->package->returnAddress->state = State::find()
+					                                                   ->where( [ 'id' ] , [ '=' ] ,
+					                                                            [ $transaction->package->returnAddress->stateId ] )
+					                                                   ->get()->state;
+
+					return view( 'dashboard/transactionDetail' , compact( 'transaction' ) );
+				} else if( $user->roleId == 3 ) {
+					return redirect( 'account' );
+				} else if( $user->roleId == 2 ) {
+					return redirect( 'dashboard' );
+				}
+			}
+
+			return redirect( 'login' );
+		}
+
 		public function users() {
 			$auth = Auth::user();
 			if( $auth && $auth->roleId == 1 ) {
@@ -122,6 +174,9 @@
 						$user->transactionTotal = $user->transactionTotal + $transaction->cost;
 					}
 					$user->averageSpent = $user->transactionTotal / $user->transactionCount;
+					if( is_nan( $user->averageSpent ) ) {
+						$user->averageSpent = 0;
+					}
 				}
 
 				return view( 'admin/adminUsers' ,

@@ -32,7 +32,7 @@
                 <h3>Employees</h3>
                 <?php getPartial( 'employeesList' , compact( 'employees' ) ); ?>
                 <div class="text-right">
-                    <a href="/dashboard/employees">View all employees</a>
+                    <a href="/admin/users">View all employees</a>
                 </div>
             </div>
             <!-- /.group-wrapper -->
@@ -46,11 +46,7 @@
             <div class="group-wrapper card-2">
 
                 <h3>Customers</h3>
-                <ul>
-                    <?php foreach( $customers as $customer ) { ?>
-                        <li><?= $customer->firstName; ?> <?= $customer->lastName; ?> - <?= $customer->packageCount; ?></li>
-                    <?php } ?>
-                </ul>
+                <?php getPartial( 'customersList' , compact( 'customers' ) ); ?>
                 <div class="text-right">
                     <a href="/dashboard/customers">View all customers</a>
                 </div>

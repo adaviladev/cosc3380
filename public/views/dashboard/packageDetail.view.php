@@ -1,4 +1,8 @@
-<?php getHeader(); ?>
+<?php
+	use App\Core\Auth;
+
+	getHeader();
+?>
 
 	<div class="row">
 		<div class="container">
@@ -36,7 +40,7 @@
 										<?= $package->destination->city; ?>, <?= $package->destination->state; ?> <?= $package->destination->zipCode; ?>
 									</div>
 									<!-- /.col-dt-12 -->
-									<?php if( $package->packageStatus == 1 ) { ?>
+									<?php if( $package->packageStatus == 1 && Auth::user()->roleId == 2 ) { ?>
 										<a href="/dashboard/packages/edit/<?= $package->id; ?>" class="button">Edit</a>
 										<!-- /.button -->
 									<?php } ?>

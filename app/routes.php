@@ -62,10 +62,12 @@
 	 * Admin routes
 	 */
 	$router->get( 'admin' , 'AdminController@admin' );
+	$router->get( 'admin/users' , 'AdminController@users' );
 	$router->get( 'admin/packages' , 'AdminController@packages' );
+	$router->get( 'admin/packages/:packageId' , 'PackageController@packageDetail' );
 	$router->get( 'admin/transactions' , 'AdminController@transactions' );
+	$router->get( 'admin/transactions/:transactionId' , 'AdminController@transactionDetail' );
 	$router->get( 'admin/post-offices' , 'AdminController@postOffices' );
-    $router->get( 'admin/users' , 'AdminController@users' );
 	$router->get( 'admin/post-offices/:postOfficeId' , 'AdminController@selectedPostOffice' );
 
 	/**
