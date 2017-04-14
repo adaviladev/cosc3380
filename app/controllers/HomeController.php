@@ -10,12 +10,13 @@
 	use PostOffice;
 	use Role;
 	use State;
+	use Transaction;
 	use User;
 
 	class HomeController {
 		public function home() {
 			$user = Auth::user();
-			if( $user && $user->roleId == 2 || $user->roleId == 1) {
+			if( $user && $user->roleId == 2 || $user->roleId == 1 ) {
 				$packages = Package::findAll()
 				                   ->where( [ 'postOfficeId' , 'packageStatus' ] , [ '=' , '<>' ] ,
 				                            [ $user->postOfficeId , '4' ] )
@@ -77,7 +78,19 @@
 					                                        ->get() );
 				}
 
-				return view( 'dashboard/dashboard' , compact( 'user' , 'packages' , 'employees' , 'customers' ) );
+				$transactions = Transaction::findAll()
+				                           ->limit( 6 )
+				                           ->orderBy( 'createdAt' , 'DESC' )
+				                           ->get();
+
+				foreach( $transactions as $transaction ) {
+					$transaction->customer = User::find()
+					                             ->where( [ 'id' ] , [ '=' ] , [ $transaction->customerId ] )
+					                             ->get();
+				}
+
+				return view( 'dashboard/dashboard' ,
+				             compact( 'user' , 'packages' , 'employees' , 'customers' , 'transactions' ) );
 			} else {
 				return redirect( 'login' );
 			}
@@ -85,7 +98,7 @@
 
 		public function showEmployees() {
 			$user = Auth::user();
-			if( $user->roleId == 2 || $user->roleId == 1) {
+			if( $user->roleId == 2 || $user->roleId == 1 ) {
 				$employees = User::findAll()
 				                 ->where( [ 'postOfficeId' , 'roleId' ] , [ '=' , '=' ] ,
 				                          [ $user->postOfficeId , $user->roleId ] )
