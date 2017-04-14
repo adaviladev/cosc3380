@@ -141,8 +141,14 @@
 	margin-bottom : 15px;
 }
 
-.form-wrapper button:hover {
+button:hover {
 	background-color : #ff6f00;
+	font-size : 130%;
+	-webkit-transition : font-size .1s;
+	-moz-transition    : font-size .1s;
+	-ms-transition     : font-size .1s;
+	-o-transition      : font-size .1s;
+	transition         : font-size .1s;
 }
 
 .form-wrapper button[disabled] {
@@ -164,6 +170,14 @@
 	padding          : 8px;
 	border-radius    : 2px;
 	background-color : #db4437;
+	color: #ffffff;
+	font-weight : bold;
+}
+.success-message {
+	width            : 100%;
+	padding          : 8px;
+	border-radius    : 2px;
+	background-color : #4caf50;
 	color: #ffffff;
 	font-weight : bold;
 }
