@@ -1,3 +1,4 @@
+<?php use App\Core\Auth; ?>
 <div class="list-wrapper card-2">
 	<div class="list-header primary-bg clearfix">
 		<div class="col-dt-3 col-tb-3 col-mb-3 no-margin">
@@ -38,7 +39,11 @@
 						<div class="list-item-content">
 							<?= $employee->firstName ?> <?= $employee->lastName ?>
 							<div>
-								<a href="/dashboard/employees/<?= $employee->id; ?>">Edit</a>
+								<?php if( Auth::user()->roleId === 1 ) { ?>
+									<a href="/admin/employees/<?= $employee->id; ?>">Edit</a>
+								<?php } else { ?>
+									<a href="/dashboard/employees/<?= $employee->id; ?>">Edit</a>
+								<?php } ?>
 							</div>
 						</div>
 						<!-- /.list-item-content -->

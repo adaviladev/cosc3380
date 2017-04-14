@@ -25,6 +25,9 @@
 						<a href="/admin/post-offices">Post Offices</a>
 					</li>
 					<li class="nav-item">
+						<a href="/admin/employees">Employees</a>
+					</li>
+					<li class="nav-item">
 						<a href="/admin/users">Users</a>
 					</li>
 				</ul>

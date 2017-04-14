@@ -29,10 +29,10 @@
 		<div class="container">
 			<?php if( ! empty( $admins ) ) { ?>
 				<div class="group-wrapper card-2 clearfix">
-					<h3>Admins</h3>
+					<h3>Users</h3>
 					<?php getPartial( 'adminsList' , compact( 'admins' ) ); ?>
 					<div class="text-right">
-						<a href="/admin/users">View All Users</a>
+						<a href="/admin/users">View All Admins</a>
 					</div>
 				</div>
 				<!-- /.group-wrapper -->

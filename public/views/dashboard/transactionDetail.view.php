@@ -29,7 +29,7 @@
 							<!-- /.col-dt-12 -->
 							<div class="col-dt-12 text-left clearfix">
 								<div class="package-detail-info clearfix">
-									<p><strong><?= $transaction->package->status; ?> - $<?= $transaction->cost ?></strong></p>
+									<p><strong><?= $transaction->package->status; ?> - $<?= money_format( '%i' , $transaction->cost ); ?></strong></p>
 									<div class="col-dt-6 col-mb-12">
 										<p>Origin:</p>
 										<?= $transaction->package->returnAddress->street; ?>,<br/>

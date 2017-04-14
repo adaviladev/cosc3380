@@ -48,7 +48,7 @@
 						</div>
 						<div class="col-dt-3 col-tb-3 col-mb-3">
 							<div class="list-item-content">
-								$<?= $transaction->cost; ?>
+								$<?= money_format( '%i' , $transaction->cost ); ?>
 							</div>
 						</div>
 					</div>

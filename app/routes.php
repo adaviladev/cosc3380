@@ -43,16 +43,15 @@
 	 * Account routes
 	 */
 
-
 	$router->get( 'account' , 'UsersController@account' );
 	$router->get( 'account/info' , 'UsersController@accountInfo' );
-	$router->post('account/info' , 'UsersController@updateAccountInfo');
+	$router->post( 'account/info' , 'UsersController@updateAccountInfo' );
 	$router->get( 'account/packages' , 'PackageController@accountPackages' );
 	$router->get( 'account/packages/:packageId' , 'PackageController@accountPackagesId' );
 	$router->get( 'account/packages/cancel/:packageId' , 'PackageController@accountPackagesCancel' );
 	$router->post( 'account/packages/cancel/:packageId' , 'PackageController@updatePackagesCancel' );
 	$router->get( 'account/info/password' , 'UsersController@passwordChange' );
-	$router->post( 'account/info/password' , 'UsersController@updatePassword');
+	$router->post( 'account/info/password' , 'UsersController@updatePassword' );
 	$router->get( 'account/transactions' , 'TransactionController@userTransactions' );
 	$router->get( 'account/transactions/:transactionId' , 'TransactionController@userTransactionDetail' );
 	$router->get( 'account/transactions/edit/:transactionId' , 'TransactionController@editUserTransaction' );
@@ -63,6 +62,12 @@
 	 */
 	$router->get( 'admin' , 'AdminController@admin' );
 	$router->get( 'admin/users' , 'AdminController@users' );
+	$router->get( 'admin/employees/add' , 'UsersController@addEmployee' );
+	$router->post( 'admin/employees/add' , 'UsersController@storeEmployee' );
+	$router->get( 'admin/employees/:employeeId' , 'UsersController@editEmployeeDetail' );
+	$router->post( 'admin/employees/:employeeId' , 'UsersController@updateEmployeeDetail' );
+	$router->get( 'admin/customers' , 'AdminController@customers' );
+	$router->get( 'admin/customers/:customerId' , 'AdminController@customerDetail' );
 	$router->get( 'admin/packages' , 'AdminController@packages' );
 	$router->get( 'admin/packages/:packageId' , 'PackageController@packageDetail' );
 	$router->get( 'admin/transactions' , 'AdminController@transactions' );

@@ -1,5 +1,4 @@
 <?php getHeader();
-	$emailClass = ( isset( $errors[ 'email' ] ) ) ? 'invalid' : '';
 	if(isset($_POST['submit'])){
 		$to = "#@gmail.com"; // this is your Email address
 		$from = $_POST['Email']; // this is the sender's Email address
@@ -26,21 +25,21 @@
 				<!-- Input begins -->
 				<form action="" method="post">
 					<div class="field-container clearfix">
-						<label>First Name</label>
-						<input type="text" name="FirstName" class="" value="">
+						<label for="FirstName">First Name</label>
+						<input id="FirstName" type="text" name="FirstName" class="" value="" required>
 					</div>
 					<div class="field-container clearfix">
-						<label>Last Name</label>
-						<input type="text" name="LastName" class="" value="">
+						<label for="LastName">Last Name</label>
+						<input id="LastName" type="text" name="LastName" class="" value="" required>
 					</div>
 					<div class="field-container clearfix">
-						<label>Email</label>
-						<input type="text" name="Email" class="" value="">
+						<label for="Email">Email</label>
+						<input id="Email" type="text" name="Email" class="" value="" required>
 					</div>
 					<div class="field-container clearfix">
-						<label>Your Local ProstOffice (Optional)</label>
+						<label for="postOfficeSelector">Your Local ProstOffice (Optional)</label>
 						<?php if( ! empty( $postOffices ) ) { ?>
-							<select>
+							<select id="postOfficeSelector" name="postOfficeSelector" required>
 								<option disabled selected value=""></option>
 								<?php foreach( $postOffices as $postOffice ) { ?>
 									<option name="PostOffice" value="<?= $postOffice->name; ?>"><?= $postOffice->name; ?></option>
@@ -50,10 +49,8 @@
 					</div>
 					<div class="field-container clearfix">
 						<!-- Text area -->
-						<label>What is your question or comment?</label>
-					</div>
-					<div class="field-container clearfix">
-						<textarea type="text" name="Message" class="" value=""></textarea>
+						<label for="Message">What is your question or comment?</label>
+						<textarea id="Message" type="text" name="Message" class="" value="" required></textarea>
 					</div>
 					<button type="submit" name="submit" value="submit">Submit</button>
 				</form>

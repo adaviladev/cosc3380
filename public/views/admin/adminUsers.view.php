@@ -10,7 +10,7 @@ the users' first name, last name and transaction figures, with a link to single 
 		<div class="group-wrapper card-2 clearfix">
 			<h3>All Users</h3>
 			<div class="list-wrapper card-2">
-				<?php if( ! empty( $users ) ) { ?>
+				<?php if( ! empty( $customers ) ) { ?>
 					<div class="list-header primary-bg clearfix">
 						<!-- Header for the list begins -->
 						<div class="col-dt-3 col-tb-3 col-mb-3 no-margin">
@@ -35,32 +35,32 @@ the users' first name, last name and transaction figures, with a link to single 
 						</div>
 					</div>
 					<div>
-						<?php foreach( $users as $user ) { ?>
+						<?php foreach( $customers as $customer ) { ?>
 							<!-- List of users begins -->
 							<div class="list-item clearfix">
 								<div class="list-container clearfix">
 									<div class="col-dt-3 col-tb-3 col-mb-3">
 										<div class="list-item-content">
-											<?= $user->firstName?> <?= $user->lastName?>
+											<?= $customer->firstName?> <?= $customer->lastName?>
 											<div>
-												<a href="/users/<?= $user->id ?>">
+												<a href="/users/<?= $customer->id ?>">
 													View</a>
 											</div>
 										</div>
 									</div>
 									<div class="col-dt-3 col-tb-3 col-mb-3">
 										<div class="list-item-content">
-											<?= $user->packageCount?>
+											<?= $customer->packageCount?>
 										</div>
 									</div>
 									<div class="col-dt-3 col-tb-3 col-mb-3">
 										<div class="list-item-content">
-											$<?= $user->transactionTotal ?>
+											$<?= money_format( '%i' , $customer->transactionTotal ); ?>
 										</div>
 									</div>
 									<div class="col-dt-3 col-tb-3 col-mb-3">
 										<div class="list-item-content">
-											$<?= $user->averageSpent ?>
+											$<?= money_format( '%i' , $customer->averageSpent ); ?>
 										</div>
 									</div>
 								</div>

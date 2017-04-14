@@ -7,7 +7,7 @@
 			$( '.form-wrapper label' ).removeClass( 'active' );
 			$( this ).siblings( 'label' ).addClass( 'active' );
 		} );
-		$( '.form-wrapper input,.form-wrapper select' ).blur( function() {
+		$( '.form-wrapper input,.form-wrapper textarea' ).blur( function() {
 			$( '.form-wrapper label' ).removeClass( 'active' );
 			if( !$( this ).parent().hasClass( 'validate' ) && $( this ).val() ) {
 				if( $( this ).attr( 'type' ) !== 'email' ) {
@@ -16,6 +16,14 @@
 				}
 			}
 			if( $( this ).val().length === 0 ) {
+				$( this ).siblings( 'label' ).removeClass( 'filled' );
+				$( this ).removeClass( 'valid' );
+				$( this ).addClass( 'dirty' );
+			}
+		} );
+		$( '.form-wrapper select' ).blur( function() {
+			$( '.form-wrapper label' ).removeClass( 'active' );
+			if( $( this ).val() === null ) {
 				$( this ).siblings( 'label' ).removeClass( 'filled' );
 				$( this ).removeClass( 'valid' );
 				$( this ).addClass( 'dirty' );

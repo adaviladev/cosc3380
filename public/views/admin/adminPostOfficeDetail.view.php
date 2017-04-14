@@ -16,7 +16,7 @@
                 <h3>Local Packages</h3>
                 <?php getPartial( "packagesGrid" , compact( 'packages' ) ); ?>
                 <div class="text-right">
-                    <a href="/dashboard/packages">View all packages</a>
+                    <a href="/admin/packages">View all packages</a>
                 </div>
                 <!-- /.text-right -->
             </div>
@@ -48,7 +48,7 @@
                 <h3>Customers</h3>
                 <?php getPartial( 'customersList' , compact( 'customers' ) ); ?>
                 <div class="text-right">
-                    <a href="/dashboard/customers">View all customers</a>
+                    <a href="/admin/customers">View all customers</a>
                 </div>
                 <!-- /.text-right -->
             </div>

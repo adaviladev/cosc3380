@@ -19,7 +19,7 @@
 								<!-- /.col-dt-12 col-tb-12 col-mb-12 -->
 								<div class="clearfix grid-item-content">
 									<div class="col-dt-12 col-tb-12 col-mb-12">
-										Cost: $<?= $transaction->cost; ?>
+										Cost: $<?= money_format( '%i', $transaction->cost ); ?>
 									</div>
 									<!-- /.col-dt-12 col-tb-12 col-mb-12 -->
 									<div class="col-dt-12 col-tb-12 col-mb-12">

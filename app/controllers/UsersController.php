@@ -69,8 +69,9 @@
 
 		public function addEmployee() {
 			$states = State::selectAll();
+			$roles = Role::selectAll();
 
-			return view( 'dashboard/addEmployee' , compact( 'states' ) );
+			return view( 'dashboard/addEmployee' , compact( 'states', 'roles' ) );
 		}
 
 		public function storeEmployee() {
@@ -387,7 +388,7 @@
 
 		public function editEmployeeDetail( $employeeId ) {
 			$user = Auth::user();
-			if( $user->roleId == 2 || $user->roleId == 1 ) {
+			if( $user && ($user->roleId == 2 || $user->roleId == 1 ) ) {
 				$employee           = User::find()
 				                          ->where( [ 'id' ] , [ '=' ] , [ $employeeId ] )
 				                          ->get();
@@ -463,8 +464,11 @@
 				}
 
 				// dd( $bindings );
-
-				return redirect( "dashboard/employees/{$employeeId}" );
+				if( $user->roleId === 1 ) {
+					return redirect( "admin/users/" );
+				} else {
+					return redirect( "dashboard/employees/" );
+				}
 			} else if( $user->roleId == 3 ) {
 				return redirect( 'account' );
 			} else if( $user->roleId == 3 ) {
