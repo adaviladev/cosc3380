@@ -1,9 +1,13 @@
 <?php getHeader() ?>
 
 <?php if( $package->packageStatus !== 1 ) { ?>
-	<h5>We're sorry. This package has left processing and therefore can not be cancelled.</h5>
-	<br/>
-	<a href="/account/packages">Return to Packages.</a>
+	<div class="container">
+		<div class="errors">
+			We're sorry. This package has left processing and therefore can not be cancelled.
+		</div>
+		<br/>
+		<a href="/account/packages">Return to Packages.</a>
+	</div>
 <?php } else if( $package->userId != $user->id ) {
 	redirect( 'account/packages' );
 } else if( $package->userId == $user->id && $package->packageStatus == 1 ) { ?>
