@@ -3,6 +3,8 @@
 	/**
 	 * Class QueryBuilder
 	 * Used to build out query templates for common database calls.
+	 *
+	 * Deprecated and replaced by App\Core\Model;
 	 */
 	class QueryBuilder {
 

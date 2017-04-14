@@ -60,26 +60,32 @@
 			$table           = $instance->TABLE_ARRAY[ $class ];
 			$instance->table = $table;
 
-			$columns   = implode( ',' ,
-			                      $columns );
+			$columns   = implode( ',' , $columns );
 			$statement = $instance->builder->prepare( "select {$columns} from {$table}" );
 			$statement->execute();
 
-			return $statement->fetchAll( PDO::FETCH_CLASS ,
-			                             $class );
+			return $statement->fetchAll( PDO::FETCH_CLASS , $class );
 		}
 
-		public static function leftJoinOn( $joinedTable ,
-		                                   $foreignKey ,
-		                                   $primaryKey ,
-		                                   $columns = [ '*' ] ) {
+		/**
+		 * @param string $joinedTable table to be joined on
+		 * @param string $foreignKey correlating key in table from calling class: TABLE_ARRAY[ ::class => table ]
+		 * @param string $primaryKey primary key in joined table
+		 * @param array  $columns array of columns to be returned.
+		 *
+		 * @return Model
+		 *
+		 * I was playing around with this, but couldn't
+		 * figure out how to generalize it further
+		 * to work on multiple cases
+		 */
+		public static function leftJoinOn( $joinedTable , $foreignKey , $primaryKey , $columns = [ '*' ] ) {
 			$instance        = self::init();
 			$class           = get_called_class();
 			$table           = $instance->TABLE_ARRAY[ $class ];
 			$instance->table = $table;
 
-			$columns        = implode( ', ' ,
-			                           $columns );
+			$columns        = implode( ', ' , $columns );
 			$instance->type = "SELECT {$columns} FROM {$table} JOIN {$joinedTable} ON (`{$table}`.`{$foreignKey}`=`{$joinedTable}`.`{$primaryKey}`)";
 
 			return $instance;
@@ -89,6 +95,8 @@
 		 * @param string $table contains the table to search through
 		 * @param array  $columns contains the columns to return
 		 * @param string $class contains the class to be assigned to
+		 *
+		 * @return $instance object for further chaining
 		 */
 		public static function find( $columns = [ '*' ] ) {
 			$instance        = self::init();
@@ -96,8 +104,7 @@
 			$table           = $instance->TABLE_ARRAY[ $class ];
 			$instance->table = $table;
 
-			$columns            = implode( ',' ,
-			                               $columns );
+			$columns            = implode( ',' , $columns );
 			$instance->type     = "SELECT {$columns} FROM {$table}";
 			$instance->class    = $class;
 			$instance->isSingle = true;
@@ -118,8 +125,7 @@
 			$class              = get_called_class();
 			$table              = $instance->TABLE_ARRAY[ get_called_class() ];
 			$instance->table    = $table;
-			$columns            = implode( ',' ,
-			                               $columns );
+			$columns            = implode( ',' , $columns );
 			$instance->type     = "SELECT {$columns} FROM {$table}";
 			$instance->class    = $class;
 			$instance->isSingle = false;
@@ -133,12 +139,9 @@
 		 * @param array  $values contains matching set of values to check for
 		 * @param string $bool conjunction to use between conditional checks
 		 *
-		 * @return $this
+		 * @return $this same object for further chaining
 		 */
-		public function where( $columns = [] ,
-		                       $operators = [] ,
-		                       $values = [] ,
-		                       $bool = " AND " ) {
+		public function where( $columns = [] , $operators = [] , $values = [] , $bool = " AND " ) {
 			$this->whereClause = "WHERE ";
 			for( $i = 0; $i < count( $columns ); $i++ ) {
 				if( $i > 0 ) {
@@ -150,10 +153,14 @@
 			return $this;
 		}
 
-		public function whereIn( $values = [] ,
-		                         $column = 'id' ) {
-			$values            = implode( ',' ,
-			                              $values );
+		/**
+		 * @param array  $values list of values to be matched against
+		 * @param string $column name of column to match against $values[]
+		 *
+		 * @return $this same object for further chaining
+		 */
+		public function whereIn( $values = [] , $column = 'id' ) {
+			$values            = implode( ',' , $values );
 			$this->whereClause = "WHERE {$column} IN ({$values})";
 
 			return $this;
@@ -169,10 +176,9 @@
 		 * @param $attribute
 		 * @param $direction
 		 *
-		 * @return $this
+		 * @return $this same object for further chaining
 		 */
-		public function orderBy( $attribute ,
-		                            $direction ) {
+		public function orderBy( $attribute , $direction ) {
 			$this->orderBy .= "ORDER BY {$attribute} {$direction}";
 
 			return $this;
@@ -187,12 +193,8 @@
 			$class    = get_called_class();
 			$table    = $instance->TABLE_ARRAY[ $class ];
 			array_keys( $parameters );
-			$sql = sprintf( "INSERT INTO %s (%s) VALUES (%s)" ,
-			                $table ,
-			                implode( ", " ,
-			                         array_keys( $parameters ) ) ,
-			                ":" . implode( ", :" ,
-			                               array_keys( $parameters ) ) );
+			$sql = sprintf( "INSERT INTO %s (%s) VALUES (%s)" , $table , implode( ", " , array_keys( $parameters ) ) ,
+			                ":" . implode( ", :" , array_keys( $parameters ) ) );
 
 			try {
 				$statement = $instance->builder->prepare( $sql );
@@ -204,6 +206,11 @@
 			}
 		}
 
+		/**
+		 * @param array $bindings key=>value pairs of columns and values to update
+		 *
+		 * @return Model
+		 */
 		public static function update( $bindings = [] ) {
 			$instance           = self::init();
 			$class              = get_called_class();
@@ -248,6 +255,11 @@
 			return $this->run( $this->query );
 		}
 
+		/**
+		 * @param string $sql Raw/generated sql query to be immediately executed
+		 *
+		 * @return mixed
+		 */
 		public function run( $sql ) {
 			try {
 				$statement = $this->builder->prepare( $sql );
@@ -257,8 +269,7 @@
 						return $statement->fetchObject( $this->class );
 					}
 
-					return $statement->fetchAll( PDO::FETCH_CLASS ,
-					                             $this->class );
+					return $statement->fetchAll( PDO::FETCH_CLASS , $this->class );
 				}
 			} catch( PDOException $e ) {
 				die( $e );

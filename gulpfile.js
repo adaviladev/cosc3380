@@ -1,5 +1,10 @@
 'use strict';
 
+/**
+ * Used for concatenating, linting, and minifying all JS and CSS files.
+ * @type {Gulp}
+ */
+
 var gulp = require( 'gulp' );
 
 var jshint = require( 'gulp-jshint' );
