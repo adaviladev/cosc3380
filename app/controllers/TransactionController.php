@@ -27,18 +27,28 @@
 		public function postOfficeTransactions() {
 			$user = Auth::user();
 			$user->postOfficeId;
-			$transactions = Transaction::findAll()
-			                           ->where( [ 'postOfficeId' ] , [ '=' ] , [ $user->postOfficeId ] )
-			                           ->orderBy( 'createdAt' , 'DESC' )
-			                           ->get();
+			if( $user && $user->roleId == 2 ) {
+				$transactions = Transaction::findAll()
+				                           ->where( [ 'postOfficeId' ] ,
+				                                    [ '=' ] ,
+				                                    [ $user->postOfficeId ] )
+				                           ->orderBy( 'createdAt' ,
+				                                      'DESC' )
+				                           ->get();
 
-			foreach( $transactions as $transaction ) {
-				$transaction->customer = User::find()
-				                             ->where( [ 'id' ] , [ '=' ] , [ $transaction->customerId ] )
-				                             ->get();
+				foreach( $transactions as $transaction ) {
+					$transaction->customer = User::find()
+					                             ->where( [ 'id' ] ,
+					                                      [ '=' ] ,
+					                                      [ $transaction->customerId ] )
+					                             ->get();
+				}
+
+				return view( 'dashboard/transactions' ,
+				             compact( 'transactions' ) );
+			} else if($user->roleId == 3) {
+				return redirect('account');
 			}
-
-			return view( 'dashboard/transactions' , compact( 'transactions' ) );
 		}
 
 		/**
