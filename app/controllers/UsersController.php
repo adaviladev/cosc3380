@@ -34,7 +34,7 @@
 
 				$customers = [];
 				foreach( $packages as $package ) {
-					$customers[] = User::findAll()->where(['id'],['='],[$packages->userId])->get();
+					$customers[] = User::find()->where(['id'],['='],[$package->userId])->get();
 				}
 
 				return view( 'dashboard/customers' , compact( 'customers' ) );
@@ -99,96 +99,118 @@
 			}
 		}
 
+		/**
+		 * @return mixed Display form for adding employees to own post office
+		 */
 		public function addEmployee() {
-			$states = State::selectAll();
-			$roles = Role::selectAll();
+			$user = Auth::user();
+			if( $user ) {
+				if( $user->roleId === 2 ) {
+					$states = State::selectAll();
+					$roles  = Role::selectAll();
 
-			return view( 'dashboard/addEmployee' , compact( 'states', 'roles' ) );
+					return view( 'dashboard/addEmployee' , compact( 'states' , 'roles' ) );
+				} else if( $user->roleId === 1 ) {
+					return redirect( 'admin' );
+				} else if( $user->roleId === 3 ) {
+					return redirect( 'account' );
+				}
+			}
+
+			return redirect( 'login' );
 		}
 
 		public function storeEmployee() {
 			$user     = Auth::user();
-			$password = md5( $_POST[ 'password' ] );
+			if( $user ){
+				if( $user->roleId === 2 || $user->roleId === 1 ) {
+					$password = md5( $_POST[ 'password' ] );
 
-			$duplicateAddress = null;
+					$duplicateAddress = null;
 
-			if( isset( $_POST[ 'address' ] ) && $_POST[ 'address' ] !== '' ) {
-				$duplicateAddress = Address::find()
-				                           ->where( [
-					                                    'street' ,
-					                                    'city' ,
-					                                    'stateId' ,
-					                                    'zipCode' ,
-				                                    ] , [
-					                                    '=' ,
-					                                    '=' ,
-					                                    '=' ,
-					                                    '='
-				                                    ] , [
-					                                    $_POST[ 'address' ] ,
-					                                    $_POST[ 'city' ] ,
-					                                    $_POST[ 'stateId' ] ,
-					                                    $_POST[ 'zipCode' ]
-				                                    ] )
-				                           ->get();
-				// $addressId = $duplicateAddress->id;
-				if( empty( $duplicateAddress ) ) {
-					$addressId = Address::insert( [
-						                              'street'     => $_POST[ 'address' ] ,
-						                              'city'       => $_POST[ 'city' ] ,
-						                              'stateId'    => $_POST[ 'stateId' ] ,
-						                              'zipCode'    => $_POST[ 'zipCode' ] ,
-						                              'createdAt'  => date( "Y-m-d H:i:s" ) ,
-						                              'modifiedAt' => date( "Y-m-d H:i:s" )
-					                              ] );
-					// dd( $addressId );
-					// $addressId = Address::lastInsertId();
+					if( isset( $_POST[ 'address' ] ) && $_POST[ 'address' ] !== '' ) {
+						$duplicateAddress = Address::find()
+						                           ->where( [
+							                                    'street' ,
+							                                    'city' ,
+							                                    'stateId' ,
+							                                    'zipCode' ,
+						                                    ] , [
+							                                    '=' ,
+							                                    '=' ,
+							                                    '=' ,
+							                                    '='
+						                                    ] , [
+							                                    $_POST[ 'address' ] ,
+							                                    $_POST[ 'city' ] ,
+							                                    $_POST[ 'stateId' ] ,
+							                                    $_POST[ 'zipCode' ]
+						                                    ] )
+						                           ->get();
+						// $addressId = $duplicateAddress->id;
+						if( empty( $duplicateAddress ) ) {
+							$addressId = Address::insert( [
+								                              'street'     => $_POST[ 'address' ] ,
+								                              'city'       => $_POST[ 'city' ] ,
+								                              'stateId'    => $_POST[ 'stateId' ] ,
+								                              'zipCode'    => $_POST[ 'zipCode' ] ,
+								                              'createdAt'  => date( "Y-m-d H:i:s" ) ,
+								                              'modifiedAt' => date( "Y-m-d H:i:s" )
+							                              ] );
+							// dd( $addressId );
+							// $addressId = Address::lastInsertId();
+						} else {
+							$addressId = $duplicateAddress->id;
+						}
+					} else {
+						$addressId = $duplicateAddress;
+					}
+					$role = Role::find()
+					            ->where( [
+						                     'type'
+					                     ] , [ '=' ] , [ 'employee' ] )
+					            ->get();
+
+					$userInsert = User::insert( [
+						                            'firstName'    => $_POST[ 'firstName' ] ,
+						                            'lastName'     => $_POST[ 'lastName' ] ,
+						                            'addressId'    => $addressId ,
+						                            'email'        => $_POST[ 'email' ] ,
+						                            'password'     => $password ,
+						                            'roleId'       => $role->id ,
+						                            'postOfficeId' => $user->postOfficeId ,
+						                            'createdBy'    => $user->id ,
+						                            'modifiedBy'   => $user->id ,
+						                            'createdAt'    => date( "Y-m-d H:i:s" ) ,
+						                            'modifiedAt'   => date( "Y-m-d H:i:s" )
+					                            ] );
+
+					// dd( $userInsert );
+					if( ! is_string( $userInsert ) ) {
+						$user = User::find()
+						            ->where( [ 'id' ] , [ '=' ] , [ $userInsert ] )
+						            ->get();
+
+						return redirect( 'dashboard/employees' );
+						// return view( 'auth/register' );
+					} else {
+						$states = State::selectAll();
+						switch( $userInsert ) {
+							case '23000':
+								$errors = array(
+									'email' => 'Email already exists.'
+								);
+
+								// dd( $userInsert );
+								return view( 'dashboard/addEmployee' , compact( 'errors' , 'states' ) );
+						}
+					}
+
 				} else {
-					$addressId = $duplicateAddress->id;
-				}
-			} else {
-				$addressId = $duplicateAddress;
-			}
-			$role = Role::find()
-			            ->where( [
-				                     'type'
-			                     ] , [ '=' ] , [ 'employee' ] )
-			            ->get();
-
-			$userInsert = User::insert( [
-				                            'firstName'    => $_POST[ 'firstName' ] ,
-				                            'lastName'     => $_POST[ 'lastName' ] ,
-				                            'addressId'    => $addressId ,
-				                            'email'        => $_POST[ 'email' ] ,
-				                            'password'     => $password ,
-				                            'roleId'       => $role->id ,
-				                            'postOfficeId' => $user->postOfficeId ,
-				                            'createdBy'    => $user->id ,
-				                            'modifiedBy'   => $user->id ,
-				                            'createdAt'    => date( "Y-m-d H:i:s" ) ,
-				                            'modifiedAt'   => date( "Y-m-d H:i:s" )
-			                            ] );
-
-			// dd( $userInsert );
-			if( ! is_string( $userInsert ) ) {
-				$user = User::find()
-				            ->where( [ 'id' ] , [ '=' ] , [ $userInsert ] )
-				            ->get();
-
-				return redirect( 'dashboard/employees' );
-				// return view( 'auth/register' );
-			} else {
-				$states = State::selectAll();
-				switch( $userInsert ) {
-					case '23000':
-						$errors = array(
-							'email' => 'Email already exists.'
-						);
-
-						// dd( $userInsert );
-						return view( 'dashboard/addEmployee' , compact( 'errors' , 'states' ) );
+					return redirect( 'account' );
 				}
 			}
+			return redirect( 'login' );
 		}
 
 		/**
@@ -436,9 +458,9 @@
 				$states             = State::selectAll();
 
 				return view( 'dashboard/editEmployee' , compact( 'employee' , 'states' ) );
-			} else if( $user->roleId == 3 ) {
+			} else if( $user && $user->roleId == 3 ) {
 				return redirect( 'account' );
-			} else if( $user->roleId == 3 ) {
+			} else if( $user && $user->roleId == 3 ) {
 				return redirect( 'admin' );
 			}
 

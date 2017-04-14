@@ -14,11 +14,11 @@
 
 	class TransactionController {
 
-		public function show() {
-			$transactions = Transaction::selectAll();
-
-			return view( 'index' , compact( 'transactions' ) );
-		}
+		// public function show() {
+		// 	$transactions = Transaction::selectAll();
+		//
+		// 	return view( 'index' , compact( 'transactions' ) );
+		// }
 
 		/**
 		 * postOfficeTransactions() gets all the transactions processed and assigned
@@ -145,6 +145,11 @@
 			return redirect( 'login' );
 		}
 
+		/**
+		 * @param int $transactionId Id for transaction to be displayed
+		 *
+		 * @return mixed Displays Transaction details
+		 */
 		public function userTransactionDetail( $transactionId ) {
 			$user = Auth::user();
 			if( $user ) {
@@ -197,6 +202,9 @@
 			return redirect( 'login' );
 		}
 
+		/**
+		 * @return mixed Displays form for creating a new transaction for a customer
+		 */
 		public function createTransaction() {
 			$user = Auth::user();
 			if( $user ) {
@@ -219,6 +227,11 @@
 			return redirect( 'login' );
 		}
 
+		/**
+		 * Stores transaction data
+		 *
+		 * @return mixed Redirects to transactions page
+		 */
 		public function storeTransaction() {
 			$user = Auth::user();
 			if( $user ) {
