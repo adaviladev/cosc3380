@@ -10,6 +10,8 @@ var rename = require( 'gulp-rename' );
 var concatCss = require( 'gulp-concat-css' );
 var cleanCss = require( 'gulp-clean-css' );
 
+gulp.task( 'default' , ['css' , 'lint' , 'scripts' , 'watch'] );
+
 gulp.task( 'lint', function() {
 	return gulp.src( 'public/views/assets/js/*.js' )
 		.pipe( jshint() )
