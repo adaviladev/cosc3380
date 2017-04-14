@@ -1,7 +1,7 @@
 <?php getHeader(); ?>
 <div class="row">
 	<div class="container">
-		<?php if( ! empty( $package )) { ?>
+		<?php if( ! empty( $package ) ) { ?>
 			<div class="package-wrapper">
 				<div class="package-item card-2 clearfix">
 					<div class="package-detail-content">
@@ -35,7 +35,7 @@
 									<?= $package->destination->city; ?>, <?= $package->destination->state; ?> <?= $package->destination->zipCode; ?>
 								</div>
 								<!-- /.col-dt-12 -->
-								<?php if ($package->packageStatus == 1) { ?>
+								<?php if( $package->packageStatus == 1 ) { ?>
 									<a href="/account/packages/cancel/<?= $package->id; ?>" class="button">Cancel Delivery</a>
 								<?php } ?>
 							</div>
@@ -46,7 +46,9 @@
 					<!-- /.package-content -->
 				</div>
 			</div>
-		<?php } else { redirect('/account/packages');} ?>
+		<?php } else {
+			redirect( '/account/packages' );
+		} ?>
 	</div>
 </div>
 

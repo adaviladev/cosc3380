@@ -11,7 +11,8 @@
 <?php if( ! empty( $transactions ) ) { ?>
 	<div class="row">
 		<div class="container">
-			<?php getPartial( 'accountTransactionsList' , compact( 'transactions' ) ); ?>
+			<?php getPartial( 'accountTransactionsList' ,
+			                  compact( 'transactions' ) ); ?>
 		</div>
 	</div>
 <?php } ?>
