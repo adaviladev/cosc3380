@@ -193,7 +193,8 @@
 						                                                               [ $package->packageStatus ] )->get();
 
 						return view( 'accounts/accountPackages' ,
-						             compact( 'user','packages' ) );
+						             compact( 'user' ,
+						                      'packages' ) );
 					}
 				} else if( $user->roleId == 2 ) {
 					return redirect( 'dashboard' );
@@ -301,7 +302,8 @@
 			} else if( $user->roleId == 1 ) {
 				return redirect( 'admin' );
 			}
-			return redirect('login');
+
+			return redirect( 'login' );
 		}
 
 		/**
