@@ -17,8 +17,7 @@
 		public function show() {
 			$transactions = Transaction::selectAll();
 
-			return view( 'index' ,
-			             compact( 'transactions' ) );
+			return view( 'index' , compact( 'transactions' ) );
 		}
 
 		/**
@@ -29,21 +28,17 @@
 			$user = Auth::user();
 			$user->postOfficeId;
 			$transactions = Transaction::findAll()
-			                           ->where( [ 'postOfficeId' ] ,
-			                                    [ '=' ] ,
-			                                    [ $user->postOfficeId ] )
+			                           ->where( [ 'postOfficeId' ] , [ '=' ] , [ $user->postOfficeId ] )
+			                           ->orderBy( 'createdAt' , 'DESC' )
 			                           ->get();
 
 			foreach( $transactions as $transaction ) {
 				$transaction->customer = User::find()
-				                             ->where( [ 'id' ] ,
-				                                      [ '=' ] ,
-				                                      [ $transaction->customerId ] )
+				                             ->where( [ 'id' ] , [ '=' ] , [ $transaction->customerId ] )
 				                             ->get();
 			}
 
-			return view( 'dashboard/transactions' ,
-			             compact( 'transactions' ) );
+			return view( 'dashboard/transactions' , compact( 'transactions' ) );
 		}
 
 		/**
@@ -55,56 +50,45 @@
 			if( $user ) {
 				if( $user->roleId === 2 ) {
 					$transaction = Transaction::find()
-					                          ->where( [ 'id' ] ,
-					                                   [ '=' ] ,
-					                                   [ $transactionId ] )
+					                          ->where( [ 'id' ] , [ '=' ] , [ $transactionId ] )
 					                          ->get();
 					if( $user->postOfficeId !== $transaction->postOfficeId ) {
 						return redirect( 'dashboard/transactions' );
 					}
 					$transaction->customer                      = User::find()
-					                                                  ->where( [ 'id' ] ,
-					                                                           [ '=' ] ,
+					                                                  ->where( [ 'id' ] , [ '=' ] ,
 					                                                           [ $transaction->customerId ] )
 					                                                  ->get();
 					$transaction->employee                      = User::find()
-					                                                  ->where( [ 'id' ] ,
-					                                                           [ '=' ] ,
+					                                                  ->where( [ 'id' ] , [ '=' ] ,
 					                                                           [ $transaction->employeeId ] )
 					                                                  ->get();
 					$transaction->package                       = Package::find()
-					                                                     ->where( [ 'id' ] ,
-					                                                              [ '=' ] ,
+					                                                     ->where( [ 'id' ] , [ '=' ] ,
 					                                                              [ $transaction->packageId ] )
 					                                                     ->get();
 					$transaction->package->status               = PackageStatus::find()
-					                                                           ->where( [ 'id' ] ,
-					                                                                    [ '=' ] ,
+					                                                           ->where( [ 'id' ] , [ '=' ] ,
 					                                                                    [ $transaction->package->packageStatus ] )
 					                                                           ->get()->type;
 					$transaction->package->destination          = Address::find()
-					                                                     ->where( [ 'id' ] ,
-					                                                              [ '=' ] ,
+					                                                     ->where( [ 'id' ] , [ '=' ] ,
 					                                                              [ $transaction->package->destinationId ] )
 					                                                     ->get();
 					$transaction->package->destination->state   = State::find()
-					                                                   ->where( [ 'id' ] ,
-					                                                            [ '=' ] ,
+					                                                   ->where( [ 'id' ] , [ '=' ] ,
 					                                                            [ $transaction->package->destination->stateId ] )
 					                                                   ->get()->state;
 					$transaction->package->returnAddress        = Address::find()
-					                                                     ->where( [ 'id' ] ,
-					                                                              [ '=' ] ,
+					                                                     ->where( [ 'id' ] , [ '=' ] ,
 					                                                              [ $transaction->package->returnAddressId ] )
 					                                                     ->get();
 					$transaction->package->returnAddress->state = State::find()
-					                                                   ->where( [ 'id' ] ,
-					                                                            [ '=' ] ,
+					                                                   ->where( [ 'id' ] , [ '=' ] ,
 					                                                            [ $transaction->package->returnAddress->stateId ] )
 					                                                   ->get()->state;
 
-					return view( 'dashboard/transactionDetail' ,
-					             compact( 'transaction' ) );
+					return view( 'dashboard/transactionDetail' , compact( 'transaction' ) );
 				} else if( $user->roleId == 1 ) {
 					return redirect( 'admin' );
 				} else if( $user->roleId == 2 ) {
@@ -120,36 +104,27 @@
 			if( $user ) {
 				if( $user->roleId == 3 ) {
 					$transactions = Transaction::findAll()
-					                           ->where( [ 'customerId' ] ,
-					                                    [ '=' ] ,
-					                                    [ $user->id ] )
+					                           ->where( [ 'customerId' ] , [ '=' ] , [ $user->id ] )
 					                           ->get();
 
 					foreach( $transactions as $transaction ) {
 						$transaction->customer        = User::find()
-						                                    ->where( [ 'id' ] ,
-						                                             [ '=' ] ,
-						                                             [ $transaction->customerId ] )
+						                                    ->where( [ 'id' ] , [ '=' ] , [ $transaction->customerId ] )
 						                                    ->get();
 						$transaction->employee        = User::find()
-						                                    ->where( [ 'id' ] ,
-						                                             [ '=' ] ,
-						                                             [ $transaction->employeeId ] )
+						                                    ->where( [ 'id' ] , [ '=' ] , [ $transaction->employeeId ] )
 						                                    ->get();
 						$transaction->package         = Package::find()
-						                                       ->where( [ 'id' ] ,
-						                                                [ '=' ] ,
+						                                       ->where( [ 'id' ] , [ '=' ] ,
 						                                                [ $transaction->packageId ] )
 						                                       ->get();
 						$transaction->package->status = PackageStatus::find()
-						                                             ->where( [ 'id' ] ,
-						                                                      [ '=' ] ,
+						                                             ->where( [ 'id' ] , [ '=' ] ,
 						                                                      [ $transaction->package->packageStatus ] )
 						                                             ->get()->type;
 					}
 
-					return view( 'accounts/transactions' ,
-					             compact( 'transactions' ) );
+					return view( 'accounts/transactions' , compact( 'transactions' ) );
 				} else if( $user->roleId == 1 ) {
 					return redirect( 'admin' );
 				} else if( $user->roleId == 2 ) {
@@ -165,53 +140,43 @@
 			if( $user ) {
 				if( $user->roleId == 3 ) {
 					$transaction                                = Transaction::find()
-					                                                         ->where( [ 'id' ] ,
-					                                                                  [ '=' ] ,
+					                                                         ->where( [ 'id' ] , [ '=' ] ,
 					                                                                  [ $transactionId ] )
 					                                                         ->get();
 					$transaction->customer                      = User::find()
-					                                                  ->where( [ 'id' ] ,
-					                                                           [ '=' ] ,
+					                                                  ->where( [ 'id' ] , [ '=' ] ,
 					                                                           [ $transaction->customerId ] )
 					                                                  ->get();
 					$transaction->employee                      = User::find()
-					                                                  ->where( [ 'id' ] ,
-					                                                           [ '=' ] ,
+					                                                  ->where( [ 'id' ] , [ '=' ] ,
 					                                                           [ $transaction->employeeId ] )
 					                                                  ->get();
 					$transaction->package                       = Package::find()
-					                                                     ->where( [ 'id' ] ,
-					                                                              [ '=' ] ,
+					                                                     ->where( [ 'id' ] , [ '=' ] ,
 					                                                              [ $transaction->packageId ] )
 					                                                     ->get();
 					$transaction->package->status               = PackageStatus::find()
-					                                                           ->where( [ 'id' ] ,
-					                                                                    [ '=' ] ,
+					                                                           ->where( [ 'id' ] , [ '=' ] ,
 					                                                                    [ $transaction->package->packageStatus ] )
 					                                                           ->get()->type;
 					$transaction->package->destination          = Address::find()
-					                                                     ->where( [ 'id' ] ,
-					                                                              [ '=' ] ,
+					                                                     ->where( [ 'id' ] , [ '=' ] ,
 					                                                              [ $transaction->package->destinationId ] )
 					                                                     ->get();
 					$transaction->package->destination->state   = State::find()
-					                                                   ->where( [ 'id' ] ,
-					                                                            [ '=' ] ,
+					                                                   ->where( [ 'id' ] , [ '=' ] ,
 					                                                            [ $transaction->package->destination->stateId ] )
 					                                                   ->get()->state;
 					$transaction->package->returnAddress        = Address::find()
-					                                                     ->where( [ 'id' ] ,
-					                                                              [ '=' ] ,
+					                                                     ->where( [ 'id' ] , [ '=' ] ,
 					                                                              [ $transaction->package->returnAddressId ] )
 					                                                     ->get();
 					$transaction->package->returnAddress->state = State::find()
-					                                                   ->where( [ 'id' ] ,
-					                                                            [ '=' ] ,
+					                                                   ->where( [ 'id' ] , [ '=' ] ,
 					                                                            [ $transaction->package->returnAddress->stateId ] )
 					                                                   ->get()->state;
 
-					return view( 'accounts/transactionDetail' ,
-					             compact( 'transaction' ) );
+					return view( 'accounts/transactionDetail' , compact( 'transaction' ) );
 				} else if( $user->roleId == 1 ) {
 					return redirect( 'admin' );
 				} else if( $user->roleId == 2 ) {
@@ -228,17 +193,12 @@
 				if( $user->roleId === 2 ) {
 					$states    = State::selectAll();
 					$customers = User::findAll()
-					                 ->where( [ 'roleId' ] ,
-					                          [ '=' ] ,
-					                          [ 3 ] )
-					                 ->orderBy( 'firstName' ,
-					                            'ASC' )
+					                 ->where( [ 'roleId' ] , [ '=' ] , [ 3 ] )
+					                 ->orderBy( 'firstName' , 'ASC' )
 					                 ->get();
-					$types = PackageType::selectAll();
+					$types     = PackageType::selectAll();
 
-					return view( 'dashboard/addTransaction' ,
-					             compact( 'customers' ,
-					                      'states' , 'types' ) );
+					return view( 'dashboard/addTransaction' , compact( 'customers' , 'states' , 'types' ) );
 				} else if( $user->roleId === 3 ) {
 					return redirect( 'account' );
 				} else if( $user->roleId === 1 ) {
@@ -267,38 +227,36 @@
 						                                         'zipCode' => $_POST[ 'destinationAddressZipCode' ] ,
 					                                         ] );
 
-					$packageStatus = PackageStatus::find()->where(['type'] , ['='] , ['Processing'])->get();
+					$packageStatus = PackageStatus::find()
+					                              ->where( [ 'type' ] , [ '=' ] , [ 'Processing' ] )
+					                              ->get();
 
-					$packageId = Package::insert(
-						[
-							'userId' => $_POST[ 'customerId' ],
-							'postOfficeId' => $user->postOfficeId,
-							'typeId' => $_POST['packageType'],
-							// 'transactionId' => '',
-							'destinationId' => $destinationAddressId,
-							'returnAddressId' => $returnAddressId,
-							'contents' => $_POST['packageContent'],
-							'weight' => $_POST['packageWeight'],
-							'priority' => $_POST['packagePriority'],
-							'packageStatus' => $packageStatus->id,
-							'modifiedBy' => $user->id,
-						]
-					);
-					$transactionId = Transaction::insert(
-						[
-							'customerId' => $_POST[ 'customerId' ],
-							'postOfficeId' => $user->postOfficeId,
-							'employeeId' => $user->id,
-							'packageId' => $packageId,
-							'cost' => $_POST['packageWeight'] * 2
-						]
-					);
+					$packageId     = Package::insert( [
+						                                  'userId'          => $_POST[ 'customerId' ] ,
+						                                  'postOfficeId'    => $user->postOfficeId ,
+						                                  'typeId'          => $_POST[ 'packageType' ] ,
+						                                  // 'transactionId' => '',
+						                                  'destinationId'   => $destinationAddressId ,
+						                                  'returnAddressId' => $returnAddressId ,
+						                                  'contents'        => $_POST[ 'packageContent' ] ,
+						                                  'weight'          => $_POST[ 'packageWeight' ] ,
+						                                  'priority'        => $_POST[ 'packagePriority' ] ,
+						                                  'packageStatus'   => $packageStatus->id ,
+						                                  'modifiedBy'      => $user->id ,
+					                                  ] );
+					$transactionId = Transaction::insert( [
+						                                      'customerId'   => $_POST[ 'customerId' ] ,
+						                                      'postOfficeId' => $user->postOfficeId ,
+						                                      'employeeId'   => $user->id ,
+						                                      'packageId'    => $packageId ,
+						                                      'cost'         => $_POST[ 'packageWeight' ] * 2
+					                                      ] );
 
-					Package::update(
-						[
-							'transactionId' => $transactionId
-						]
-					)->where( ['id'],['='],[$packageId])->get();
+					Package::update( [
+						                 'transactionId' => $transactionId
+					                 ] )
+					       ->where( [ 'id' ] , [ '=' ] , [ $packageId ] )
+					       ->get();
 					// $package = Package::find()->where(
 					// 	['id'],['='],[$packageId]
 					// )->get();
