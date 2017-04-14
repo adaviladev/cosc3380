@@ -65,7 +65,7 @@
 	$router->get( 'admin/packages' , 'AdminController@packages' );
 	$router->get( 'admin/transactions' , 'AdminController@transactions' );
 	$router->get( 'admin/post-offices' , 'AdminController@postOffices' );
-    $router->get( 'admin/user' , 'AdminController@users' );
+    $router->get( 'admin/users' , 'AdminController@users' );
 	$router->get( 'admin/post-offices/:postOfficeId' , 'AdminController@selectedPostOffice' );
 
 	/**

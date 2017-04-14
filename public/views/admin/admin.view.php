@@ -32,7 +32,7 @@
 					<h3>Admins</h3>
 					<?php getPartial( 'adminsList' , compact( 'admins' ) ); ?>
 					<div class="text-right">
-						<a href="/admin/users">View All Admins</a>
+						<a href="/admin/users">View All Users</a>
 					</div>
 				</div>
 				<!-- /.group-wrapper -->
