@@ -256,7 +256,7 @@
 					$packages = Package::findAll()
 					                   ->where( [ 'userId' ] , [ '=' ] , [ $user->id ] )
 					                   ->orderBy( 'createdAt' , 'desc' )
-					                   ->limit( 3 )
+					                   ->limit( 6 )
 					                   ->get();
 
 					foreach( $packages as $package ) {

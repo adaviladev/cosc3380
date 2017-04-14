@@ -11,10 +11,10 @@
 <?php } else if( $package->userId != $user->id ) {
 	redirect( 'account/packages' );
 } else if( $package->userId == $user->id && $package->packageStatus == 1 ) { ?>
-	<h1>You are about to cancel the following package. Please assure it is the correct one before you submit.</h1>
-	<div class="row">
-		<form action="/account/packages/cancel/<?= $package->id; ?>" method="post">
-			<div class="container">
+	<div class="container">
+		<h1>You are about to cancel the following package. Please assure it is the correct one before you submit.</h1>
+		<div class="row">
+			<form action="/account/packages/cancel/<?= $package->id; ?>" method="post">
 				<?php if( ! empty( $package ) ) { ?>
 					<div class="package-wrapper">
 						<div class="package-item card-2 clearfix">
@@ -50,7 +50,7 @@
 										</div>
 										<!-- /.col-dt-12 -->
 										<input type="hidden" name="packageId" value="<?= $package->id ?>">
-										<button type="submit">Confirm Cancellation</button>
+										<button class="button" type="submit">Confirm Cancellation</button>
 									</div>
 									<!-- /.package-detail-info -->
 								</div>
@@ -62,9 +62,10 @@
 				<?php } else {
 					redirect( '/account/packages' );
 				} ?>
-			</div>
-		</form>
+			</form>
+		</div>
 	</div>
+	<!-- /.container -->
 
 <?php } ?>
 <?php getFooter() ?>
