@@ -1,4 +1,7 @@
 <?php
+	/**
+	 * Basic stub for storing database entities in their appropriate class
+	 */
 
 	use App\Models\Model;
 
