@@ -28,17 +28,16 @@
 			$user = Auth::user();
 			$user->postOfficeId;
 			if( $user && $user->roleId == 2 ) {
-				$customers = User::findall()
-				                 ->where( [ 'postOfficeId' ] ,
-				                          [ '=' ] ,
-				                          [ $user->postOfficeId ] )
+				$packages = Package::findall()
+				                 ->where( [ 'postOfficeId' ] , [ '=' ] , [ $user->postOfficeId ] )
 				                 ->get();
-				echo 'viktor was here';
 
-				//dd( $customers );
+				$customers = [];
+				foreach( $packages as $package ) {
+					$customers[] = User::findAll()->where(['id'],['='],[$packages->userId])->get();
+				}
 
-				return view( 'dashboard/customers' ,
-				             compact( 'customers' ) );
+				return view( 'dashboard/customers' , compact( 'customers' ) );
 			} else if( $user->roleId == 3 ) {
 				return redirect( 'account' );
 			}
@@ -48,12 +47,24 @@
 		 * userDetail() gets the details of a single user assigned to the currently
 		 * logged in user's post office
 		 */
-		public function userDetail( $userId ) {
-			$user = User::find()
-			            ->where( [ 'id' ] , [ '=' ] , [ $userId ] )
+		public function userDetail( $customerId ) {
+			$customer = User::find()
+			            ->where( [ 'id' ] , [ '=' ] , [ $customerId ] )
 			            ->get();
 
-			return view( 'dashboard/userDetail' , compact( 'user' ) );
+			$packages = Package::findAll()
+			                             ->where(['userId'],['='],[$customerId])
+			                             ->orderBy( 'createdAt' , 'desc' )
+			                             ->get();
+			foreach( $packages as $package ) {
+				$package->destination = Address::find()->where( ['id'] , ['='] , [$package->destinationId])->get();
+				$package->destination->state = State::find()->where( ['id'] , ['='] , [$package->destination->stateId])->get();
+				$package->returnAddress = Address::find()->where( ['id'] , ['='] , [$package->returnAddressId])->get();
+				$package->returnAddress->state = State::find()->where( ['id'] , ['='] , [$package->returnAddress->stateId])->get();
+				$package->status = PackageStatus::find()->where(['id'] , ['='] , [$package->packageStatus])->get();
+			}
+
+			return view( 'dashboard/userDetail' , compact( 'customer', 'packages' ) );
 		}
 
 		public function addEmployee() {
@@ -90,13 +101,13 @@
 				// $addressId = $duplicateAddress->id;
 				if( empty( $duplicateAddress ) ) {
 					$addressId = Address::insert( [
-						                 'street'     => $_POST[ 'address' ] ,
-						                 'city'       => $_POST[ 'city' ] ,
-						                 'stateId'    => $_POST[ 'stateId' ] ,
-						                 'zipCode'    => $_POST[ 'zipCode' ] ,
-						                 'createdAt'  => date( "Y-m-d H:i:s" ) ,
-						                 'modifiedAt' => date( "Y-m-d H:i:s" )
-					                 ] );
+						                              'street'     => $_POST[ 'address' ] ,
+						                              'city'       => $_POST[ 'city' ] ,
+						                              'stateId'    => $_POST[ 'stateId' ] ,
+						                              'zipCode'    => $_POST[ 'zipCode' ] ,
+						                              'createdAt'  => date( "Y-m-d H:i:s" ) ,
+						                              'modifiedAt' => date( "Y-m-d H:i:s" )
+					                              ] );
 					// dd( $addressId );
 					// $addressId = Address::lastInsertId();
 				} else {
@@ -120,18 +131,16 @@
 				                            'roleId'       => $role->id ,
 				                            'postOfficeId' => $user->postOfficeId ,
 				                            'createdBy'    => $user->id ,
-				                            'modifiedBy'    => $user->id ,
+				                            'modifiedBy'   => $user->id ,
 				                            'createdAt'    => date( "Y-m-d H:i:s" ) ,
 				                            'modifiedAt'   => date( "Y-m-d H:i:s" )
 			                            ] );
-
 
 			// dd( $userInsert );
 			if( ! is_string( $userInsert ) ) {
 				$user = User::find()
 				            ->where( [ 'id' ] , [ '=' ] , [ $userInsert ] )
 				            ->get();
-
 
 				return redirect( 'dashboard/employees' );
 				// return view( 'auth/register' );
@@ -144,7 +153,7 @@
 						);
 
 						// dd( $userInsert );
-						return view( 'dashboard/addEmployee' , compact( 'errors', 'states' ) );
+						return view( 'dashboard/addEmployee' , compact( 'errors' , 'states' ) );
 				}
 			}
 		}
@@ -158,27 +167,18 @@
 		 */
 		public function accountInfo() {
 			$user = Auth::user();
-			if(!$user){
-				return view('auth/login', compact($user));
+			if( ! $user ) {
+				return view( 'auth/login' , compact( $user ) );
 			}
-			$states = State::selectAll();
-			$address = Address::find()
-								->where( ['id'] ,
-								         ['='] ,
-								         [$user->addressId] )
-								->get();
+			$states    = State::selectAll();
+			$address   = Address::find()
+			                    ->where( [ 'id' ] , [ '=' ] , [ $user->addressId ] )
+			                    ->get();
 			$userState = State::find()
-						       ->where( ['id'],
-										['='],
-										[$address->stateId] )
-							   ->get();
+			                  ->where( [ 'id' ] , [ '=' ] , [ $address->stateId ] )
+			                  ->get();
 
-
-			return view( 'accounts/accountInfo' ,
-			             compact( 'user'   ,
-			                      'states' ,
-			                      'address',
-			                      'userState') );
+			return view( 'accounts/accountInfo' , compact( 'user' , 'states' , 'address' , 'userState' ) );
 		}
 
 		/**
@@ -188,11 +188,10 @@
 		 */
 		public function passwordChange() {
 			$user = Auth::user();
-			if($user){
-				return view( 'accounts/accountPassword' ,
-			                compact( 'user' ) );
+			if( $user ) {
+				return view( 'accounts/accountPassword' , compact( 'user' ) );
 			} else {
-				return view('auth/login', compact ('user'));
+				return view( 'auth/login' , compact( 'user' ) );
 			}
 		}
 
@@ -203,31 +202,26 @@
 		 * $changeFlag == 1 or 2 given passwords didn't match or old password was wrong respectively
 		 */
 		public function updatePassword() {
-			$user = Auth::user();
+			$user       = Auth::user();
 			$changeFlag = 0;
-			if($user){
-				if($user->password == md5($_POST['oldPassword']) && $_POST['newPassword'] == $_POST['confirmPassword'] )
-				{
-					$user->password = md5($_POST['newPassword']);
+			if( $user ) {
+				if( $user->password == md5( $_POST[ 'oldPassword' ] ) && $_POST[ 'newPassword' ] == $_POST[ 'confirmPassword' ] ) {
+					$user->password = md5( $_POST[ 'newPassword' ] );
 					User::update( [
-										'password' => md5($_POST['newPassword'])
+						              'password' => md5( $_POST[ 'newPassword' ] )
 					              ] )
-					       ->where( [ 'id' ] , [ '=' ] , [ $user->id ] )
-					       ->get();
+					    ->where( [ 'id' ] , [ '=' ] , [ $user->id ] )
+					    ->get();
 					$changeFlag = 3;
-				}
-
-				else if($user->password == md5($_POST['oldPassword']) && $_POST['newPassword'] != $_POST['confirmPassword'])
-				{
+				} else if( $user->password == md5( $_POST[ 'oldPassword' ] ) && $_POST[ 'newPassword' ] != $_POST[ 'confirmPassword' ] ) {
 					$changeFlag = 1;
-				}
-				else
-				{
+				} else {
 					$changeFlag = 2;
 				}
-				return view('accounts/accountPassword', compact('user', 'changeFlag'));
+
+				return view( 'accounts/accountPassword' , compact( 'user' , 'changeFlag' ) );
 			} else {
-				return view('auth/login', compact ('user'));
+				return view( 'auth/login' , compact( 'user' ) );
 			}
 		}
 
@@ -238,18 +232,19 @@
 		 */
 		public function updateAccountInfo() {
 			$user = Auth::user();
-			if($user){
+			if( $user ) {
 				Address::update( [
-									'street'  => $_POST['street'],
-									'city'    => $_POST['city'],
-									'stateId' => $_POST['stateId'],
-									'zipCode' => $_POST['zipCode']
-				                ] )
-						->where(['id'], ['='], [$user->addressId])
-						->get();
-				return redirect('account/info');
+					                 'street'  => $_POST[ 'street' ] ,
+					                 'city'    => $_POST[ 'city' ] ,
+					                 'stateId' => $_POST[ 'stateId' ] ,
+					                 'zipCode' => $_POST[ 'zipCode' ]
+				                 ] )
+				       ->where( [ 'id' ] , [ '=' ] , [ $user->addressId ] )
+				       ->get();
+
+				return redirect( 'account/info' );
 			} else {
-				return view('auth/login', compact ('user'));
+				return view( 'auth/login' , compact( 'user' ) );
 			}
 		}
 
@@ -392,7 +387,7 @@
 
 		public function editEmployeeDetail( $employeeId ) {
 			$user = Auth::user();
-			if( $user->roleId == 2 || $user->roleId == 1) {
+			if( $user->roleId == 2 || $user->roleId == 1 ) {
 				$employee           = User::find()
 				                          ->where( [ 'id' ] , [ '=' ] , [ $employeeId ] )
 				                          ->get();
@@ -419,7 +414,7 @@
 
 		public function updateEmployeeDetail( $employeeId ) {
 			$user = Auth::user();
-			if( $user->roleId == 2 || $user->roleId == 1) {
+			if( $user->roleId == 2 || $user->roleId == 1 ) {
 				$employee           = User::find()
 				                          ->where( [ 'id' ] , [ '=' ] , [ $employeeId ] )
 				                          ->get();

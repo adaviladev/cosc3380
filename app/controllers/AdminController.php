@@ -324,6 +324,11 @@
 					                                        [ '=' ] ,
 					                                        [ $postOffice->id ] )
 					                               ->get();
+					$postOffice->state = State::find()
+					                               ->where( [ 'id' ] ,
+					                                        [ '=' ] ,
+					                                        [ $postOffice->stateId ] )
+					                               ->get()->state;
 				}
 
 				return view( 'admin/admin' ,

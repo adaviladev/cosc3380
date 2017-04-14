@@ -15,10 +15,12 @@
 							<img src="/views/assets/images/content-box.png" alt="Content Box" class="center">
 						</div>
 						<!-- /.col-dt-12 col-tb-12 col-mb-12 -->
-						<div class="col-dt-12 col-tb-12 col-mb-12">
-							<?= $package->user->firstName; ?> <?= $package->user->lastName; ?>
-						</div>
-						<!-- /.col-dt-12 col-tb-12 col-mb-12 -->
+						<?php if( property_exists ( $package, 'user' ) ) { ?>
+							<div class="col-dt-12 col-tb-12 col-mb-12">
+								<?= $package->user->firstName; ?> <?= $package->user->lastName; ?>
+							</div>
+							<!-- /.col-dt-12 col-tb-12 col-mb-12 -->
+						<?php } ?>
 						<div class="col-dt-12 col-tb-12 col-mb-12">
 							<?= $package->destination->street; ?>, <br/>
 							<?= $package->destination->city; ?>, <?= $package->destination->state->state; ?> <?= $package->destination->zipCode; ?>

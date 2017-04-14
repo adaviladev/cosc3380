@@ -32,7 +32,7 @@
 							<div class="list-item-content">
 								<?= $customer->id ?>
 								<div>
-									<a href="/users/<?= $customer->id ?>">
+									<a href="/dashboard/customers/<?= $customer->id ?>">
 										View</a>
 								</div>
 							</div>

@@ -46,11 +46,7 @@
 				<div class="group-wrapper card-2">
 
 					<h3>Post Offices</h3>
-					<ul>
-						<?php foreach( $postOffices as $postOffice ) { ?>
-							<li><?= $postOffice->name; ?> - <?= count($postOffice->packages); ?></li>
-						<?php } ?>
-					</ul>
+					<?php getPartial( 'locationsGrid' , compact( 'postOffices' ) ); ?>
 					<div class="text-right">
 						<a href="/admin/post-offices">View all Post Offices</a>
 					</div>
