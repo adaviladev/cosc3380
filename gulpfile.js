@@ -38,5 +38,3 @@ gulp.task( 'watch', function() {
 	gulp.watch( 'public/views/assets/js/*.js', [ 'lint', 'scripts' ] );
 	gulp.watch( 'public/views/assets/css/*.css', [ 'css' ] );
 } );
-
-gulp.task( 'default', [ 'lint', 'css', 'scripts', 'watch' ] );
