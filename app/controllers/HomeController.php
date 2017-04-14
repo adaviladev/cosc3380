@@ -14,6 +14,9 @@
 	use User;
 
 	class HomeController {
+		/**
+		 * @return mixed returns dashboard view for the currently signed in Employee
+		 */
 		public function home() {
 			$user = Auth::user();
 			if( $user && $user->roleId == 2 || $user->roleId == 1 ) {
@@ -96,6 +99,9 @@
 			}
 		}
 
+		/**
+		 * @return mixed grab all employees from signed in user's post office
+		 */
 		public function showEmployees() {
 			$user = Auth::user();
 			if( $user->roleId == 2 || $user->roleId == 1 ) {

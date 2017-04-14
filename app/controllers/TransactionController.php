@@ -14,11 +14,11 @@
 
 	class TransactionController {
 
-		public function show() {
-			$transactions = Transaction::selectAll();
-
-			return view( 'index' , compact( 'transactions' ) );
-		}
+		// public function show() {
+		// 	$transactions = Transaction::selectAll();
+		//
+		// 	return view( 'index' , compact( 'transactions' ) );
+		// }
 
 		/**
 		 * postOfficeTransactions() gets all the transactions processed and assigned
@@ -27,18 +27,28 @@
 		public function postOfficeTransactions() {
 			$user = Auth::user();
 			$user->postOfficeId;
-			$transactions = Transaction::findAll()
-			                           ->where( [ 'postOfficeId' ] , [ '=' ] , [ $user->postOfficeId ] )
-			                           ->orderBy( 'createdAt' , 'DESC' )
-			                           ->get();
+			if( $user && $user->roleId == 2 ) {
+				$transactions = Transaction::findAll()
+				                           ->where( [ 'postOfficeId' ] ,
+				                                    [ '=' ] ,
+				                                    [ $user->postOfficeId ] )
+				                           ->orderBy( 'createdAt' ,
+				                                      'DESC' )
+				                           ->get();
 
-			foreach( $transactions as $transaction ) {
-				$transaction->customer = User::find()
-				                             ->where( [ 'id' ] , [ '=' ] , [ $transaction->customerId ] )
-				                             ->get();
+				foreach( $transactions as $transaction ) {
+					$transaction->customer = User::find()
+					                             ->where( [ 'id' ] ,
+					                                      [ '=' ] ,
+					                                      [ $transaction->customerId ] )
+					                             ->get();
+				}
+
+				return view( 'dashboard/transactions' ,
+				             compact( 'transactions' ) );
+			} else if($user->roleId == 3) {
+				return redirect('account');
 			}
-
-			return view( 'dashboard/transactions' , compact( 'transactions' ) );
 		}
 
 		/**
@@ -135,6 +145,11 @@
 			return redirect( 'login' );
 		}
 
+		/**
+		 * @param int $transactionId Id for transaction to be displayed
+		 *
+		 * @return mixed Displays Transaction details
+		 */
 		public function userTransactionDetail( $transactionId ) {
 			$user = Auth::user();
 			if( $user ) {
@@ -187,6 +202,9 @@
 			return redirect( 'login' );
 		}
 
+		/**
+		 * @return mixed Displays form for creating a new transaction for a customer
+		 */
 		public function createTransaction() {
 			$user = Auth::user();
 			if( $user ) {
@@ -209,6 +227,11 @@
 			return redirect( 'login' );
 		}
 
+		/**
+		 * Stores transaction data
+		 *
+		 * @return mixed Redirects to transactions page
+		 */
 		public function storeTransaction() {
 			$user = Auth::user();
 			if( $user ) {

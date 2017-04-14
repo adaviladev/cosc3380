@@ -23,6 +23,9 @@
 			// $_POST['password'] = md5($_POST['password']);
 		}
 
+		/**
+		 * @return mixed direct user to their appropriate home page or redirect to login page with errors.
+		 */
 		public function signIn() {
 			$errors = array();
 			$user = User::find()
@@ -52,6 +55,9 @@
 			return view( 'auth/login' , compact( 'errors' ) );
 		}
 
+		/**
+		 * @return mixed remove user's session data and redirect to the home page
+		 */
 		public function logout() {
 			if( isset( $_SESSION[ 'user' ] ) ) {
 				unset( $_SESSION[ 'user' ] );
@@ -59,6 +65,6 @@
 
 			$_SESSION[ 'user' ] = false;
 
-			redirect( '' );
+			return redirect( '' );
 		}
 	}
