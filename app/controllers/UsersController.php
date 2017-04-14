@@ -149,6 +149,13 @@
 			}
 		}
 
+		/**
+		 * accountInfo()
+		 * Gathers user's some of user's info to be sent to /account/info page
+		 * upon request
+		 * Info gathered: All info from User table and associated line on
+		 * the address table
+		 */
 		public function accountInfo() {
 			$user = Auth::user();
 			if(!$user){
@@ -174,16 +181,27 @@
 			                      'userState') );
 		}
 
+		/**
+		 * passwordChange()
+		 * confirms user is logged and compact()'s user's info to
+		 * password change page
+		 */
 		public function passwordChange() {
 			$user = Auth::user();
 			if($user){
 				return view( 'accounts/accountPassword' ,
 			                compact( 'user' ) );
 			} else {
-				return view('home', compact ('user'));
+				return view('auth/login', compact ('user'));
 			}
 		}
 
+		/**
+		 * updatePassword()
+		 * post route for accountPassword.view; sets flag based on given log in details
+		 * $changeFlag == 3 correct login detail and password is updated
+		 * $changeFlag == 1 or 2 given passwords didn't match or old password was wrong respectively
+		 */
 		public function updatePassword() {
 			$user = Auth::user();
 			$changeFlag = 0;
@@ -213,6 +231,11 @@
 			}
 		}
 
+		/**
+		 * updateAccountInfo()
+		 * post method, changes user's old address info to new address info
+		 * given in the account/info page
+		 */
 		public function updateAccountInfo() {
 			$user = Auth::user();
 			if($user){
