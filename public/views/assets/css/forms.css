@@ -38,6 +38,7 @@
 }
 
 .form-wrapper input[type="email"],
+.form-wrapper input[type="number"],
 .form-wrapper input[type="password"],
 .form-wrapper input[type="text"],
 .form-wrapper select {
@@ -70,7 +71,7 @@
 	padding          : 12px 20px;
 	box-sizing       : border-box;
 	border           : 2px solid #ffc107;
-	border-radius    : 4px;
+	border-radius    : 2px;
 	background-color : #f8f8f8;
 	font-size        : 16px;
 	resize           : none;

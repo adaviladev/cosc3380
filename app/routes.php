@@ -23,6 +23,8 @@
 	$router->post( 'dashboard/employees/:employeeId' , 'UsersController@updateEmployeeDetail' );
 
 	$router->get( 'dashboard/customers' , 'UsersController@postOfficeUsers' );                //viktor
+	$router->get( 'dashboard/transactions/add' , 'TransactionController@createTransaction' );
+	$router->post( 'dashboard/transactions/add' , 'TransactionController@storeTransaction' );
 	$router->get( 'dashboard/transactions' , 'TransactionController@postOfficeTransactions' );    //viktor
 	$router->get( 'dashboard/transactions/:transactionId' , 'TransactionController@transactionDetail' );    //viktor
 

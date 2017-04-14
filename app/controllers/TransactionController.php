@@ -5,6 +5,7 @@
 	use Address;
 	use Package;
 	use PackageStatus;
+	use PackageType;
 	use State;
 	use User;
 	use App\Core\App;
@@ -28,12 +29,14 @@
 			$user->postOfficeId;
 			$transactions = Transaction::findAll()
 			                           ->where( [ 'postOfficeId' ] , [ '=' ] , [ $user->postOfficeId ] )
+			                           ->orderBy( 'createdAt' , 'DESC' )
 			                           ->get();
 
 			foreach( $transactions as $transaction ) {
-				$transaction->customer = User::find()->where(['id'],['='],[$transaction->customerId])->get();
+				$transaction->customer = User::find()
+				                             ->where( [ 'id' ] , [ '=' ] , [ $transaction->customerId ] )
+				                             ->get();
 			}
-
 
 			return view( 'dashboard/transactions' , compact( 'transactions' ) );
 		}
@@ -46,10 +49,12 @@
 			$user = Auth::user();
 			if( $user ) {
 				if( $user->roleId === 2 ) {
-					$transaction                                = Transaction::find()
-					                                                         ->where( [ 'id' ] , [ '=' ] ,
-					                                                                  [ $transactionId ] )
-					                                                         ->get();
+					$transaction = Transaction::find()
+					                          ->where( [ 'id' ] , [ '=' ] , [ $transactionId ] )
+					                          ->get();
+					if( $user->postOfficeId !== $transaction->postOfficeId ) {
+						return redirect( 'dashboard/transactions' );
+					}
 					$transaction->customer                      = User::find()
 					                                                  ->where( [ 'id' ] , [ '=' ] ,
 					                                                           [ $transaction->customerId ] )
@@ -176,6 +181,93 @@
 					return redirect( 'admin' );
 				} else if( $user->roleId == 2 ) {
 					return redirect( 'dashboard' );
+				}
+			}
+
+			return redirect( 'login' );
+		}
+
+		public function createTransaction() {
+			$user = Auth::user();
+			if( $user ) {
+				if( $user->roleId === 2 ) {
+					$states    = State::selectAll();
+					$customers = User::findAll()
+					                 ->where( [ 'roleId' ] , [ '=' ] , [ 3 ] )
+					                 ->orderBy( 'firstName' , 'ASC' )
+					                 ->get();
+					$types     = PackageType::selectAll();
+
+					return view( 'dashboard/addTransaction' , compact( 'customers' , 'states' , 'types' ) );
+				} else if( $user->roleId === 3 ) {
+					return redirect( 'account' );
+				} else if( $user->roleId === 1 ) {
+					return redirect( 'admin' );
+				}
+			}
+
+			return redirect( 'login' );
+		}
+
+		public function storeTransaction() {
+			$user = Auth::user();
+			if( $user ) {
+				if( $user->roleId === 2 ) {
+					$states               = State::selectAll();
+					$returnAddressId      = Address::insert( [
+						                                         'street'  => $_POST[ 'returnAddressStreet' ] ,
+						                                         'city'    => $_POST[ 'returnAddressCity' ] ,
+						                                         'stateId' => $_POST[ 'returnAddressStateId' ] ,
+						                                         'zipCode' => $_POST[ 'returnAddressZipCode' ] ,
+					                                         ] );
+					$destinationAddressId = Address::insert( [
+						                                         'street'  => $_POST[ 'destinationAddressStreet' ] ,
+						                                         'city'    => $_POST[ 'destinationAddressCity' ] ,
+						                                         'stateId' => $_POST[ 'destinationAddressStateId' ] ,
+						                                         'zipCode' => $_POST[ 'destinationAddressZipCode' ] ,
+					                                         ] );
+
+					$packageStatus = PackageStatus::find()
+					                              ->where( [ 'type' ] , [ '=' ] , [ 'Processing' ] )
+					                              ->get();
+
+					$packageId     = Package::insert( [
+						                                  'userId'          => $_POST[ 'customerId' ] ,
+						                                  'postOfficeId'    => $user->postOfficeId ,
+						                                  'typeId'          => $_POST[ 'packageType' ] ,
+						                                  // 'transactionId' => '',
+						                                  'destinationId'   => $destinationAddressId ,
+						                                  'returnAddressId' => $returnAddressId ,
+						                                  'contents'        => $_POST[ 'packageContent' ] ,
+						                                  'weight'          => $_POST[ 'packageWeight' ] ,
+						                                  'priority'        => $_POST[ 'packagePriority' ] ,
+						                                  'packageStatus'   => $packageStatus->id ,
+						                                  'modifiedBy'      => $user->id ,
+					                                  ] );
+					$transactionId = Transaction::insert( [
+						                                      'customerId'   => $_POST[ 'customerId' ] ,
+						                                      'postOfficeId' => $user->postOfficeId ,
+						                                      'employeeId'   => $user->id ,
+						                                      'packageId'    => $packageId ,
+						                                      'cost'         => $_POST[ 'packageWeight' ] * 2
+					                                      ] );
+
+					Package::update( [
+						                 'transactionId' => $transactionId
+					                 ] )
+					       ->where( [ 'id' ] , [ '=' ] , [ $packageId ] )
+					       ->get();
+					// $package = Package::find()->where(
+					// 	['id'],['='],[$packageId]
+					// )->get();
+					// $transaction = Transaction::find()->where(['id'],['='],[$transactionId])->get();
+					// dd( $returnAddressId , $destinationAddressId , $package , $transaction );
+
+					return redirect( 'dashboard/transactions' );
+				} else if( $user->roleId === 3 ) {
+					return redirect( 'account' );
+				} else if( $user->roleId === 1 ) {
+					return redirect( 'admin' );
 				}
 			}
 
