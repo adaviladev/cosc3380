@@ -62,6 +62,7 @@
 	 */
 	$router->get( 'admin' , 'AdminController@admin' );
 	$router->get( 'admin/users' , 'AdminController@users' );
+	$router->get( 'admin/employees' , 'AdminController@employees');
 	$router->get( 'admin/employees/add' , 'UsersController@addEmployee' );
 	$router->post( 'admin/employees/add' , 'UsersController@storeEmployee' );
 	$router->get( 'admin/employees/:employeeId' , 'UsersController@editEmployeeDetail' );
