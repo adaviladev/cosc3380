@@ -64,14 +64,16 @@
 	 */
 	$router->get( 'admin' , 'AdminController@admin' );
 	$router->get( 'admin/users' , 'AdminController@users' );
-	$router->get( 'admin/employees' , 'AdminController@employees');
+	$router->get( 'admin/employees' , 'AdminController@employees' );
 	$router->get( 'admin/employees/add' , 'UsersController@addEmployee' );
 	$router->post( 'admin/employees/add' , 'UsersController@storeEmployee' );
+	$router->get( 'admin/reports' , 'ReportsController@getReports' );
+	$router->post( 'admin/reports' , 'ReportsController@showReports' );
 	$router->get( 'admin/employees/:employeeId' , 'UsersController@editEmployeeDetail' );
 	$router->post( 'admin/employees/:employeeId' , 'UsersController@updateEmployeeDetail' );
 	$router->get( 'admin/post-offices/:postOfficeId/customers' , 'AdminController@customers' );
-    $router->get( 'admin/post-offices/:postOfficeId/packages' , 'AdminController@postOfficePackages' );
-    $router->get( 'admin/post-offices/:postOfficeId/employees' , 'AdminController@postOfficeEmployees' );
+	$router->get( 'admin/post-offices/:postOfficeId/packages' , 'AdminController@postOfficePackages' );
+	$router->get( 'admin/post-offices/:postOfficeId/employees' , 'AdminController@postOfficeEmployees' );
 	$router->get( 'admin/customers/:customerId' , 'AdminController@customerDetail' );
 	$router->get( 'admin/packages' , 'AdminController@packages' );
 	$router->get( 'admin/packages/:packageId' , 'PackageController@packageDetail' );

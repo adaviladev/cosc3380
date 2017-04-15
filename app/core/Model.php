@@ -142,6 +142,9 @@
 		 * @return $this same object for further chaining
 		 */
 		public function where( $columns = [] , $operators = [] , $values = [] , $bool = " AND " ) {
+			if( empty( $columns ) || empty( $operators ) || empty( $values ) ) {
+				return $this;
+			}
 			$this->whereClause = "WHERE ";
 			for( $i = 0; $i < count( $columns ); $i++ ) {
 				if( $i > 0 ) {
@@ -251,7 +254,7 @@
 				$this->query .= " " . $this->limitTo;
 			}
 
-			// var_dump( "{$this->query}\n" );
+			// dd( "{$this->query}\n" );
 			return $this->run( $this->query );
 		}
 
