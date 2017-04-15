@@ -251,7 +251,7 @@
 				$this->query .= " " . $this->limitTo;
 			}
 
-			var_dump( "{$this->query}\n" );
+			// var_dump( "{$this->query}\n" );
 			return $this->run( $this->query );
 		}
 
