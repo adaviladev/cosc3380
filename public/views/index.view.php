@@ -7,7 +7,7 @@
 				<h3>Please <a href="/login">Login</a> or <a href="/register">Register</a></h3>
 			</div>
 			<!-- /.heading text-center -->
-			<p>
+			<p class="text-center">
 				Customer satisfaction is a priority to us here at Prostoffice.pro,
 				so if you have any issues please <a href="/contact">contact us</a>.
 			</p>
