@@ -51,7 +51,7 @@ insert into transactions (id, customerId, postOfficeId, employeeId, packageId, c
 insert into transactions (id, customerId, postOfficeId, employeeId, packageId, cost, createdAt, modifiedAt) values (51, 16, 4, 3, 51, 52.12, '2016-04-09 02:51:08', '2016-07-08 21:07:21');
 insert into transactions (id, customerId, postOfficeId, employeeId, packageId, cost, createdAt, modifiedAt) values (52, 3, 1, 2, 52, 25.88, '2016-03-23 00:37:23', '2016-12-23 04:33:41');
 insert into transactions (id, customerId, postOfficeId, employeeId, packageId, cost, createdAt, modifiedAt) values (53, 98, 10, 1, 53, 74.57, '2016-01-20 20:06:06', '2017-01-16 02:42:03');
-insert into transactions (id, customerId, postOfficeId, employeeId, packageId, cost, createdAt, modifiedAt) values (54, 49, 8 1, 54, 7.18, '2016-04-28 03:09:38', '2016-08-23 17:35:00');
+insert into transactions (id, customerId, postOfficeId, employeeId, packageId, cost, createdAt, modifiedAt) values (54, 49, 8, 1, 54, 7.18, '2016-04-28 03:09:38', '2016-08-23 17:35:00');
 insert into transactions (id, customerId, postOfficeId, employeeId, packageId, cost, createdAt, modifiedAt) values (55, 71, 6, 4, 55, 6.92, '2016-04-20 04:39:38', '2016-07-31 11:10:58');
 insert into transactions (id, customerId, postOfficeId, employeeId, packageId, cost, createdAt, modifiedAt) values (56, 40, 3, 5, 56, 12.91, '2016-03-16 04:41:04', '2016-05-27 08:04:28');
 insert into transactions (id, customerId, postOfficeId, employeeId, packageId, cost, createdAt, modifiedAt) values (57, 89, 9, 3, 57, 2.29, '2016-04-29 09:00:17', '2017-01-01 23:26:24');
@@ -85,7 +85,7 @@ insert into transactions (id, customerId, postOfficeId, employeeId, packageId, c
 insert into transactions (id, customerId, postOfficeId, employeeId, packageId, cost, createdAt, modifiedAt) values (85, 95, 10, 4, 85, 27.79, '2016-02-04 15:31:55', '2016-12-22 13:10:01');
 insert into transactions (id, customerId, postOfficeId, employeeId, packageId, cost, createdAt, modifiedAt) values (86, 3, 4, 2, 86, 21.04, '2016-01-21 16:15:57', '2016-08-09 04:57:05');
 insert into transactions (id, customerId, postOfficeId, employeeId, packageId, cost, createdAt, modifiedAt) values (87, 19, 8, 3, 87, 94.06, '2016-03-24 10:38:13', '2017-01-23 15:44:08');
-insert into transactions (id, customerId, postOfficeId, employeeId, packageId, cost, createdAt, modifiedAt) values (88, 72, 6 5, 88, 53.32, '2016-03-01 08:34:07', '2016-05-28 08:31:48');
+insert into transactions (id, customerId, postOfficeId, employeeId, packageId, cost, createdAt, modifiedAt) values (88, 72, 6, 5, 88, 53.32, '2016-03-01 08:34:07', '2016-05-28 08:31:48');
 insert into transactions (id, customerId, postOfficeId, employeeId, packageId, cost, createdAt, modifiedAt) values (89, 56, 2, 3, 89, 4.74, '2016-03-26 22:07:15', '2016-11-02 19:10:06');
 insert into transactions (id, customerId, postOfficeId, employeeId, packageId, cost, createdAt, modifiedAt) values (90, 69, 6, 4, 90, 84.68, '2016-01-29 21:24:46', '2016-08-19 06:40:34');
 insert into transactions (id, customerId, postOfficeId, employeeId, packageId, cost, createdAt, modifiedAt) values (91, 16, 4, 2, 91, 67.4, '2016-02-25 09:11:18', '2016-05-05 16:38:31');
