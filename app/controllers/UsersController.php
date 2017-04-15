@@ -458,11 +458,10 @@
 				                                                 [ '=' ] ,
 				                                                 [ $employee->postOfficeId ] )->get();
 				$states             = State::selectAll();
-
+				
 				return view( 'dashboard/editEmployee' ,
 				             compact( 'employee' ,
 				                      'states' ) );
-				
 			} else if( $user->roleId == 3 ) {
 				return redirect( 'account' );
 			} else if( $user && $user->roleId == 3 ) {
