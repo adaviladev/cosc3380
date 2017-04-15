@@ -4,6 +4,7 @@
 
 	use Address;
 	use App\Core\Auth;
+	use DateTime;
 	use Package;
 	use PackageStatus;
 	use PostOffice;
@@ -37,9 +38,14 @@
 		public function showReports() {
 			$user = Auth::user();
 			if( $user ) {
+				if( $user->roleId === 3 ) {
+					return redirect( 'account' );
+				}
 				$cols            = [];
 				$ops             = [];
 				$vals            = [];
+				$startDate = '';
+				$endDate = '';
 				if( $user->roleId === 2 ) {
 					$cols = [ 'postOfficeId' ];
 					$ops  = [ '=' ];
@@ -53,26 +59,30 @@
 				}
 				if( $user->roleId == 2 || $user->roleId == 1 ) {
 					$packageStatuses = PackageStatus::selectAll();
-					if( isset( $_POST[ 'packageStatusSelector' ] ) ) {
-						if( $_POST[ 'packageStatusSelector' ] !== 'all' ) {
-							$cols[] = 'packageStatus';
-							$ops[]  = '=';
-							$vals[] = $_POST[ 'packageStatusSelector' ];
-						}
-					}
 					if( isset( $_POST[ 'startDate' ] ) && $_POST[ 'startDate' ] !== '' ) {
 						$cols[] = 'createdAt';
 						$ops[]  = '>=';
 						$vals[] = date( "Y-m-d H:i:s" , strtotime( $_POST[ 'startDate' ] ) );
+						$date = new DateTime($_POST[ 'startDate' ]);
+						$startDate = $date->format( 'M j, Y' );
 					}
 					if( isset( $_POST[ 'endDate' ] ) && $_POST[ 'endDate' ] !== '' ) {
 						$cols[] = 'createdAt';
 						$ops[]  = '<=';
 						$vals[] = date( "Y-m-d H:i:s" , strtotime( $_POST[ 'endDate' ] ) );
+						$date = new DateTime($_POST[ 'endDate' ]);
+						$endDate = $date->format( 'M j, Y' );
 					}
 					// dd( $_POST , $cols , $ops , $vals );
 					if( isset( $_POST[ 'reportOption' ] ) ) {
 						if( $_POST[ 'reportOption' ] == 'queryPackages' ) {
+							if( isset( $_POST[ 'packageStatusSelector' ] ) ) {
+								if( $_POST[ 'packageStatusSelector' ] !== 'all' ) {
+									$cols[] = 'packageStatus';
+									$ops[]  = '=';
+									$vals[] = $_POST[ 'packageStatusSelector' ];
+								}
+							}
 							// dd( $_POST , $cols , $ops , $vals );
 							$packages = Package::findAll()
 							                   ->where( $cols , $ops , $vals )
@@ -105,11 +115,11 @@
 							}
 							if( $user->roleId == 1 ) {
 								$postOffices = PostOffice::selectAll();
-								return view( 'dashboard/reports' , compact( 'packageStatuses', 'postOffices', 'packages', 'selectedPostOffice' ) );
+								return view( 'dashboard/reports' , compact( 'packageStatuses', 'postOffices', 'packages', 'selectedPostOffice', 'startDate' , 'endDate' ) );
 
 							}
 
-							return view( 'dashboard/reports' , compact( 'packageStatuses' , 'packages','selectedPostOffice' ) );
+							return view( 'dashboard/reports' , compact( 'packageStatuses' , 'packages','selectedPostOffice', 'startDate' , 'endDate' ) );
 						} else {
 							$transactions          = Transaction::findAll()
 							                                    ->where( $cols , $ops , $vals )
@@ -127,11 +137,11 @@
 							// dd( $_POST , $cols , $ops , $vals, $transactions );
 							if( $user->roleId == 1 ) {
 								$postOffices = PostOffice::selectAll();
-								return view( 'dashboard/reports' , compact( 'packageStatuses', 'postOffices', 'transactions', 'totalTransactionsCost', 'selectedPostOffice' ) );
+								return view( 'dashboard/reports' , compact( 'packageStatuses', 'postOffices', 'transactions', 'totalTransactionsCost', 'selectedPostOffice', 'startDate' , 'endDate' ) );
 
 							}
 							return view( 'dashboard/reports' ,
-							             compact( 'packageStatuses' , 'transactions' , 'totalTransactionsCost', 'selectedPostOffice' ) );
+							             compact( 'packageStatuses' , 'transactions' , 'totalTransactionsCost', 'selectedPostOffice', 'startDate' , 'endDate' ) );
 						}
 					}
 				} else if( $user->roleId == 3 ) {

@@ -100,10 +100,22 @@
 			<?php }
 				}
 			?>
+
+			<?php if( $startDate !== '' && $endDate !== '' ) { ?>
+				<h3>From: <?= $startDate; ?> - <?= $endDate; ?></h3>
+			<?php } else if( $startDate === '' && $endDate !== '' ) { ?>
+				<h3>From: Beginning of time - <?= $endDate; ?></h3>
+			<?php } else if( $startDate !== '' && $endDate === '' ) { ?>
+				<h3>From: <?= $startDate; ?> - Present</h3>
+			<?php } else { ?>
+				<h3>Showing all transactions</h3>
+			<?php } ?>
+
 			<?php if( ! empty( $packages ) ) { ?>
 				<h3><strong>Number of packages: <?= count( $packages ); ?></strong></h3>
 				<?php getPartial( 'packagesGrid' , compact( 'packages' ) ); ?>
 			<?php } ?>
+
 			<?php if( ! empty( $transactions ) ) { ?>
 				<h3><strong>Number of transactions: <?= count( $transactions ); ?></strong></h3>
 				<h3><strong>Total revenue: $<?= money_format( '%i' , $totalTransactionsCost ); ?></strong></h3>
