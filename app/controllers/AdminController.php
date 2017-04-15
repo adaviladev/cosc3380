@@ -600,13 +600,24 @@
 		}
 
 		public function emails(){
-			$emails = Email::selectAll();
-			foreach( $emails as $email ) {
-				$email->user = User::find()->where(['id'],['='],[$email->userId])->get();
-				$email->package = Package::find()->where(['id'],['='],[$email->packageId])->get();
+			$user = Auth::user();
+			if( $user ) {
+				if( $user->roleId === 1 ) {
+					$emails = Email::selectAll();
+					foreach( $emails as $email ) {
+						$email->user = User::find()->where(['id'],['='],[$email->userId])->get();
+						$email->package = Package::find()->where(['id'],['='],[$email->packageId])->get();
+					}
+
+					// dd( $outboxEmails );
+					return view( 'admin/emails' , compact( 'emails' ) );
+				} else if( $user->roleId === 2 ) {
+					return redirect( 'dashboard' );
+				} else if( $user->roleId === 3 ) {
+					return redirect( 'account' );
+				}
 			}
 
-		    // dd( $outboxEmails );
-		    return view( 'admin/emails' , compact( 'emails' ) );
+			return redirect( 'login' );
 		}
 	}
