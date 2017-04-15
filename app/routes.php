@@ -21,6 +21,8 @@
 	$router->post( 'dashboard/employees/add' , 'UsersController@storeEmployee' );
 	$router->get( 'dashboard/employees/:employeeId' , 'UsersController@editEmployeeDetail' );
 	$router->post( 'dashboard/employees/:employeeId' , 'UsersController@updateEmployeeDetail' );
+	$router->get( 'dashboard/reports' , 'ReportsController@getReports' );
+	$router->post( 'dashboard/reports' , 'ReportsController@showReports' );
 
 	$router->get( 'dashboard/customers' , 'UsersController@postOfficeUsers' );                //viktor
 	$router->get( 'dashboard/customers/:customerId' , 'UsersController@userDetail' );                //viktor

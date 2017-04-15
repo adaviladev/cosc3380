@@ -3,11 +3,11 @@
 		if( $( '.form-wrapper input.valid' ).attr( 'value' ) !== '' ) {
 			$( '.form-wrapper input.valid' ).siblings( 'label' ).addClass( 'filled' );
 		}
-		$( '.form-wrapper input,.form-wrapper select' ).focus( function() {
+		$( '.form-wrapper input:not([type="date"]),.form-wrapper select' ).focus( function() {
 			$( '.form-wrapper label' ).removeClass( 'active' );
 			$( this ).siblings( 'label' ).addClass( 'active' );
 		} );
-		$( '.form-wrapper input,.form-wrapper textarea' ).blur( function() {
+		$( '.form-wrapper input:not([type="date"]),.form-wrapper textarea' ).blur( function() {
 			$( '.form-wrapper label' ).removeClass( 'active' );
 			if( !$( this ).parent().hasClass( 'validate' ) && $( this ).val() ) {
 				if( $( this ).attr( 'type' ) !== 'email' ) {

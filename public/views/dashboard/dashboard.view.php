@@ -3,7 +3,11 @@
 <?php if( ! empty( $user ) ) { ?>
 	<div class="row">
 		<div class="container">
-			<h1>Welcome, <?= $user->firstName ?> <?= $user->lastName ?></h1>
+			<h1 class="clearfix">
+				Welcome, <?= $user->firstName ?> <?= $user->lastName ?>
+				<span class="float-right"><a href="/dashboard/reports" class="button">View Reports</a></span>
+				<!-- /.text-right -->
+			</h1>
 		</div>
 		<!-- /.container -->
 	</div>

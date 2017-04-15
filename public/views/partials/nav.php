@@ -48,6 +48,9 @@
 					<li class="nav-item">
 						<a href="/dashboard/employees">Employees</a>
 					</li>
+					<li class="nav-item">
+						<a href="/dashboard/reports">Reports</a>
+					</li>
 				</ul>
 			</li>
 		<?php } else if( Auth::user()->roleId == 3 ) { ?>
