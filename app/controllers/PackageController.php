@@ -198,30 +198,33 @@
 					$packages = Package::findAll()->where( [ 'userId' ] ,
 					                                       [ '=' ] ,
 					                                       [ $user->id ] )->get();
-
-					foreach( $packages as $package ) {
-						$package->user                 = User::find()->where( [ 'id' ] ,
-						                                                      [ '=' ] ,
-						                                                      [ $package->userId ] )->get();
-						$package->destination          = Address::find()->where( [ 'id' ] ,
-						                                                         [ '=' ] ,
-						                                                         [ $package->destinationId ] )->get();
-						$package->destination->state   = State::find()->where( [ 'id' ] ,
-						                                                       [ '=' ] ,
-						                                                       [ $package->destination->stateId ] )->get()->state;
-						$package->returnAddress        = Address::find()->where( [ 'id' ] ,
-						                                                         [ '=' ] ,
-						                                                         [ $package->returnAddressId ] )->get();
-						$package->returnAddress->state = State::find()->where( [ 'id' ] ,
-						                                                       [ '=' ] ,
-						                                                       [ $package->returnAddress->stateId ] )->get()->state;
-						$package->status               = PackageStatus::find()->where( [ 'id' ] ,
-						                                                               [ '=' ] ,
-						                                                               [ $package->packageStatus ] )->get();
-
+					if(!empty($packages)) {
+						foreach( $packages as $package ) {
+							$package->user                 = User::find()->where( [ 'id' ] ,
+							                                                      [ '=' ] ,
+							                                                      [ $package->userId ] )->get();
+							$package->destination          = Address::find()->where( [ 'id' ] ,
+							                                                         [ '=' ] ,
+							                                                         [ $package->destinationId ] )->get();
+							$package->destination->state   = State::find()->where( [ 'id' ] ,
+							                                                       [ '=' ] ,
+							                                                       [ $package->destination->stateId ] )->get()->state;
+							$package->returnAddress        = Address::find()->where( [ 'id' ] ,
+							                                                         [ '=' ] ,
+							                                                         [ $package->returnAddressId ] )->get();
+							$package->returnAddress->state = State::find()->where( [ 'id' ] ,
+							                                                       [ '=' ] ,
+							                                                       [ $package->returnAddress->stateId ] )->get()->state;
+							$package->status               = PackageStatus::find()->where( [ 'id' ] ,
+							                                                               [ '=' ] ,
+							                                                               [ $package->packageStatus ] )->get();
+						}
 						return view( 'accounts/accountPackages' ,
 						             compact( 'user' ,
 						                      'packages' ) );
+					}
+					else{
+						return view('accounts/accountPackages', compact('user', 'packages'));
 					}
 				} else if( $user->roleId == 2 ) {
 					return redirect( 'dashboard' );
