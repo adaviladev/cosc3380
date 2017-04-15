@@ -3,6 +3,7 @@
 	namespace App\Controllers;
 
 	use App\Core\Auth;
+	use Email;
 	use Package;
 	use Role;
 	use Transaction;
@@ -596,5 +597,16 @@
 			}
 
 			return redirect( 'login' );
+		}
+
+		public function emails(){
+			$emails = Email::selectAll();
+			foreach( $emails as $email ) {
+				$email->user = User::find()->where(['id'],['='],[$email->userId])->get();
+				$email->package = Package::find()->where(['id'],['='],[$email->packageId])->get();
+			}
+
+		    // dd( $outboxEmails );
+		    return view( 'admin/emails' , compact( 'emails' ) );
 		}
 	}

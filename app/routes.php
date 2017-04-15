@@ -63,6 +63,7 @@
 	 * Admin routes
 	 */
 	$router->get( 'admin' , 'AdminController@admin' );
+	$router->get( 'admin/emails' , 'AdminController@emails' );
 	$router->get( 'admin/customers/:customerId' , 'AdminController@customerDetail' );
 	$router->get( 'admin/users' , 'AdminController@users' );
 	$router->get( 'admin/employees' , 'AdminController@employees' );

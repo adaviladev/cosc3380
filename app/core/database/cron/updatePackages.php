@@ -32,7 +32,7 @@
 	$ctr = 0;
 	foreach( $processing as $package ) {
 		$rand = rand( 1 , 10 );
-		if( $rand <= 3 ) {
+		if( $rand <= 1 ) {
 			// var_dump( $package );
 			Package::update( [
 				                 'packageStatus' => $package->packageStatus + 1
@@ -45,7 +45,7 @@
 	$ctr = 0;
 	foreach( $enRoute as $package ) {
 		$rand = rand( 1 , 10 );
-		if( $rand <= 3 ) {
+		if( $rand <= 1 ) {
 			Package::update( [
 				                 'packageStatus' => $package->packageStatus + 1
 			                 ] )
@@ -57,7 +57,7 @@
 	$ctr = 0;
 	foreach( $delivered as $package ) {
 		$rand = rand( 1 , 10 );
-		if( $rand <= 3 ) {
+		if( $rand <= 1 ) {
 			Package::update( [
 				                 'packageStatus' => $package->packageStatus + 1
 			                 ] )
@@ -69,7 +69,7 @@
 	$ctr = 0;
 	foreach( $cancelledList as $package ) {
 		$rand = rand( 1 , 10 );
-		if( $rand <= 3 ) {
+		if( $rand <= 1 ) {
 			Package::update( [
 				                 'packageStatus' => 1
 			                 ] )
