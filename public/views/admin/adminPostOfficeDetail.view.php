@@ -16,7 +16,7 @@
                 <h3>Local Packages</h3>
                 <?php getPartial( "packagesGrid" , compact( 'packages' ) ); ?>
                 <div class="text-right">
-                    <a href="/admin/packages">View all packages</a>
+                    <a href="/admin/post-offices/<?= $postOfficeId; ?>/packages">View all packages</a>
                 </div>
                 <!-- /.text-right -->
             </div>
@@ -32,7 +32,7 @@
                 <h3>Employees</h3>
                 <?php getPartial( 'employeesList' , compact( 'employees' ) ); ?>
                 <div class="text-right">
-                    <a href="/admin/users">View all employees</a>
+                    <a href="/admin/post-offices/<?= $postOfficeId; ?>/employees">View all employees</a>
                 </div>
             </div>
             <!-- /.group-wrapper -->
@@ -48,7 +48,7 @@
                 <h3>Customers</h3>
                 <?php getPartial( 'customersList' , compact( 'customers' ) ); ?>
                 <div class="text-right">
-                    <a href="/admin/customers">View all customers</a>
+                    <a href="/admin/post-offices/<?= $postOfficeId; ?>/customers">View all customers</a>
                 </div>
                 <!-- /.text-right -->
             </div>

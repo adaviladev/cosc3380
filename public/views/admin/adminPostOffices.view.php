@@ -23,7 +23,7 @@
 											<?= $postOffice->city; ?>, <?= $postOffice->state; ?> <?= $postOffice->zipCode; ?>
 											<br/>
 										</p>
-										<a href="/admin/post-offices/<?= $postOffice->id; ?>" class="button">View All Packages (<?= $postOffice->packageCount; ?>)</a>
+										<a href="/admin/post-offices/<?= $postOffice->id; ?>" class="button">View Detailed Information</a>
 									</div>
 									<!-- /.col-dt-12 -->
 								</div>

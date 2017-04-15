@@ -52,6 +52,48 @@
 			return redirect( 'login' );
 		}
 
+        public function postOfficePackages( $postOfficeId) {
+            $user = Auth::user();
+            if( $user && $user->roleId == 1 ) {
+                $packages = Package::findAll()
+                    ->where( [ 'postOfficeId' ] , [ '=' ] , [ $postOfficeId ] )
+                    ->get();
+
+                foreach( $packages as $package ) {
+                    $package->user                 = User::find()
+                        ->where( [ 'id' ] , [ '=' ] , [ $package->userId ] )
+                        ->get();
+                    $package->destination          = Address::find()
+                        ->where( [ 'id' ] , [ '=' ] , [ $package->destinationId ] )
+                        ->get();
+                    $package->destination->state   = State::find()
+                        ->where( [ 'id' ] , [ '=' ] ,
+                            [ $package->destination->stateId ] )
+                        ->get();
+                    $package->returnAddress        = Address::find()
+                        ->where( [ 'id' ] , [ '=' ] ,
+                            [ $package->returnAddressId ] )
+                        ->get();
+                    $package->returnAddress->state = State::find()
+                        ->where( [ 'id' ] , [ '=' ] ,
+                            [ $package->returnAddress->stateId ] )
+                        ->get();
+                    $package->status               = PackageStatus::find()
+                        ->where( [ 'id' ] , [ '=' ] ,
+                            [ $package->packageStatus ] )
+                        ->get();
+                }
+
+                return view( 'admin/adminPackages' , compact( 'packages' ) );
+            } else if( $user->roleId == 2 ) {
+                return redirect( 'dashboard' );
+            } else if( $user->roleId == 3 ) {
+                return redirect( 'account' );
+            }
+
+            return redirect( 'login' );
+        }
+
 		public function transactions() {
 			$user = Auth::user();
 			if( $user && $user->roleId == 1 ) {
@@ -134,11 +176,11 @@
 			return redirect( 'login' );
 		}
 
-		public function customers() {
+		public function customers( $postOfficeId ) {
 			$auth = Auth::user();
 			if( $auth && $auth->roleId == 1 ) {
 				$customers = User::findAll()
-				                 ->where( [ 'roleId' ] , [ '=' ] , [ 3 ] )
+				                 ->where( [ 'roleId' , 'postOfficeId' ] , [ '=', '=' ] , [ 3, $postOfficeId ] )
 				                 ->get();
 
 				foreach( $customers as $customer ) {
@@ -161,6 +203,97 @@
 					}
 				}
 
+				return view( 'admin/adminUsers' , compact( 'customers' , 'postOfficeId') );
+			} else if( $auth->roleId == 2 ) {
+				return redirect( 'dashboard' );
+			} else if( $auth->roleId == 3 ) {
+				return redirect( 'account' );
+			}
+
+			return redirect( 'login' );
+		}
+
+        public function customerDetail( $postOfficeId, $customerId ) {
+            $customer = User::find()
+                ->where( [ 'id' ] ,
+                    [ '=' ] ,
+                    [ $customerId ] )
+                ->get();
+            $user = Auth::user();
+
+            if( $user && $user->roleId == 1) {
+                $packages = Package::findAll()
+                    ->where( [ 'userId' ] ,
+                        [ '=' ] ,
+                        [ $customerId ] )
+                    ->orderBy( 'createdAt' ,
+                        'desc' )
+                    ->get();
+                foreach( $packages as $package ) {
+                    $package->destination          = Address::find()
+                        ->where( [ 'id' ] ,
+                            [ '=' ] ,
+                            [ $package->destinationId ] )
+                        ->get();
+                    $package->destination->state   = State::find()
+                        ->where( [ 'id' ] ,
+                            [ '=' ] ,
+                            [ $package->destination->stateId ] )
+                        ->get();
+                    $package->returnAddress        = Address::find()
+                        ->where( [ 'id' ] ,
+                            [ '=' ] ,
+                            [ $package->returnAddressId ] )
+                        ->get();
+                    $package->returnAddress->state = State::find()
+                        ->where( [ 'id' ] ,
+                            [ '=' ] ,
+                            [ $package->returnAddress->stateId ] )
+                        ->get();
+                    $package->status               = PackageStatus::find()
+                        ->where( [ 'id' ] ,
+                            [ '=' ] ,
+                            [ $package->packageStatus ] )
+                        ->get();
+                }
+
+                return view( 'dashboard/userDetail' ,
+                    compact( 'customer' ,
+                        'packages' ) );
+            }  else if($user->roleId == 2 ) {
+                return redirect( 'dashboard' );
+            } else if($user->roleId == 3 ) {
+                return redirect( 'account' );
+            }
+        }
+
+		public function users() {
+			$auth = Auth::user();
+			if( $auth && $auth->roleId == 1 ) {
+				$customers = User::findAll()
+				                 ->where( [ 'roleId' ] , [ '=' ] , [ 3 ] )
+				                 ->get();
+
+                foreach( $customers as $customer ) {
+                    $customer->packageCount     = count( Package::findAll()
+                        ->where( [ 'userId' ] , [ '=' ] ,
+                            [ $customer->id ] )
+                        ->get() );
+                    $customer->transactions     = Transaction::findAll()
+                        ->where( [ 'customerId' ] , [ '=' ] , [ $customer->id ] )
+                        ->get();
+                    $customer->transactionCount = count( $customer->transactions );
+                    $customer->transactionTotal = 0;
+                    foreach( $customer->transactions as $transaction ) {
+                        $customer->transactionTotal = $customer->transactionTotal + $transaction->cost;
+                    }
+                    if( $customer->transactionCount !== 0 ) {
+                        $customer->averageSpent = $customer->transactionTotal / $customer->transactionCount;
+                    } else {
+                        $customer->averageSpent = 0;
+                    }
+                }
+
 				return view( 'admin/adminUsers' , compact( 'customers' ) );
 			} else if( $auth->roleId == 2 ) {
 				return redirect( 'dashboard' );
@@ -171,28 +304,53 @@
 			return redirect( 'login' );
 		}
 
-		public function users() {
-			$auth = Auth::user();
-			if( $auth && $auth->roleId == 1 ) {
-				$employees = User::findAll()
-				                 ->where( [ 'roleId' ] , [ '=' ] , [ 1 ] )
-				                 ->get();
+        public function employees() {
+            $auth = Auth::user();
+            if( $auth && $auth->roleId == 1 ) {
+                $employees = User::findAll()
+                    ->where( [ 'roleId' ] , [ '=' ] ,
+                        [ '2'] )
+                    ->get();
 
-				foreach( $employees as $employee ) {
-					$employee->addedBy = User::find()
-					                         ->where( [ 'id' ] , [ '=' ] , [ $employee->createdBy ] )
-					                         ->get();
-				}
+                foreach( $employees as $employee ) {
+                    $employee->addedBy = User::find()
+                        ->where( [ 'id' ] , [ '=' ] , [ $employee->createdBy ] )
+                        ->get();
+                }
 
-				return view( 'dashboard/employees' , compact( 'employees' ) );
-			} else if( $auth->roleId == 2 ) {
-				return redirect( 'dashboard' );
-			} else if( $auth->roleId == 3 ) {
-				return redirect( 'account' );
-			}
+                return view( 'dashboard/employees' , compact( 'employees' ) );
+            } else if( $auth->roleId == 2 ) {
+                return redirect( 'dashboard' );
+            } else if( $auth->roleId == 3 ) {
+                return redirect( 'account' );
+            }
 
-			return redirect( 'login' );
-		}
+            return redirect( 'login' );
+        }
+
+        public function postOfficeEmployees( $postOfficeId) {
+            $auth = Auth::user();
+            if( $auth && $auth->roleId == 1 ) {
+                $employees = User::findAll()
+                    ->where( [ 'roleId', 'postOfficeId' ] , [ '=', '=' ] ,
+                        [ '2', $postOfficeId] )
+                    ->get();
+
+                foreach( $employees as $employee ) {
+                    $employee->addedBy = User::find()
+                        ->where( [ 'id' ] , [ '=' ] , [ $employee->createdBy ] )
+                        ->get();
+                }
+
+                return view( 'dashboard/employees' , compact( 'employees' ) );
+            } else if( $auth->roleId == 2 ) {
+                return redirect( 'dashboard' );
+            } else if( $auth->roleId == 3 ) {
+                return redirect( 'account' );
+            }
+
+            return redirect( 'login' );
+        }
 
 		public function postOffices() {
 			$user = Auth::user();
@@ -283,11 +441,13 @@
 				}
 
 				return view( 'admin/adminPostOfficeDetail' ,
-				             compact( 'user' , 'packages' , 'employees' , 'customers' ) );
+				             compact( 'user' , 'packages' , 'employees' , 'customers', 'postOfficeId' ) );
 			} else {
 				return redirect( 'login' );
 			}
 		}
+
+
 
 		public function admin() {
 			$user = Auth::user();

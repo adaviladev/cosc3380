@@ -125,5 +125,4 @@
 
 			return redirect( 'login' );
 		}
-
 	}
