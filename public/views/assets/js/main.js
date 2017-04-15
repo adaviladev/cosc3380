@@ -74,13 +74,10 @@
 		$( '.switch-toggle input' ).click(function() {
 			$( '.switch-toggle input' ).attr('checked' , false );
 			$( this ).attr('checked' , true );
-
 			if( $( this ).attr('id' ) === 'queryTransactions' ) {
-				$( '.transactions-report-group' ).css( 'display' , 'block' );
-				$( '.packages-report-group' ).css( 'display' , 'none' );
+				$( '.package-report-option' ).css( 'display' , 'none' );
 			} else {
-				$( '.transactions-report-group' ).css( 'display' , 'none' );
-				$( '.packages-report-group' ).css( 'display' , 'block' );
+				$( '.package-report-option' ).css( 'display' , 'block' );
 			}
 		});
 
