@@ -3,12 +3,9 @@
 	namespace App\Controllers;
 
 	use Address;
-	use App\Core\App;
 	use App\Core\Auth;
 	use Package;
 	use PackageStatus;
-	use PostOffice;
-	use Role;
 	use State;
 	use Transaction;
 	use User;

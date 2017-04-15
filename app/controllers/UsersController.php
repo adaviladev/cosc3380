@@ -49,6 +49,7 @@
 		}
 
 		/**
+		 * @param int $customerId id of customer to update
 		 * userDetail() gets the details of a single user assigned to the currently
 		 * logged in user's post office
 		 */

@@ -3,7 +3,6 @@
 	namespace App\Controllers;
 
 	use Address;
-	use App\Core\App;
 	use App\Core\Auth;
 	use Package;
 	use PackageStatus;
@@ -114,9 +113,9 @@
 				                                   [ '=' ] ,
 				                                   [ $packageId ] )->get();
 
-				$address = Address::find()->where( [ 'id' ] ,
-				                                   [ '=' ] ,
-				                                   [ $package->destinationId ] )->get();
+				// $address = Address::find()->where( [ 'id' ] ,
+				//                                    [ '=' ] ,
+				//                                    [ $package->destinationId ] )->get();
 				Address::update( [
 					                 'street'  => $_POST[ 'destinationAddressStreet' ] ,
 					                 'city'    => $_POST[ 'destinationAddressCity' ] ,
@@ -126,9 +125,9 @@
 				                             [ '=' ] ,
 				                             [ $package->destinationId ] )->get();
 
-				$address = Address::find()->where( [ 'id' ] ,
-				                                   [ '=' ] ,
-				                                   [ $package->destinationId ] )->get();
+				// $address = Address::find()->where( [ 'id' ] ,
+				//                                    [ '=' ] ,
+				//                                    [ $package->destinationId ] )->get();
 
 				return redirect( "dashboard/packages/{$packageId}" );
 			} else if( $user->roleId == 1 ) {
@@ -226,6 +225,7 @@
 					return redirect( 'admin' );
 				}
 			}
+			return redirect( 'login' );
 		}
 
 		/**
@@ -275,10 +275,8 @@
 				} else if( $user->roleId == 1 ) {
 					return redirect( 'admin' );
 				}
-			} else {
-
-				return redirect( 'login' );
 			}
+			return redirect( 'login' );
 		}
 
 		/**

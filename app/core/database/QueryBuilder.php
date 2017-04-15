@@ -62,6 +62,8 @@
 		 * @param string $table contains the table to search through
 		 * @param array  $columns contains the columns to return
 		 * @param string $class contains the class to be assigned to
+		 *
+		 * @return object $this for further chaining
 		 */
 		public function find( $table ,
 		                      $columns = [ '*' ] ,
@@ -143,6 +145,8 @@
 		/**
 		 * @param string $table contains the table to search through
 		 * @param array  $parameters $key => value pairs to insert
+		 *
+		 * @return bool
 		 */
 		public function insert( $table ,
 		                        $parameters = [] ) {
@@ -167,6 +171,7 @@
 
 		/**
 		 * Construct the SQL query based off of previous calls
+		 * @param bool $ssh Use to determine if it's being called from the server or not
 		 * @return array|mixed
 		 */
 		public function get( $ssh = false ) {
@@ -216,6 +221,7 @@
 			} catch( PDOException $e ) {
 				die( $e->getMessage() );
 			}
+			return false;
 		}
 
 		public function lastInsertId() {

@@ -8,7 +8,6 @@
 	use PackageType;
 	use State;
 	use User;
-	use App\Core\App;
 	use App\Core\Auth;
 	use Transaction;
 
@@ -49,6 +48,7 @@
 			} else if($user->roleId == 3) {
 				return redirect('account');
 			}
+			return redirect( 'login' );
 		}
 
 		/**
@@ -236,7 +236,6 @@
 			$user = Auth::user();
 			if( $user ) {
 				if( $user->roleId === 2 ) {
-					$states               = State::selectAll();
 					$returnAddressId      = Address::insert( [
 						                                         'street'  => $_POST[ 'returnAddressStreet' ] ,
 						                                         'city'    => $_POST[ 'returnAddressCity' ] ,

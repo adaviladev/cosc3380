@@ -31,6 +31,9 @@
 
 		/**
 		 * Called from ./routes.php
+		 *
+		 * @param string $uri URI path in address bar
+		 * @param string $controller name of controller that should be called
 		 */
 		public function get( $uri , $controller ) {
 			$this->routes[ 'GET' ][ $uri ] = $controller;
@@ -38,6 +41,9 @@
 
 		/**
 		 * Called from ./routes.php
+		 *
+		 * @param string $uri URI path in address bar
+		 * @param string $controller name of controller that should be called
 		 */
 		public function post( $uri , $controller ) {
 			$this->routes[ 'POST' ][ $uri ] = $controller;
@@ -84,13 +90,13 @@
 		}
 
 		private function getRegex( $route ) {
-			$regex = '#';
-			$ctr   = 0;
+			$regex    = '#';
+			$ctr      = 0;
 			$wildcard = false;
 			foreach( $route as $pattern ) {
-				if( $pattern[0] == ':' ) {
+				if( $pattern[ 0 ] == ':' ) {
 					$wildcard = true;
-					$pattern = str_replace( ':' , '' , $pattern );
+					$pattern  = str_replace( ':' , '' , $pattern );
 				}
 				if( $ctr > 0 ) {
 					$regex .= '/';
@@ -104,6 +110,7 @@
 				$wildcard = false;
 			}
 			$regex .= '#';
+
 			return $regex;
 		}
 	}

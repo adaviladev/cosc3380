@@ -45,9 +45,7 @@
 		}
 
 		/**
-		 * @param string $table contains the table to search through
 		 * @param array  $columns contains the columns to return
-		 * @param string $class contains the class to be assigned to
 		 *
 		 * @return array
 		 */
@@ -92,11 +90,9 @@
 		}
 
 		/**
-		 * @param string $table contains the table to search through
 		 * @param array  $columns contains the columns to return
-		 * @param string $class contains the class to be assigned to
 		 *
-		 * @return $instance object for further chaining
+		 * @return object $instance object for further chaining
 		 */
 		public static function find( $columns = [ '*' ] ) {
 			$instance        = self::init();
@@ -110,13 +106,10 @@
 			$instance->isSingle = true;
 
 			return $instance;
-			// return $this;
 		}
 
 		/**
-		 * @param string $table contains the table to search through
 		 * @param array  $columns contains columns to retrieve
-		 * @param string $class contains the class to be assigned to
 		 *
 		 * @return $this same object for further chaining
 		 */
@@ -188,8 +181,9 @@
 		}
 
 		/**
-		 * @param string $table contains the table to search through
 		 * @param array  $parameters $key => value pairs to insert
+		 *
+		 * @return int value of last inserted ID
 		 */
 		public static function insert( $parameters = [] ) {
 			$instance = self::init();
@@ -212,7 +206,7 @@
 		/**
 		 * @param array $bindings key=>value pairs of columns and values to update
 		 *
-		 * @return Model
+		 * @return Model $instance
 		 */
 		public static function update( $bindings = [] ) {
 			$instance           = self::init();
@@ -277,6 +271,7 @@
 			} catch( PDOException $e ) {
 				die( $e );
 			}
+			return false;
 		}
 
 		public static function lastInsertId() {
