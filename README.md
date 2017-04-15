@@ -7,39 +7,75 @@ This program is run using Vagrant with the Laravel/Homestead 5.4 Virtual Box env
 Set up instructions can be found [here](https://laravel.com/docs/5.4/homestead): 
 
 ##Setting up Vagrant/Homestead with our Project
-1. Once you have downloaded the necessary software, use a text editor to open up the .homestead file in your home directory (~/).
-2. Create the folder "Code" in your user's home directory.
-3. Inside of the Code directory, create another directory named "cosc3380"
-2. Replace the lines in the "folders:" with the following
+1. Install [Virtual Box](https://www.virtualbox.org/wiki/Downloads) with the default settings.
+2. Install [Vagrant](https://www.vagrantup.com/downloads.html) with the default settings.
+3. If you're on Windows, be sure that the "vagrnat" binary is in your [System's Environment Variables](http://www.computerhope.com/issues/ch000549.htm).
+4. Install [Git Bash](https://git-scm.com/downloads) if you don't have it install.
+5. Using Git Bash, run the command
+    > vagrant
+    
+    If Vagrant is properly installed, a list of possible commands should display.
+6. Run the following command to install the laravel/homestead virtual box
+    > vagrant box add laravel/homestead
+7. Create the Homestead directory in your user home directory with the following commands
+    > cd ~<br />
+    git clone https://github.com/laravel/homestead.git Homestead
+8. Checkout a tagged version of Homestead
+    > cd Homestead<br/>
+    git checkout v4.0.5
+9. Once you've finished cloning, run the following:
+    >// Mac / Linux...<br/>
+     bash init.sh<br/>
+     <br/>
+     // Windows...<br/>
+     init.bat<br/>
+10. This should create a Homestead.yaml file in your ~/Homestead directory.
+11. Create the folder "Code" in your user's home directory.
+12. Inside of the Code directory, run the following command in the Git Bash window:
+    > git clone https://github.com/COSC3380-Team-5/databaseProject.git cosc3380
+13. You should now have the cosc3380 project source code
+13. Once you have downloaded the necessary software, use a text editor to open up the ~/Homestead/homesetad.yaml file.
+15. Replace the lines in the "folders:" section with the following
     > map: ~/Code/cosc3380 <br/>
      to: /home/vagrant/Code/cosc3380
      
      - This will map the ~/Code/cosc3380 in your local directory to the /home/vagrant/Code/cosc3380 in the virtual machine
-3. Replace the lines in the "sites:" section with the following
+16. Replace the lines in the "sites:" section with the following
     > map: database.app<br/>
-      to: /home/vagrant/Code/cosc3380
+      to: /home/vagrant/Code/cosc3380/public
       
     - This will map the domain database.app to pull the files in the /home/vagrant/Code/cosc3380 directory
     
-4. Replace the lines in the "databases:" section with the following
+17. Add an entry in the "databases:" section with the following
     > - cosc3380
 
-5. Open up notepad.exe and run it as an administrator.
-6. File \> Open
+18. Open up notepad.exe and run it as an administrator.
+19. File \> Open
     - Go to "C:\Windows\System32\drivers\etc" and open the "hosts" file.
     
-7. At the very bottom enter the following:
+20. At the very bottom enter the following:
    "192.168.10.10 database.app"
    - This will instruct your system to direct all HTTP requests to "database.app" to "192.168.10.10" which is the IP address of your local virtual machine while it's up.
    
-8. Using Git Bash, navigate to your Homestead directory ("cd ~/Homestead") and run the following command:
+21. Using Git Bash, navigate to your Homestead directory ("cd ~/Homestead") and run the following command:
     - ssh-keygen -t rsa -C "you@homestead"
     - This will create a .ssh directory with your ssh key inside for SSh-ing into your virtual machine.
     
-9. Using Git Bash, navigate to your home directory and run "vagrant up". This will spin up your virtual environment.
+22. Using Git Bash, navigate to your home directory and run 
+    > vagrant up
+     
+     This will spin up your virtual environment.
     - If vagrant times out at the ssh step, you may need to edit your BIOS settings and enable virtualization
-10. You should now be able to go to "database.app" in your web browser to view the site.
-    - If you get a message saying "No input file selected" or something like that, make sure the repository is in the correct location based on the "folders:" and "sites:" sections in the Homestead.yaml file.
+23. Run the following commands.
+    > vagrant ssh
+    - This will ssh you into the virtual machine environment
+    > php Code/cosc3380/app/core/database/sql/factory.php
+    - This will build/populate the database with the dummy data for the app. 
+    - You should see a list of files that were executed being printed to the terminal window.
+24. You should now be able to go to "database.app" in your web browser to view the site.
+    - If you get a message saying "No input file selected" or something like that, make sure the git repository is in the correct location based on the "folders:" and "sites:" sections in the Homestead.yaml file.
+    - the "sites:" section should point to cosc3380/public directory and the nginx server will automatically look for the cosc3380/public/index.php file which is the entry point of the entire app.
+25. There are comments throughout the source code for navigating what is going on
 
 ## Configuring Aliases
 1. Using Git Bash, go to your home directory
