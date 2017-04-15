@@ -3,7 +3,7 @@
 		if( $( '.form-wrapper input.valid' ).attr( 'value' ) !== '' ) {
 			$( '.form-wrapper input.valid' ).siblings( 'label' ).addClass( 'filled' );
 		}
-		$( '.form-wrapper input:not([type="date"]),.form-wrapper select' ).focus( function() {
+		$( '.form-wrapper input:not([type="date"],[type="radio"]),.form-wrapper select' ).focus( function() {
 			$( '.form-wrapper label' ).removeClass( 'active' );
 			$( this ).siblings( 'label' ).addClass( 'active' );
 		} );
@@ -70,5 +70,19 @@
 				$( 'body' ).addClass( "open-menu" );
 			}
 		} );
+
+		$( '.switch-toggle input' ).click(function() {
+			$( '.switch-toggle input' ).attr('checked' , false );
+			$( this ).attr('checked' , true );
+
+			if( $( this ).attr('id' ) === 'queryTransactions' ) {
+				$( '.transactions-report-group' ).css( 'display' , 'block' );
+				$( '.packages-report-group' ).css( 'display' , 'none' );
+			} else {
+				$( '.transactions-report-group' ).css( 'display' , 'none' );
+				$( '.packages-report-group' ).css( 'display' , 'block' );
+			}
+		});
+
 	} );
 })( jQuery );
