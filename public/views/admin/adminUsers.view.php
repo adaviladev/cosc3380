@@ -37,6 +37,7 @@ the users' first name, last name and transaction figures, with a link to single 
 					<div>
 						<?php foreach( $customers as $customer ) { ?>
 							<!-- List of users begins -->
+                            <?php if( $customer->packageCount > 0) { ?>
 							<div class="list-item clearfix">
 								<div class="list-container clearfix">
 									<div class="col-dt-3 col-tb-3 col-mb-3">
@@ -65,6 +66,7 @@ the users' first name, last name and transaction figures, with a link to single 
 									</div>
 								</div>
 							</div>
+                            <?php } ?>
 						<?php } ?>
 					</div>
 				<?php } ?>

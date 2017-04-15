@@ -246,7 +246,7 @@
                         $customer->transactionTotal = $customer->transactionTotal + $transaction->cost;
                     }
                     if( $customer->transactionCount !== 0 ) {
-                        $customer->averageSpent = $customer->transactionTotal / $customer->packageCount;
+                        $customer->averageSpent = $customer->transactionTotal / $customer->transactionCount;
                     } else {
                         $customer->averageSpent = 0;
                     }
