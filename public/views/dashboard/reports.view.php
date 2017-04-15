@@ -90,6 +90,16 @@
 				</form>
 			</div>
 			<!-- /.form-wrapper -->
+			<?php
+				if( ! empty( $selectedPostOffice ) ) {
+					if( Auth::user()->roleId === 1 ) {
+			?>
+				<h2>Report for <a href="/admin/post-offices/<?= $selectedPostOffice->id; ?>"><strong><?= $selectedPostOffice->name; ?></strong> (<?= $selectedPostOffice->id; ?>)</a></h2>
+			<?php } else if( Auth::user()->roleId === 2 ) { ?>
+				<h2>Report for <a href="/dashboard/"><strong><?= $selectedPostOffice->name; ?></strong> (<?= $selectedPostOffice->id; ?>)</a></h2>
+			<?php }
+				}
+			?>
 			<?php if( ! empty( $packages ) ) { ?>
 				<h3><strong>Number of packages: <?= count( $packages ); ?></strong></h3>
 				<?php getPartial( 'packagesGrid' , compact( 'packages' ) ); ?>

@@ -37,20 +37,22 @@
 		public function showReports() {
 			$user = Auth::user();
 			if( $user ) {
+				$cols            = [];
+				$ops             = [];
+				$vals            = [];
+				if( $user->roleId === 2 ) {
+					$cols = [ 'postOfficeId' ];
+					$ops  = [ '=' ];
+					$vals = [ $user->roleId ];
+					$selectedPostOffice = PostOffice::find()->where(['id'],['='],[$user->postOfficeId])->get();
+				} else if( isset( $_POST[ 'postOfficeSelector' ] ) ) {
+					$cols[] = 'postOfficeId';
+					$ops[]  = '=';
+					$vals[] = $_POST[ 'postOfficeSelector' ];
+					$selectedPostOffice = PostOffice::find()->where(['id'],['='],[$_POST[ 'postOfficeSelector' ]])->get();
+				}
 				if( $user->roleId == 2 || $user->roleId == 1 ) {
 					$packageStatuses = PackageStatus::selectAll();
-					$cols            = [];
-					$ops             = [];
-					$vals            = [];
-					if( $user->roleId === 2 ) {
-						$cols = [ 'postOfficeId' ];
-						$ops  = [ '=' ];
-						$vals = [ $user->roleId ];
-					} else if( isset( $_POST[ 'postOfficeSelector' ] ) ) {
-						$cols[] = 'postOfficeId';
-						$ops[]  = '=';
-						$vals[] = $_POST[ 'postOfficeSelector' ];
-					}
 					if( isset( $_POST[ 'packageStatusSelector' ] ) ) {
 						if( $_POST[ 'packageStatusSelector' ] !== 'all' ) {
 							$cols[] = 'packageStatus';
@@ -103,11 +105,11 @@
 							}
 							if( $user->roleId == 1 ) {
 								$postOffices = PostOffice::selectAll();
-								return view( 'dashboard/reports' , compact( 'packageStatuses', 'postOffices', 'packages' ) );
+								return view( 'dashboard/reports' , compact( 'packageStatuses', 'postOffices', 'packages', 'selectedPostOffice' ) );
 
 							}
 
-							return view( 'dashboard/reports' , compact( 'packageStatuses' , 'packages' ) );
+							return view( 'dashboard/reports' , compact( 'packageStatuses' , 'packages','selectedPostOffice' ) );
 						} else {
 							$transactions          = Transaction::findAll()
 							                                    ->where( $cols , $ops , $vals )
@@ -125,11 +127,11 @@
 							// dd( $_POST , $cols , $ops , $vals, $transactions );
 							if( $user->roleId == 1 ) {
 								$postOffices = PostOffice::selectAll();
-								return view( 'dashboard/reports' , compact( 'packageStatuses', 'postOffices', 'transactions', 'totalTransactionsCost' ) );
+								return view( 'dashboard/reports' , compact( 'packageStatuses', 'postOffices', 'transactions', 'totalTransactionsCost', 'selectedPostOffice' ) );
 
 							}
 							return view( 'dashboard/reports' ,
-							             compact( 'packageStatuses' , 'transactions' , 'totalTransactionsCost' ) );
+							             compact( 'packageStatuses' , 'transactions' , 'totalTransactionsCost', 'selectedPostOffice' ) );
 						}
 					}
 				} else if( $user->roleId == 3 ) {

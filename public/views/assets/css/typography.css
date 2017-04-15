@@ -15,6 +15,12 @@ h5 {font-size : 16px;margin-top:0;}
 h6 {font-size : 14px;margin-top:0;}
 p, a, input, select, textarea, button {font-size : 14px;}
 
+h1 a {font-size : inherit;}
+h2 a {font-size : inherit;}
+h3 a {font-size : inherit;}
+h4 a {font-size : inherit;}
+h5 a {font-size : inherit;}
+h6 a {font-size : inherit;}
 
 @media ( max-width : 767px ) {
 	h1 {font-size : 28px;}
