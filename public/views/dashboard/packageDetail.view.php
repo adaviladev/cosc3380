@@ -40,7 +40,7 @@
 										<?= $package->destination->city; ?>, <?= $package->destination->state; ?> <?= $package->destination->zipCode; ?>
 									</div>
 									<!-- /.col-dt-12 -->
-									<?php if( $package->packageStatus == 1 && Auth::user()->roleId == 2 ) { ?>
+									<?php if( $package->packageStatus == 1 && (Auth::user()->roleId == 2 || Auth::user()->roleId == 1)) { ?>
 										<a href="/dashboard/packages/edit/<?= $package->id; ?>" class="button">Edit</a>
 										<!-- /.button -->
 									<?php } ?>
