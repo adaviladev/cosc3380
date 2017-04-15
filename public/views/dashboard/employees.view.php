@@ -11,7 +11,7 @@
 				<?php getPartial( 'employeesList' , compact( 'employees' ) ); ?>
 				<div class="text-right">
 					<?php if( Auth::user()->roleId === 1 ) { ?>
-						<a href="/dashboard/employees/add">Add new User</a>
+						<a href="/admin/employees/add">Add new User</a>
 					<?php } else { ?>
 						<a href="/dashboard/employees/add">Add new employees</a>
 					<?php } ?>

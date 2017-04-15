@@ -3,7 +3,6 @@
 	namespace App\Controllers;
 
 	use Address;
-	use App\Core\App;
 	use App\Core\Auth;
 	use Package;
 	use PackageStatus;
@@ -37,14 +36,16 @@
 				foreach( $packages as $package ) {
 					$customers[] = User::findAll()->where( [ 'id' ] ,
 					                                       [ '=' ] ,
-					                                       [ $packages->userId ] )->get();
+					                                       [ $package->userId ] )->get();
 				}
 
 				return view( 'dashboard/customers' ,
 				             compact( 'customers' ) );
-			} else if( $user->roleId == 3 ) {
+			} else if( $user && $user->roleId == 3 ) {
 				return redirect( 'account' );
 			}
+
+			return redirect( 'login' );
 		}
 
 		/**
@@ -164,9 +165,9 @@
 
 					// dd( $userInsert );
 					if( ! is_string( $userInsert ) ) {
-						$user = User::find()
-						            ->where( [ 'id' ] , [ '=' ] , [ $userInsert ] )
-						            ->get();
+						// $user = User::find()
+						//             ->where( [ 'id' ] , [ '=' ] , [ $userInsert ] )
+						//             ->get();
 
 						return redirect( 'dashboard/employees' );
 						// return view( 'auth/register' );
@@ -240,10 +241,9 @@
 				} else if( $user->roleId == 1 ) {
 					return redirect( 'admin' );
 				}
-			} else {
-				return view( 'auth/login' ,
-				             compact( 'user' ) );
 			}
+			return view( 'auth/login' ,
+				             compact( 'user' ) );
 		}
 
 		/**
@@ -254,7 +254,6 @@
 		 */
 		public function updatePassword() {
 			$user       = Auth::user();
-			$changeFlag = 0;
 			if( $user ) {
 				if( $user->password == md5( $_POST[ 'oldPassword' ] ) && $_POST[ 'newPassword' ] == $_POST[ 'confirmPassword' ] ) {
 					$user->password = md5( $_POST[ 'newPassword' ] );
@@ -419,9 +418,9 @@
 				$user = User::find()->where( [ 'id' ] ,
 				                             [ '=' ] ,
 				                             [ $userInsertId ] )->get();
-				dd( '.' ,
-				    $user ,
-				    "hit" );
+				// dd( '.' ,
+				//     $user ,
+				//     "hit" );
 
 				$_SESSION[ 'user' ] = serialize( $user );
 
@@ -440,6 +439,7 @@
 						                      'states' ) );
 				}
 			}
+			return redirect( 'login' );
 		}
 
 		public function editEmployeeDetail( $employeeId ) {
@@ -486,7 +486,7 @@
 				$employee->location = PostOffice::find()->where( [ 'id' ] ,
 				                                                 [ '=' ] ,
 				                                                 [ $employee->postOfficeId ] )->get();
-				$states             = State::selectAll();
+				// $states             = State::selectAll();
 				$bindings           = [];
 
 				if( isset( $_POST[ 'addressStreet' ] ) ) {
@@ -523,7 +523,7 @@
 
 				// dd( $bindings );
 				if( $user->roleId === 1 ) {
-					return redirect( "admin/users/" );
+					return redirect( "admin/post-offices/{$employee->location->id}/employees" );
 				} else {
 					return redirect( "dashboard/employees/" );
 				}

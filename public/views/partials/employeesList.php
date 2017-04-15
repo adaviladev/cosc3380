@@ -51,7 +51,10 @@
 					<!-- /.col-dt-3 col-tb-3 col-mb-3 -->
 					<div class="col-dt-3 col-tb-3 col-mb-3">
 						<div class="list-item-content">
-							<?= $employee->createdAt; ?>
+							<?php
+								$date = new DateTime($employee->createdAt);
+								echo $date->format( 'M j, Y' );
+							?>
 						</div>
 						<!-- /.list-item-content -->
 					</div>

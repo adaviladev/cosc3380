@@ -29,6 +29,13 @@
 							</div>
 							<!-- /.col-dt-12 col-tb-12 col-mb-12 -->
 						<?php } ?>
+						<?php if( property_exists( $package, 'returnAddress' ) ) { ?>
+							<div class="col-dt-12 col-tb-12 col-mb-12">
+								<?= $package->returnAddress->street; ?>, <br/>
+								<?= $package->returnAddress->city; ?>, <?= $package->returnAddress->state->state; ?> <?= $package->returnAddress->zipCode; ?>
+							</div>
+							<!-- /.col-dt-12 col-tb-12 col-mb-12 -->
+						<?php } ?>
 						<div class="col-dt-12 col-tb-12 col-mb-12">
 							<?= $package->destination->street; ?>, <br/>
 							<?= $package->destination->city; ?>, <?= $package->destination->state->state; ?> <?= $package->destination->zipCode; ?>
