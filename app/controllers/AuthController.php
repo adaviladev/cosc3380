@@ -28,18 +28,21 @@
 		 */
 		public function signIn() {
 			$errors = array();
-			$user = User::find()
-			            ->where( [
-				                     'email' ,
-				                     'password'
-			                     ] , [
-				                     '=' ,
-				                     '='
-			                     ] , [
-				                     $_POST[ 'email' ] ,
-				                     md5( $_POST[ 'password' ] )
-			                     ] )
-			            ->get();
+			$user   = User::find()
+			              ->where( [
+				                       'email' ,
+				                       'password' ,
+				                       'active'
+			                       ] , [
+				                       '=' ,
+				                       '=' ,
+				                       '='
+			                       ] , [
+				                       $_POST[ 'email' ] ,
+				                       md5( $_POST[ 'password' ] ) ,
+				                       '1'
+			                       ] )
+			              ->get();
 
 			if( $user ) {
 				$_SESSION[ 'user' ] = serialize( $user );
@@ -52,6 +55,7 @@
 				}
 			}
 			$errors[] = "Email or password do not match.";
+
 			return view( 'auth/login' , compact( 'errors' ) );
 		}
 
