@@ -1,3 +1,6 @@
+<?php
+	use App\Core\Auth;
+?>
 <div class="list-wrapper card-2">
 	<?php if( ! empty( $transactions ) ) { ?>
 		<div class="list-header primary-bg clearfix">
@@ -31,8 +34,13 @@
 							<div class="list-item-content">
 								<?= $transaction->id; ?>
 								<div>
-									<a href="/dashboard/transactions/<?= $transaction->id; ?>">
-										View</a>
+									<?php if( Auth::user()->roleId == 1 ) { ?>
+										<a href="/admin/transactions/<?= $transaction->id; ?>">
+											View</a>
+									<?php } else if( Auth::user()->roleId == 2 ) { ?>
+										<a href="/dashboard/transactions/<?= $transaction->id; ?>">
+											View</a>
+									<?php } ?>
 								</div>
 							</div>
 						</div>
