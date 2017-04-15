@@ -134,11 +134,12 @@
 			return redirect( 'login' );
 		}
 
-		public function customers() {
+		public function customers( $postOfficeId ) {
 			$auth = Auth::user();
 			if( $auth && $auth->roleId == 1 ) {
+			    echo($postOfficeId);
 				$customers = User::findAll()
-				                 ->where( [ 'roleId' ] , [ '=' ] , [ 3 ] )
+				                 ->where( [ 'roleId' , 'postOfficeId' ] , [ '=', '=' ] , [ 3, $postOfficeId ] )
 				                 ->get();
 
 				foreach( $customers as $customer ) {
@@ -283,7 +284,7 @@
 				}
 
 				return view( 'admin/adminPostOfficeDetail' ,
-				             compact( 'user' , 'packages' , 'employees' , 'customers' ) );
+				             compact( 'user' , 'packages' , 'employees' , 'customers', 'postOfficeId' ) );
 			} else {
 				return redirect( 'login' );
 			}

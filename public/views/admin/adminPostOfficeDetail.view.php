@@ -48,7 +48,7 @@
                 <h3>Customers</h3>
                 <?php getPartial( 'customersList' , compact( 'customers' ) ); ?>
                 <div class="text-right">
-                    <a href="/admin/customers">View all customers</a>
+                    <a href="/admin/post-offices/<?= $postOfficeId; ?>/customers">View all customers</a>
                 </div>
                 <!-- /.text-right -->
             </div>
