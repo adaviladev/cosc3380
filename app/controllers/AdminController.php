@@ -14,7 +14,11 @@
 	use PackageStatus;
 
 	class AdminController {
-		public function packages() {
+
+        /**
+         * @return mixed| returns all packages in the database
+         */
+        public function packages() {
 			$user = Auth::user();
 			if( $user && $user->roleId == 1 ) {
 				$packages = Package::selectAll();
@@ -54,7 +58,11 @@
 			return redirect( 'login' );
 		}
 
-		public function postOfficePackages( $postOfficeId ) {
+        /**
+         * @param $postOfficeId
+         * @return mixed|void returns all packages for a selected postOffice
+         */
+        public function postOfficePackages($postOfficeId ) {
 			$user = Auth::user();
 			if( $user && $user->roleId == 1 ) {
 				$packages = Package::findAll()
@@ -96,7 +104,10 @@
 			return redirect( 'login' );
 		}
 
-		public function transactions() {
+        /**
+         * @return mixed|void returns all transactions in the database
+         */
+        public function transactions() {
 			$user = Auth::user();
 			if( $user && $user->roleId == 1 ) {
 				$transactions = Transaction::selectAll();
@@ -126,7 +137,11 @@
 			return redirect( 'login' );
 		}
 
-		public function transactionDetail( $transactionId ) {
+        /**
+         * @param $transactionId
+         * @return mixed|void returns detailed information for the selected transaction
+         */
+        public function transactionDetail($transactionId ) {
 			$user = Auth::user();
 			if( $user ) {
 				if( $user->roleId === 1 ) {
@@ -178,7 +193,11 @@
 			return redirect( 'login' );
 		}
 
-		public function customers( $postOfficeId ) {
+        /**
+         * @param $postOfficeId
+         * @return mixed|void returns all customers for a selected postOffice
+         */
+        public function customers($postOfficeId ) {
 			$auth = Auth::user();
 			if( $auth && $auth->roleId == 1 ) {
 				$customerPackages = Package::findAll()
@@ -266,7 +285,10 @@
 			return redirect( 'login' );
 		}
 
-		public function users() {
+        /**
+         * @return mixed|void returns all users in the database. Only users with packages are displayed
+         */
+        public function users() {
 			$auth = Auth::user();
 			if( $auth && $auth->roleId == 1 ) {
 				$customers = User::findAll()
@@ -302,7 +324,10 @@
 			return redirect( 'login' );
 		}
 
-		public function employees() {
+        /**
+         * @return mixed|void Returns all employees in the database
+         */
+        public function employees() {
 			$auth = Auth::user();
 			if( $auth && $auth->roleId == 1 ) {
 				$employees = User::findAll()
@@ -325,7 +350,11 @@
 			return redirect( 'login' );
 		}
 
-		public function postOfficeEmployees( $postOfficeId ) {
+        /**
+         * @param $postOfficeId
+         * @return mixed|void returns all employees for a selected postOffice
+         */
+        public function postOfficeEmployees($postOfficeId ) {
 			$auth = Auth::user();
 			if( $auth && $auth->roleId == 1 ) {
 				$employees = User::findAll()
@@ -348,7 +377,10 @@
 			return redirect( 'login' );
 		}
 
-		public function postOffices() {
+        /**
+         * @return mixed|void returns all postOffices
+         */
+        public function postOffices() {
 			$user = Auth::user();
 			if( $user && $user->roleId == 1 ) {
 				$postOffices = PostOffice::selectAll();
@@ -373,7 +405,11 @@
 			return redirect( 'login' );
 		}
 
-		public function selectedPostOffice( $postOfficeId ) {
+        /**
+         * @param $postOfficeId
+         * @return mixed|void returns detailed information for the selected postOffice
+         */
+        public function selectedPostOffice($postOfficeId ) {
 			$user = Auth::user();
 			if( $user && $user->roleId == 1 ) {
 				$packages = Package::findAll()
@@ -443,7 +479,10 @@
 			}
 		}
 
-		public function admin() {
+        /**
+         * @return mixed|void returns information for the admin home page
+         */
+        public function admin() {
 			$user = Auth::user();
 			if( $user && $user->roleId == 1 ) {
 				$packages = Package::findAll()
@@ -506,7 +545,10 @@
 			}
 		}
 
-		public function storeEmployee() {
+        /**
+         * @return mixed|void allows an admin to store an employee in the database
+         */
+        public function storeEmployee() {
 			$user = Auth::user();
 			if( $user ) {
 				if( $user->roleId === 1 ) {
@@ -599,7 +641,10 @@
 			return redirect( 'login' );
 		}
 
-		public function emails(){
+        /**
+         * @return mixed|void returns emails
+         */
+        public function emails(){
 			$user = Auth::user();
 			if( $user ) {
 				if( $user->roleId === 1 ) {
