@@ -74,8 +74,8 @@
 				}
 			}
 
-			// redirect( '404' );
-			throw new Exception( 'No route defined for URI.' );
+			return redirect( '' );
+			// throw new Exception( 'No route defined for URI.' );
 		}
 
 		protected function callAction( $controller , $method , $params = [] ) {
