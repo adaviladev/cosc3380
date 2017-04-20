@@ -25,7 +25,7 @@
 					<!-- /.field-container -->
 					<div class="field-container validate clearfix required">
 						<label for="email" class="email required">Email <span>*</span></label>
-						<input type="email" name="email" value="" class="<?= $emailClass; ?>" required>
+						<input id="email" type="email" name="email" value="" class="<?= $emailClass; ?>" required>
 					</div>
 					<!-- /.field-container -->
 					<div class="field-container clearfix">

@@ -7,9 +7,10 @@
 			$( '.form-wrapper label' ).removeClass( 'active' );
 			$( this ).siblings( 'label' ).addClass( 'active' );
 		} );
-		$( '.form-wrapper input:not([type="date"]),.form-wrapper textarea' ).blur( function() {
+		$( '.form-wrapper input:not([type="date"])' ).blur( function() {
 			$( '.form-wrapper label' ).removeClass( 'active' );
-			if( !$( this ).parent().hasClass( 'validate' ) && $( this ).val() ) {
+			console.log( $( this ) );
+			if( !$( this ).parent().hasClass( 'validate' ) && $( this ).val().length > 0 ) {
 				if( $( this ).attr( 'type' ) !== 'email' ) {
 					$( this ).siblings( 'label' ).addClass( 'filled' );
 					$( this ).addClass( 'valid' );
@@ -29,7 +30,7 @@
 				$( this ).addClass( 'dirty' );
 			}
 		} );
-		$( '.form-wrapper .required input[type="text"],.form-wrapper .required input[type="password"],.form-wrapper select' ).on( 'keyup change', function() {
+		$( '.form-wrapper .required input[type="text"],.form-wrapper .required input[type="password"],.form-wrapper textarea' ).on( 'keyup change', function() {
 			if( $( this ).val().length === 0 ) {
 				$( this ).siblings( 'label' ).removeClass( 'filled' );
 				$( this ).removeClass( 'valid' );
@@ -40,7 +41,19 @@
 				$( this ).removeClass( 'dirty' );
 			}
 		} );
-		$( '.validate input[name="email"]' ).on( 'keyup change', function() {
+		$( '.form-wrapper select' ).on( 'keyup change', function() {
+			console.log( $( this ).prop( 'value' ) );
+			if( $( this ).prop( 'value' ) === '' ) {
+				$( this ).siblings( 'label' ).removeClass( 'filled' );
+				$( this ).removeClass( 'valid' );
+				$( this ).addClass( 'dirty' );
+			} else if( $( this ).prop( 'value' ) !== '' ) {
+				$( this ).siblings( 'label' ).addClass( 'filled' );
+				$( this ).addClass( 'valid' );
+				$( this ).removeClass( 'dirty' );
+			}
+		} );
+		$( '.validate input[type="email"]' ).on( 'keyup change', function() {
 			var isValid = validateEmail( $( this ).val() );
 			if( isValid ) {
 				$( this ).removeClass( 'dirty' );

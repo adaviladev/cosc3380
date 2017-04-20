@@ -170,6 +170,10 @@ textarea.dirty {
 	border : 2px solid #ff0000 !important;
 }
 
+textarea.valid {
+	border : 2px solid #4caf50 !important;
+}
+
 .errors {
 	width            : 100%;
 	padding          : 8px;
