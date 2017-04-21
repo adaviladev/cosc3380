@@ -6,18 +6,27 @@
 			<div class="form-wrapper">
 				<h2>Contact Us</h2>
 				<!-- Input begins -->
+				<?php if( isset( $emailStatus ) ) { ?>
+					<div class="success-message">
+						<p>Message success</p>
+					</div>
+				<?php } else if( isset( $emailStatus ) && !$emailStatus ) { ?>
+					<div class="errors">
+						<p>An error occurred. Please try again.</p>
+					</div>
+				<?php } ?>
 				<form action="/contact" method="post">
 					<div class="field-container clearfix required">
-						<label for="FirstName">First Name</label>
-						<input id="FirstName" type="text" name="FirstName" class="" value="" required>
+						<label for="firstName">First Name</label>
+						<input id="firstName" type="text" name="firstName" class="" value="" required>
 					</div>
 					<div class="field-container clearfix required">
-						<label for="LastName">Last Name</label>
-						<input id="LastName" type="text" name="LastName" class="" value="" required>
+						<label for="lastName">Last Name</label>
+						<input id="lastName" type="text" name="lastName" class="" value="" required>
 					</div>
 					<div class="field-container validate clearfix required">
-						<label for="Email">Email</label>
-						<input id="Email" type="email" name="Email" class="" value="" required>
+						<label for="email">Email</label>
+						<input id="email" type="email" name="email" class="" value="" required>
 					</div>
 					<div class="field-container clearfix required">
 						<label for="postOfficeSelector">Your Local ProstOffice (Optional)</label>
@@ -32,8 +41,8 @@
 					</div>
 					<div class="field-container validate clearfix required">
 						<!-- Text area -->
-						<label for="Message">What is your question or comment?</label>
-						<textarea id="Message" type="text" name="Message" class="" required></textarea>
+						<label for="message">What is your question or comment?</label>
+						<textarea id="message" type="text" name="message" class="" required></textarea>
 					</div>
 					<button type="submit" name="submit" value="submit">Submit</button>
 				</form>

@@ -188,7 +188,10 @@ textarea.valid {
 	padding          : 8px;
 	border-radius    : 2px;
 	background-color : #4caf50;
-	color            : #ffffff;
+}
+
+.success-message * {
+	color            : #ffffff !important;
 	font-weight      : bold;
 }
 
