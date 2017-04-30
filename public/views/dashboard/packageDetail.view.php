@@ -4,6 +4,20 @@
 	getHeader();
 ?>
 
+<div class="row">
+	<div class="container">
+		<h2>
+			<?php if( Auth::user()->roleId === 1 ) { ?>
+				<a href="/admin/reports" class="button primary-bg">View Reports</a>
+			<?php } else if( Auth::user()->roleId === 2 ) { ?>
+				<a href="/dashboard/reports" class="button primary-bg">View Reports</a>
+			<?php } ?>
+		</h2>
+	</div>
+	<!-- /.container -->
+</div>
+<!-- /.row -->
+
 	<div class="row">
 		<div class="container">
 			<?php if( ! empty( $package ) ) { ?>
