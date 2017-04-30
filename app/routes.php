@@ -72,7 +72,7 @@
 	$router->post( 'admin/employees/add' , 'AdminController@storeEmployee' );
 	$router->get( 'admin/employees/:employeeId' , 'UsersController@editEmployeeDetail' );
 	$router->post( 'admin/employees/:employeeId' , 'UsersController@updateEmployeeDetail' );
-	$router->get( 'admin/packages' , 'AdminController@packages' );
+	// $router->get( 'admin/packages' , 'AdminController@packages' );
 	$router->get( 'admin/packages/:packageId' , 'PackageController@packageDetail' );
 	$router->get( 'admin/post-offices' , 'AdminController@postOffices' );
 	$router->get( 'admin/post-offices/:postOfficeId' , 'AdminController@selectedPostOffice' );
@@ -81,7 +81,7 @@
 	$router->get( 'admin/post-offices/:postOfficeId/employees' , 'AdminController@postOfficeEmployees' );
 	$router->get( 'admin/reports' , 'ReportsController@getReports' );
 	$router->post( 'admin/reports' , 'ReportsController@showReports' );
-	$router->get( 'admin/transactions' , 'AdminController@transactions' );
+	// $router->get( 'admin/transactions' , 'AdminController@transactions' );
 	$router->get( 'admin/transactions/:transactionId' , 'AdminController@transactionDetail' );
 
 	/**

@@ -1,3 +1,7 @@
+<?php
+	use App\Core\Auth;
+	$user = Auth::user();
+?>
 <!doctype html>
 <html>
 	<head>
@@ -14,7 +18,15 @@
 					<button class="nav-trigger float-right primary-bg"><span>toggle</span></button>
 					<div class="container clearfix">
 						<div class="float-left">
-							<a href="/" id="Logo">
+							<?php if( !$user ) { ?>
+								<a href="/" id="Logo">
+							<?php } else if( $user->roleId == 1 ) { ?>
+								<a href="/admin" id="Logo">
+							<?php } else if( $user->roleId == 2 ) { ?>
+								<a href="/dashboard" id="Logo">
+							<?php } else if( $user->roleId == 3 ) { ?>
+								<a href="/account" id="Logo">
+							<?php } ?>
 								<img src="/views/assets/images/prostoffice-dark.png" alt="">
 							</a>
 						</div>

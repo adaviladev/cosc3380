@@ -16,7 +16,7 @@
 	class AdminController {
 
         /**
-         * @return mixed| returns all packages in the database
+         * @return mixed returns all packages in the database
          */
         public function packages() {
 			$user = Auth::user();
@@ -60,7 +60,7 @@
 
         /**
          * @param $postOfficeId
-         * @return mixed|void returns all packages for a selected postOffice
+         * @return mixed returns all packages for a selected postOffice
          */
         public function postOfficePackages($postOfficeId ) {
 			$user = Auth::user();
@@ -105,7 +105,7 @@
 		}
 
         /**
-         * @return mixed|void returns all transactions in the database
+         * @return mixed returns all transactions in the database
          */
         public function transactions() {
 			$user = Auth::user();
@@ -139,7 +139,7 @@
 
         /**
          * @param $transactionId
-         * @return mixed|void returns detailed information for the selected transaction
+         * @return mixed returns detailed information for the selected transaction
          */
         public function transactionDetail($transactionId ) {
 			$user = Auth::user();
@@ -195,7 +195,7 @@
 
         /**
          * @param $postOfficeId
-         * @return mixed|void returns all customers for a selected postOffice
+         * @return mixed returns all customers for a selected postOffice
          */
         public function customers($postOfficeId ) {
 			$auth = Auth::user();
@@ -286,7 +286,7 @@
 		}
 
         /**
-         * @return mixed|void returns all users in the database. Only users with packages are displayed
+         * @return mixed returns all users in the database. Only users with packages are displayed
          */
         public function users() {
 			$auth = Auth::user();
@@ -325,7 +325,7 @@
 		}
 
         /**
-         * @return mixed|void Returns all employees in the database
+         * @return mixed Returns all employees in the database
          */
         public function employees() {
 			$auth = Auth::user();
@@ -352,7 +352,7 @@
 
         /**
          * @param $postOfficeId
-         * @return mixed|void returns all employees for a selected postOffice
+         * @return mixed returns all employees for a selected postOffice
          */
         public function postOfficeEmployees($postOfficeId ) {
 			$auth = Auth::user();
@@ -378,7 +378,7 @@
 		}
 
         /**
-         * @return mixed|void returns all postOffices
+         * @return mixed returns all postOffices
          */
         public function postOffices() {
 			$user = Auth::user();
@@ -407,7 +407,7 @@
 
         /**
          * @param $postOfficeId
-         * @return mixed|void returns detailed information for the selected postOffice
+         * @return mixed returns detailed information for the selected postOffice
          */
         public function selectedPostOffice($postOfficeId ) {
 			$user = Auth::user();
@@ -480,7 +480,7 @@
 		}
 
         /**
-         * @return mixed|void returns information for the admin home page
+         * @return mixed returns information for the admin home page
          */
         public function admin() {
 			$user = Auth::user();
@@ -546,7 +546,7 @@
 		}
 
         /**
-         * @return mixed|void allows an admin to store an employee in the database
+         * @return mixed allows an admin to store an employee in the database
          */
         public function storeEmployee() {
 			$user = Auth::user();
@@ -642,7 +642,7 @@
 		}
 
         /**
-         * @return mixed|void returns emails
+         * @return mixed returns emails
          */
         public function emails(){
 			$user = Auth::user();

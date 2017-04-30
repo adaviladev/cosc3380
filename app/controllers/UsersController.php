@@ -28,19 +28,16 @@
 			$user = Auth::user();
 			$user->postOfficeId;
 			if( $user && $user->roleId == 2 ) {
-				$packages = Package::findall()->where( [ 'postOfficeId' ] ,
+				$packages = Package::findAll()->where( [ 'postOfficeId' ] ,
 				                                       [ '=' ] ,
 				                                       [ $user->postOfficeId ] )->get();
-
-				$customers = [];
+				$userIds = [];
 				foreach( $packages as $package ) {
-					$customers[] = User::findAll()->where( [ 'id' ] ,
-					                                       [ '=' ] ,
-					                                       [ $package->userId ] )->get();
+					$userIds[] = $package->userId;
 				}
+				$customers = User::findAll()->whereIn( $userIds )->get();
 
-				return view( 'dashboard/customers' ,
-				             compact( 'customers' ) );
+				return view( 'dashboard/customers' , compact( 'customers' ) );
 			} else if( $user && $user->roleId == 3 ) {
 				return redirect( 'account' );
 			}
@@ -90,13 +87,20 @@
 		 * @return mixed Display form for adding employees to own post office
 		 */
 		public function addEmployee() {
+			$user = Auth::user();
+			if( $user ) {
+				if( $user->roleId == 1 || $user->roleId == 2 ) {
+					$states = State::selectAll();
+					$roles  = Role::findAll()->where(['id'],['>='],[$user->roleId])->get();
 
-			$states = State::selectAll();
-			$roles  = Role::selectAll();
-
-			return view( 'dashboard/addEmployee' ,
-			             compact( 'states' ,
-			                      'roles' ) );
+					return view( 'dashboard/addEmployee' ,
+					             compact( 'states' ,
+					                      'roles' ) );
+				} else if( $user->roleId == 3 ){
+					return redirect('account' );
+				}
+			}
+			return redirect( 'login' );
 		}
 
 		public function storeEmployee() {
