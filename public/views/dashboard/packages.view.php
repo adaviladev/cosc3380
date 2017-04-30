@@ -1,11 +1,14 @@
 <?php getHeader(); ?>
 
-<?php if( ! empty( $packages ) ) { ?>
-	<div class="row">
-		<div class="container">
+<div class="row">
+	<div class="container">
+		<?php if( ! empty( $packages ) ) { ?>
 			<?php getPartial( 'packagesGrid' , compact( 'packages' ) ); ?>
-		</div>
+		<?php } else { ?>
+			No Packages to display.
+		<?php } ?>
 	</div>
-<?php } ?>
+</div>
+
 
 <?php getFooter(); ?>
