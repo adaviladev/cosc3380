@@ -11,7 +11,6 @@
 		public $userId;
 		public $postOfficeId;
 		public $typeId;
-		public $transactionId;
 		public $destinationId;
 		public $returnAddressId;
 		public $contents;

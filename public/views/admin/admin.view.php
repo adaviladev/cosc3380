@@ -16,7 +16,7 @@
 					<h3>Recent Packages</h3>
 					<?php getPartial( "packagesGrid" , compact( 'packages' ) ); ?>
 					<div class="text-right">
-						<a href="/admin/packages">View All Packages</a>
+						<a href="/admin/reports">View Reports</a>
 					</div>
 					<!-- /.text-right -->
 				</div>
