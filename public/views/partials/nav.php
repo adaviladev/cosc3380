@@ -15,14 +15,12 @@
 			<li class="parent-menu nav-item">
 				<a href="/admin">Admin</a>
 				<ul class="sub-menu">
-					<?php if(false) { ?>
 					<li class="nav-item">
 						<a href="/admin/packages">Packages</a>
 					</li>
 					<li class="nav-item">
 						<a href="/admin/transactions">Transactions</a>
 					</li>
-					<?php } ?>
 					<li class="nav-item">
 						<a href="/admin/post-offices">Post Offices</a>
 					</li>

@@ -63,7 +63,7 @@
 					<!-- /.col-dt-3 col-tb-3 col-mb-3 no-margin -->
 					<div class="col-dt-3 col-tb-3 col-mb-3 no-margin">
 						<div class="list-item-content">
-							$<?= money_format( '%i' , $transaction->cost ); ?>
+							$<?= $transaction->cost; ?>
 						</div>
 						<!-- /.list-item-content -->
 					</div>
