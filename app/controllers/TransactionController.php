@@ -77,26 +77,7 @@
 					                                                     ->where( [ 'id' ] , [ '=' ] ,
 					                                                              [ $transaction->packageId ] )
 					                                                     ->get();
-					$transaction->package->status               = PackageStatus::find()
-					                                                           ->where( [ 'id' ] , [ '=' ] ,
-					                                                                    [ $transaction->package->packageStatus ] )
-					                                                           ->get()->type;
-					$transaction->package->destination          = Address::find()
-					                                                     ->where( [ 'id' ] , [ '=' ] ,
-					                                                              [ $transaction->package->destinationId ] )
-					                                                     ->get();
-					$transaction->package->destination->state   = State::find()
-					                                                   ->where( [ 'id' ] , [ '=' ] ,
-					                                                            [ $transaction->package->destination->stateId ] )
-					                                                   ->get()->state;
-					$transaction->package->returnAddress        = Address::find()
-					                                                     ->where( [ 'id' ] , [ '=' ] ,
-					                                                              [ $transaction->package->returnAddressId ] )
-					                                                     ->get();
-					$transaction->package->returnAddress->state = State::find()
-					                                                   ->where( [ 'id' ] , [ '=' ] ,
-					                                                            [ $transaction->package->returnAddress->stateId ] )
-					                                                   ->get()->state;
+					$transaction->package->hydrate();
 
 					return view( 'dashboard/transactionDetail' , compact( 'transaction' ) );
 				} else if( $user->roleId == 1 ) {

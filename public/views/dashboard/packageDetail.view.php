@@ -41,7 +41,7 @@
 							<!-- /.col-dt-12 -->
 							<div class="col-dt-12 text-left clearfix">
 								<div class="package-detail-info clearfix">
-									<p><?= $package->status->type; ?></p>
+									<p><?= $package->status; ?></p>
 									<div class="col-dt-6 col-mb-12">
 										<p>Origin:</p>
 										<?= $package->returnAddress->street; ?>,<br/>

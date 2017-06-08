@@ -27,4 +27,14 @@
 		public function  __wakeup(){
 			// silence is golden
 		}
+
+		public function state(){
+            $this->state = State::find()
+                 ->where( [ 'id' ] , [ '=' ] , [ $this->stateId ] )
+                 ->get()->state;
+		}
+
+		public function hydrate(){
+            $this->state();
+		}
 	}

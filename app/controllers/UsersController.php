@@ -49,6 +49,8 @@
 		 * @param int $customerId id of customer to update
 		 * userDetail() gets the details of a single user assigned to the currently
 		 * logged in user's post office
+         *
+         * @return mixed view
 		 */
 		public function userDetail( $customerId ) {
 
@@ -61,21 +63,7 @@
 			                                       [ $customerId ] )->orderBy( 'createdAt' ,
 			                                                                   'desc' )->get();
 			foreach( $packages as $package ) {
-				$package->destination          = Address::find()->where( [ 'id' ] ,
-				                                                         [ '=' ] ,
-				                                                         [ $package->destinationId ] )->get();
-				$package->destination->state   = State::find()->where( [ 'id' ] ,
-				                                                       [ '=' ] ,
-				                                                       [ $package->destination->stateId ] )->get();
-				$package->returnAddress        = Address::find()->where( [ 'id' ] ,
-				                                                         [ '=' ] ,
-				                                                         [ $package->returnAddressId ] )->get();
-				$package->returnAddress->state = State::find()->where( [ 'id' ] ,
-				                                                       [ '=' ] ,
-				                                                       [ $package->returnAddress->stateId ] )->get();
-				$package->status               = PackageStatus::find()->where( [ 'id' ] ,
-				                                                               [ '=' ] ,
-				                                                               [ $package->packageStatus ] )->get();
+				$package->hydrate();
 			}
 
 			return view( 'dashboard/userDetail' ,
@@ -316,19 +304,9 @@
 					                                       [ $user->id ] )->orderBy( 'createdAt' ,
 					                                                                 'desc' )->limit( 6 )->get();
 
+                    $states                        = State::selectAll();
 					foreach( $packages as $package ) {
-						$states                        = State::selectAll();
-						$package->destination          = Address::find()->where( [ 'id' ] ,
-						                                                         [ '=' ] ,
-						                                                         [ $package->destinationId - 1 ] )->get();
-						$package->destination->state   = $states[ $package->destination->stateId ]->state;
-						$package->returnAddress        = Address::find()->where( [ 'id' ] ,
-						                                                         [ '=' ] ,
-						                                                         [ $package->returnAddressId - 1 ] )->get();
-						$package->returnAddress->state = $states[ $package->returnAddress->stateId ]->state;
-						$package->status               = PackageStatus::find()->where( [ 'id' ] ,
-						                                                               [ '=' ] ,
-						                                                               [ $package->packageStatus ] )->get();
+						$package->hydrate();
 					}
 
 					$transactions = Transaction::findAll()->where( [ 'customerId' ] ,
@@ -337,12 +315,7 @@
 					                                                                         'DESC' )->limit( 6 )->get();
 
 					foreach( $transactions as $transaction ) {
-						$transaction->package         = Package::find()->where( [ 'id' ] ,
-						                                                        [ '=' ] ,
-						                                                        [ $transaction->packageId ] )->get();
-						$transaction->package->status = PackageStatus::find()->where( [ 'id' ] ,
-						                                                              [ '=' ] ,
-						                                                              [ $transaction->package->packageStatus ] )->get()->type;
+						$transaction->package->hydrate();
 					}
 
 					// dd( $transactions );

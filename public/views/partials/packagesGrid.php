@@ -32,17 +32,17 @@
 						<?php if( property_exists( $package, 'returnAddress' ) ) { ?>
 							<div class="col-dt-12 col-tb-12 col-mb-12">
 								<?= $package->returnAddress->street; ?>, <br/>
-								<?= $package->returnAddress->city; ?>, <?= $package->returnAddress->state->state; ?> <?= $package->returnAddress->zipCode; ?>
+								<?= $package->returnAddress->city; ?>, <?= $package->returnAddress->state; ?> <?= $package->returnAddress->zipCode; ?>
 							</div>
 							<!-- /.col-dt-12 col-tb-12 col-mb-12 -->
 						<?php } ?>
 						<div class="col-dt-12 col-tb-12 col-mb-12">
 							<?= $package->destination->street; ?>, <br/>
-							<?= $package->destination->city; ?>, <?= $package->destination->state->state; ?> <?= $package->destination->zipCode; ?>
+							<?= $package->destination->city; ?>, <?= $package->destination->state; ?> <?= $package->destination->zipCode; ?>
 						</div>
 						<!-- /.col-dt-12 col-tb-12 col-mb-12 -->
 						<div class="col-dt-12 col-tb-12 col-mb-12 text-left">
-							<?= $package->status->type; ?>
+							<?= $package->status; ?>
 						</div>
 						<!-- /.col-dt-12 col-tb-12 col-mb-12 -->
 					</div>
