@@ -9,6 +9,6 @@
 			<!-- /.row -->
 		</div>
 		<!-- /#ContentWrapper -->
-	<script src="/assets/bundle/js/all.min.js"></script>
+	<script src="/assets/dist/bundle/all.min.js"></script>
 	</body>
 </html>

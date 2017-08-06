@@ -1,45 +1,18 @@
-'use strict';
+var fs = require("fs");
+var browserify = require('browserify');
+var vueify = require('vueify');
+var gulp = require('gulp');
+var babelify = require('babelify');
 
-/**
- * Used for concatenating, linting, and minifying all JS and CSS files.
- * @type {Gulp}
- */
+gulp.task('vueify', function () {
+  return browserify('./public/assets/src/js/main.js')
+  .transform(babelify, { presets: ['es2015'], plugins: ["transform-runtime"] })
+  .transform(vueify)
+  .bundle()
+  .pipe(fs.createWriteStream("./public/assets/dist/bundle/all.min.js"));
+});
 
-var gulp = require( 'gulp' );
-
-var jshint = require( 'gulp-jshint' );
-var sass = require( 'gulp-sass' );
-var concat = require( 'gulp-concat' );
-var uglify = require( 'gulp-uglify' );
-var rename = require( 'gulp-rename' );
-var concatCss = require( 'gulp-concat-css' );
-var cleanCss = require( 'gulp-clean-css' );
-
-gulp.task( 'default' , ['css' , 'lint' , 'scripts' , 'watch'] );
-
-gulp.task( 'lint', function() {
-	return gulp.src( 'public/views/assets/js/*.js' )
-		.pipe( jshint() )
-		.pipe( jshint.reporter( 'default' ) );
-} );
-
-gulp.task( 'css', function() {
-	return gulp.src( 'public/views/assets/css/*.css' )
-		.pipe( concatCss( 'all.min.css' ) )
-		.pipe( cleanCss() )
-		.pipe( gulp.dest( 'public/views/assets/bundle/css' ) );
-} );
-
-gulp.task( 'scripts', function() {
-	return gulp.src( [ 'public/views/assets/js/vendor/*.js', 'public/views/assets/js/*.js'] )
-		.pipe( concat( 'all.min.js' ) )
-		.pipe( gulp.dest( 'public/views/assets/bundle/js' ) )
-		.pipe( rename( 'all.min.js' ) )
-		.pipe( uglify() )
-		.pipe( gulp.dest( 'public/views/assets/bundle/js' ) );
-} );
-
-gulp.task( 'watch', function() {
-	gulp.watch( 'public/views/assets/js/*.js', [ 'lint', 'scripts' ] );
-	gulp.watch( 'public/views/assets/css/*.css', [ 'css' ] );
-} );
+gulp.task('default', function() {
+  gulp.watch('./public/assets/src/js/**/*.js', ['vueify']);
+  gulp.watch('./public/assets/src/js/**/*.vue', ['vueify']);
+});

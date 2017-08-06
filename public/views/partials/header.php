@@ -7,7 +7,7 @@
 	<head>
 		<title>ProstOffice - The Number One Fake Postal Service!</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<link rel="stylesheet" href="/assets/bundle/css/all.min.css">
+		<link rel="stylesheet" href="/assets/dist/bundle/all.min.css">
 	</head>
 
 	<body class="card">
