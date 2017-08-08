@@ -1,11 +1,13 @@
 import Vue from 'vue';
-import Router from './router';
+import router from './router';
 import App from './components/App.vue';
-import Welcome from './components/Welcome.vue';
 
-let vm = new Vue({
-  Router,
+new Vue({
+  el: '#app',
+  router,
+  template: '<App/>',
+  components: {
+    App
+  },
   render: (h) => h(App)
 });
-
-vm.$mount('#app');

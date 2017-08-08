@@ -1,14 +1,21 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 import Welcome from '../components/Welcome.vue';
-
-const routes = [
-  {
-    path: '/',
-    component: Welcome
-  }
-];
+import Contact from '../components/Contact.vue';
 
 Vue.use(Router);
 
-export default new Router({routes});
+export default new Router({
+  routes: [
+    {
+      path: '/',
+      name: 'Welcome',
+      component: Welcome
+    },
+    {
+      path: '/contact',
+      name: 'Contact',
+      component: Contact
+    },
+  ]
+});

@@ -23,7 +23,8 @@
 			foreach( $postOffices as $postOffice ) {
 				$postOffice->hydrate();
 			}
-			return view( 'pages/contact', compact('postOffices') );
+			return print(json_encode($postOffices));
+			// return view( 'pages/contact', compact('postOffices') );
 		}
 		/**
 		 * @return mixed Display static Locations page

@@ -4,12 +4,11 @@
             <div class="">
                 <div class="heading text-center">
                     <h1>Welcome to ProstOffice.pro</h1>
-                    <h3>Please <a href="/login">Login</a> or <a href="/register">Register</a></h3>
+                    <h3>Please <router-link to="/login">Login</router-link> or <router-link to="/register">Register</router-link></h3>
                 </div>
                 <!-- /.heading text-center -->
                 <p class="text-center">
-                    Customer satisfaction is our priority to us here at Prostoffice.pro,
-                    so if you have any issues please <a href="contact">contact us</a>.
+                    Customer satisfaction is one of our priority to us here at Prostoffice.pro, so if you have any issues please <router-link to="/contact">contact us</router-link>.
                 </p>
             </div>
         </div>
@@ -18,6 +17,7 @@
 
 <script>
     export default {
+      name: 'welcome',
       data() {
         return {
           message: 'hello'
