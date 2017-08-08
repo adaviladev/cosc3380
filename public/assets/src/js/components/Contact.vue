@@ -7,7 +7,7 @@
                     <!-- Input begins -->
                     <form id="contactForm" @submit.prevent="handleForm">
                         <div class="field-container clearfix required" >
-                            <label for="firstName" >First Name</label >
+                            <label for="firstName" :class="isFilled('firstName')" >First Name</label >
                             <input id="firstName" type="text" name="firstName" class="" v-model="firstName" required >
                         </div >
                         <div class="field-container clearfix required" >
@@ -20,7 +20,7 @@
                         </div >
                         <div class="field-container clearfix required" >
                             <label for="postOfficeSelector" >Your Local ProstOffice (Optional)</label >
-                            <select id="postOfficeSelector" name="postOfficeSelector" required >
+                            <select id="postOfficeSelector" name="postOfficeSelector" v-model="selectedPostOffice" required >
                                 <option disabled selected value="" ></option >
                                 <option v-for="office in postOffices" v-model="office.name" >{{office.name}}</option >
                             </select >
@@ -43,6 +43,11 @@
 
   export default {
     name: 'contact',
+    computed: {
+      isActive() {
+
+      }
+    },
     created() {
       axios.get(`/contact`)
            .then(response => {
@@ -56,15 +61,22 @@
       firstName: '',
       lastName: '',
       email: '',
-      selectedPostOffices: '',
+      selectedPostOffice: '',
       message: '',
       errors: [],
       postOffices: [],
       title: 'Contact Card'
     }),
     methods: {
+      clearForm() {
+        this.firstName = '';
+        this.lastName = '';
+        this.email = '';
+        this.selectedPostOffice = '';
+        this.message = '';
+      },
       handleForm() {
-        console.log(this.firstName, this.lastName, this.email, this.selectedPostOffices, this.message);
+        console.log(this.firstName, this.lastName, this.email, this.selectedPostOffice, this.message);
 //        axios.post(`/contact`, {
 //          firstName: this.firstName,
 //          lastName: this.lastName,
@@ -76,6 +88,10 @@
 //               this.errors.push(e)
 //             });
         console.log('form submitted');
+        clearForm();
+      },
+      isFilled(field) {
+        console.log(field);
       }
     }
   };
