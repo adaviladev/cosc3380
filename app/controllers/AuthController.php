@@ -25,6 +25,7 @@
 		 * @return mixed direct user to their appropriate home page or redirect to login page with errors.
 		 */
 		public function signIn() {
+            $_POST = json_decode(file_get_contents('php://input'), true);
 			$errors = array();
 			$user   = User::find()
 			              ->where( [
@@ -44,17 +45,18 @@
 
 			if( $user ) {
 				$_SESSION[ 'user' ] = serialize( $user );
-				if( $user->roleId === 1 ) {
-					return redirect( 'admin' );
-				} else if( $user->roleId === 2 ) {
-					return redirect( 'dashboard' );
-				} else if( $user->roleId === 3 ) {
-					return redirect( 'account' );
-				}
-			}
-			$errors[] = "Email or password do not match.";
+                return print(json_encode($user));
+                if( $user->roleId === 1 ) {
+                    return redirect( 'admin' );
+                } else if( $user->roleId === 2 ) {
+                    return redirect( 'dashboard' );
+                } else if( $user->roleId === 3 ) {
+                    return redirect( 'account' );
+                }
+            }
+            $errors[] = "Email or password do not match.";
 
-			return view( 'auth/login' , compact( 'errors' ) );
+            return view( 'auth/login' , compact( 'errors' ) );
 		}
 
 		/**
