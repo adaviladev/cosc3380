@@ -6,8 +6,9 @@
 	namespace App\Core;
 
 	use QueryBuilder;
+    use User;
 
-	class Auth {
+    class Auth {
 		protected $user;
 
 		public function  __sleep(){
@@ -21,6 +22,8 @@
 		}
 
 		public static function user() {
+//            $_SESSION['user'] = serialize(User::find()->where(['id'],['='],[1])->get());
+            return User::find()->where(['id'],['='],[1])->get();
 			if( isset( $_SESSION[ 'user' ] ) ) {
 
 				return unserialize( $_SESSION[ 'user' ] );

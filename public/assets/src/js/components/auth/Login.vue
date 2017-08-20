@@ -23,6 +23,12 @@
             <!-- /.container -->
         </div >
         <!-- /.row -->
+        <div class="errors">
+            <ul>
+                <li v-for="error in errors">{{error}}</li>
+            </ul>
+        </div>
+        <!-- /.errors -->
     </div >
 </template >
 
@@ -51,6 +57,7 @@
              })
              .then(response => {
                let user = response.data;
+               console.log(response);
                window.user = user;
                if (user.roleId === 1) {
                  router.push('/admin', user);

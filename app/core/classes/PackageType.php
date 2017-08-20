@@ -23,4 +23,9 @@
 		public function  __wakeup(){
 			// silence is golden
 		}
-	}
+
+        public function hydrate()
+        {
+            // TODO: Implement hydrate() method.
+        }
+    }

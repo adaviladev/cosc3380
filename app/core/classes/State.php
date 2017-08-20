@@ -23,4 +23,9 @@
 			// silence is golden
 			return [ 'id' , 'state' ];
 		}
-	}
+
+        public function hydrate()
+        {
+            // TODO: Implement hydrate() method.
+        }
+    }

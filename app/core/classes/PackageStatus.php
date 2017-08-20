@@ -38,4 +38,9 @@
 				'modifiedAt'
 			];
 		}
-	}
+
+        public function hydrate()
+        {
+            // TODO: Implement hydrate() method.
+        }
+    }

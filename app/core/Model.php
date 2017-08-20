@@ -7,7 +7,7 @@
 	use PDO;
 	use PDOException;
 
-	class Model {
+	abstract class Model {
 
 		private $TABLE_ARRAY = [
 			'Address'       => 'addresses' ,
@@ -279,4 +279,6 @@
 
 			return $instance->builder->lastInsertId();
 		}
+
+		abstract public function hydrate();
 	}

@@ -24,28 +24,7 @@
 				$packages = Package::selectAll();
 
 				foreach( $packages as $package ) {
-					$package->user                 = User::find()
-					                                     ->where( [ 'id' ] , [ '=' ] , [ $package->userId ] )
-					                                     ->get();
-					$package->destination          = Address::find()
-					                                        ->where( [ 'id' ] , [ '=' ] , [ $package->destinationId ] )
-					                                        ->get();
-					$package->destination->state   = State::find()
-					                                      ->where( [ 'id' ] , [ '=' ] ,
-					                                               [ $package->destination->stateId ] )
-					                                      ->get();
-					$package->returnAddress        = Address::find()
-					                                        ->where( [ 'id' ] , [ '=' ] ,
-					                                                 [ $package->returnAddressId ] )
-					                                        ->get();
-					$package->returnAddress->state = State::find()
-					                                      ->where( [ 'id' ] , [ '=' ] ,
-					                                               [ $package->returnAddress->stateId ] )
-					                                      ->get();
-					$package->status               = PackageStatus::find()
-					                                              ->where( [ 'id' ] , [ '=' ] ,
-					                                                       [ $package->packageStatus ] )
-					                                              ->get();
+					$package->hydrate();
 				}
 
 				return view( 'admin/adminPackages' , compact( 'packages' ) );
@@ -484,42 +463,26 @@
          */
         public function admin() {
 			$user = Auth::user();
-			if( $user && $user->roleId == 1 ) {
+//            $user = User::find()->where(['id'],['='],[1])->get();
+
+            $response = [];
+//			if( $user && $user->roleId == 1 ) {
 				$packages = Package::findAll()
 				                   ->where( [ 'packageStatus' ] , [ '<>' ] , [ '4' ] )
 				                   ->limit( 6 )
 				                   ->orderBy( 'createdAt' , 'DESC' )
 				                   ->get();
 				foreach( $packages as $package ) {
-					$package->destination          = Address::find()
-					                                        ->where( [ 'id' ] , [ '=' ] , [ $package->destinationId ] )
-					                                        ->get();
-					$package->destination->state   = State::find()
-					                                      ->where( [ 'id' ] , [ '=' ] ,
-					                                               [ $package->destination->stateId ] )
-					                                      ->get();
-					$package->returnAddress        = Address::find()
-					                                        ->where( [ 'id' ] , [ '=' ] ,
-					                                                 [ $package->returnAddressId ] )
-					                                        ->get();
-					$package->returnAddress->state = State::find()
-					                                      ->where( [ 'id' ] , [ '=' ] ,
-					                                               [ $package->returnAddress->stateId ] )
-					                                      ->get();
-					$package->status               = PackageStatus::find()
-					                                              ->where( [ 'id' ] , [ '=' ] ,
-					                                                       [ $package->packageStatus ] )
-					                                              ->get();
-
-					$package->user = User::find()
-					                     ->where( [ 'id' ] , [ '=' ] , [ $package->userId ] );
+					$package->hydrate();
 				}
+				$response["packages"] = $packages;
 
 				$admins = User::findAll()
 				              ->where( [ 'roleId' , 'active' ] , [ '=' , '=' ] , [ $user->roleId , 1 ] )
 				              ->limit( 6 )
 				              ->orderBy( 'createdAt' , 'DESC' )
 				              ->get();
+
 				foreach( $admins as $admin ) {
 					$admin->addedBy = User::find( [ 'firstName' , 'lastName' ] )
 					                      ->where( [
@@ -528,21 +491,19 @@
 					                      ->limit( 6 )
 					                      ->get();
 				}
+                $response["admins"] = $admins;
 
-				$postOffices = PostOffice::selectAll();
+                $postOffices = PostOffice::selectAll();
 				foreach( $postOffices as $postOffice ) {
-					$postOffice->packages = Package::findAll()
-					                               ->where( [ 'postOfficeId' ] , [ '=' ] , [ $postOffice->id ] )
-					                               ->get();
-					$postOffice->state    = State::find()
-					                             ->where( [ 'id' ] , [ '=' ] , [ $postOffice->stateId ] )
-					                             ->get()->state;
+					$postOffice->hydrate();
 				}
+                $response["postOffices"] = $postOffices;
 
-				return view( 'admin/admin' , compact( 'user' , 'packages' , 'admins' , 'postOffices' ) );
-			} else {
-				return redirect( 'login' );
-			}
+				return print(json_encode($response));
+
+//				return view( 'admin/admin' , compact( 'user' , 'packages' , 'admins' , 'postOffices' ) );
+//			}
+//				return redirect( 'login' );
 		}
 
         /**
