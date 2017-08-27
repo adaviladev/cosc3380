@@ -8,11 +8,11 @@
                     <form id="contactForm" @submit.prevent="handleContact">
                         <div class="field-container clearfix required" >
                             <label for="firstName" :class="isFilled(firstName)" >First Name</label >
-                            <input id="firstName" type="text" name="firstName" class="" v-model="firstName" required >
+                            <input id="firstName" name="firstName" class="" v-model="firstName" required >
                         </div >
                         <div class="field-container clearfix required" >
                             <label for="lastName" :class="isFilled(lastName)" >Last Name</label >
-                            <input id="lastName" type="text" name="lastName" class="" v-model="lastName" required >
+                            <input id="lastName" name="lastName" class="" v-model="lastName" required >
                         </div >
                         <div class="field-container validate clearfix required" >
                             <label for="email" :class="isFilled(email)" >Email</label >
@@ -28,7 +28,7 @@
                         <div class="field-container validate clearfix required" >
                             <!-- Text area -->
                             <label for="message" >What is your question or comment?</label >
-                            <textarea id="message" type="text" name="message" class="" v-model="message" required></textarea >
+                            <textarea id="message" name="message" class="" v-model="message" required></textarea >
                         </div >
                         <button name="submit" value="submit" >Submit</button >
                     </form >

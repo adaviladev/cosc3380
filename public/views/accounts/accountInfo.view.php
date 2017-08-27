@@ -11,27 +11,27 @@
 			<form action="/account/info" method="post">
 				<div class="field-container clearfix">
 					<label for="firstName">First Name</label>
-					<input type="text" name="firstName" class="valid fade-in" value= <?= $user->firstName; ?> disabled>
+					<input id="firstName" name="firstName" class="valid fade-in" value= <?= $user->firstName; ?> disabled>
 				</div>
 				<!-- /.field-container -->
 				<div class="field-container clearfix">
 					<label for="lastName">Last name</label>
-					<input type="text" name="lastName" class="valid fade-in" value="<?= $user->lastName; ?>" disabled>
+					<input id="lastName" name="lastName" class="valid fade-in" value="<?= $user->lastName; ?>" disabled>
 				</div>
 				<!-- /.field-container -->
 				<div class="field-container validate clearfix">
 					<label for="email" class="email">Email</label>
-					<input type="text" name="email" value="<?= $user->email ?>" class="<?= $emailClass; ?> valid fade-in" disabled>
+					<input id="email" name="email" value="<?= $user->email ?>" class="<?= $emailClass; ?> valid fade-in" disabled>
 				</div>
 				<!-- /.field-container -->
 				<div class="field-container clearfix">
 					<label for="address">Street</label>
-					<input type="text" name="street" class="valid fade-in" value="<?= $address->street ?>">
+					<input id="address" name="street" class="valid fade-in" value="<?= $address->street ?>">
 				</div>
 				<!-- /.field-container -->
 				<div class="field-container clearfix">
 					<label for="city">City</label>
-					<input type="text" name="city" class="valid fade-in" value="<?= $address->city ?>">
+					<input id="city" name="city" class="valid fade-in" value="<?= $address->city ?>">
 				</div>
 				<!-- /.field-container -->
 				<div class="field-container clearfix">
@@ -56,11 +56,11 @@
 				<!-- /#StateSelector -->
 				<div class="field-container clearfix">
 					<label for="zipCode">Zip Code</label>
-					<input type="text" name="zipCode" class='valid fade-in' value="<?= $address->zipCode ?>">
+					<input id="zipCode" name="zipCode" class='valid fade-in' value="<?= $address->zipCode ?>">
 				</div>
 				<!-- /.field-container -->
 				<div class="button-hover">
-					<button type="submit">Change Address</button>
+                    <button>Change Address</button>
 					<a href="/account/info/password" class="button">Change Password</a>
 				</div>
 			</form>

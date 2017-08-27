@@ -102,7 +102,6 @@ DROP TABLE IF EXISTS packageType;
 CREATE TABLE packageType (
 
 	id         INT(10) UNSIGNED PRIMARY KEY AUTO_INCREMENT ,
-	id    INT(10) ,
 	type  VARCHAR(50) ,
 	count INT
 

@@ -14,24 +14,24 @@
 				<?php } ?>
 						<div class="field-container">
 							<label for="sender">Name <span>*</span></label>
-							<input id="sender" type="text" name="sender" value="<?= $employee->firstName; ?> <?= $employee->lastName; ?>" class="valid fade-in" disabled>
+							<input id="sender" name="sender" value="<?= $employee->firstName; ?> <?= $employee->lastName; ?>" class="valid fade-in" disabled>
 						</div>
 						<!-- /.field-container -->
 						<div class="field-container">
 							<label for="postOffice">Location</label>
-							<input id="postOffice" type="text" name="postOffice" value="<?= $employee->location->name; ?>" class="valid fade-in" disabled>
+							<input id="postOffice" name="postOffice" value="<?= $employee->location->name; ?>" class="valid fade-in" disabled>
 						</div>
 						<!-- /.field-container -->
 						<div class="field-group">
 							<h5><strong>Address</strong></h5>
 							<div class="field-container">
 								<label for="addressStreet">Street</label>
-								<input id="addressStreet" type="text" name="addressStreet" value="<?= $employee->address->street; ?>" class="valid fade-in">
+								<input id="addressStreet" name="addressStreet" value="<?= $employee->address->street; ?>" class="valid fade-in">
 							</div>
 							<!-- /.field-container -->
 							<div class="field-container">
 								<label for="addressCity">City</label>
-								<input id="addressCity" type="text" name="addressCity" value="<?= $employee->address->city; ?>" class="valid fade-in">
+								<input id="addressCity" name="addressCity" value="<?= $employee->address->city; ?>" class="valid fade-in">
 							</div>
 							<!-- /.field-container -->
 							<div class="field-container clearfix">
@@ -56,7 +56,7 @@
 							<!-- /.field-container -->
 							<div class="field-container">
 								<label for="addressZipCode">Zip Code</label>
-								<input id="addressZipCode" type="text" name="addressZipCode" value="<?= $employee->address->zipCode; ?>" class="valid fade-in">
+								<input id="addressZipCode" name="addressZipCode" value="<?= $employee->address->zipCode; ?>" class="valid fade-in">
 							</div>
 							<!-- /.field-container -->
 						</div>
@@ -71,7 +71,7 @@
 								<eletel>
 						</div>
 						<!-- /.field-container -->
-						<button type="submit">Update</button>
+						<button>Update</button>
 					</form>
 
 			</div>

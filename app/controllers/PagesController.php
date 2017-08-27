@@ -1,7 +1,6 @@
 <?php
 	namespace App\Controllers;
 	use PostOffice;
-	use State;
 	class PagesController {
 		/**
 		 * @return mixed Display static home page
@@ -19,6 +18,9 @@
 		 * @return mixed Display static Contact page
 		 */
 		public function contact() {
+            /**
+             * @var PostOffice[] $postOffices
+             */
 			$postOffices = PostOffice::selectAll();
 			foreach( $postOffices as $postOffice ) {
 				$postOffice->hydrate();
@@ -30,7 +32,11 @@
 		 * @return mixed Display static Locations page
 		 */
 		public function locations() {
+            /**
+             * @var PostOffice[] $postOffices
+             */
 			$postOffices = PostOffice::selectAll();
+
 			foreach( $postOffices as $postOffice ) {
                 $postOffice->hydrate();
 			}

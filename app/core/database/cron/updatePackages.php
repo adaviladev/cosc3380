@@ -6,8 +6,6 @@
 	 * for alerting the user
 	 */
 
-	use App\Core\App;
-
 	require __DIR__ . '/../../bootstrap.php';
 
 	$processing = Package::findAll()

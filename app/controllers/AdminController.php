@@ -21,6 +21,9 @@
         public function packages() {
 			$user = Auth::user();
 			if( $user && $user->roleId == 1 ) {
+                /**
+                 * @var Package[] $packages
+                 */
 				$packages = Package::selectAll();
 
 				foreach( $packages as $package ) {
@@ -467,6 +470,9 @@
 
             $response = [];
 //			if( $user && $user->roleId == 1 ) {
+                /**
+                 * @var Package[] $packages
+                 */
 				$packages = Package::findAll()
 				                   ->where( [ 'packageStatus' ] , [ '<>' ] , [ '4' ] )
 				                   ->limit( 6 )
@@ -493,6 +499,9 @@
 				}
                 $response["admins"] = $admins;
 
+                /**
+                 * @var PostOffice[] $postOffices
+                 */
                 $postOffices = PostOffice::selectAll();
 				foreach( $postOffices as $postOffice ) {
 					$postOffice->hydrate();

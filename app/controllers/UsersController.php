@@ -5,7 +5,6 @@
 	use Address;
 	use App\Core\Auth;
 	use Package;
-	use PackageStatus;
 	use PostOffice;
 	use Role;
 	use State;
@@ -58,6 +57,9 @@
 			                                 [ '=' ] ,
 			                                 [ $customerId ] )->get();
 
+            /**
+             * @var Package[] $packages
+             */
 			$packages = Package::findAll()->where( [ 'userId' ] ,
 			                                       [ '=' ] ,
 			                                       [ $customerId ] )->orderBy( 'createdAt' ,
@@ -299,6 +301,9 @@
 			$user = Auth::user();
 			if( $user ) {
 				if( $user->roleId == 3 ) {
+                    /**
+                     * @var Package[] $packages
+                     */
 					$packages = Package::findAll()->where( [ 'userId' ] ,
 					                                       [ '=' ] ,
 					                                       [ $user->id ] )->orderBy( 'createdAt' ,

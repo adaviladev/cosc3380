@@ -51,10 +51,12 @@
 			return redirect( 'login' );
 		}
 
-		/**
-		 * transactionDetail() displays more info of one transaction processed by the
-		 * logged in user's post office
-		 */
+        /**
+         * transactionDetail() displays more info of one transaction processed by the
+         * logged in user's post office
+         * @param int $transactionId
+         * @return mixed
+         */
 		public function transactionDetail( $transactionId ) {
 			$user = Auth::user();
 			if( $user ) {

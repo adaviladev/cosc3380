@@ -252,17 +252,14 @@ input[disabled] {
 
 	.switch-toggle input:focus ~ span a,
 	.switch-toggle input:focus + label {
-		outline-width : 2px;
-		outline-style : solid;
-		outline-color : Highlight;
+		outline: Highlight solid 2px;
 	}
 }
 
 @media only screen and (-webkit-min-device-pixel-ratio : 0) {
 	.switch-toggle input:focus ~ span a,
 	.switch-toggle input:focus + label {
-		outline-color : -webkit-focus-ring-color;
-		outline-style : auto;
+		outline: -webkit-focus-ring-color auto;
 	}
 }
 

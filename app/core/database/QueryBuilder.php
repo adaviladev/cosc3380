@@ -8,6 +8,9 @@
 	 */
 	class QueryBuilder {
 
+        /**
+         * @var PDO $pdo
+         */
 		protected $pdo;
 
 		protected $isSingle = false;

@@ -86,7 +86,7 @@
 							<!-- /.col-dt-12 col-tb-12 col-tb-12 -->
 
 						</div>
-						<button type="submit">View Report</button>
+						<button>View Report</button>
 					</form>
 			</div>
 			<!-- /.form-wrapper -->

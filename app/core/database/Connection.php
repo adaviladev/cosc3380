@@ -5,7 +5,11 @@
 	 * Returns a PDO connection for querying the database
 	 */
 	class Connection {
-		public static function make( $config ) {
+        /**
+         * @param $config
+         * @return PDO
+         */
+        public static function make($config ): PDO {
 			try {
 				return new PDO(
 					$config[ 'connection' ] . ';dbname=' . $config['name'],

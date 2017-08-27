@@ -40,7 +40,7 @@
 						<input type="password" name="confirmPassword" value="">
 					</div>
 					<!-- /.field-container -->
-					<button type="submit">Confirm</button>
+					<button>Confirm</button>
 				</form>
 			</div>
 			<!-- /.form-wrapper -->

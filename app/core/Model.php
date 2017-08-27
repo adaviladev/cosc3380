@@ -22,7 +22,11 @@
 			'User'          => 'users' ,
 		];
 
-		public $builder;
+
+        /**
+         * @var \PDO $builder
+         */
+        public $builder;
 		// protected $table;
 
 		protected $isSingle = false;
@@ -37,7 +41,10 @@
 		protected $onDelete = "";
 		protected $class = "stdClass";
 
-		private static function init() {
+        /**
+         * @return static
+         */
+        private static function init() {
 			$instance          = ( new static );
 			$instance->builder = Connection::make( App::get( 'config' )[ 'database' ] );
 

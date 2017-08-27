@@ -1,7 +1,7 @@
 <?php
 
 	/**
-	 * List any additionaly helper functions here.
+	 * List any additionally helper functions here.
 	 */
 
 	/**
@@ -53,5 +53,6 @@
 	 * Used pured for testing
 	 */
 	function dd( ...$data ) {
-		die( var_dump( ...$data ) );
+        var_dump( ...$data );
+        die();
 	}

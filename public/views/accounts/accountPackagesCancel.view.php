@@ -50,7 +50,7 @@
 										</div>
 										<!-- /.col-dt-12 -->
 										<input type="hidden" name="packageId" value="<?= $package->id ?>">
-										<button class="button" type="submit">Confirm Cancellation</button>
+										<button class="button">Confirm Cancellation</button>
 									</div>
 									<!-- /.package-detail-info -->
 								</div>

@@ -24,10 +24,10 @@
 		public static function user() {
 //            $_SESSION['user'] = serialize(User::find()->where(['id'],['='],[1])->get());
             return User::find()->where(['id'],['='],[1])->get();
-			if( isset( $_SESSION[ 'user' ] ) ) {
-
-				return unserialize( $_SESSION[ 'user' ] );
-			}
+//			if( isset( $_SESSION[ 'user' ] ) ) {
+//
+//				return unserialize( $_SESSION[ 'user' ] );
+//			}
 
 			// $_SESSION[ 'user' ] = new User;
 			return false;

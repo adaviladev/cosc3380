@@ -16,6 +16,8 @@ class PostOffice extends Model
     public $zipCode;
     public $createdAt;
     public $modifiedAt;
+    public $state;
+    public $packages;
 
     public function __construct()
     {

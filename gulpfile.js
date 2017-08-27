@@ -1,8 +1,8 @@
-var fs = require("fs");
-var browserify = require('browserify');
-var vueify = require('vueify');
-var gulp = require('gulp');
-var babelify = require('babelify');
+const fs = require("fs");
+const browserify = require('browserify');
+const vueify = require('vueify');
+const gulp = require('gulp');
+const babelify = require('babelify');
 
 gulp.task('vueify', function () {
   return browserify('./public/assets/src/js/main.js')

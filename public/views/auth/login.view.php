@@ -23,7 +23,7 @@
 							<?php } ?>
 						</div>
 					<?php } ?>
-					<button type="submit">Submit</button>
+					<button>Submit</button>
 				</form>
 			</div>
 			<!-- /.form-wrapper -->

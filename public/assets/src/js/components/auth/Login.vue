@@ -15,7 +15,7 @@
                             <input id="password" type="password" name="password" required v-model="password">
                         </div >
                         <!-- /.field-wrapper -->
-                        <button type="submit" >Submit</button >
+                        <button>Submit</button >
                     </form >
                 </div >
                 <!-- /.form-wrapper -->

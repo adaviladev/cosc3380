@@ -15,12 +15,12 @@
 				<?php } ?>
 					<div class="field-container clearfix required">
 						<label for="firstName">First Name <span>*</span></label>
-						<input id="firstName" type="text" name="firstName" class="" value="" required>
+						<input id="firstName" name="firstName" class="" value="" required>
 					</div>
 					<!-- /.field-container -->
 					<div class="field-container clearfix required">
 						<label for="lastName">Last name <span>*</span></label>
-						<input id="lastName" type="text" name="lastName" class="" value="" required>
+						<input id="lastName" name="lastName" class="" value="" required>
 					</div>
 					<!-- /.field-container -->
 					<div class="field-container clearfix required">
@@ -30,7 +30,7 @@
 					<!-- /.field-container -->
 					<div class="field-container validate clearfix required">
 						<label for="email" class="email">Email <span>*</span></label>
-						<input id="email" type="text" name="email" value="" class="<?= $emailClass; ?>" required>
+						<input id="email" name="email" value="" class="<?= $emailClass; ?>" required>
 					</div>
 					<!-- /.field-container -->
 					<?php if( Auth::user()->roleId == 1 ) { ?>
@@ -50,12 +50,12 @@
 					<?php } ?>
 					<div class="field-container clearfix">
 						<label for="address">Address</label>
-						<input id="address" type="text" name="address" value="">
+						<input id="address" name="address" value="">
 					</div>
 					<!-- /.field-container -->
 					<div class="field-container clearfix">
 						<label for="city">City</label>
-						<input id="city" type="text" name="city" value="">
+						<input id="city" name="city" value="">
 					</div>
 					<!-- /.field-container -->
 					<div class="field-container clearfix">
@@ -73,7 +73,7 @@
 					<!-- /.field-container -->
 					<div class="field-container clearfix">
 						<label for="zipCode">Zip Code</label>
-						<input id="zipCode" type="text" name="zipCode" value="">
+						<input id="zipCode" name="zipCode" value="">
 					</div>
 					<!-- /.field-container -->
 					<?php if( ! empty( $errors ) ) { ?>
@@ -84,7 +84,7 @@
 							<?php } ?>
 						</div>
 					<?php } ?>
-					<button type="submit">Add User</button>
+					<button>Add User</button>
 				</form>
 			</div>
 			<!-- /.form-wrapper -->

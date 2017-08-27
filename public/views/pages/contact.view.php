@@ -18,11 +18,11 @@
 				<form action="/contact" method="post">
 					<div class="field-container clearfix required">
 						<label for="firstName">First Name</label>
-						<input id="firstName" type="text" name="firstName" class="" value="" required>
+						<input id="firstName" name="firstName" class="" value="" required>
 					</div>
 					<div class="field-container clearfix required">
 						<label for="lastName">Last Name</label>
-						<input id="lastName" type="text" name="lastName" class="" value="" required>
+						<input id="lastName" name="lastName" class="" value="" required>
 					</div>
 					<div class="field-container validate clearfix required">
 						<label for="email">Email</label>
@@ -44,7 +44,7 @@
 						<label for="message">What is your question or comment?</label>
 						<textarea id="message" type="text" name="message" class="" required></textarea>
 					</div>
-					<button type="submit" name="submit" value="submit">Submit</button>
+					<button name="submit" value="submit">Submit</button>
 				</form>
 			</div>
 		</div>

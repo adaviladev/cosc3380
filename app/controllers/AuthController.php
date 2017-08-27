@@ -46,13 +46,13 @@
 			if( $user ) {
 				$_SESSION[ 'user' ] = serialize( $user );
                 return print(json_encode($user));
-                if( $user->roleId === 1 ) {
-                    return redirect( 'admin' );
-                } else if( $user->roleId === 2 ) {
-                    return redirect( 'dashboard' );
-                } else if( $user->roleId === 3 ) {
-                    return redirect( 'account' );
-                }
+//                if( $user->roleId === 1 ) {
+//                    return redirect( 'admin' );
+//                } else if( $user->roleId === 2 ) {
+//                    return redirect( 'dashboard' );
+//                } else if( $user->roleId === 3 ) {
+//                    return redirect( 'account' );
+//                }
             }
             $errors[] = "Email or password do not match.";
 

@@ -29,7 +29,7 @@
 						<h5><strong>Package</strong></h5>
 						<div class="field-container">
 							<label for="packageContent">Content</label>
-							<textarea id="packageContent" name="packageContent" type="text" required></textarea>
+							<textarea id="packageContent" name="packageContent" required></textarea>
 						</div>
 						<!-- /.field-container -->
 						<div class="field-container">
@@ -64,12 +64,12 @@
 						<h5><strong>Return Address</strong></h5>
 						<div class="field-container">
 							<label for="returnAddressStreet">Street</label>
-							<input id="returnAddressStreet" type="text" name="returnAddressStreet" value="" class="" required>
+							<input id="returnAddressStreet" name="returnAddressStreet" value="" class="" required>
 						</div>
 						<!-- /.field-container -->
 						<div class="field-container">
 							<label for="returnAddressCity">City</label>
-							<input id="returnAddressCity" type="text" name="returnAddressCity" value="" class="" required>
+							<input id="returnAddressCity" name="returnAddressCity" value="" class="" required>
 						</div>
 						<!-- /.field-container -->
 						<div class="field-container">
@@ -86,7 +86,7 @@
 						<!-- /.field-container -->
 						<div class="field-container">
 							<label for="returnAddressZipCode">Zip Code</label>
-							<input id="returnAddressZipCode" type="text" name="returnAddressZipCode" value="" class="" required>
+							<input id="returnAddressZipCode" name="returnAddressZipCode" value="" class="" required>
 						</div>
 						<!-- /.field-container -->
 					</div>
@@ -95,12 +95,12 @@
 						<h5><strong>Destination Address</strong></h5>
 						<div class="field-container">
 							<label for="destinationAddressStreet">Street</label>
-							<input id="destinationAddressStreet" type="text" name="destinationAddressStreet" value="" class="" required>
+							<input id="destinationAddressStreet" name="destinationAddressStreet" value="" class="" required>
 						</div>
 						<!-- /.field-container -->
 						<div class="field-container">
 							<label for="destinationAddressCity">City</label>
-							<input id="destinationAddressCity" type="text" name="destinationAddressCity" value="" class="" required>
+							<input id="destinationAddressCity" name="destinationAddressCity" value="" class="" required>
 						</div>
 						<!-- /.field-container -->
 						<div class="field-container clearfix">
@@ -117,12 +117,12 @@
 						<!-- /.field-container -->
 						<div class="field-container">
 							<label for="destinationAddressZipCode">Zip Code</label>
-							<input id="destinationAddressZipCode" type="text" name="destinationAddressZipCode" value="" class="" required>
+							<input id="destinationAddressZipCode" name="destinationAddressZipCode" value="" class="" required>
 						</div>
 						<!-- /.field-container -->
 					</div>
 					<!-- /.field-group -->
-					<button type="submit">Update</button>
+					<button>Update</button>
 				</form>
 			</div>
 		</div>

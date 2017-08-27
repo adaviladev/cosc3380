@@ -31,6 +31,9 @@
                                        ->get();
                 }
 
+                /**
+                 * @var Package $package
+                 */
                 foreach ($packages as $package) {
                     $package->hydrate();
                 }
@@ -57,6 +60,9 @@
         {
             $user = Auth::user();
             if ($user && $user->roleId == 2 || $user->roleId == 1) {
+                /**
+                 * @var Package $package
+                 */
                 $package                       = Package::find()
                                                         ->where(
                                                             ['id'],
@@ -143,6 +149,9 @@
             $user = Auth::user();
             if ($user && ($user->roleId == 2 || $user->roleId == 1)) {
 
+                /**
+                 * @var Package $package
+                 */
                 $package = Package::find()
                                   ->where(
                                       ['id'],
@@ -176,6 +185,9 @@
             $user = Auth::user();
             if ($user) {
                 if ($user->roleId == 3) {
+                    /**
+                     * @var Package[] $packages
+                     */
                     $packages = Package::findAll()
                                        ->where(
                                            ['userId'],

@@ -47,20 +47,20 @@
                 }
                 $cols      = [];
                 $ops       = [];
-                $vals      = [];
+                $values      = [];
                 $startDate = '';
                 $endDate   = '';
                 if ($user->roleId === 2) {
                     $cols               = ['postOfficeId'];
                     $ops                = ['='];
-                    $vals               = [$user->roleId];
+                    $values               = [$user->roleId];
                     $selectedPostOffice = PostOffice::find()
                                                     ->where(['id'], ['='], [$user->postOfficeId])
                                                     ->get();
                 } else if (isset($_POST[ 'postOfficeSelector' ])) {
                     $cols[]             = 'postOfficeId';
                     $ops[]              = '=';
-                    $vals[]             = $_POST[ 'postOfficeSelector' ];
+                    $values[]             = $_POST[ 'postOfficeSelector' ];
                     $selectedPostOffice = PostOffice::find()
                                                     ->where(['id'], ['='], [$_POST[ 'postOfficeSelector' ]])
                                                     ->get();
@@ -70,30 +70,30 @@
                     if (isset($_POST[ 'startDate' ]) && $_POST[ 'startDate' ] !== '') {
                         $cols[]    = 'createdAt';
                         $ops[]     = '>=';
-                        $vals[]    = date("Y-m-d H:i:s", strtotime($_POST[ 'startDate' ]));
+                        $values[]    = date("Y-m-d H:i:s", strtotime($_POST[ 'startDate' ]));
                         $date      = new DateTime($_POST[ 'startDate' ]);
                         $startDate = $date->format('M j, Y');
                     }
                     if (isset($_POST[ 'endDate' ]) && $_POST[ 'endDate' ] !== '') {
                         $cols[]  = 'createdAt';
                         $ops[]   = '<=';
-                        $vals[]  = date("Y-m-d H:i:s", strtotime($_POST[ 'endDate' ]));
+                        $values[]  = date("Y-m-d H:i:s", strtotime($_POST[ 'endDate' ]));
                         $date    = new DateTime($_POST[ 'endDate' ]);
                         $endDate = $date->format('M j, Y');
                     }
-                    // dd( $_POST , $cols , $ops , $vals );
+                    // dd( $_POST , $cols , $ops , $values );
                     if (isset($_POST[ 'reportOption' ])) {
                         if ($_POST[ 'reportOption' ] == 'queryPackages') {
                             if (isset($_POST[ 'packageStatusSelector' ])) {
                                 if ($_POST[ 'packageStatusSelector' ] !== 'all') {
                                     $cols[] = 'packageStatus';
                                     $ops[]  = '=';
-                                    $vals[] = $_POST[ 'packageStatusSelector' ];
+                                    $values[] = $_POST[ 'packageStatusSelector' ];
                                 }
                             }
-                            // dd( $_POST , $cols , $ops , $vals );
+                            // dd( $_POST , $cols , $ops , $values );
                             $packages = Package::findAll()
-                                               ->where($cols, $ops, $vals)
+                                               ->where($cols, $ops, $values)
                                                ->orderBy('createdAt', 'DESC')
                                                ->get();
                             foreach ($packages as $package) {
@@ -158,7 +158,7 @@
                             );
                         } else {
                             $transactions          = Transaction::findAll()
-                                                                ->where($cols, $ops, $vals)
+                                                                ->where($cols, $ops, $values)
                                                                 ->orderBy('createdAt', 'DESC')
                                                                 ->get();
                             $totalTransactionsCost = 0;
@@ -173,7 +173,7 @@
                                 $totalTransactionsCost += $transaction->cost;
                             }
 
-                            // dd( $_POST , $cols , $ops , $vals, $transactions );
+                            // dd( $_POST , $cols , $ops , $values, $transactions );
                             if ($user->roleId == 1) {
                                 $postOffices = PostOffice::selectAll();
 

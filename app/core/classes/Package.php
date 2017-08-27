@@ -21,6 +21,10 @@
         public $modifiedBy;
         public $createdAt;
         public $modifiedAt;
+        public $user;
+        public $destination;
+        public $returnAddress;
+        public $status;
 
         public function __construct()
         {

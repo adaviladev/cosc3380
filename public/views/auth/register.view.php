@@ -10,17 +10,17 @@
 				<form action="/register" method="post">
 					<div class="field-container clearfix required">
 						<label for="firstName" class="required">First Name <span>*</span></label>
-						<input type="text" name="firstName" class="" value="" required>
+						<input id="firstName" name="firstName" class="" value="" required>
 					</div>
 					<!-- /.field-container -->
 					<div class="field-container clearfix required">
 						<label for="lastName">Last name <span>*</span></label>
-						<input type="text" name="lastName" class="" value="" required>
+						<input id="lastName" name="lastName" class="" value="" required>
 					</div>
 					<!-- /.field-container -->
 					<div class="field-container clearfix required">
 						<label for="password" class="required">Password <span>*</span></label>
-						<input type="password" name="password" value="" required>
+						<input type="password" id="password" name="password" value="" required>
 					</div>
 					<!-- /.field-container -->
 					<div class="field-container validate clearfix required">
@@ -30,12 +30,12 @@
 					<!-- /.field-container -->
 					<div class="field-container clearfix">
 						<label for="address">Address</label>
-						<input type="text" name="address" value="">
+						<input id="address" name="address" value="">
 					</div>
 					<!-- /.field-container -->
 					<div class="field-container clearfix">
 						<label for="city">City</label>
-						<input type="text" name="city" value="">
+						<input id="city" name="city" value="">
 					</div>
 					<!-- /.field-container -->
 					<div class="field-container clearfix">
@@ -53,10 +53,10 @@
 					<!-- /#StateSelector -->
 					<div class="field-container clearfix">
 						<label for="zipCode">Zip Code</label>
-						<input type="text" name="zipCode" value="">
+						<input id="zipCode" name="zipCode" value="">
 					</div>
 					<!-- /.field-container -->
-					<button type="submit">Submit</button>
+					<button>Submit</button>
 				</form>
 			</div>
 			<!-- /.form-wrapper -->

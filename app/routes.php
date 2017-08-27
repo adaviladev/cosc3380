@@ -9,7 +9,7 @@
 	$router->post( 'contact' , 'PagesController@handleContactForm' );
 	$router->get( 'locations' , 'PagesController@locations' );
 	$router->get( 'users' , 'UsersController@show' );
-	$router->get( 'users/:userId' , 'UsersController@userDetail' );                         //viktor
+	$router->get( 'users/:userId' , 'UsersController@userDetail' );
 
 	$router->get( 'dashboard' , 'HomeController@home' );
 	$router->get( 'dashboard/packages' , 'PackageController@postOfficeInventory' );
@@ -25,12 +25,12 @@
 	$router->get( 'dashboard/reports' , 'ReportsController@getReports' );
 	$router->post( 'dashboard/reports' , 'ReportsController@showReports' );
 
-	$router->get( 'dashboard/customers' , 'UsersController@postOfficeUsers' );                //viktor
-	$router->get( 'dashboard/customers/:customerId' , 'UsersController@userDetail' );                //viktor
+	$router->get( 'dashboard/customers' , 'UsersController@postOfficeUsers' );
+	$router->get( 'dashboard/customers/:customerId' , 'UsersController@userDetail' );
 	$router->get( 'dashboard/transactions/add' , 'TransactionController@createTransaction' );
 	$router->post( 'dashboard/transactions/add' , 'TransactionController@storeTransaction' );
-	$router->get( 'dashboard/transactions' , 'TransactionController@postOfficeTransactions' );    //viktor
-	$router->get( 'dashboard/transactions/:transactionId' , 'TransactionController@transactionDetail' );    //viktor
+	$router->get( 'dashboard/transactions' , 'TransactionController@postOfficeTransactions' );
+	$router->get( 'dashboard/transactions/:transactionId' , 'TransactionController@transactionDetail' );
 
 	/**
 	 * Authentication routes
