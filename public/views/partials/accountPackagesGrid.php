@@ -12,7 +12,7 @@
 					<!-- /.col-dt-12 col-tb-12 col-mb-12 -->
 					<div class="clearfix grid-item-content">
 						<div class="col-dt-12 col-tb-12 col-mb-12 text-left">
-							<img src="/views/assets/images/content-box.png" alt="Content Box" class="center">
+							<img src="/assets/images/content-box.png" alt="Content Box" class="center">
 						</div>
 						<!-- /.col-dt-12 col-tb-12 col-mb-12 -->
 						<div class="col-dt-12 col-tb-12 col-mb-12">

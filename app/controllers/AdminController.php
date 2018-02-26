@@ -33,7 +33,7 @@
 					$package->destination->state   = State::find()
 					                                      ->where( [ 'id' ] , [ '=' ] ,
 					                                               [ $package->destination->stateId ] )
-					                                      ->get();
+					                                      ->get()->state;
 					$package->returnAddress        = Address::find()
 					                                        ->where( [ 'id' ] , [ '=' ] ,
 					                                                 [ $package->returnAddressId ] )
@@ -41,11 +41,11 @@
 					$package->returnAddress->state = State::find()
 					                                      ->where( [ 'id' ] , [ '=' ] ,
 					                                               [ $package->returnAddress->stateId ] )
-					                                      ->get();
+					                                      ->get()->state;
 					$package->status               = PackageStatus::find()
 					                                              ->where( [ 'id' ] , [ '=' ] ,
 					                                                       [ $package->packageStatus ] )
-					                                              ->get();
+					                                              ->get()->type;
 				}
 
 				return view( 'admin/adminPackages' , compact( 'packages' ) );
@@ -497,7 +497,7 @@
 					$package->destination->state   = State::find()
 					                                      ->where( [ 'id' ] , [ '=' ] ,
 					                                               [ $package->destination->stateId ] )
-					                                      ->get();
+					                                      ->get()->state;
 					$package->returnAddress        = Address::find()
 					                                        ->where( [ 'id' ] , [ '=' ] ,
 					                                                 [ $package->returnAddressId ] )
@@ -505,11 +505,11 @@
 					$package->returnAddress->state = State::find()
 					                                      ->where( [ 'id' ] , [ '=' ] ,
 					                                               [ $package->returnAddress->stateId ] )
-					                                      ->get();
+					                                      ->get()->state;
 					$package->status               = PackageStatus::find()
 					                                              ->where( [ 'id' ] , [ '=' ] ,
 					                                                       [ $package->packageStatus ] )
-					                                              ->get();
+					                                              ->get()->type;
 
 					$package->user = User::find()
 					                     ->where( [ 'id' ] , [ '=' ] , [ $package->userId ] );
