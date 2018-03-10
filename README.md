@@ -1,4 +1,6 @@
 # databaseProject
+This was a group project for COSC3380 Database Systems at University of Houston.
+
 Please add project constraints and design principles we should follow as needed.
 
 testing the github bot
