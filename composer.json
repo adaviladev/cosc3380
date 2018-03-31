@@ -1,0 +1,14 @@
+{
+    "name": "cosc3380/cosc3380",
+    "license": "MIT",
+    "description": "DB application project",
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "App\\": "app/"
+        },
+        "classmap": [
+            "app/"
+        ]
+    }
+}
