@@ -48,3 +48,4 @@ node_modules/
 #public/views/assets/bundle/
 
 vendor/
+.DS_Store
