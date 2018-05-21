@@ -1,18 +1,23 @@
 {
-    "name": "cosc3380/cosc3380",
-    "license": "MIT",
-    "description": "DB application project",
-    "require": {},
-    "autoload": {
-        "psr-4": {
-            "App\\": "app/"
-        },
-        "classmap": [
-            "app/"
-        ]
-    },
-    "require-dev": {
-        "laravel/homestead": "^7.6",
-        "phpunit/phpunit": "^7"
+  "name": "cosc3380/cosc3380",
+  "license": "MIT",
+  "description": "DB application project",
+  "require": {},
+  "autoload": {
+    "psr-4": {
+      "App\\": "app/"
     }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Tests\\": "tests/"
+    },
+    "files": [
+      "tests/utilities/functions.php"
+    ]
+  },
+  "require-dev": {
+    "laravel/homestead": "^7.6",
+    "phpunit/phpunit": "^7"
+  }
 }
