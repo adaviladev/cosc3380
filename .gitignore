@@ -1,3 +1,9 @@
 .idea/
+
+.vagrant
+
 node_modules/
-public/views/assets/
+public/assets/dist/
+
+vendor/
+.DS_Store

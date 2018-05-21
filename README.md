@@ -1,4 +1,6 @@
 # databaseProject
+This was a group project for COSC3380 Database Systems at University of Houston.
+
 Please add project constraints and design principles we should follow as needed.
 
 testing the github bot
@@ -6,7 +8,7 @@ testing the github bot
 This program is run using Vagrant with the Laravel/Homestead 5.4 Virtual Box environment.
 Set up instructions can be found [here](https://laravel.com/docs/5.4/homestead): 
 
-##Setting up Vagrant/Homestead with our Project
+## Setting up Vagrant/Homestead with our Project
 1. Install [Virtual Box](https://www.virtualbox.org/wiki/Downloads) with the default settings.
 2. Install [Vagrant](https://www.vagrantup.com/downloads.html) with the default settings.
 3. If you're on Windows, be sure that the "vagrnat" binary is in your [System's Environment Variables](http://www.computerhope.com/issues/ch000549.htm).

@@ -36,7 +36,7 @@
 							</div>
 							<!-- /.col-dt-12 col-tt-12 col-mb-12 text-left -->
 							<div class="col-dt-12">
-								<img src="/views/assets/images/content-box.png" alt="Package contents" class="center">
+								<img src="/assets/images/content-box.png" alt="Package contents" class="center">
 							</div>
 							<!-- /.col-dt-12 -->
 							<div class="col-dt-12 text-left clearfix">

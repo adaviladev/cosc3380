@@ -1,0 +1,19 @@
+ip: 192.168.10.10
+memory: 2048
+cpus: 1
+provider: virtualbox
+authorize: ~/.ssh/id_rsa.pub
+keys:
+    - ~/.ssh/id_rsa
+folders:
+    -
+        map: /Users/adrian/Code/cosc3380
+        to: /home/vagrant/code
+sites:
+    -
+        map: database.test
+        to: /home/vagrant/code/public
+databases:
+    - cosc3380
+name: cosc3380
+hostname: database.test

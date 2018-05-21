@@ -110,7 +110,7 @@
                                                                           ['='],
                                                                           [$package->destination->stateId]
                                                                       )
-                                                                      ->get();
+                                                                      ->get()->state;
                                 $package->returnAddress        = Address::find()
                                                                         ->where(
                                                                             ['id'],
@@ -124,14 +124,14 @@
                                                                           ['='],
                                                                           [$package->returnAddress->stateId]
                                                                       )
-                                                                      ->get();
+                                                                      ->get()->state;
                                 $package->status               = PackageStatus::find()
                                                                               ->where(
                                                                                   ['id'],
                                                                                   ['='],
                                                                                   [$package->packageStatus]
                                                                               )
-                                                                              ->get();
+                                                                              ->get()->type;
 
                                 $package->user = User::find()
                                                      ->where(['id'], ['='], [$package->userId]);
