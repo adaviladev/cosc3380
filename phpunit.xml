@@ -6,7 +6,6 @@
          convertErrorsToExceptions="true"
          convertNoticesToExceptions="true"
          convertWarningsToExceptions="true"
-         coverageText=""
          processIsolation="false"
          stopOnFailure="false">
     <testsuites>
