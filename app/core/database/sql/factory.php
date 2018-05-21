@@ -13,10 +13,12 @@
  */
 
 use App\Core\App;
+use App\Core\Database\Connection;
+use App\Core\Database\QueryBuilder;
 
-require __DIR__ . '/../../App.php';
-require __DIR__ . '/../Connection.php';
-require __DIR__ . '/../QueryBuilder.php';
+// require __DIR__ . '/../../App.php';
+// require __DIR__ . '/../Connection.php';
+// require __DIR__ . '/../QueryBuilder.php';
 
 App::bind('config', require __DIR__ . '/../../config.php');
 try {

@@ -5,7 +5,7 @@
 
 namespace App\Core;
 
-use QueryBuilder;
+use App\Core\Database\QueryBuilder;
 use User;
 
 class Auth

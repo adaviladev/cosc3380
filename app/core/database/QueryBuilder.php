@@ -1,5 +1,7 @@
 <?php
 
+namespace App\Core\Database;
+
 /**
  * Class QueryBuilder
  * Used to build out query templates for common database calls.
@@ -10,7 +12,7 @@ class QueryBuilder
 {
 
     /**
-     * @var PDO $pdo
+     * @var \PDO $pdo
      */
     protected $pdo;
 
@@ -26,7 +28,7 @@ class QueryBuilder
     private $onDelete = '';
     protected $class = 'stdClass';
 
-    public function __construct(PDO $pdo)
+    public function __construct(\PDO $pdo)
     {
         $this->pdo = $pdo;
     }

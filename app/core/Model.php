@@ -3,7 +3,7 @@
 namespace App\Models;
 
 use App\Core\App;
-use Connection;
+use App\Core\Database\Connection;
 use PDO;
 use PDOException;
 

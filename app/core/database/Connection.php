@@ -1,25 +1,23 @@
 <?php
 
-/**
- * Class Connection
- * Returns a PDO connection for querying the database
- */
+namespace App\Core\Database;
+
 class Connection
 {
     /**
      * @param $config
-     * @return PDO
+     * @return \PDO
      */
-    public static function make($config): PDO
+    public static function make($config): \PDO
     {
         try {
-            return new PDO(
+            return new \PDO(
                 $config['connection'] . ';dbname=' . $config['name'],
                 $config['username'],
                 $config['password'],
                 $config['options']
             );
-        } catch (PDOException $exception) {
+        } catch (\PDOException $exception) {
             die($exception->getMessage());
         }
     }
