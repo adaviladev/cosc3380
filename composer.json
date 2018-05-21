@@ -10,5 +10,8 @@
         "classmap": [
             "app/"
         ]
+    },
+    "require-dev": {
+        "laravel/homestead": "^7.6"
     }
 }
