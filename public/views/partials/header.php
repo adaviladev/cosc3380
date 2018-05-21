@@ -10,7 +10,7 @@
 		<link rel="stylesheet" href="/assets/bundle/css/all.min.css">
 	</head>
 
-	<body class="card">
+	<body id="app" class="card">
 		<?php getPartial( 'nav' ) ?>
 		<div id="ContentWrapper">
 			<div class="row nav-menu card clearfix">
