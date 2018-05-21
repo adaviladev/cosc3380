@@ -1,6 +1,6 @@
 <?php getHeader(); ?>
 
-<?php if( ! empty( $user ) ) { ?>
+<?php if (!empty($user)) { ?>
     <div class="row">
         <div class="container">
             <h1>Welcome, Prost Master</h1>
@@ -11,10 +11,10 @@
 <?php } ?>
 <div class="row">
     <div class="container">
-        <?php if( ! empty( $packages ) ) { ?>
+        <?php if (!empty($packages)) { ?>
             <div class="group-wrapper card-2">
                 <h3>Local Packages</h3>
-                <?php getPartial( "packagesGrid" , compact( 'packages' ) ); ?>
+                <?php getPartial('packagesGrid', compact('packages')); ?>
                 <div class="text-right">
                     <a href="/admin/post-offices/<?= $postOfficeId; ?>/packages">View all packages</a>
                 </div>
@@ -27,10 +27,10 @@
 
 <div class="row">
     <div class="container">
-        <?php if( ! empty( $employees ) ) { ?>
+        <?php if (!empty($employees)) { ?>
             <div class="group-wrapper card-2 clearfix">
                 <h3>Employees</h3>
-                <?php getPartial( 'employeesList' , compact( 'employees' ) ); ?>
+                <?php getPartial('employeesList', compact('employees')); ?>
                 <div class="text-right">
                     <a href="/admin/post-offices/<?= $postOfficeId; ?>/employees">View all employees</a>
                 </div>
@@ -42,11 +42,11 @@
 
 <div class="row">
     <div class="container">
-        <?php if( ! empty( $customers ) ) { ?>
+        <?php if (!empty($customers)) { ?>
             <div class="group-wrapper card-2">
 
                 <h3>Customers</h3>
-                <?php getPartial( 'customersList' , compact( 'customers' ) ); ?>
+                <?php getPartial('customersList', compact('customers')); ?>
                 <div class="text-right">
                     <a href="/admin/post-offices/<?= $postOfficeId; ?>/customers">View all customers</a>
                 </div>

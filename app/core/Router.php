@@ -3,6 +3,7 @@
 namespace App\Core;
 
 use Exception;
+use RuntimeException;
 
 /**
  * Class Router
@@ -34,7 +35,7 @@ class Router
     /**
      * Called from ./routes.php
      *
-     * @param string $uri URI path in address bar
+     * @param string $uri        URI path in address bar
      * @param string $controller name of controller that should be called
      */
     public function get($uri, $controller)
@@ -45,7 +46,7 @@ class Router
     /**
      * Called from ./routes.php
      *
-     * @param string $uri URI path in address bar
+     * @param string $uri        URI path in address bar
      * @param string $controller name of controller that should be called
      */
     public function post($uri, $controller)
@@ -56,17 +57,21 @@ class Router
     public function direct($uri, $requestType)
     {
         if (array_key_exists($uri, $this->routes[$requestType])) {
-            return $this->callAction(...
-                explode('@', $this->routes[$requestType][$uri]));
+            try {
+                return $this->callAction(...
+                    explode('@', $this->routes[$requestType][$uri]));
+            } catch (Exception $e) {
+                echo $e->getMessage();
+            }
         }
 
         foreach ($this->routes[$requestType] as $route => $controller) {
-            if ($route == '') {
+            if ($route === '') {
                 continue;
             }
 
             $patternStr = explode('/', $route);
-            if (count(explode('/', $uri)) != count($patternStr)) {
+            if (substr_count($uri, '/') + 1 !== \count($patternStr)) {
                 continue;
             }
 
@@ -83,13 +88,19 @@ class Router
         // throw new Exception( 'No route defined for URI.' );
     }
 
+    /**
+     * @param       $controller
+     * @param       $method
+     * @param array $params
+     * @return mixed
+     */
     protected function callAction($controller, $method, $params = [])
     {
 
         $controller = "App\\Controllers\\{$controller}";
         $controller = new $controller;
         if (!method_exists($controller, $method)) {
-            throw new Exception("Controller {$controller} does not have method {$method}().");
+            throw new RuntimeException("Controller {$controller} does not have method {$method}().");
         }
 
         return $controller->$method(...$params);
@@ -101,7 +112,7 @@ class Router
         $ctr = 0;
         $wildcard = false;
         foreach ($route as $pattern) {
-            if ($pattern[0] == ':') {
+            if ($pattern[0] === ':') {
                 $wildcard = true;
                 $pattern = str_replace(':', '', $pattern);
             }

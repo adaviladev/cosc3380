@@ -1,5 +1,5 @@
 <?php getHeader(); ?>
 
-	<div id="app" class="start"></div>
+    <div id="app" class="start"></div>
 
 <?php getFooter(); ?>

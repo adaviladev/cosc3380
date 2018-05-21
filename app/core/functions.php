@@ -8,14 +8,14 @@
 	 * @return mixed footer portion
 	 */
 	function getFooter() {
-		return require_once( __DIR__ . "/../../public/views/partials/footer.php" );
+		return require_once __DIR__ . "/../../public/views/partials/footer.php";
 	}
 
 	/**
 	 * @param string $file <path|file name> of partial to be retrieved
 	 * @param array  $data
 	 */
-	function getPartial( $file , $data = [] ) {
+	function getPartial($file , array $data = []) {
 		extract( $data );
 
 		require( __DIR__ . "/../../public/views/partials/{$file}.php" );
@@ -41,7 +41,7 @@
 	 *
 	 * @return mixed
 	 */
-	function view( $name , $data = [] ) {
+	function view($name , array $data = []) {
 		extract( $data );
 
 		return require __DIR__ . "/../../public/views/{$name}.view.php";

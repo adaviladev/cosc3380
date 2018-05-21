@@ -26,7 +26,7 @@
 		public function postOfficeUsers() {
 			$user = Auth::user();
 			$user->postOfficeId;
-			if( $user && $user->roleId == 2 ) {
+			if( $user && $user->roleId === 2 ) {
 				$packages = Package::findAll()->where( [ 'postOfficeId' ] ,
 				                                       [ '=' ] ,
 				                                       [ $user->postOfficeId ] )->get();
@@ -37,11 +37,13 @@
 				$customers = User::findAll()->whereIn( $userIds )->get();
 
 				return view( 'dashboard/customers' , compact( 'customers' ) );
-			} else if( $user && $user->roleId == 3 ) {
-				return redirect( 'account' );
 			}
 
-			return redirect( 'login' );
+            if( $user && $user->roleId === 3 ) {
+                return redirect( 'account' );
+            }
+
+            return redirect( 'login' );
 		}
 
 		/**
@@ -79,17 +81,19 @@
 		public function addEmployee() {
 			$user = Auth::user();
 			if( $user ) {
-				if( $user->roleId == 1 || $user->roleId == 2 ) {
+				if( $user->roleId === 1 || $user->roleId === 2 ) {
 					$states = State::selectAll();
 					$roles  = Role::findAll()->where(['id'],['>='],[$user->roleId])->get();
 
 					return view( 'dashboard/addEmployee' ,
 					             compact( 'states' ,
 					                      'roles' ) );
-				} else if( $user->roleId == 3 ){
-					return redirect('account' );
 				}
-			}
+
+                if( $user->roleId === 3 ){
+                    return redirect('account' );
+                }
+            }
 			return redirect( 'login' );
 		}
 
@@ -159,14 +163,7 @@
 					                            ] );
 
 					// dd( $userInsert );
-					if( ! is_string( $userInsert ) ) {
-						// $user = User::find()
-						//             ->where( [ 'id' ] , [ '=' ] , [ $userInsert ] )
-						//             ->get();
-
-						return redirect( 'dashboard/employees' );
-						// return view( 'auth/register' );
-					} else {
+					if(\is_string( $userInsert )) {
 						$states = State::selectAll();
 						switch( $userInsert ) {
 							case '23000':
@@ -177,6 +174,13 @@
 								// dd( $userInsert );
 								return view( 'dashboard/addEmployee' , compact( 'errors' , 'states' ) );
 						}
+					} else {
+						// $user = User::find()
+						//             ->where( [ 'id' ] , [ '=' ] , [ $userInsert ] )
+						//             ->get();
+
+						return redirect( 'dashboard/employees' );
+						// return view( 'auth/register' );
 					}
 
 				} else {
@@ -199,7 +203,7 @@
 				return view( 'auth/login' ,
 				             compact( $user ) );
 			}
-			if( $user->roleId == 3 ) {
+			if( $user->roleId === 3 ) {
 				$states    = State::selectAll();
 				$address   = Address::find()->where( [ 'id' ] ,
 				                                     [ '=' ] ,
@@ -207,9 +211,9 @@
 				$userState = State::find()->where( [ 'id' ] ,
 				                                   [ '=' ] ,
 				                                   [ $address->stateId ] )->get();
-			} else if( $user->roleId == 2 ) {
+			} else if( $user->roleId === 2 ) {
 				return redirect( 'dashboard' );
-			} else if( $user->roleId == 1 ) {
+			} else if( $user->roleId === 1 ) {
 				return redirect( 'admin' );
 			}
 
@@ -228,15 +232,19 @@
 		public function passwordChange() {
 			$user = Auth::user();
 			if( $user ) {
-				if( $user->roleId == 3 ) {
+				if( $user->roleId === 3 ) {
 					return view( 'accounts/accountPassword' ,
 					             compact( 'user' ) );
-				} else if( $user->roleId == 2 ) {
-					return redirect( 'dashboard' );
-				} else if( $user->roleId == 1 ) {
-					return redirect( 'admin' );
 				}
-			}
+
+                if( $user->roleId === 2 ) {
+                    return redirect( 'dashboard' );
+                }
+
+                if( $user->roleId === 1 ) {
+                    return redirect( 'admin' );
+                }
+            }
 			return view( 'auth/login' ,
 				             compact( 'user' ) );
 		}
@@ -244,13 +252,15 @@
 		/**
 		 * updatePassword()
 		 * post route for accountPassword.view; sets flag based on given log in details
-		 * $changeFlag == 3 correct login detail and password is updated
-		 * $changeFlag == 1 or 2 given passwords didn't match or old password was wrong respectively
+		 * $changeFlag === 3 correct login detail and password is updated
+		 * $changeFlag === 1 or 2 given passwords didn't match or old password was wrong respectively
 		 */
 		public function updatePassword() {
 			$user       = Auth::user();
+
+			// TODO: This needs to get reworked due to duplicate conditional check
 			if( $user ) {
-				if( $user->password == md5( $_POST[ 'oldPassword' ] ) && $_POST[ 'newPassword' ] == $_POST[ 'confirmPassword' ] ) {
+				if( $user->password === md5( $_POST[ 'oldPassword' ] ) && $_POST[ 'newPassword' ] === $_POST[ 'confirmPassword' ] ) {
 					$user->password = md5( $_POST[ 'newPassword' ] );
 					User::update( [
 						              'password' => md5( $_POST[ 'newPassword' ] )
@@ -258,7 +268,7 @@
 					                          [ '=' ] ,
 					                          [ $user->id ] )->get();
 					$changeFlag = 3;
-				} else if( $user->password == md5( $_POST[ 'oldPassword' ] ) && $_POST[ 'newPassword' ] != $_POST[ 'confirmPassword' ] ) {
+				} else if( $user->password === md5( $_POST[ 'oldPassword' ] ) && $_POST[ 'newPassword' ] != $_POST[ 'confirmPassword' ] ) {
 					$changeFlag = 1;
 				} else {
 					$changeFlag = 2;
@@ -267,11 +277,11 @@
 				return view( 'accounts/accountPassword' ,
 				             compact( 'user' ,
 				                      'changeFlag' ) );
-			} else {
-				return view( 'auth/login' ,
-				             compact( 'user' ) );
 			}
-		}
+
+            return view( 'auth/login' ,
+                         compact( 'user' ) );
+        }
 
 		/**
 		 * updateAccountInfo()
@@ -291,16 +301,16 @@
 				                             [ $user->addressId ] )->get();
 
 				return redirect( 'account/info' );
-			} else {
-				return view( 'auth/login' ,
-				             compact( 'user' ) );
 			}
-		}
+
+            return view( 'auth/login' ,
+                         compact( 'user' ) );
+        }
 
 		public function account() {
 			$user = Auth::user();
 			if( $user ) {
-				if( $user->roleId == 3 ) {
+				if( $user->roleId === 3 ) {
                     /**
                      * @var Package[] $packages
                      */
@@ -329,14 +339,18 @@
 					             compact( 'user' ,
 					                      'packages' ,
 					                      'transactions' ) );
-				} else if( $user->roleId == 1 ) {
-					return view( 'admin/admin' ,
-					             compact( 'user' ) );
-				} else if( $user->roleId == 2 ) {
-					return view( 'dashboard/dashboard' ,
-					             compact( 'user' ) );
 				}
-			}
+
+                if( $user->roleId === 1 ) {
+                    return view( 'admin/admin' ,
+                                 compact( 'user' ) );
+                }
+
+                if( $user->roleId === 2 ) {
+                    return view( 'dashboard/dashboard' ,
+                                 compact( 'user' ) );
+                }
+            }
 
 			return redirect( 'login' );
 		}
@@ -367,7 +381,9 @@
 					                                            $_POST[ 'zipCode' ]
 				                                            ] )->get();
 				// $addressId        = $duplicateAddress->id;
-				if( ! $duplicateAddress ) {
+				if($duplicateAddress) {
+					$addressId = $duplicateAddress->id;
+				} else {
 					$addressId = Address::insert( [
 						                              'street'     => $_POST[ 'address' ] ,
 						                              'city'       => $_POST[ 'city' ] ,
@@ -376,8 +392,6 @@
 						                              'createdAt'  => date( "Y-m-d H:i:s" ) ,
 						                              'modifiedAt' => date( "Y-m-d H:i:s" )
 					                              ] );
-				} else {
-					$addressId = $duplicateAddress->id;
 				}
 			}
 			$role = Role::find()->where( [
@@ -397,19 +411,7 @@
 				                              'modifiedAt' => date( "Y-m-d H:i:s" )
 			                              ] );
 
-			if( ! is_string( $userInsertId ) ) {
-				$user = User::find()->where( [ 'id' ] ,
-				                             [ '=' ] ,
-				                             [ $userInsertId ] )->get();
-				// dd( '.' ,
-				//     $user ,
-				//     "hit" );
-
-				$_SESSION[ 'user' ] = serialize( $user );
-
-				return redirect( 'account' );
-				// return view( 'auth/register' );
-			} else {
+			if(\is_string( $userInsertId )) {
 				$states = State::selectAll();
 				switch( $userInsertId ) {
 					case '23000':
@@ -421,13 +423,25 @@
 						             compact( 'errors' ,
 						                      'states' ) );
 				}
+			} else {
+				$user = User::find()->where( [ 'id' ] ,
+				                             [ '=' ] ,
+				                             [ $userInsertId ] )->get();
+				// dd( '.' ,
+				//     $user ,
+				//     "hit" );
+
+				$_SESSION[ 'user' ] = serialize( $user );
+
+				return redirect( 'account' );
+				// return view( 'auth/register' );
 			}
 			return redirect( 'login' );
 		}
 
 		public function editEmployeeDetail( $employeeId ) {
 			$user = Auth::user();
-			if( $user && ( $user->roleId == 2 || $user->roleId == 1 ) ) {
+			if( $user && ( $user->roleId === 2 || $user->roleId === 1 ) ) {
 				$employee           = User::find()->where( [ 'id' ] ,
 				                                           [ '=' ] ,
 				                                           [ $employeeId ] )->get();
@@ -445,18 +459,22 @@
 				return view( 'dashboard/editEmployee' ,
 				             compact( 'employee' ,
 				                      'states' ) );
-			} else if( $user->roleId == 3 ) {
-				return redirect( 'account' );
-			} else if( $user && $user->roleId == 3 ) {
-				return redirect( 'admin' );
 			}
 
-			return redirect( 'login' );
+            if( $user->roleId === 3 ) {
+                return redirect( 'account' );
+            }
+
+            if( $user && $user->roleId === 3 ) {
+                return redirect( 'admin' );
+            }
+
+            return redirect( 'login' );
 		}
 
 		public function updateEmployeeDetail( $employeeId ) {
 			$user = Auth::user();
-			if( $user->roleId == 2 || $user->roleId == 1 ) {
+			if( $user->roleId === 2 || $user->roleId === 1 ) {
 				$employee           = User::find()->where( [ 'id' ] ,
 				                                           [ '=' ] ,
 				                                           [ $employeeId ] )->get();
@@ -510,9 +528,10 @@
 				} else {
 					return redirect( "dashboard/employees/" );
 				}
-			} else if( $user->roleId == 3 ) {
+			} else if( $user->roleId === 3 ) {
 				return redirect( 'account' );
-			} else if( $user->roleId == 3 ) {
+            // TODO: Remove duplicate check
+			} else if( $user->roleId === 1 ) {
 				return redirect( 'admin' );
 			}
 
