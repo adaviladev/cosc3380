@@ -179,7 +179,7 @@ class QueryBuilder
             $statement->execute($parameters);
 
             return true;
-        } catch (PDOException $e) {
+        } catch (\PDOException $e) {
             return $e->getCode();
         }
     }
@@ -234,13 +234,13 @@ class QueryBuilder
                     false);
             }
             // return false;
-        } catch (PDOException $e) {
+        } catch (\PDOException $e) {
             die($e->getMessage());
         }
         return false;
     }
 
-    public function lastInsertId()
+    public function lastInsertId(): string
     {
         return $this->pdo->lastInsertId();
     }
