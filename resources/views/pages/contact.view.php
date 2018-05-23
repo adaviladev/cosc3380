@@ -7,13 +7,15 @@
                 <h2>Contact Us</h2>
                 <!-- Input begins -->
                 <?php if (isset($emailStatus)) { ?>
-                    <div class="success-message">
-                        <p>Message success</p>
-                    </div>
-                <?php } else if (isset($emailStatus) && !$emailStatus) { ?>
-                    <div class="errors">
-                        <p>An error occurred. Please try again.</p>
-                    </div>
+                    <?php if ($emailStatus) { ?>
+                        <div class="success-message">
+                            <p>Message success</p>
+                        </div>
+                    <?php } else { ?>
+                        <div class="errors">
+                            <p>An error occurred. Please try again.</p>
+                        </div>
+                    <?php } ?>
                 <?php } ?>
                 <form action="/contact" method="post">
                     <div class="field-container clearfix required">

@@ -12,7 +12,7 @@
     <div class="row">
         <div class="container">
             <div class="grid-wrapper clearfix">
-                <?php getPartial("accountPackagesGrid",
+                <?php getPartial('accountPackagesGrid',
                     compact('packages')); ?>
             </div>
         </div>

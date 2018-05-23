@@ -1,13 +1,14 @@
 (function ($) {
     $(document).ready(function () {
-        if ($('.form-wrapper input.valid').attr('value') !== '') {
-            $('.form-wrapper input.valid').siblings('label').addClass('filled');
+        let $validInput = $('.form-wrapper input.valid');
+        if ($validInput.attr('value') !== '') {
+            $validInput.siblings('label').addClass('filled');
         }
-        $('.form-wrapper input:not([type="date"],[type="radio"]),.form-wrapper select').focus(function () {
+        $('.form-wrapper input:not([type="date"],[type="radio"]),.form-wrapper select').on('focus', function () {
             $('.form-wrapper label').removeClass('active');
             $(this).siblings('label').addClass('active');
         });
-        $('.form-wrapper input:not([type="date"])').blur(function () {
+        $('.form-wrapper input:not([type="date"])').on('blur', function () {
             $('.form-wrapper label').removeClass('active');
             console.log($(this));
             if (!$(this).parent().hasClass('validate') && $(this).val().length > 0) {
@@ -23,8 +24,8 @@
             }
         });
 
-        var $formSelect = $('.form-wrapper select');
-        $formSelect.blur(function () {
+        const $formSelect = $('.form-wrapper select');
+        $formSelect.on('blur', function () {
             $('.form-wrapper label').removeClass('active');
             if ($(this).val() === null) {
                 $(this).siblings('label').removeClass('filled');
@@ -56,7 +57,7 @@
             }
         });
         $('.validate input[type="email"]').on('keyup change', function () {
-            var isValid = validateEmail($(this).val());
+            const isValid = validateEmail($(this).val());
             if (isValid) {
                 $(this).removeClass('dirty');
                 $(this).addClass('valid');
@@ -72,10 +73,10 @@
         });
 
         function validateEmail(mail) {
-            return ( /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(mail) );
+            return ( /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(mail) );
         }
 
-        $(".nav-trigger").click(function (event) {
+        $(".nav-trigger").on('click', function (event) {
             event.preventDefault();
             if (( $(this).hasClass("is-active") )) {
                 $(this).removeClass("is-active");
@@ -86,7 +87,7 @@
             }
         });
 
-        $('.switch-toggle input').click(function () {
+        $('.switch-toggle input').on('click', function () {
             $('.switch-toggle input').attr('checked', false);
             $(this).attr('checked', true);
             if ($(this).attr('id') === 'queryTransactions') {

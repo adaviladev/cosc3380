@@ -110,13 +110,13 @@ getHeader();
             }
             ?>
 
-            <?php if ((isset($startDate) && isset($endDate)) && $startDate !== '' && $endDate !== '') { ?>
+            <?php if (isset($startDate, $endDate) && $startDate !== '' && $endDate !== '') { ?>
                 <h3>From: <?= $startDate; ?> - <?= $endDate; ?></h3>
                 <h3>Showing all transactions</h3>
-            <?php } else if ((isset($startDate) && isset($endDate)) && $startDate == '' && $endDate !== '') { ?>
+            <?php } else if (isset($startDate, $endDate) && $startDate === '') { ?>
                 <h3>From: Beginning of time - <?= $endDate; ?></h3>
                 <h3>Showing all transactions</h3>
-            <?php } else if ((isset($startDate) && isset($endDate)) && $startDate !== '' && $endDate == '') { ?>
+            <?php } else if (isset($startDate, $endDate) && $endDate === '') { ?>
                 <h3>From: <?= $startDate; ?> - Present</h3>
             <?php } ?>
 
