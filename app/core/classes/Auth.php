@@ -1,7 +1,4 @@
 <?php
-/**
- * Basic stub for storing database entities in their appropriate class
- */
 
 namespace App\Core;
 
@@ -10,9 +7,13 @@ use User;
 
 class Auth
 {
+    /** @var User $user */
     protected $user;
 
-    public static function user()
+    /**
+     * @return bool
+     */
+    public static function user(): bool
     {
 //            $_SESSION['user'] = serialize(User::find()->where(['id'],['='],[1])->get());
         return User::find()

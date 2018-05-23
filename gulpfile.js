@@ -5,7 +5,7 @@ const gulp = require('gulp');
 const babelify = require('babelify');
 
 gulp.task('vueify', function () {
-  return browserify('./public/assets/src/js/main.js')
+  return browserify('./resources/assets/src/js/main.js')
   .transform(babelify, { presets: ['es2015'], plugins: ["transform-runtime"] })
   .transform(vueify)
   .bundle()
@@ -13,6 +13,6 @@ gulp.task('vueify', function () {
 });
 
 gulp.task('default', function() {
-  gulp.watch('./public/assets/src/js/**/*.js', ['vueify']);
-  gulp.watch('./public/assets/src/js/**/*.vue', ['vueify']);
+  gulp.watch('./resources/assets/src/js/**/*.js', ['vueify']);
+  gulp.watch('./resources/assets/src/js/**/*.vue', ['vueify']);
 });

@@ -167,6 +167,7 @@ class QueryBuilder
     {
         $this->clearProperties();
         array_keys($parameters);
+        /** @noinspection SyntaxError */
         $sql = sprintf('INSERT INTO %s (%s) VALUES (%s)',
             $table,
             implode(', ',

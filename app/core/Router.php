@@ -24,7 +24,7 @@ class Router
         'POST' => []
     ];
 
-    public static function load($file)
+    public static function load($file): Router
     {
         $router = new self;
         require $file;
@@ -38,7 +38,7 @@ class Router
      * @param string $uri        URI path in address bar
      * @param string $controller name of controller that should be called
      */
-    public function get($uri, $controller)
+    public function get($uri, $controller): void
     {
         $this->routes['GET'][$uri] = $controller;
     }
@@ -49,7 +49,7 @@ class Router
      * @param string $uri        URI path in address bar
      * @param string $controller name of controller that should be called
      */
-    public function post($uri, $controller)
+    public function post($uri, $controller): void
     {
         $this->routes['POST'][$uri] = $controller;
     }
@@ -94,7 +94,7 @@ class Router
      * @param array $params
      * @return mixed
      */
-    protected function callAction($controller, $method, $params = [])
+    protected function callAction($controller, $method, array $params = [])
     {
 
         $controller = "App\\Controllers\\{$controller}";
@@ -106,7 +106,7 @@ class Router
         return $controller->$method(...$params);
     }
 
-    private function getRegex($route)
+    private function getRegex($route): string
     {
         $regex = '#';
         $ctr = 0;

@@ -20,7 +20,7 @@ abstract class Model
         'Role' => 'roles',
         'State' => 'states',
         'Transaction' => 'transactions',
-        'User' => 'users',
+        'User' => 'users'
     ];
 
 
@@ -58,7 +58,7 @@ abstract class Model
      *
      * @return array
      */
-    public static function selectAll($columns = ['*'])
+    public static function selectAll(array $columns = ['*']): array
     {
         /**
          * call init() from mandatory first calls and assign params to return of init()'s $instance
@@ -68,9 +68,8 @@ abstract class Model
         $table = $instance->TABLE_ARRAY[$class];
         $instance->table = $table;
 
-        $columns = implode(',', $columns);
-        $statement = $instance->builder->prepare("select {$columns} from {$table}");
-        $statement->execute();
+        $columnFields = implode(',', $columns);
+        $statement = $instance->builder->query("select {$columnFields} from {$table}");
 
         return $statement->fetchAll(PDO::FETCH_CLASS, $class);
     }
@@ -87,15 +86,15 @@ abstract class Model
      * figure out how to generalize it further
      * to work on multiple cases
      */
-    public static function leftJoinOn($joinedTable, $foreignKey, $primaryKey, $columns = ['*'])
+    public static function leftJoinOn($joinedTable, $foreignKey, $primaryKey, array $columns = ['*']): Model
     {
         $instance = self::init();
         $class = static::class;
         $table = $instance->TABLE_ARRAY[$class];
         $instance->table = $table;
 
-        $columns = implode(', ', $columns);
-        $instance->type = "SELECT {$columns} FROM {$table} JOIN {$joinedTable} ON (`{$table}`.`{$foreignKey}`=`{$joinedTable}`.`{$primaryKey}`)";
+        $columnFields = implode(', ', $columns);
+        $instance->type = "SELECT {$columnFields} FROM {$table} JOIN {$joinedTable} ON (`{$table}`.`{$foreignKey}`=`{$joinedTable}`.`{$primaryKey}`)";
 
         return $instance;
     }
@@ -105,15 +104,15 @@ abstract class Model
      *
      * @return object $instance object for further chaining
      */
-    public static function find($columns = ['*'])
+    public static function find(array $columns = ['*'])
     {
         $instance = self::init();
         $class = static::class;
         $table = $instance->TABLE_ARRAY[$class];
         $instance->table = $table;
 
-        $columns = implode(',', $columns);
-        $instance->type = "SELECT {$columns} FROM {$table}";
+        $columnFields = implode(',', $columns);
+        $instance->type = "SELECT {$columnFields} FROM {$table}";
         $instance->class = $class;
         $instance->isSingle = true;
 
@@ -125,14 +124,14 @@ abstract class Model
      *
      * @return $this same object for further chaining
      */
-    public static function findAll($columns = ['*'])
+    public static function findAll(array $columns = ['*']): self
     {
         $instance = self::init();
         $class = static::class;
         $table = $instance->TABLE_ARRAY[static::class];
         $instance->table = $table;
-        $columns = implode(',', $columns);
-        $instance->type = "SELECT {$columns} FROM {$table}";
+        $columnFields = implode(',', $columns);
+        $instance->type = "SELECT {$columnFields} FROM {$table}";
         $instance->class = $class;
         $instance->isSingle = false;
 
@@ -147,7 +146,7 @@ abstract class Model
      *
      * @return $this same object for further chaining
      */
-    public function where($columns = [], $operators = [], $values = [], $bool = ' AND ')
+    public function where(array $columns = [], array $operators = [], array $values = [], $bool = ' AND '): self
     {
         if (empty($columns) || empty($operators) || empty($values)) {
             return $this;
@@ -170,10 +169,10 @@ abstract class Model
      *
      * @return $this same object for further chaining
      */
-    public function whereIn($values = [], $column = 'id')
+    public function whereIn(array $values = [], $column = 'id'): self
     {
-        $values = implode(',', $values);
-        $this->whereClause = "WHERE {$column} IN ({$values})";
+        $valueFields = implode(',', $values);
+        $this->whereClause = "WHERE {$column} IN ({$valueFields})";
 
         return $this;
     }
@@ -191,7 +190,7 @@ abstract class Model
      *
      * @return $this same object for further chaining
      */
-    public function orderBy($attribute, $direction)
+    public function orderBy($attribute, $direction): self
     {
         $this->orderBy .= "ORDER BY {$attribute} {$direction}";
 
@@ -203,7 +202,7 @@ abstract class Model
      *
      * @return int value of last inserted ID
      */
-    public static function insert($parameters = [])
+    public static function insert(array $parameters = []): ?int
     {
         $instance = self::init();
         $class = static::class;
@@ -227,7 +226,7 @@ abstract class Model
      *
      * @return Model $instance
      */
-    public static function update($bindings = [])
+    public static function update(array $bindings = []): Model
     {
         $instance = self::init();
         $class = static::class;
@@ -276,7 +275,7 @@ abstract class Model
     /**
      * @param string $sql Raw/generated sql query to be immediately executed
      *
-     * @return mixed
+     * @return array|bool|object
      */
     public function run($sql)
     {
@@ -295,7 +294,7 @@ abstract class Model
         return false;
     }
 
-    public static function lastInsertId()
+    public static function lastInsertId(): string
     {
         $instance = self::init();
 

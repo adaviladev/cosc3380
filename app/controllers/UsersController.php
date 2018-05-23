@@ -111,8 +111,8 @@
 							                                    'street' ,
 							                                    'city' ,
 							                                    'stateId' ,
-							                                    'zipCode' ,
-						                                    ] , [
+							                                    'zipCode'
+                                                   ] , [
 							                                    '=' ,
 							                                    '=' ,
 							                                    '=' ,
@@ -131,8 +131,8 @@
 								                              'city'       => $_POST[ 'city' ] ,
 								                              'stateId'    => $_POST[ 'stateId' ] ,
 								                              'zipCode'    => $_POST[ 'zipCode' ] ,
-								                              'createdAt'  => date( "Y-m-d H:i:s" ) ,
-								                              'modifiedAt' => date( "Y-m-d H:i:s" )
+								                              'createdAt'  => date('Y-m-d H:i:s') ,
+								                              'modifiedAt' => date('Y-m-d H:i:s')
 							                              ] );
 							// dd( $addressId );
 							// $addressId = Address::lastInsertId();
@@ -158,8 +158,8 @@
 						                            'postOfficeId' => $user->postOfficeId ,
 						                            'createdBy'    => $user->id ,
 						                            'modifiedBy'   => $user->id ,
-						                            'createdAt'    => date( "Y-m-d H:i:s" ) ,
-						                            'modifiedAt'   => date( "Y-m-d H:i:s" )
+						                            'createdAt'    => date('Y-m-d H:i:s') ,
+						                            'modifiedAt'   => date('Y-m-d H:i:s')
 					                            ] );
 
 					// dd( $userInsert );
@@ -366,8 +366,8 @@
 					                                            'street' ,
 					                                            'city' ,
 					                                            'stateId' ,
-					                                            'zipCode' ,
-				                                            ] ,
+					                                            'zipCode'
+                ] ,
 				                                            [
 					                                            '=' ,
 					                                            '=' ,
@@ -389,8 +389,8 @@
 						                              'city'       => $_POST[ 'city' ] ,
 						                              'stateId'    => $_POST[ 'stateId' ] ,
 						                              'zipCode'    => $_POST[ 'zipCode' ] ,
-						                              'createdAt'  => date( "Y-m-d H:i:s" ) ,
-						                              'modifiedAt' => date( "Y-m-d H:i:s" )
+						                              'createdAt'  => date('Y-m-d H:i:s') ,
+						                              'modifiedAt' => date('Y-m-d H:i:s')
 					                              ] );
 				}
 			}
@@ -407,8 +407,8 @@
 				                              'email'      => $_POST[ 'email' ] ,
 				                              'password'   => $password ,
 				                              'roleId'     => $role->id ,
-				                              'createdAt'  => date( "Y-m-d H:i:s" ) ,
-				                              'modifiedAt' => date( "Y-m-d H:i:s" )
+				                              'createdAt'  => date('Y-m-d H:i:s') ,
+				                              'modifiedAt' => date('Y-m-d H:i:s')
 			                              ] );
 
 			if(\is_string( $userInsertId )) {
@@ -526,7 +526,7 @@
 				if( $user->roleId === 1 ) {
 					return redirect( "admin/post-offices/{$employee->location->id}/employees" );
 				} else {
-					return redirect( "dashboard/employees/" );
+					return redirect('dashboard/employees/');
 				}
 			} else if( $user->roleId === 3 ) {
 				return redirect( 'account' );
