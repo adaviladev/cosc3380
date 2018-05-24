@@ -53,13 +53,10 @@ class QueryBuilder
      *
      * @return array
      */
-    public function selectAll($table,
-                              $columns = ['*'],
-                              $class = 'stdClass')
+    public function selectAll($table, $columns = ['*'], $class = 'stdClass')
     {
         $this->clearProperties();
-        $columns = implode(',',
-            $columns);
+        $columns = implode(',', $columns);
         $statement = $this->pdo->prepare("select {$columns} from {$table}");
         $statement->execute();
 
@@ -74,9 +71,7 @@ class QueryBuilder
      *
      * @return object $this for further chaining
      */
-    public function find($table,
-                         $columns = ['*'],
-                         $class = 'stdClass')
+    public function find($table, $columns = ['*'], $class = 'stdClass')
     {
         $this->clearProperties();
         $columns = implode(',',
@@ -96,9 +91,7 @@ class QueryBuilder
      *
      * @return $this same object for further chaining
      */
-    public function findAll($table,
-                            $columns = ['*'],
-                            $class = 'stdClass')
+    public function findAll($table, $columns = ['*'], $class = 'stdClass')
     {
         $this->clearProperties();
         $columns = implode(',',
@@ -111,8 +104,7 @@ class QueryBuilder
         return $this;
     }
 
-    public function update($table,
-                           $bindings = [])
+    public function update($table, $bindings = [])
     {
         $this->clearProperties();
         $this->table = $table;
@@ -162,8 +154,7 @@ class QueryBuilder
      *
      * @return bool
      */
-    public function insert($table,
-                           $parameters = [])
+    public function insert($table, $parameters = [])
     {
         $this->clearProperties();
         array_keys($parameters);
@@ -214,7 +205,7 @@ class QueryBuilder
     {
         try {
             if ($ssh) {
-                $this->pdo->setAttribute(PDO::ATTR_EMULATE_PREPARES,
+                $this->pdo->setAttribute(\PDO::ATTR_EMULATE_PREPARES,
                     true);
             }
             $statement = $this->pdo->query($sql);
