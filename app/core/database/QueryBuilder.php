@@ -74,8 +74,7 @@ class QueryBuilder
     public function find($table, $columns = ['*'], $class = 'stdClass')
     {
         $this->clearProperties();
-        $columns = implode(',',
-            $columns);
+        $columns = implode(',', $columns);
         $this->table = $table;
         $this->type = "SELECT {$columns} FROM {$table}";
         $this->class = $class;
